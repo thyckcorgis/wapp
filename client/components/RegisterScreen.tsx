@@ -57,6 +57,7 @@ export default function RegisterScreen({ navigation }: RegisterScreenProps) {
             {input("Password", password, setPassword, false)}
             {input("Repeat Password", password2, setPassword2, false)}
             {input("Weight", weight, setWeight, true)}
+            <Text>Activity Level</Text>
             <View>
                 <Picker
                 mode="dropdown"

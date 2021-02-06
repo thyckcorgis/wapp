@@ -9,6 +9,8 @@ import {
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 import { LinearGradient } from "expo-linear-gradient";
 import { useState } from "react";
+import fetch from "axios";
+import { API_URL } from "../constants";
 
 import Colours from "../styles/colours";
 import Styles from "../styles/styles";
@@ -20,6 +22,34 @@ interface SignInScreen {
 export default function SignInScreen({ navigation }: SignInScreen) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState('');
+
+  async function login() {
+    const userData = {
+      username,
+      password,
+    };
+    const { data } = await fetch({
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json;charset=UTF-8",
+      },
+      url: `${API_URL}/user/login`,
+      data: userData,
+      method: "POST",
+    });
+    if(!data.ok) {
+         setError(data.message);
+    } else {
+        nextScreen();
+    }
+    console.log(data);
+    return JSON.stringify(data);
+  }
+
+  function nextScreen() {
+    navigation.navigate("Welcome")
+  }
 
   return (
     <View style={Styles.screen}>
@@ -27,6 +57,7 @@ export default function SignInScreen({ navigation }: SignInScreen) {
         style={Styles.background}
         colors={[Colours.darkBlue, Colours.medBlue]}
       />
+      <Text>{error}</Text>
       <Text style={{ ...Styles.title, ...styles.signin }}>Sign In</Text>
       <TextInput
         placeholder="Username"
@@ -43,7 +74,7 @@ export default function SignInScreen({ navigation }: SignInScreen) {
         style={{ ...Styles.inputField, ...styles.inputField }}
       />
       <TouchableOpacity
-        onPress={() => navigation.navigate("Welcome")}
+        onPress={() => login()}
         style={{ ...Styles.buttonShape, ...styles.loginButton }}
       >
         <Text style={{ ...Styles.body, ...styles.loginText }}>Log In</Text>

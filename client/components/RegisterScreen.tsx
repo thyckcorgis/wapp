@@ -5,9 +5,16 @@ import {
   View,
   TouchableOpacity,
   TextInput,
+  ScrollView,
+  SafeAreaView,
+  Dimensions,
 } from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
+import { LinearGradient } from "expo-linear-gradient";
 import { API_URL } from "../constants";
+
+import Styles from "../styles/styles";
+import Colours from "../styles/colours";
 import { Picker } from "@react-native-picker/picker";
 
 import { useState } from "react";
@@ -22,11 +29,11 @@ const textField = (
   value: string,
   setValue: React.Dispatch<React.SetStateAction<string>>,
   numberPad: boolean
-  //style?:
 ) => (
   <TextInput
-    //style=
+    style={{ ...Styles.inputField, ...styles.inputField }}
     placeholder={placeholder}
+    placeholderTextColor={Colours.medBlue}
     onChangeText={(text) => setValue(text)}
     value={value}
     keyboardType={numberPad ? "number-pad" : "default"}
@@ -40,9 +47,11 @@ const input = (
   numberPad: boolean
   //style?:
 ) => (
-  <View>
-    <Text>{placeholder + ":"}</Text>
-    {textField(placeholder, value, setValue, numberPad /*style*/)}
+  <View style={styles.item}>
+    <Text style={{ ...Styles.body, ...styles.headerText }}>
+      {placeholder + ":"}
+    </Text>
+    {textField(placeholder, value, setValue, numberPad)}
   </View>
 );
 
@@ -71,39 +80,104 @@ export default function RegisterScreen({ navigation }: RegisterScreenProps) {
       method: "POST",
     });
     console.log(data);
-    return JSON.stringify(data)
+    return JSON.stringify(data);
   }
 
-  
-
   return (
-    <View>
+    <SafeAreaView style={Styles.screen}>
+      <LinearGradient
+        style={Styles.background}
+        colors={[Colours.lightBlue, Colours.yellow]}
+      />
       <TouchableOpacity onPress={() => registerUser()}>
-        <Text style={{ padding: 50 }}>Register Screen</Text>
-      </TouchableOpacity>      
-      {input("Name", name, setName, false)}
-      {input("Username", username, setUsername, false)}
-      {input("Password", password, setPassword, false)}
-      {input("Repeat Password", password2, setPassword2, false)}
-      {input("Weight", weight, setWeight, true)}
-      <Text>Activity Level</Text>
-      <View>
-        <Picker
-          mode="dropdown"
-          selectedValue={activityLevel}
-          style={{ width: "100%" }}
-          onValueChange={(itemValue) => setActivityLevel(itemValue as string)}
-        >
-          <Picker.Item label="Inactive" value="0" />
-          <Picker.Item label="Low" value="1" />
-          <Picker.Item label="Moderate" value="2" />
-          <Picker.Item label="High" value="3" />
-          <Picker.Item label="Very high" value="4" />
-        </Picker>
-      </View>
-      <TouchableOpacity onPress={() => registerUser()}>
-        <Text style={{ padding: 50 }}>Submit</Text>
+        <Text style={{ ...Styles.title, ...styles.titleText }}>
+          Who are you?
+        </Text>
       </TouchableOpacity>
-    </View>
+
+      <ScrollView
+        keyboardDismissMode="on-drag"
+        style={styles.scroll}
+        showsVerticalScrollIndicator="true"
+      >
+        {input("Name", name, setName, false)}
+        {input("Username", username, setUsername, false)}
+        {input("Password", password, setPassword, false)}
+        {input("Repeat Password", password2, setPassword2, false)}
+        {input("Weight", weight, setWeight, true)}
+        <Text style={{ ...Styles.body, ...styles.activityText }}>
+          Activity Level
+        </Text>
+        <View style={styles.pickerContainer}>
+          <Picker
+            mode="dropdown"
+            selectedValue={activityLevel}
+            style={{ width: "100%" }}
+            onValueChange={(itemValue) => setActivityLevel(itemValue as string)}
+          >
+            <Picker.Item label="Inactive" value="0" />
+            <Picker.Item label="Low" value="1" />
+            <Picker.Item label="Moderate" value="2" />
+            <Picker.Item label="High" value="3" />
+            <Picker.Item label="Very high" value="4" />
+          </Picker>
+        </View>
+        <TouchableOpacity
+          onPress={() => registerUser()}
+          style={{ ...Styles.buttonShape, ...styles.submitButton }}
+        >
+          <Text style={{ ...Styles.body, ...styles.submitText }}>Submit</Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  scroll: {
+    flex: 1,
+    alignSelf: "stretch",
+    width: Dimensions.get("window").width,
+  },
+  pickerContainer: {
+    alignSelf: "center",
+    borderWidth: 1,
+    borderColor: Colours.medBlue,
+    borderRadius: 20,
+    width: 250,
+    height: 200,
+    paddingVertical: 10,
+    marginVertical: 10,
+  },
+  item: {
+    width: 250,
+    alignSelf: "center",
+    marginVertical: "5%",
+  },
+  inputField: {
+    borderColor: Colours.medBlue,
+  },
+  titleText: {
+    textAlign: "center",
+    color: Colours.medBlue,
+    marginTop: 50,
+  },
+  activityText: {
+    textAlign: "center",
+    color: Colours.medBlue,
+    fontSize: 20,
+  },
+  headerText: {
+    textAlign: "left",
+    color: Colours.medBlue,
+    fontSize: 20,
+  },
+  submitText: {
+    textAlign: "center",
+    color: Colours.yellow,
+  },
+  submitButton: {
+    backgroundColor: Colours.medBlue,
+    marginVertical: 10,
+  },
+});

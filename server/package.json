@@ -4,7 +4,11 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-
+    "start": "node dist/index.js",
+    "dev": "nodemon dist/index.js",
+    "watch": "tsc --watch",
+    "build": "tsc",
+    "sync-watch": "nodemon --exec rsync -rP . chrlz@cktel:nodeservers/wapp"
   },
   "devDependencies": {
     "@types/express": "^4.17.11",

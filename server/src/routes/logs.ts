@@ -7,8 +7,10 @@ body:
 {
   username: string,
   data: {
-    friends:   
+    friends: [
+      string // usernames
+    ]
   }
 }
 */
-router.post("/", () => {});
+router.post("/log", (req, res) => {});

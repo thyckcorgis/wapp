@@ -1,7 +1,8 @@
 import React from "react";
-import { Text, StyleSheet, View, TouchableOpacity } from "react-native";
+import { StyleSheet, View, TouchableOpacity } from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 import { LinearGradient } from "expo-linear-gradient";
+
 import Colours from "../styles/colours";
 import { StartIcon } from "../assets";
 
@@ -16,7 +17,7 @@ export default function StartScreen({ navigation }: StartScreenProps) {
         colors={[Colours.lightBlue, Colours.yellow]}
         style={styles.background}
       />
-      <TouchableOpacity onPress={() => navigation.navigate("Sign In")}>
+      <TouchableOpacity onPress={() => navigation.navigate("SignIn")}>
         <View style={styles.buttonContainer}>
           <StartIcon />
         </View>
@@ -27,7 +28,7 @@ export default function StartScreen({ navigation }: StartScreenProps) {
 
 const styles = StyleSheet.create({
   screen: {
-    padding: "1%",
+    padding: 50,
     alignItems: "center",
     justifyContent: "center",
     flex: 1,
@@ -37,10 +38,11 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     top: 0,
-    height: "100%",
+    height: 1000,
   },
   buttonContainer: {
     justifyContent: "center",
     alignSelf: "center",
+    flex: 1,
   },
 });

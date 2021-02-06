@@ -1,6 +1,8 @@
 import React from "react";
 import { Text, StyleSheet, View, TouchableOpacity, TextInput, } from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
+import { Picker } from "@react-native-picker/picker";
+
 
 import {useState} from "react"
 
@@ -55,6 +57,22 @@ export default function RegisterScreen({ navigation }: RegisterScreenProps) {
             {input("Password", password, setPassword, false)}
             {input("Repeat Password", password2, setPassword2, false)}
             {input("Weight", weight, setWeight, true)}
+            <View>
+                <Picker
+                mode="dropdown"
+                selectedValue={activityLevel}
+                style={{ width: "100%" }}
+                onValueChange={(itemValue) =>
+                    setActivityLevel(itemValue as string)
+                }
+                >
+                <Picker.Item label="Inactive" value="0" />
+                <Picker.Item label="Low" value="1" />
+                <Picker.Item label="Moderate" value="2" />
+                <Picker.Item label="High" value="3" />
+                <Picker.Item label="Very high" value="4" />
+                </Picker>
+            </View>
             <TouchableOpacity onPress={() => navigation.navigate("Intake")}>
                 <Text style={{padding:50}}>Submit</Text>
             </TouchableOpacity>

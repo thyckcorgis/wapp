@@ -62,6 +62,7 @@ export default function RegisterScreen({ navigation }: RegisterScreenProps) {
   const [password2, setPassword2] = useState("");
   const [weight, setWeight] = useState("");
   const [activityLevel, setActivityLevel] = useState("");
+  const [error, setError] = useState("");
 
   async function registerUser() {
     const userData = {
@@ -79,8 +80,16 @@ export default function RegisterScreen({ navigation }: RegisterScreenProps) {
       data: userData,
       method: "POST",
     });
+    if (!data.ok) {
+      setError(data.message);
+    } else {
+      nextScreen();
+    }
     console.log(data);
     return JSON.stringify(data);
+  }
+  function nextScreen() {
+    navigation.navigate("Intake");
   }
 
   return (
@@ -89,6 +98,9 @@ export default function RegisterScreen({ navigation }: RegisterScreenProps) {
         style={Styles.background}
         colors={[Colours.lightBlue, Colours.yellow]}
       />
+      <TouchableOpacity onPress={() => nextScreen()}>
+        <Text>Next</Text>
+      </TouchableOpacity>
       <TouchableOpacity onPress={() => registerUser()}>
         <Text style={{ ...Styles.title, ...styles.titleText }}>
           Who are you?
@@ -98,7 +110,7 @@ export default function RegisterScreen({ navigation }: RegisterScreenProps) {
       <ScrollView
         keyboardDismissMode="on-drag"
         style={styles.scroll}
-        showsVerticalScrollIndicator="true"
+        //showsVerticalScrollIndicator="true"
       >
         {input("Name", name, setName, false)}
         {input("Username", username, setUsername, false)}
@@ -126,6 +138,7 @@ export default function RegisterScreen({ navigation }: RegisterScreenProps) {
           onPress={() => registerUser()}
           style={{ ...Styles.buttonShape, ...styles.submitButton }}
         >
+          <Text style={Styles.error}>{error}</Text>
           <Text style={{ ...Styles.body, ...styles.submitText }}>Submit</Text>
         </TouchableOpacity>
       </ScrollView>

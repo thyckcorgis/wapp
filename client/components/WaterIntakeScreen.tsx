@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 import { useState } from "react";
+import { LinearGradient } from "expo-linear-gradient";
 
 import Styles from "../styles/styles";
 import Colours from "../styles/colours";
@@ -25,6 +26,10 @@ export default function WaterIntakeScreen({
 
   return (
     <View style={Styles.screen}>
+      <LinearGradient
+        style={Styles.background}
+        colors={[Colours.lightBlue, Colours.yellow]}
+      />
       <Text style={{ ...Styles.title, ...styles.text }}>
         Set your daily water intake goal. Based on your information, your
         recomended intake is {water} litres. But you can change that to whatever

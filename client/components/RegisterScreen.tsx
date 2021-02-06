@@ -63,6 +63,7 @@ export default function RegisterScreen({ navigation }: RegisterScreenProps) {
   const [password2, setPassword2] = useState("");
   const [weight, setWeight] = useState("");
   const [activityLevel, setActivityLevel] = useState("");
+  const [error, setError] = useState("");
 
   async function registerUser() {
     const userData = {
@@ -81,6 +82,7 @@ export default function RegisterScreen({ navigation }: RegisterScreenProps) {
       method: "POST",
     });
     if (!data.ok) {
+      setError(data.message);
       console.log(data.messsage);
     } else {
       storeData("user", data.user);
@@ -88,12 +90,16 @@ export default function RegisterScreen({ navigation }: RegisterScreenProps) {
     }
   }
 
+
   return (
     <SafeAreaView style={Styles.screen}>
       <LinearGradient
         style={Styles.background}
         colors={[Colours.lightBlue, Colours.yellow]}
       />
+      <TouchableOpacity onPress={() => navigation.navigate("Intake")}>
+        <Text>Next</Text>
+      </TouchableOpacity>
       <TouchableOpacity onPress={() => registerUser()}>
         <Text style={{ ...Styles.title, ...styles.titleText }}>
           Who are you?
@@ -103,7 +109,7 @@ export default function RegisterScreen({ navigation }: RegisterScreenProps) {
       <ScrollView
         keyboardDismissMode="on-drag"
         style={styles.scroll}
-        showsVerticalScrollIndicator={true}
+        //showsVerticalScrollIndicator="true"
       >
         {input("Name", name, setName, false)}
         {input("Username", username, setUsername, false)}
@@ -131,6 +137,7 @@ export default function RegisterScreen({ navigation }: RegisterScreenProps) {
           onPress={() => registerUser()}
           style={{ ...Styles.buttonShape, ...styles.submitButton }}
         >
+          <Text style={Styles.error}>{error}</Text>
           <Text style={{ ...Styles.body, ...styles.submitText }}>Submit</Text>
         </TouchableOpacity>
       </ScrollView>
@@ -161,6 +168,7 @@ const styles = StyleSheet.create({
   },
   inputField: {
     borderColor: Colours.medBlue,
+    color: Colours.medBlue,
   },
   titleText: {
     textAlign: "center",

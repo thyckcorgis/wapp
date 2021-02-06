@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, StyleSheet, View, } from "react-native";
+import { Text, StyleSheet, View, TouchableOpacity } from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 
 
@@ -11,7 +11,9 @@ interface SignInScreen {
 export default function SignInScreen({ navigation }: SignInScreen) {
     return (
         <View>
-            <Text>This is the sign in screen</Text>
+            <TouchableOpacity onPress={() => navigation.navigate("Register")}>
+                <Text style={{padding:50}}>This is the Sign In screen</Text>
+            </TouchableOpacity>        
         </View>
 
     )

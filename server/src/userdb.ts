@@ -18,7 +18,10 @@ class Users {
   }
 
   saveFile() {
-    writeFileSync(this.filePath, Buffer.from(JSON.stringify(this.users)));
+    writeFileSync(
+      this.filePath,
+      Buffer.from(JSON.stringify(this.users, null, 2))
+    );
   }
 
   getUser(username: string) {

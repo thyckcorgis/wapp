@@ -22,7 +22,7 @@ interface SignInScreen {
 export default function SignInScreen({ navigation }: SignInScreen) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   async function login() {
     const userData = {
@@ -38,17 +38,17 @@ export default function SignInScreen({ navigation }: SignInScreen) {
       data: userData,
       method: "POST",
     });
-    if(!data.ok) {
-         setError(data.message);
+    if (!data.ok) {
+      setError(data.message);
     } else {
-        nextScreen();
+      nextScreen();
     }
     console.log(data);
     return JSON.stringify(data);
   }
 
   function nextScreen() {
-    navigation.navigate("Welcome")
+    navigation.navigate("Welcome");
   }
 
   return (
@@ -57,7 +57,6 @@ export default function SignInScreen({ navigation }: SignInScreen) {
         style={Styles.background}
         colors={[Colours.darkBlue, Colours.medBlue]}
       />
-      <Text>{error}</Text>
       <Text style={{ ...Styles.title, ...styles.signin }}>Sign In</Text>
       <TextInput
         placeholder="Username"
@@ -73,6 +72,7 @@ export default function SignInScreen({ navigation }: SignInScreen) {
         placeholderTextColor={Colours.yellow}
         style={{ ...Styles.inputField, ...styles.inputField }}
       />
+      <Text style={Styles.error}>{error}</Text>
       <TouchableOpacity
         onPress={() => login()}
         style={{ ...Styles.buttonShape, ...styles.loginButton }}
@@ -96,6 +96,7 @@ const styles = StyleSheet.create({
   },
   inputField: {
     borderColor: Colours.yellow,
+    color: Colours.yellow,
   },
   loginButton: {
     backgroundColor: Colours.yellow,

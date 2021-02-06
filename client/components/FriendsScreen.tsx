@@ -11,8 +11,9 @@ interface FriendsScreenProps {
 export default function FriendsScreen({ navigation }: FriendsScreenProps) {
     return (
         <View>
-            <TouchableOpacity onPress={() => navigation.navigate("Calender")}>
-                <Text style={{padding:50}}>This is the friends screen</Text>
+            <Text style={{padding:50}}>This is the friends screen</Text>
+            <TouchableOpacity onPress={() => navigation.navigate("AddFriends")}>
+                <Text style={{padding:50}}>Go to add friends screen</Text>
             </TouchableOpacity>        
         </View>
 

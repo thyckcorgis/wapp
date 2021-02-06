@@ -13,6 +13,7 @@ import WelcomeScreen from "./components/WelcomeScreen";
 import HomeScreen from "./components/HomeScreen";
 import FriendsScreen from "./components/FriendsScreen";
 import CalenderScreen from "./components/CalenderScreen";
+import AddFriendsScreen from './components/AddFriendsScreen';
 
 const Stack = createStackNavigator();
 
@@ -69,6 +70,11 @@ export default function App() {
         <Stack.Screen
           name="Calender"
           component={CalenderScreen}
+          options={hideHeader}
+        />
+        <Stack.Screen
+          name="AddFriends"
+          component={AddFriendsScreen}
           options={hideHeader}
         />
       </Stack.Navigator>

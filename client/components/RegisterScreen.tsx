@@ -1,4 +1,5 @@
 import React from "react";
+import { storeData } from "../storage";
 import {
   Text,
   StyleSheet,
@@ -70,17 +71,19 @@ export default function RegisterScreen({ navigation }: RegisterScreenProps) {
       data: userData,
       method: "POST",
     });
-    console.log(data);
-    return JSON.stringify(data)
+    if (!data.ok) {
+      console.log(data.message);
+    } else {
+      await storeData("user", data.user);
+      navigation.navigate("Welcome");
+    }
   }
-
-  
 
   return (
     <View>
       <TouchableOpacity onPress={() => registerUser()}>
         <Text style={{ padding: 50 }}>Register Screen</Text>
-      </TouchableOpacity>      
+      </TouchableOpacity>
       {input("Name", name, setName, false)}
       {input("Username", username, setUsername, false)}
       {input("Password", password, setPassword, false)}

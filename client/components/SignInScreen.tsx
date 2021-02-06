@@ -14,6 +14,7 @@ import { API_URL } from "../constants";
 
 import Colours from "../styles/colours";
 import Styles from "../styles/styles";
+import { storeData } from "../storage";
 
 interface SignInScreen {
   navigation: StackNavigationHelpers;
@@ -41,10 +42,8 @@ export default function SignInScreen({ navigation }: SignInScreen) {
     if (!data.ok) {
       setError(data.message);
     } else {
-      nextScreen();
+      storeData("user", data.user);
     }
-    console.log(data);
-    return JSON.stringify(data);
   }
 
   function nextScreen() {

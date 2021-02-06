@@ -5,10 +5,10 @@
   "license": "MIT",
   "scripts": {
     "start": "node dist/index.js",
-    "dev": "nodemon dist/index.js",
+    "dev": "nodemon dist/index.js --ignore users.json",
     "watch": "tsc --watch",
     "build": "tsc",
-    "sync-watch": "nodemon --exec rsync -rP . chrlz@cktel:nodeservers/wapp"
+    "sync-watch": "nodemon --exec rsync -rP . chrlz@cktel:nodeservers/wapp --ignore 'users.json'"
   },
   "devDependencies": {
     "@types/bcrypt": "^3.0.0",

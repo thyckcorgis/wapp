@@ -12,9 +12,8 @@ class Users {
     } catch (err) {
       // create file
       this.users = [];
-
-      this.saveFile();
     }
+    this.saveFile();
   }
 
   saveFile() {
@@ -53,6 +52,14 @@ class Users {
       name: u.name,
     }));
   }
+
+  connectFriends(name1: string, name2: string) {
+    const user1 = this.getUser(name1);
+    const user2 = this.getUser(name2);
+    if (!user1 || !user2) return;
+    user1.friends.push(user2.username);
+    user2.friends.push(user1.username);
+  }
 }
 
 export interface LoginReq {
@@ -67,6 +74,7 @@ export interface UserReq extends LoginReq {
 
 export interface User extends UserReq {
   currentIntake: number;
+  friends: string[];
 }
 
 export default new Users("./users.json");

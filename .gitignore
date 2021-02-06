@@ -67,5 +67,6 @@ web-build/
 
 # Server ignores
 dist
+.env
 
 full-stack-session.sh

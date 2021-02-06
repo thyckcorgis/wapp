@@ -1,5 +1,7 @@
 import { Expo, ExpoPushMessage } from "expo-server-sdk";
 
+if (process.env.NODE_ENV !== "production") require("dotenv").config();
+
 // Create a new Expo SDK client
 // optionally providing an access token if you have enabled push security
 let expo = new Expo({ accessToken: process.env.EXPO_ACCESS_TOKEN });

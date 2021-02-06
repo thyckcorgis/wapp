@@ -1,5 +1,7 @@
 import Express from "express";
 
+if (process.env.NODE_ENV !== "production") require("dotenv").config();
+
 const app = Express();
 const port = 5003;
 

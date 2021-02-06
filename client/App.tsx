@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native'; 
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -19,16 +19,13 @@ import {
 
 const Stack = createStackNavigator();
 
-
 export default function App() {
   function hideHeader() {
     return { headerShown: false };
   }
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{ ...hideHeader}}
-      >
+      <Stack.Navigator screenOptions={{ ...hideHeader }}>
         <Stack.Screen
           name="Start"
           component={StartScreen}
@@ -59,11 +56,7 @@ export default function App() {
           component={WelcomeScreen}
           options={hideHeader}
         />
-        <Stack.Screen 
-          name="Home" 
-          component={HomeScreen} 
-          options={hideHeader} 
-        />
+        <Stack.Screen name="Home" component={HomeScreen} options={hideHeader} />
         <Stack.Screen
           name="Friends"
           component={FriendsScreen}
@@ -87,8 +80,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

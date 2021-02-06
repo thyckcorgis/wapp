@@ -40,15 +40,16 @@ router.post("/register", async (req, res) => {
       return;
     }
     const hashedPass = await hash(password, 10);
-    users.addUser({
+    const user = {
       username,
       password: hashedPass,
       name,
       daily: Number(daily),
       currentIntake: 0,
       friends: [],
-    });
-    res.json({ ok: true, message: "Registered successfully" });
+    };
+    users.addUser(user);
+    res.json({ ok: true, message: "Registered successfully", user });
   } catch (error) {
     res.json({ ok: false, message: error.message });
   }

@@ -65,3 +65,5 @@ web-build/
 
 # Server ignores
 dist
+
+full-stack-session.sh

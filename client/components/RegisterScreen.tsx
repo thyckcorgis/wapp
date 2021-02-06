@@ -156,6 +156,7 @@ const styles = StyleSheet.create({
   },
   inputField: {
     borderColor: Colours.medBlue,
+    color: Colours.medBlue,
   },
   titleText: {
     textAlign: "center",

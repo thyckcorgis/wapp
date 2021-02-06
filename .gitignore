@@ -63,6 +63,8 @@ buck-out/
 .expo/*
 web-build/
 
+.expo
+
 # Server ignores
 dist
 

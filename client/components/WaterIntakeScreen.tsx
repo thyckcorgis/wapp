@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, StyleSheet, View, } from "react-native";
+import { Text, StyleSheet, View, TouchableOpacity} from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 
 
@@ -11,7 +11,9 @@ interface WaterIntakeScreenProps {
 export default function WaterIntakeScreen({ navigation }: WaterIntakeScreenProps) {
     return (
         <View>
-            <Text>This is the water intake screen</Text>
+            <TouchableOpacity onPress={() => navigation.navigate("Reminder")}>
+                <Text style={{padding:50}}>This is the water intake screen</Text>
+            </TouchableOpacity>        
         </View>
 
     )

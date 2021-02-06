@@ -43,6 +43,13 @@ class Users {
     this.saveFile();
     return metGoal;
   }
+
+  getAllUsers() {
+    return this.users.map((u) => ({
+      username: u.username,
+      name: u.name,
+    }));
+  }
 }
 
 export interface LoginReq {

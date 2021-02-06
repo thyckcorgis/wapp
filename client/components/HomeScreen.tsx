@@ -11,7 +11,7 @@ interface HomeScreenProps {
 export default function HomeScreen({ navigation }: HomeScreenProps) {
   return (
     <View>
-      <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+      <TouchableOpacity onPress={() => navigation.navigate("AddFriends")}>
         <Text style={{ padding: 50 }}>This is the home screen</Text>
       </TouchableOpacity>
     </View>

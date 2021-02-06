@@ -13,8 +13,8 @@ interface RegisterScreenProps {
     placeholder: string,
     value: string,
     setValue: React.Dispatch<React.SetStateAction<string>>,
-    //style?: 
     numberPad: boolean,
+    //style?: 
   ) => (
     <TextInput
       //style=
@@ -29,12 +29,12 @@ interface RegisterScreenProps {
     placeholder: string,
     value: string,
     setValue: React.Dispatch<React.SetStateAction<string>>,
-    //style?:
     numberPad: boolean,
+    //style?:
   ) => (
     <View>
       <Text>{placeholder + ":"}</Text>
-      {textField(placeholder, value, setValue, /*style*/ numberPad)}
+      {textField(placeholder, value, setValue, numberPad, /*style*/)}
     </View>
   );
   
@@ -49,20 +49,17 @@ export default function RegisterScreen({ navigation }: RegisterScreenProps) {
 
     return (
         <View>
-            <TouchableOpacity onPress={() => navigation.navigate("Intake")}>
-                <Text style={{padding:50}}>This is the register screen</Text>
-            </TouchableOpacity>
             <Text style={{padding:50}}>Who are you?????</Text>
             {input("Name", name, setName, false)}
             {input("Username", username, setUsername, false)}
             {input("Password", password, setPassword, false)}
             {input("Repeat Password", password2, setPassword2, false)}
             {input("Weight", weight, setWeight, true)}
+            <TouchableOpacity onPress={() => navigation.navigate("Intake")}>
+                <Text style={{padding:50}}>Submit</Text>
+            </TouchableOpacity>
 
-
-  
         </View>
-
     )
 }
 

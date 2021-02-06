@@ -5,6 +5,10 @@ import {
   View,
   TouchableOpacity,
   TextInput,
+  ScrollView,
+  Dimensions,
+  SafeAreaView,
+  KeyboardAvoidingView,
 } from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 import { useState } from "react";
@@ -25,30 +29,85 @@ export default function WaterIntakeScreen({
   const water = 69420;
 
   return (
-    <View style={Styles.screen}>
+    <SafeAreaView style={Styles.screen}>
       <LinearGradient
         style={Styles.background}
         colors={[Colours.lightBlue, Colours.yellow]}
       />
-      <Text style={{ ...Styles.title, ...styles.text }}>
-        Set your daily water intake goal. Based on your information, your
-        recomended intake is {water} litres. But you can change that to whatever
-        you like!
-      </Text>
-      <TextInput
-        placeholder={water.toString()}
-        onChangeText={(text) => setIntake(text)}
-        value={intake}
-      />
-      <TouchableOpacity onPress={() => navigation.navigate("Reminder")}>
-        <Text>Submit</Text>
-      </TouchableOpacity>
-    </View>
+      <KeyboardAvoidingView behavior="padding">
+        <ScrollView
+          style={styles.scroll}
+          keyboardDismissMode="on-drag"
+          contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}
+        >
+          <View style={styles.textBox}>
+            <Text style={{ ...Styles.title, ...styles.title }}>
+              Set your daily water intake goal.
+            </Text>
+            <Text style={{ ...Styles.title, ...styles.text }}>
+              Based on your information, your recomended intake is {water}{" "}
+              Litres. But you can change that to whatever you like!
+            </Text>
+            <TextInput
+              placeholder={water.toString()}
+              placeholderTextColor={Colours.medBlue}
+              onChangeText={(text) => setIntake(text)}
+              value={intake}
+              style={styles.editField}
+              keyboardType="number-pad"
+            />
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Reminder")}
+              style={{ ...Styles.buttonShape, ...styles.submitButton }}
+            >
+              <Text style={{ ...Styles.body, ...styles.submitText }}>
+                Submit
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  text: {
+  scroll: {
+    flex: 1,
+    alignSelf: "stretch",
+    width: Dimensions.get("window").width,
+  },
+  textBox: {
+    flex: 1,
+    justifyContent: "center",
+    margin: 40,
+  },
+  title: {
     textAlign: "center",
+    color: Colours.medBlue,
+  },
+  text: {
+    marginVertical: 10,
+    textAlign: "center",
+    color: Colours.medBlue,
+    fontSize: 25,
+  },
+  editField: {
+    borderWidth: 1,
+    borderColor: Colours.medBlue,
+    borderRadius: 20,
+    height: 50,
+    width: 100,
+    marginVertical: 10,
+    padding: 5,
+    textAlign: "center",
+    alignSelf: "center",
+  },
+  submitButton: {
+    backgroundColor: Colours.medBlue,
+  },
+  submitText: {
+    textAlign: "center",
+    color: Colours.yellow,
   },
 });

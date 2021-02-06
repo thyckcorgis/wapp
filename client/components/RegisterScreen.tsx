@@ -11,6 +11,7 @@ import { API_URL } from "../constants";
 import { Picker } from "@react-native-picker/picker";
 
 import { useState } from "react";
+import fetch from "axios";
 
 interface RegisterScreenProps {
   navigation: StackNavigationHelpers;
@@ -53,14 +54,39 @@ export default function RegisterScreen({ navigation }: RegisterScreenProps) {
   const [weight, setWeight] = useState("");
   const [activityLevel, setActivityLevel] = useState("");
 
+  async function registerUser() {
+    const userData = {
+      username,
+      name,
+      daily: 420.69,
+      password,
+    };
+    const { data } = await fetch({
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json;charset=UTF-8",
+      },
+      url: `${API_URL}/user/register`,
+      data: userData,
+      method: "POST",
+    });
+    console.log(data);
+    return JSON.stringify(data)
+  }
+
+  
+
   return (
     <View>
-      <Text style={{ padding: 50 }}>Who are you?????</Text>
+      <TouchableOpacity onPress={() => registerUser()}>
+        <Text style={{ padding: 50 }}>Register Screen</Text>
+      </TouchableOpacity>      
       {input("Name", name, setName, false)}
       {input("Username", username, setUsername, false)}
       {input("Password", password, setPassword, false)}
       {input("Repeat Password", password2, setPassword2, false)}
       {input("Weight", weight, setWeight, true)}
+      <Text>Activity Level</Text>
       <View>
         <Picker
           mode="dropdown"
@@ -75,7 +101,7 @@ export default function RegisterScreen({ navigation }: RegisterScreenProps) {
           <Picker.Item label="Very high" value="4" />
         </Picker>
       </View>
-      <TouchableOpacity onPress={() => navigation.navigate("Intake")}>
+      <TouchableOpacity onPress={() => registerUser()}>
         <Text style={{ padding: 50 }}>Submit</Text>
       </TouchableOpacity>
     </View>

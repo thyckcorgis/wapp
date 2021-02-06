@@ -16,7 +16,7 @@ export default function StartScreen({ navigation }: StartScreenProps) {
         colors={[Colours.lightBlue, Colours.yellow]}
         style={styles.background}
       />
-      <TouchableOpacity onPress={() => navigation.navigate("Sign In")}>
+      <TouchableOpacity onPress={() => navigation.navigate("SignIn")}>
         <View style={styles.buttonContainer}>
           <StartIcon />
         </View>

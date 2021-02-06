@@ -1,4 +1,5 @@
 import { FlexStyle, StyleSheet } from "react-native";
+import { Colors } from "react-native/Libraries/NewAppScreen";
 import Colours from "./colours";
 
 const centered: FlexStyle = {
@@ -37,6 +38,12 @@ const Styles = StyleSheet.create({
   body: {
     fontFamily: "Avenir-Light",
     fontSize: 14,
+  },
+  error: {
+    fontFamily: "Avenir-Light",
+    fontSize: 14,
+    color: Colours.errorRed,
+    textAlign: "center",
   },
   inputField: {
     ...centered,

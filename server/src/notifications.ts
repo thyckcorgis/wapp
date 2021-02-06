@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { Expo, ExpoPushMessage } from "expo-server-sdk";
 
 if (process.env.NODE_ENV !== "production") require("dotenv").config();

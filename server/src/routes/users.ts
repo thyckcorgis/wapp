@@ -46,6 +46,7 @@ router.post("/register", async (req, res) => {
       name,
       daily: Number(daily),
       currentIntake: 0,
+      friends: [],
     });
     res.json({ ok: true, message: "Registered successfully" });
   } catch (error) {

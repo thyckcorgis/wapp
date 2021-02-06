@@ -90,7 +90,6 @@ export default function RegisterScreen({ navigation }: RegisterScreenProps) {
     }
   }
 
-
   return (
     <SafeAreaView style={Styles.screen}>
       <LinearGradient
@@ -164,7 +163,7 @@ const styles = StyleSheet.create({
   item: {
     width: 250,
     alignSelf: "center",
-    marginVertical: "5%",
+    marginVertical: "3%",
   },
   inputField: {
     borderColor: Colours.medBlue,

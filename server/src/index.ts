@@ -10,6 +10,8 @@ const port = 5003;
 
 const router = Express.Router();
 
+app.use(Express.json());
+
 router.use("/user", userRouter);
 router.use("/log", logRouter);
 

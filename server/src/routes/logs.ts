@@ -26,7 +26,7 @@ router.post("/", (req, res) => {
   const toNotify = users.filterUsers(friends);
   // notify friends
 
-  res.json({ message: "Added log" });
+  res.json({ ok: true, message: "Added log" });
 });
 
 export default router;

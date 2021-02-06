@@ -1,13 +1,34 @@
 // "Database" file
+import { readFileSync, writeFileSync } from "fs";
 
 class Users {
   users: User[];
-  constructor() {
-    this.users = [];
+  filePath: string;
+  constructor(path: string) {
+    this.filePath = path;
+    try {
+      // read file if there is an existing json file
+      this.users = JSON.parse(readFileSync(this.filePath).toString());
+    } catch (err) {
+      // create file
+      this.users = [];
+
+      this.saveFile();
+    }
+  }
+
+  saveFile() {
+    writeFileSync(this.filePath, Buffer.from(JSON.stringify(this.users)));
+  }
+
+  getUser(username: string) {
+    return this.users.find((u) => u.username === username);
   }
 
   addUser(user: User) {
-    return this.users.push(user);
+    const length = this.users.push(user);
+    this.saveFile();
+    return length;
   }
 
   filterUsers(usernames: string[]) {
@@ -15,16 +36,21 @@ class Users {
   }
 
   addWaterIntake(username: string, water: number) {
-    const user = this.users.find((u) => u.username === username);
+    const user = this.getUser(username);
     if (user == null) return;
     user.currentIntake += water;
-    return user.currentIntake >= user.daily;
+    const metGoal = user.currentIntake >= user.daily;
+    this.saveFile();
+    return metGoal;
   }
 }
 
-export interface UserReq {
+export interface LoginReq {
   username: string; // unique username
   password: string; // plaintext password in the req, hashed password in array
+}
+
+export interface UserReq extends LoginReq {
   name: string; // user's full name
   daily: number; // daily water intake
 }
@@ -33,4 +59,4 @@ export interface User extends UserReq {
   currentIntake: number;
 }
 
-export default new Users();
+export default new Users("./users.json");

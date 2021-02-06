@@ -1,1 +1,1 @@
-export const API_URL = "https://thyck.top/wapi";
+export const API_URL = "https://thyck.top/wapee";

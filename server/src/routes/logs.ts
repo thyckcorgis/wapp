@@ -19,7 +19,7 @@ body:
   ]
 }
 */
-router.post("/log", (req, res) => {
+router.post("/", (req, res) => {
   const { username, water, friends } = req.body as LogReq;
   const intake = Number(water);
   const goalMet = users.addWaterIntake(username, intake);
@@ -28,3 +28,5 @@ router.post("/log", (req, res) => {
 
   res.json({ message: "Added log" });
 });
+
+export default router;

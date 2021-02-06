@@ -1,7 +1,6 @@
 import Express from "express";
 
-import userRouter from "./routes/users";
-import logRouter from "./routes/logs";
+import { userRouter, logRouter, friendRouter } from "./routes";
 
 if (process.env.NODE_ENV !== "production") require("dotenv").config();
 
@@ -14,11 +13,12 @@ app.use(Express.json());
 
 router.use("/user", userRouter);
 router.use("/log", logRouter);
+router.use("/friend", friendRouter);
 
-router.get("/", (req, res) => {
+router.get("/", (_, res) => {
   res.send("Hello pee");
 });
 
-app.use("/wapi", router);
+app.use("/wapee", router);
 
 app.listen(port, () => console.log(`Listening on port ${port}`));

@@ -1,4 +1,5 @@
 import React from "react";
+import { storeData } from "../storage";
 import {
   Text,
   StyleSheet,
@@ -82,15 +83,13 @@ export default function RegisterScreen({ navigation }: RegisterScreenProps) {
     });
     if (!data.ok) {
       setError(data.message);
+      console.log(data.messsage);
     } else {
-      nextScreen();
+      storeData("user", data.user);
+      navigation.navigate("Intake");
     }
-    console.log(data);
-    return JSON.stringify(data);
   }
-  function nextScreen() {
-    navigation.navigate("Intake");
-  }
+
 
   return (
     <SafeAreaView style={Styles.screen}>
@@ -98,7 +97,7 @@ export default function RegisterScreen({ navigation }: RegisterScreenProps) {
         style={Styles.background}
         colors={[Colours.lightBlue, Colours.yellow]}
       />
-      <TouchableOpacity onPress={() => nextScreen()}>
+      <TouchableOpacity onPress={() => navigation.navigate("Intake")}>
         <Text>Next</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => registerUser()}>

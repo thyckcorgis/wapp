@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import Notification from "./notifications";
 
 import {
   StartScreen,
@@ -15,8 +16,7 @@ import {
   FriendsScreen,
   CalenderScreen,
   AddFriendsScreen,
- } from './components';
-
+} from "./components";
 const Stack = createStackNavigator();
 
 export default function App() {

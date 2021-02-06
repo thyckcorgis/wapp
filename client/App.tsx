@@ -11,7 +11,8 @@ import WaterIntakeScreen from "./components/WaterIntakeScreen";
 import ReminderScreen from "./components/ReminderScreen";
 import WelcomeScreen from "./components/WelcomeScreen";
 import HomeScreen from "./components/HomeScreen";
-import AddFriendsScreen from "./components/AddFriendsScreen";
+import FriendsScreen from "./components/FriendsScreen";
+import CalenderScreen from "./components/CalenderScreen";
 
 const Stack = createStackNavigator();
 
@@ -61,8 +62,13 @@ export default function App() {
           options={hideHeader} 
         />
         <Stack.Screen
-          name="AddFriends"
-          component={AddFriendsScreen}
+          name="Friends"
+          component={FriendsScreen}
+          options={hideHeader}
+        />
+        <Stack.Screen
+          name="Calender"
+          component={CalenderScreen}
           options={hideHeader}
         />
       </Stack.Navigator>

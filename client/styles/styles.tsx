@@ -1,5 +1,4 @@
 import { FlexStyle, StyleSheet } from "react-native";
-import { Colors } from "react-native/Libraries/NewAppScreen";
 import Colours from "./colours";
 
 const centered: FlexStyle = {
@@ -11,7 +10,7 @@ const Styles = StyleSheet.create({
   // SCREENS AND GENERAL
   screen: {
     ...centered,
-    padding: 50,
+    marginVertical: "10%",
     flex: 1,
   },
   background: {

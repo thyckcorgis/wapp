@@ -4,14 +4,18 @@ import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import StartScreen from "./components/StartScreen";
-import SignInScreen from "./components/SignInScreen";
-import RegisterScreen from "./components/RegisterScreen";
-import WaterIntakeScreen from "./components/WaterIntakeScreen";
-import ReminderScreen from "./components/ReminderScreen";
-import WelcomeScreen from "./components/WelcomeScreen";
-import HomeScreen from "./components/HomeScreen";
-import AddFriendsScreen from "./components/AddFriendsScreen";
+import {
+  StartScreen,
+  SignInScreen,
+  RegisterScreen,
+  WaterIntakeScreen,
+  ReminderScreen,
+  WelcomeScreen,
+  HomeScreen,
+  FriendsScreen,
+  CalenderScreen,
+  AddFriendsScreen,
+ } from './components';
 
 const Stack = createStackNavigator();
 
@@ -53,6 +57,16 @@ export default function App() {
           options={hideHeader}
         />
         <Stack.Screen name="Home" component={HomeScreen} options={hideHeader} />
+        <Stack.Screen
+          name="Friends"
+          component={FriendsScreen}
+          options={hideHeader}
+        />
+        <Stack.Screen
+          name="Calender"
+          component={CalenderScreen}
+          options={hideHeader}
+        />
         <Stack.Screen
           name="AddFriends"
           component={AddFriendsScreen}

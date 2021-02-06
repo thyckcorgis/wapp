@@ -20,9 +20,12 @@ interface HomeScreenProps {
 export default function HomeScreen({ navigation, route }: HomeScreenProps) {
   return (
     <View>
-      <TouchableOpacity onPress={() => navigation.navigate("AddFriends")}>
-        <Text style={{ padding: 50 }}>This is the home screen</Text>
-        <Text style={{ padding: 50 }}>{JSON.stringify(route.params)}</Text>
+      <Text style={{ padding: 50 }}>This is the home screen</Text>
+      <TouchableOpacity onPress={() => navigation.navigate("Friends")}>
+        <Text style={{ padding: 50 }}>Go to friends screen</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate("Calender")}>
+        <Text style={{ padding: 50 }}>Go to calender screen</Text>
       </TouchableOpacity>
     </View>
   );

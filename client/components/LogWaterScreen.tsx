@@ -40,21 +40,24 @@ export default function ReminderScreen({ navigation }: LogWaterScreenProps) {
         />
       </View>
       <View style={styles.cupList}>
+        <Text style={{ ...Styles.body, ...styles.smallText }}>
+          Quickly add a cup:
+        </Text>
         <ScrollView keyboardDismissMode="on-drag">
-          <TouchableOpacity
-            style={{ ...Styles.buttonShape, ...styles.addCupButton }}
-            onPress={() => navigation.navigate("CupSize")}
-          >
-            <Text style={{ ...Styles.body, ...styles.addCupText }}>
-              Add a cup size +
-            </Text>
-          </TouchableOpacity>
           <TouchableOpacity
             style={{ ...Styles.buttonShape, ...styles.cupButton }}
             onPress={() => navigation.navigate("CupSize")}
           >
             <Text style={{ ...Styles.body, ...styles.cupText }}>
               Small: 0.1 L
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{ ...Styles.buttonShape, ...styles.addCupButton }}
+            onPress={() => navigation.navigate("CupSize")}
+          >
+            <Text style={{ ...Styles.body, ...styles.addCupText }}>
+              Add a cup size +
             </Text>
           </TouchableOpacity>
         </ScrollView>

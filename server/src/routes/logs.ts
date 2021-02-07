@@ -1,7 +1,13 @@
 import { Router } from "express";
+import { sendLogNotification } from "../notifications";
 import users from "../userdb";
 
 const router = Router();
+
+function createMessage(username: string, intake: number, goalMet: boolean) {
+  if (goalMet) return `${username} just met their daily water intake goal!`;
+  return `${username} just drank ${intake} litres of water!`;
+}
 
 interface LogReq {
   username: string;
@@ -25,7 +31,8 @@ router.post("/", (req, res) => {
   const goalMet = users.addWaterIntake(username, intake);
   const toNotify = users.filterUsers(friends);
   // notify friends
-
+  const message = createMessage(username, intake, Boolean(goalMet));
+  sendLogNotification(message, toNotify);
   res.json({ ok: true, message: "Added log" });
 });
 

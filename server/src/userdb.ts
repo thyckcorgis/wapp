@@ -1,4 +1,5 @@
 // "Database" file
+import { ExpoPushToken } from "expo-server-sdk";
 import { readFileSync, writeFileSync } from "fs";
 
 class Users {
@@ -68,6 +69,14 @@ class Users {
     this.saveFile();
     return user;
   }
+
+  setPushToken(username: string, expoPushToken: ExpoPushToken) {
+    const user = this.getUser(username);
+    if (!user) return null;
+    user.expoPushToken = expoPushToken;
+    this.saveFile();
+    return user;
+  }
 }
 
 export interface LoginReq {
@@ -82,6 +91,7 @@ export interface UserReq extends LoginReq {
 
 export interface User extends UserReq {
   currentIntake: number;
+  expoPushToken?: ExpoPushToken;
   friends: string[];
 }
 

@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { hash, compare } from "bcrypt";
 import users, { UserReq, LoginReq } from "../userdb";
+import { ExpoPushToken } from "expo-server-sdk";
 
 const router = Router();
 
@@ -68,6 +69,26 @@ router.post("/register", async (req, res) => {
     res.json({ ok: true, message: "Registered successfully", user });
   } catch (error) {
     res.json({ ok: false, message: error.message });
+  }
+});
+
+/*
+body: {
+  username: string;
+  expoPushToken: ExpoPushToken 
+}
+ */
+interface NotifReq {
+  username: string;
+  expoPushToken: ExpoPushToken;
+}
+router.post("/notif", (req, res) => {
+  const { username, expoPushToken } = req.body as NotifReq;
+  const user = users.setPushToken(username, expoPushToken);
+  if (user) {
+    res.json({ ok: true, message: "Set push token successful", user });
+  } else {
+    res.json({ ok: false, message: "User not found", user });
   }
 });
 

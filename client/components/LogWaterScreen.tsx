@@ -60,7 +60,8 @@ export default function LogWaterScreen({
     if (!data.ok) {
       console.log(data.messsage);
     } else {
-      //storeData("user", data.user);
+      await storeData("user", data.user);
+      navigation.navigate("Home", { refresh: true });
     }
   }
   return (

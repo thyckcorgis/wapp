@@ -4,6 +4,7 @@ import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/s
 import { LinearGradient } from "expo-linear-gradient";
 import Colours from "../styles/colours";
 import { Route } from "@react-navigation/native";
+import TipsModal from "./TipsModal";
 
 interface HomeParams {
   username: string;
@@ -27,6 +28,7 @@ export default function HomeScreen({ navigation, route }: HomeScreenProps) {
       <TouchableOpacity onPress={() => navigation.navigate("Calender")}>
         <Text style={{ padding: 50 }}>Go to calender screen</Text>
       </TouchableOpacity>
+      <TipsModal />
     </View>
   );
 }

@@ -9,7 +9,7 @@ import Colours from "../styles/colours";
 import { Route } from "@react-navigation/native";
 import TipsModal from "./TipsModal";
 
-import { User, Wapp, Calendar, Drink, Home, Tips, Friends } from "../assets";
+// import { User, Wapp, Calendar, Drink, Home, Tips, Friends } from "../assets";
 
 interface HomeParams {
   username: string;

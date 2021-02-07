@@ -61,7 +61,7 @@ export default function HomeScreen({ navigation, route }: HomeScreenProps) {
           Today is {new Date().toDateString()}.
         </Text>
         <ProgressCircle
-          percent={30}
+          percent={60}
           radius={150}
           borderWidth={30}
           shadowColor={Colours.yellow}
@@ -103,6 +103,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: Colours.yellow,
     fontSize: 18,
-    padding: 30,
+    padding: "5%",
   },
 });

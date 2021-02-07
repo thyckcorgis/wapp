@@ -48,7 +48,8 @@ export default function LogWaterScreen({
     refreshCups();
   }, [refresh, setCups]);
   const logWater = (size: number) => async () => {
-    const user = await logWaterIntake(username, size);
+    const { user } = await logWaterIntake(username, size);
+    console.log(user);
     await storeData("user", user);
     navigation.navigate("Home", { refresh: true });
   };

@@ -32,7 +32,7 @@ interface User {
 }
 
 interface HomeParams {
-  refresh: boolean;
+  refresh?: boolean;
 }
 interface HomeScreenProps {
   navigation: StackNavigationHelpers;
@@ -47,16 +47,18 @@ export default function HomeScreen({
 }: HomeScreenProps) {
   const [currentIntake, setCurrentIntake] = useState(0);
   const [daily, setDaily] = useState(0);
-  async function refreshGoal() {
-    const user = (await getData("user")) as User;
-    console.log({ user });
-    if (user == null) {
-      console.log("User not found");
-      navigation.navigate("SignIn");
-    } else {
-      setCurrentIntake(user.currentIntake);
-      setDaily(user.daily);
-    }
+  function refreshGoal() {
+    (async () => {
+      const user = (await getData("user")) as User;
+      console.log({ user });
+      if (user == null) {
+        console.log("User not found");
+        navigation.navigate("SignIn");
+      } else {
+        setCurrentIntake(user.currentIntake);
+        setDaily(user.daily);
+      }
+    })();
   }
   if (refresh) refreshGoal();
 

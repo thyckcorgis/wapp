@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { Text, View, Alert, Modal, TouchableHighlight, StyleSheet } from "react-native";
 
 
+// this is just straight from the react documentation
+
+
 export default function TipsModal() {
     const [modalVisible, setModalVisible] = useState(false);
 
@@ -18,7 +21,9 @@ export default function TipsModal() {
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>Hello World!</Text>
+            <Text style={styles.modalText}>Tip of the day: </Text>
+            <Text style={styles.modalText}>If you see a bathroom in a dream - DON'T USE IT! </Text>
+
 
             <TouchableHighlight
               style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
@@ -26,7 +31,7 @@ export default function TipsModal() {
                 setModalVisible(!modalVisible);
               }}
             >
-              <Text style={styles.textStyle}>Hide Modal</Text>
+              <Text style={styles.textStyle}>Return</Text>
             </TouchableHighlight>
           </View>
         </View>
@@ -38,7 +43,7 @@ export default function TipsModal() {
           setModalVisible(true);
         }}
       >
-        <Text style={styles.textStyle}>Show Modal</Text>
+        <Text style={styles.textStyle}>Tips</Text>
       </TouchableHighlight>
     </View>
 

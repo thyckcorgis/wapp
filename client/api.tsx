@@ -68,6 +68,10 @@ export async function resetCurrentIntake(username: string) {
   return (await fetch(`${API_URL}/log/reset/${username}`)).data.users;
 }
 
+export async function getLitreBoard(username: string) {
+  return (await fetch(`${API_URL}/friend/litreboard/${username}`)).data.users;
+}
+
 export async function poll(username: string) {
   return (await fetch(`${API_URL}/user/${username}`)).data.user;
 }

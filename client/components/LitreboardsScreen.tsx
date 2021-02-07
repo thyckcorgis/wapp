@@ -9,7 +9,7 @@ import {
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 import { LinearGradient } from "expo-linear-gradient";
 import { getData } from "../storage";
-import { getFriends } from "../api";
+import { getFriends, getLitreBoard } from "../api";
 
 import Styles from "../styles/styles";
 import Colours from "../styles/colours";
@@ -23,21 +23,22 @@ interface LitreboardsScreenProps {
 interface User {
   username: string;
   name: string;
+  percentage: number;
 }
 
 export default function LitreboardsScreen({
   navigation,
 }: LitreboardsScreenProps) {
-  const [friends, setFriends] = useState([]);
+  const [litreboard, setLitreBoard] = useState([]);
 
   useEffect(() => {
     (async () => {
       const user = (await getData("user")) as User;
       if (user == null) return navigation.navigate("SignIn");
-      const friends = await getFriends(user.username);
-      setFriends(friends);
+      const litreboard = await getLitreBoard(user.username);
+      setLitreBoard(litreboard);
     })();
-  }, [setFriends]);
+  }, [setLitreBoard]);
 
   return (
     <SafeAreaView style={Styles.screen}>
@@ -48,11 +49,11 @@ export default function LitreboardsScreen({
       <Text style={{ ...Styles.title, ...styles.title }}>Litreboards</Text>
       <View style={styles.litreboard}>
         <ScrollView>
-          {friends.map(({ username, name, position, percent }) => (
+          {litreboard.map(({ username, name, percentage }: User, idx) => (
             <View style={styles.positionBox}>
               <View style={styles.numberBox}>
                 <Text style={{ ...Styles.title, ...styles.positionText }}>
-                  #{position}
+                  #{idx + 1}
                 </Text>
               </View>
               <View key={username} style={styles.friendBox}>
@@ -83,7 +84,7 @@ export default function LitreboardsScreen({
                     Goal Completion:{" "}
                   </Text>
                   <Text style={{ ...Styles.body, ...styles.friendText }}>
-                    {percent}
+                    {percentage.toFixed(1)}%
                   </Text>
                 </View>
               </View>

@@ -79,15 +79,36 @@ router.get("/to-add/:user", (req, res) => {
   }
 });
 
+router.get("/litreboard/:user", (req, res) => {
+  const user = users.getUser(req.params.user);
+  if (!user) {
+    res.json({ ok: false, message: "User not found" });
+    return;
+  }
+  let allFriends = users.getAllFriends(user.username);
+  if (!allFriends) {
+    res.json({ ok: false, message: "Friends not found" });
+    return;
+  }
+  allFriends.push(user);
+  const sorted = allFriends
+    .sort((b, a) => a.currentIntake / a.daily - b.currentIntake / b.daily)
+    .map((u) => ({
+      username: u.username,
+      name: u.name,
+      currrentIntake: u.currentIntake,
+      daily: u.daily,
+      percentage: (u.currentIntake / u.daily) * 100,
+    }));
+  res.json({ users: sorted });
+});
+
 router.get("/:user", (req, res) => {
   const user = users.getUser(req.params.user);
   if (!user) {
     res.json({ ok: false, message: "User not found" });
   } else {
-    const { friends } = user;
-    let allFriends = users
-      .getAllUsers()
-      .filter(({ username }) => friends.includes(username));
+    let allFriends = users.getAllFriends(user.username);
     console.log(allFriends);
     res.json({ users: allFriends });
   }

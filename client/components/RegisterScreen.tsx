@@ -12,14 +12,13 @@ import {
 } from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 import { LinearGradient } from "expo-linear-gradient";
-import { API_URL } from "../constants";
+import { defaultCups } from "../constants";
 
 import Styles from "../styles/styles";
 import Colours from "../styles/colours";
 import { Picker } from "@react-native-picker/picker";
 
 import { useState } from "react";
-import fetch from "axios";
 import { registerUser } from "../api";
 
 interface RegisterScreenProps {
@@ -80,6 +79,7 @@ export default function RegisterScreen({ navigation }: RegisterScreenProps) {
       console.log(data.messsage);
     } else {
       storeData("user", data.user);
+      storeData("cups", defaultCups);
       navigation.navigate("Intake", { username, daily });
     }
   }

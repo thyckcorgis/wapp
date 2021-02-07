@@ -20,6 +20,7 @@ import { Route } from "@react-navigation/core";
 import { API_URL } from "../constants";
 import fetch from "axios";
 import { storeData } from "../storage";
+import setDailyIntake from "../setDailyIntake";
 
 interface WaterIntakeParams {
   username: string;
@@ -39,17 +40,7 @@ export default function WaterIntakeScreen({
 }: WaterIntakeScreenProps) {
   const [intake, setIntake] = useState(`${daily}`);
   async function addDailyIntake() {
-    const dailyWater = Number(intake);
-    const userData = { username, dailyWater };
-    const { data } = await fetch({
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json;charset=UTF-8",
-      },
-      url: `${API_URL}/user/daily`,
-      data: userData,
-      method: "POST",
-    });
+    const data = await setDailyIntake(username, Number(intake));
     if (!data.ok) {
       console.log(data.messsage);
     } else {
@@ -57,7 +48,6 @@ export default function WaterIntakeScreen({
       navigation.navigate("Reminder");
     }
   }
-
   return (
     <SafeAreaView style={Styles.screen}>
       <LinearGradient

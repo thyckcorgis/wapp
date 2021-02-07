@@ -33,7 +33,6 @@ const input = (
   value: string,
   setValue: React.Dispatch<React.SetStateAction<string>>,
   numberPad: boolean
-  //style?:
 ) => (
   <View>
     <Text>{placeholder + ":"}</Text>
@@ -46,14 +45,6 @@ export default function CupSizeScreen({ navigation }: CupSizeScreenProps) {
   const [name, setName] = useState("");
   const [size, setSize] = useState("");
 
-  // function addFriend(friend: string) {
-  //     return () => {
-  //       (async () => {
-  //         const data = await sendFriendRequest(username, friend);
-  //         console.log(data);
-  //       })();
-  //     };
-  //   }
   function addCup() {
     if (name === "" || size === "") return;
     setCups((c) => [...c, { name, size }]);
@@ -76,9 +67,6 @@ export default function CupSizeScreen({ navigation }: CupSizeScreenProps) {
           <Text>
             {name}: {size} mL
           </Text>
-          {/* <TouchableOpacity onPress={() => addCup(name)()}>
-              <Text>Add Friend</Text>
-            </TouchableOpacity> */}
         </View>
       ))}
     </View>

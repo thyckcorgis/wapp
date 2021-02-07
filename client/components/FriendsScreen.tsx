@@ -14,7 +14,7 @@ import { getFriends } from "../api";
 import Styles from "../styles/styles";
 import Colours from "../styles/colours";
 
-import { HomeIcon, FriendsIcon } from "../assets";
+import { HomeIcon, LitreBoardsIcon } from "../assets";
 import { ScrollView } from "react-native-gesture-handler";
 
 interface FriendsScreenProps {
@@ -80,8 +80,8 @@ export default function FriendsScreen({ navigation }: FriendsScreenProps) {
         <TouchableOpacity onPress={() => navigation.navigate("Home")}>
           <HomeIcon />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("Friends")}>
-          <FriendsIcon />
+        <TouchableOpacity onPress={() => navigation.navigate("Litreboards")}>
+          <LitreBoardsIcon />
         </TouchableOpacity>
       </View>
     </SafeAreaView>

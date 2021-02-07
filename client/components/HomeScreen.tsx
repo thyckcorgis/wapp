@@ -92,12 +92,11 @@ export default function HomeScreen({
           color={Colours.darkYellow}
           bgColor={Colours.lightBlue}
           // bgColor={"transparent"}
-          children={
-            <TouchableOpacity onPress={() => navigation.navigate("LogWater")}>
-              <DrinkButton />
-            </TouchableOpacity>
-          }
-        ></ProgressCircle>
+        >
+          <TouchableOpacity onPress={() => navigation.navigate("LogWater")}>
+            <DrinkButton />
+          </TouchableOpacity>
+        </ProgressCircle>
         <Text style={{ ...Styles.body, ...styles.headerText }}>
           {currentIntake} / {daily}
         </Text>

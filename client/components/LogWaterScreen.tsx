@@ -33,7 +33,7 @@ export default function LogWaterScreen({
 }: LogWaterScreenProps) {
   const [username, setUsername] = useState("");
   const [cups, setCups] = useState<Cup[]>([]);
-  const [amount, setAmount] = useState('');
+  const [amount, setAmount] = useState("");
   useEffect(() => {
     async function refreshCups() {
       const { username } = (await getData("user")) as { username: string };
@@ -49,19 +49,14 @@ export default function LogWaterScreen({
   }, [refresh, setCups]);
   const logWater = (size: number) => async () => {
     const { user } = await logWaterIntake(username, size);
-    console.log(user);
     await storeData("user", user);
     navigation.navigate("Home", { refresh: true });
   };
   async function updateAmount() {
-    if (
-      amount === "" ||
-      isNaN(parseFloat(amount)) ||
-      Number(amount) <= 0
-    )
+    if (amount === "" || isNaN(parseFloat(amount)) || Number(amount) <= 0)
       return;
     const data = await logWaterIntake(username, parseFloat(amount));
-    setAmount('');
+    setAmount("");
     if (!data.ok) {
       console.log(data.messsage);
     } else {
@@ -81,26 +76,32 @@ export default function LogWaterScreen({
         <Text style={{ ...Styles.body, ...styles.smallText }}>
           Input specific amount (mL):
         </Text>
-        <View 
-          style={{flexDirection: 'row',
-          justifyContent: "center",
-          alignSelf: "center",}}
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+            alignSelf: "center",
+          }}
         >
           <TextInput
             style={styles.waterInput}
-            placeholder='0 mL'
+            placeholder="0 mL"
             placeholderTextColor={Colours.yellow}
             keyboardType="numeric"
             onChangeText={(text) => setAmount(text)}
             value={String(amount)}
           />
           <TouchableOpacity
-              onPress={() => updateAmount()}
-              style={{ ...Styles.buttonShape, ...styles.submitButton, width:100 }}
-            >
-              <Text style={{...styles.smallText}}>Submit</Text>
-            </TouchableOpacity>
-          </View>
+            onPress={() => updateAmount()}
+            style={{
+              ...Styles.buttonShape,
+              ...styles.submitButton,
+              width: 100,
+            }}
+          >
+            <Text style={{ ...styles.smallText }}>Submit</Text>
+          </TouchableOpacity>
+        </View>
       </View>
       <View style={styles.cupList}>
         <Text style={{ ...Styles.body, ...styles.smallText }}>

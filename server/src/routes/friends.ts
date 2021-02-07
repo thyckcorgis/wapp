@@ -23,9 +23,12 @@ router.post("/request", (req, res) => {
   if (!user) {
     res.json({ ok: false, message: "User not found" });
   } else {
-    users.addPendingRequest(friend, username);
-    friendRequestNotification(username, user, "send");
-    res.json({ ok: true, message: "Request sent" });
+    if (users.addPendingRequest(friend, username)) {
+      friendRequestNotification(username, user, "send");
+      res.json({ ok: true, message: "Request sent" });
+    } else {
+      res.json({ ok: false, message: "Request already sent" });
+    }
   }
 });
 

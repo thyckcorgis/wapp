@@ -15,6 +15,7 @@ import Styles from "../styles/styles";
 import Colours from "../styles/colours";
 
 import { HomeIcon } from "../assets";
+import { getData, storeData } from "../storage";
 
 interface CupSizeScreenProps {
   navigation: StackNavigationHelpers;
@@ -56,15 +57,17 @@ const input = (
 );
 
 export default function CupSizeScreen({ navigation }: CupSizeScreenProps) {
-  const [cups, setCups] = useState<Cup[]>([]);
   const [name, setName] = useState("");
   const [size, setSize] = useState("");
 
-  function addCup() {
+  async function addCup() {
     if (name === "" || size === "") return;
-    setCups((c) => [...c, { name, size }]);
-    setName("");
-    setSize("");
+    const cups = (await getData("cups")) as Cup[];
+    if (cups == null) return navigation.navigate("SignIn");
+
+    cups.push({ name, size });
+    await storeData("cups", cups);
+    navigation.navigate("LogWater", { refresh: true });
   }
 
   return (
@@ -85,13 +88,6 @@ export default function CupSizeScreen({ navigation }: CupSizeScreenProps) {
         >
           <Text style={{ ...Styles.body, ...styles.addText }}>Add new cup</Text>
         </TouchableOpacity>
-        {cups.map(({ name, size }) => (
-          <View style={{ padding: 50 }} key={name}>
-            <Text>
-              {name}: {size} mL
-            </Text>
-          </View>
-        ))}
       </View>
       <View style={{ ...Styles.navBar }}>
         <TouchableOpacity onPress={() => navigation.navigate("Home")}>

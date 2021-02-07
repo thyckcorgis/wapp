@@ -32,7 +32,7 @@ export default function UserScreen({ navigation }: UserScreenProps) {
   const [newIntake, setNewIntake] = useState("");
   const [username, setUsername] = useState("");
   const [intake, setIntake] = useState("");
-  const [register, setRegister] = useState("Register for Push Notifications");
+  const [register, setRegister] = useState("Enable Push Notifications");
 
   async function getNotifications() {
     const token = await registerForPushNotificationsAsync();
@@ -43,7 +43,6 @@ export default function UserScreen({ navigation }: UserScreenProps) {
     } else {
       await uploadPushToken(username, token);
       setRegister("Success!");
-      deletePushToken(username);
       return token;
     }
   }
@@ -114,9 +113,7 @@ export default function UserScreen({ navigation }: UserScreenProps) {
             onPress={getNotifications}
           >
             <Text style={{ ...Styles.body, ...styles.logoutText }}>
-              {getNotifications()
-                ? "Disable Push Notifications"
-                : "Enable Push Notifications"}
+              {register}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -139,7 +136,7 @@ export default function UserScreen({ navigation }: UserScreenProps) {
 const styles = StyleSheet.create({
   profileBox: {
     flex: 1,
-    margin:20,
+    margin: 20,
     padding: 20,
     justifyContent: "center",
     // borderWidth: 1,

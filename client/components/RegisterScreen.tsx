@@ -26,7 +26,7 @@ interface RegisterScreenProps {
 }
 
 // this is in litres
-// if you drink this many ounces of water a day you will day so don't do that
+// if you drink this many ounces of water a day you will die so don't do that
 const calculateDailyIntake = (weight: number, activityLevel: number) => {
   return (weight * 0.015 + activityLevel * 0.2).toFixed(1);
   ;
@@ -44,7 +44,7 @@ const textField = (
     placeholderTextColor={Colours.medBlue}
     onChangeText={(text) => setValue(text)}
     value={value}
-    keyboardType={numberPad ? "number-pad" : "default"}
+    keyboardType={numberPad ? "decimal-pad" : "default"}
   />
 );
 

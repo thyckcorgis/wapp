@@ -1,4 +1,4 @@
-import { FlexStyle, StyleSheet } from "react-native";
+import { FlexStyle, StyleSheet, Dimensions } from "react-native";
 import Colours from "./colours";
 
 const centered: FlexStyle = {
@@ -7,7 +7,7 @@ const centered: FlexStyle = {
 };
 
 const Styles = StyleSheet.create({
-  // SCREENS AND GENERAL
+  // SCREENS AND GENERAL BOXES
   screen: {
     ...centered,
     marginVertical: "10%",
@@ -28,6 +28,14 @@ const Styles = StyleSheet.create({
   bigButton: {
     ...centered,
     flex: 1,
+  },
+  navBar: {
+    justifyContent: "center",
+    width: Dimensions.get("window").width,
+    flexDirection: "row",
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "black",
   },
   // TEXT
   title: {

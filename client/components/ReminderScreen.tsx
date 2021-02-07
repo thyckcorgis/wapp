@@ -21,30 +21,32 @@ interface ReminderScreenProps {
 export default function ReminderScreen({ navigation }: ReminderScreenProps) {
   const [wakeTime, setWakeTime] = useState(new Date());
   const [sleepTime, setSleepTime] = useState(new Date());
-  const [mode, setMode] = useState("date");
-  const [show, setShow] = useState(false);
+  const [showWake, setShowWake] = useState(false);
+  const [showSleep, setShowSleep] = useState(false);
 
   const onChangeWake = (event, selectedWake) => {
     const currentWake = selectedWake || date;
-    setShow(Platform.OS === "ios");
+    setShowWake(Platform.OS === "ios");
     setWakeTime(currentWake);
   };
   const onChangeSleep = (event, selectedSleep) => {
     const currentSleep = selectedSleep || date;
-    setShow(Platform.OS === "ios");
+    setShowSleep(Platform.OS === "ios");
     setSleepTime(currentSleep);
   };
 
-  const showMode = (currentMode) => {
-    setShow(true);
-    setMode(currentMode);
+  const showWakeMode = () => {
+    setShowWake(true);
+  };
+  const showSleepMode = () => {
+    setShowSleep(true);
   };
 
   const showWakeTimepicker = () => {
-    showMode("time");
+    showWakeMode("time");
   };
   const showSleepTimepicker = () => {
-    showMode("time");
+    showSleepMode("time");
   };
 
   return (
@@ -68,11 +70,11 @@ export default function ReminderScreen({ navigation }: ReminderScreenProps) {
               Set Wake Up Time
             </Text>
           </TouchableOpacity>
-          {show && (
+          {showWake && (
             <DateTimePicker
               testID="dateTimePicker"
               value={wakeTime}
-              mode={mode}
+              mode="time"
               is24Hour={true}
               display="default"
               onChange={onChangeWake}
@@ -91,11 +93,11 @@ export default function ReminderScreen({ navigation }: ReminderScreenProps) {
               Set Sleep Time
             </Text>
           </TouchableOpacity>
-          {show && (
+          {showSleep && (
             <DateTimePicker
               testID="dateTimePicker"
               value={sleepTime}
-              mode={mode}
+              mode="time"
               is24Hour={true}
               display="default"
               onChange={onChangeSleep}
@@ -125,6 +127,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   intervalBox: {
+    // flex: 1,
+    // flexDirection: "row",
     alignSelf: "center",
     // borderColor: "black",
     // borderWidth: 1,

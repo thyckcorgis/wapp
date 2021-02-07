@@ -1,24 +1,51 @@
 import React from "react";
 import { Text, StyleSheet, View, TouchableOpacity, TextInput } from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
-import { storeData } from "../storage";
+import { getData, storeData } from "../storage";
 import { useState } from 'react';
+import { setDailyIntake } from '../api'
 
 interface UserScreenProps {
   navigation: StackNavigationHelpers;
 }
 
+interface User {
+  username: string;
+  daily: string;
+}
+
 export default function UserScreen({ navigation }: UserScreenProps) {
+  const [newIntake, setNewIntake] = useState('');
   const [intake, setIntake] = useState('');
+
+  async function getUser() {
+    const user = await getData('user') as User;
+    if (user == null) {
+      return;
+    } else {
+    const { daily, username } = user
+    setIntake(daily)    
+    return username;
+    }
+  }
+  
 
   function logout() {
     storeData("user", null);
     navigation.navigate("SignIn");
   }
 
-  function setDailyGoal() {
-    //intake
-  }
+    //const [intake, setIntake] = useState(`${daily}`);
+    async function updateIntake() {
+      const username = getUser();
+      const data = await setDailyIntake(username.toString(), Number(newIntake));
+      if (!data.ok) {
+        console.log(data.messsage);
+      } else {
+        storeData("user", data.user);
+        navigation.navigate("Reminder");
+      }
+    }  
 
   return (
     <View>
@@ -28,17 +55,16 @@ export default function UserScreen({ navigation }: UserScreenProps) {
       </TouchableOpacity>
       <Text style={{padding:50}}>
         Set new daily goal. 
-        Current daily goal is {/* {daily} */}
+        Current daily goal is {intake}
       </Text>
       <TextInput
-        //placeholder={daily.toString()}
-        placeholder='69420'
-        onChangeText={(text) => setIntake(text)}
-        value={String(intake)}
+        placeholder={intake}
+        onChangeText={(text) => setNewIntake(text)}
+        value={String(newIntake)}
         keyboardType="decimal-pad"
       />
       <TouchableOpacity
-          onPress={() => setDailyGoal()}
+          onPress={() => updateIntake()}
           //style={{ ...Styles.buttonShape, ...styles.submitButton }}
         >
           <Text /*style={{ ...Styles.body, ...styles.submitText }}*/>Submit</Text>

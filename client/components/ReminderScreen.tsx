@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   StyleSheet,
@@ -13,7 +12,13 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 
 import Styles from "../styles/styles";
 import Colours from "../styles/colours";
+import { getData, storeData } from "../storage";
+import { registerForPushNotificationsAsync } from "../notifications";
+import { uploadPushToken } from "../api";
 
+interface User {
+  username: string;
+}
 interface ReminderScreenProps {
   navigation: StackNavigationHelpers;
 }
@@ -21,6 +26,20 @@ interface ReminderScreenProps {
 export default function ReminderScreen({ navigation }: ReminderScreenProps) {
   const [wakeTime, setWakeTime] = useState(new Date());
   const [sleepTime, setSleepTime] = useState(new Date());
+
+  useEffect(() => {
+    (async () => {
+      const user = (await getData("user")) as User;
+      if (user == null) return;
+      const token = await registerForPushNotificationsAsync();
+      if (token) {
+        const newUser = await uploadPushToken(user.username, token);
+        await storeData("user", newUser);
+      } else {
+        navigation.navigate("Home");
+      }
+    })();
+  }, []);
 
   const onChangeWake = (_: any, selectedWake?: Date) => {
     const currentWake = selectedWake || new Date();

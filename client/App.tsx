@@ -37,6 +37,7 @@ export default function App() {
   const hideHeader = { headerShown: false };
   const disableSwipeBack = { gestureEnabled: false };
   const hideAndDisable = { ...hideHeader, ...disableSwipeBack };
+  return <ReminderScreen />;
   return (
     <NavigationContainer>
       <Stack.Navigator

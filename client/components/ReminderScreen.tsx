@@ -57,7 +57,7 @@ export default function ReminderScreen({ navigation }: ReminderScreenProps) {
       wakeTime: wakeTime.getHours(),
       sleepTime: sleepTime.getHours(),
     });
-    navigation.navigate("Welcome")
+    navigation.navigate("Welcome");
   }
 
   return (
@@ -114,9 +114,6 @@ export default function ReminderScreen({ navigation }: ReminderScreenProps) {
           <Text style={{ ...Styles.body, ...styles.submitText }}>Submit</Text>
         </TouchableOpacity>
         {/* RANDOM STUFF */}
-        <TouchableOpacity onPress={() => navigation.navigate("Welcome")}>
-          <Text style={{ padding: 50 }}>This is the reminder screen</Text>
-        </TouchableOpacity>
       </View>
     </View>
   );

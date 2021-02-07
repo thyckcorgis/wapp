@@ -17,23 +17,32 @@ import { HomeIcon } from "../assets";
 import { getData } from "../storage";
 import { Cup } from "./CupSizeScreen";
 import { logWaterIntake } from "../api";
+import { Route } from "@react-navigation/native";
 
+interface LogWaterParams {
+  refresh?: boolean;
+}
 interface LogWaterScreenProps {
   navigation: StackNavigationHelpers;
+  route: Route<"LogWater", LogWaterParams>;
 }
 
-export default function LogWaterScreen({ navigation }: LogWaterScreenProps) {
+export default function LogWaterScreen({
+  navigation,
+  route: { params: refresh },
+}: LogWaterScreenProps) {
   const [username, setUsername] = useState("");
   const [cups, setCups] = useState<Cup[]>([]);
   useEffect(() => {
-    (async () => {
+    async function refreshCups() {
       const { username } = (await getData("user")) as { username: string };
       const cups = (await getData("cups")) as Cup[];
       if (!cups || !username) return navigation.navigate("SignIn");
       setUsername(username);
       setCups(cups);
-    })();
-  }, [setCups]);
+    }
+    refreshCups();
+  }, [refresh, setCups]);
   const logWater = (size: number) => async () => {
     const data = await logWaterIntake(username, size);
     console.log(data);

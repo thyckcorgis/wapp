@@ -129,6 +129,15 @@ class Users {
       user.pendingRequests = user.pendingRequests.filter((u) => u !== done);
     });
   }
+
+  resetCurrentIntake(username: string) {
+    return this.modifyUser(username, (user) => (user.currentIntake = 0));
+  }
+
+  resetAllCurrentIntake() {
+    this.users.forEach((u) => (u.currentIntake = 0));
+    this.saveFile();
+  }
 }
 
 export interface LoginReq {

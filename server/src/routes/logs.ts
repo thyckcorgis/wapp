@@ -15,6 +15,17 @@ interface LogReq {
   friends: string[];
 }
 
+// http methods what dx
+router.get("/reset/:user", (req, res) => {
+  users.resetCurrentIntake(req.params.user);
+  res.json({ ok: true, message: "reset user" });
+});
+
+router.get("/reset", (_, res) => {
+  users.resetAllCurrentIntake();
+  res.json({ ok: true, message: "reset all" });
+});
+
 /*
 body:
 {

@@ -17,8 +17,6 @@ import Colours from "../styles/colours";
 
 import { HomeIcon, FriendsIcon } from "../assets";
 
-import fetch from "axios";
-import { API_URL } from "../constants";
 import {
   getPendingRequests,
   sendFriendRequest,
@@ -53,6 +51,7 @@ export default function AddFriendsScreen({
       let users = await getNonFriends(username);
       setUsers(users);
       let pending = await getPendingRequests(username);
+      console.log({ users, pending });
       setPendingRequests(pending);
     })();
   }
@@ -103,7 +102,7 @@ export default function AddFriendsScreen({
         </Text>
         <View style={styles.friendsBox}>
           <Text style={{ ...Styles.body, ...styles.title }}>Other Users:</Text>
-          {users.map(({ username, name }) => (
+          {users?.map(({ username, name }) => (
             <View style={styles.friendBox} key={username}>
               <View style={styles.name}>
                 <Text style={{ ...Styles.body, ...styles.headerText }}>
@@ -136,7 +135,7 @@ export default function AddFriendsScreen({
           <Text style={{ ...Styles.body, ...styles.title }}>
             Pending requests:
           </Text>
-          {pendingRequests.map(({ username, name }) => (
+          {pendingRequests?.map(({ username, name }) => (
             <View style={styles.friendBox} key={username}>
               <View style={styles.name}>
                 <Text style={{ ...Styles.body, ...styles.headerText }}>

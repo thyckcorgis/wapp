@@ -65,7 +65,7 @@ export default class CalenderScreen extends Component {
           </View>
         </View>
         <View style={{ ...Styles.navBar }}>
-          <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+          <TouchableOpacity onPress={this.props.navigation.navigate("Home")}>
             <HomeIcon />
           </TouchableOpacity>
         </View>

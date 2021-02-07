@@ -33,7 +33,7 @@ const textField = (
 ) => (
   <TextInput
     style={{ ...Styles.inputField, ...styles.inputField }}
-    placeholder={placeholder}
+    // placeholder={placeholder}
     placeholderTextColor={Colours.darkBlue}
     onChangeText={(text) => setValue(text)}
     value={value}

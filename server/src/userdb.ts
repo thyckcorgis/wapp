@@ -107,6 +107,12 @@ class Users {
     });
   }
 
+  deletePushToken(username: string) {
+    return this.modifyUser(username, (user) => {
+      delete user.expoPushToken;
+    });
+  }
+
   addPendingRequest(username: string, pending: string) {
     return this.modifyUser(username, (user) => {
       user.pendingRequests.push(pending);

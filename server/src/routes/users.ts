@@ -86,6 +86,16 @@ router.post("/notif", (req, res) => {
   }
 });
 
+router.post("/delete-token", (req, res) => {
+  const username = req.body.username as string;
+  const user = users.deletePushToken(username);
+  if (user) {
+    res.json({ ok: true, message: "Delete push token successful", user });
+  } else {
+    res.json({ ok: false, message: "User not found", user });
+  }
+});
+
 router.get("/", (_, res) => {
   res.json({ users: users.users });
 });

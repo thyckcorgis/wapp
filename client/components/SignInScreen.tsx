@@ -25,6 +25,7 @@ export default function SignInScreen({ navigation }: SignInScreen) {
   const [error, setError] = useState("");
 
   async function login() {
+    if (username === "" || password === "") return;
     const data = await loginUser(username, password);
     if (!data.ok) {
       setError(data.message);

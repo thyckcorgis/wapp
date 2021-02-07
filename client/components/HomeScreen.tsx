@@ -8,8 +8,7 @@ import {
 } from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 import { LinearGradient } from "expo-linear-gradient";
-// import { CircularProgressbar } from "react-circular-progressbar";
-// import "react-circular-progressbar/dist/styles.css";
+import ProgressCircle from "react-native-progress-circle";
 
 import Styles from "../styles/styles";
 import Colours from "../styles/colours";
@@ -49,7 +48,7 @@ export default function HomeScreen({ navigation, route }: HomeScreenProps) {
       <View style={Styles.logoBox}>
         <WappLogo />
       </View>
-      <View style={{ ...Styles.navBar, ...styles.top }}>
+      <View style={Styles.navBar}>
         <TouchableOpacity onPress={() => navigation.navigate("User")}>
           <UserIcon />
         </TouchableOpacity>
@@ -58,10 +57,26 @@ export default function HomeScreen({ navigation, route }: HomeScreenProps) {
         </TouchableOpacity>
       </View>
       <View style={Styles.bigButton}>
-        {/* <CircularProgressbar value={percentage} />; */}
-        <TouchableOpacity onPress={() => navigation.navigate("LogWater")}>
-          <DrinkButton />
-        </TouchableOpacity>
+        <Text style={{ ...Styles.body, ...styles.headerText }}>
+          Today is {new Date().toDateString()}.
+        </Text>
+        <ProgressCircle
+          percent={30}
+          radius={150}
+          borderWidth={30}
+          shadowColor={Colours.yellow}
+          color={Colours.darkYellow}
+          bgColor={Colours.lightBlue}
+          // bgColor={"transparent"}
+          children={
+            <TouchableOpacity onPress={() => navigation.navigate("LogWater")}>
+              <DrinkButton />
+            </TouchableOpacity>
+          }
+        ></ProgressCircle>
+        <Text style={{ ...Styles.body, ...styles.headerText }}>
+          Current Water / Total Water
+        </Text>
       </View>
       <View style={Styles.navBar}>
         <TouchableOpacity onPress={() => navigation.navigate("Home")}>
@@ -77,7 +92,17 @@ export default function HomeScreen({ navigation, route }: HomeScreenProps) {
 }
 
 const styles = StyleSheet.create({
-  top: {
-    // alignSelf: "flex-start",
+  progressBox: {
+    // position: "absolute",
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+  },
+  headerText: {
+    textAlign: "center",
+    color: Colours.yellow,
+    fontSize: 18,
+    padding: 30,
   },
 });

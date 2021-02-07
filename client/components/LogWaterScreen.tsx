@@ -14,7 +14,7 @@ import Styles from "../styles/styles";
 import Colours from "../styles/colours";
 
 import { HomeIcon } from "../assets";
-import { getData } from "../storage";
+import { getData, storeData } from "../storage";
 import { Cup } from "./CupSizeScreen";
 import { logWaterIntake } from "../api";
 import { Route } from "@react-navigation/native";
@@ -38,16 +38,19 @@ export default function LogWaterScreen({
     async function refreshCups() {
       const { username } = (await getData("user")) as { username: string };
       const cups = (await getData("cups")) as Cup[];
-      if (!cups || !username) return navigation.navigate("SignIn");
+      if (!cups || !username) {
+        console.log("No cups or username");
+        return navigation.navigate("SignIn");
+      }
       setUsername(username);
       setCups(cups);
     }
     refreshCups();
   }, [refresh, setCups]);
   const logWater = (size: number) => async () => {
-    const data = await logWaterIntake(username, size);
-    console.log(data);
-    navigation.navigate("Home");
+    const user = await logWaterIntake(username, size);
+    await storeData("user", user);
+    navigation.navigate("Home", { refresh: true });
   };
   async function updateAmount() {
     if (

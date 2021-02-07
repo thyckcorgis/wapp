@@ -38,7 +38,7 @@ router.post("/", (req, res) => {
   // notify friends
   const message = createMessage(username, intake, Boolean(goalMet));
   sendLogNotification(message, toNotify);
-  res.json({ ok: true, message: "Added log" });
+  res.json({ ok: true, message: "Added log", user });
 });
 
 export default router;

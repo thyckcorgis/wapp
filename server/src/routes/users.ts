@@ -87,7 +87,7 @@ router.post("/notif", (req, res) => {
 });
 
 router.get("/", (_, res) => {
-  res.json({ users: users.getAllUsers() });
+  res.json({ users: users.users });
 });
 
 export default router;

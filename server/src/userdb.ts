@@ -62,13 +62,14 @@ class Users {
     const user = this.getUser(username);
     if (!user) return null;
     callBack(user);
+    this.saveFile();
     return user;
   }
 
   addWaterIntake(username: string, water: number) {
     let metGoal = false;
     this.modifyUser(username, (user) => {
-      user.currentIntake += water;
+      user.currentIntake += water / 1000;
       metGoal = user.currentIntake >= user.daily;
     });
     return metGoal;

@@ -58,7 +58,7 @@ export default function FriendsScreen({ navigation }: FriendsScreenProps) {
             <View key={username} style={styles.friendBox}>
               <View style={styles.name}>
                 <Text style={{ ...Styles.body, ...styles.headerText }}>
-                  Name:
+                  Name:{" "}
                 </Text>
                 <Text style={{ ...Styles.body, ...styles.friendText }}>
                   {name}
@@ -66,10 +66,10 @@ export default function FriendsScreen({ navigation }: FriendsScreenProps) {
               </View>
               <View style={styles.name}>
                 <Text style={{ ...Styles.body, ...styles.headerText }}>
-                  Username:
+                  Username:{" "}
                 </Text>
                 <Text style={{ ...Styles.body, ...styles.friendText }}>
-                  {username}{" "}
+                  {username}
                 </Text>
               </View>
             </View>

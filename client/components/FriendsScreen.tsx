@@ -49,9 +49,11 @@ export default function FriendsScreen({ navigation }: FriendsScreenProps) {
           style={{ ...Styles.buttonShape, ...styles.addButton }}
           onPress={() => navigation.navigate("AddFriends")}
         >
+          <Text style={{ ...Styles.body, ...styles.addText }}>
+            Add friends +
+          </Text>
         </TouchableOpacity>
         <ScrollView contentContainerStyle={styles.friendsList}>
-          <Text>#1 Friend</Text>
           {friends.map(({ username, name }) => (
             <View key={username}>
               <Text>

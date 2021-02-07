@@ -23,11 +23,11 @@ interface FriendsScreenProps {
 interface User {
   username: string;
   name: string;
-} 
+}
 
 export default function FriendsScreen({ navigation }: FriendsScreenProps) {
   const [friends, setFriends] = useState([]);
-  
+
   useEffect(() => {
     (async () => {
       const user = (await getData("user")) as User;
@@ -55,16 +55,23 @@ export default function FriendsScreen({ navigation }: FriendsScreenProps) {
         </TouchableOpacity>
         <ScrollView contentContainerStyle={styles.friendsList}>
           {friends.map(({ username, name }) => (
-            <View key={username}>
-              <Text>
-                Name: {name} Username: {username}
-              </Text>
-              {/* <TouchableOpacity
-                style={styles.smallButton}
-                onPress={() => addFriend(username)()}
-              >
-                <Text>Add Friend</Text>
-              </TouchableOpacity> */}
+            <View key={username} style={styles.friendBox}>
+              <View style={styles.name}>
+                <Text style={{ ...Styles.body, ...styles.headerText }}>
+                  Name:
+                </Text>
+                <Text style={{ ...Styles.body, ...styles.friendText }}>
+                  {name}
+                </Text>
+              </View>
+              <View style={styles.name}>
+                <Text style={{ ...Styles.body, ...styles.headerText }}>
+                  Username:
+                </Text>
+                <Text style={{ ...Styles.body, ...styles.friendText }}>
+                  {username}{" "}
+                </Text>
+              </View>
             </View>
           ))}
         </ScrollView>
@@ -93,9 +100,22 @@ const styles = StyleSheet.create({
     width: 250,
     alignSelf: "center",
     marginBottom: 30,
-    alignItems: "center",
     // borderWidth: 1,
     // borderColor: "black",
+  },
+  friendBox: {
+    width: "100%",
+    height: 80,
+    backgroundColor: Colours.yellow,
+    marginVertical: 10,
+    borderRadius: 20,
+    justifyContent: "center",
+    paddingHorizontal: 20,
+  },
+  name: {
+    flexDirection: "row",
+    flex: 1,
+    alignItems: "center",
   },
   addButton: {
     borderColor: Colours.yellow,
@@ -110,5 +130,14 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: 30,
     color: Colours.yellow,
+  },
+  headerText: {
+    fontSize: 20,
+    color: Colours.darkBlue,
+  },
+  friendText: {
+    textAlignVertical: "center",
+    fontSize: 18,
+    color: Colours.medBlue,
   },
 });

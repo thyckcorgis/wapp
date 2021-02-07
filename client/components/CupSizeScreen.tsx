@@ -46,14 +46,7 @@ export default function CupSizeScreen({ navigation }: CupSizeScreenProps) {
   const [name, setName] = useState("");
   const [size, setSize] = useState("");
 
-  // function addFriend(friend: string) {
-  //     return () => {
-  //       (async () => {
-  //         const data = await sendFriendRequest(username, friend);
-  //         console.log(data);
-  //       })();
-  //     };
-  //   }
+  
   function addCup() {
     if (name === "" || size === "") return;
     setCups((c) => [...c, { name, size }]);
@@ -66,8 +59,8 @@ export default function CupSizeScreen({ navigation }: CupSizeScreenProps) {
       <TouchableOpacity onPress={() => navigation.navigate("Home")}>
         <Text style={{ padding: 50 }}>This is the cup size screen</Text>
       </TouchableOpacity>
-      {input("Name", name, setName, false)}
-      {input("Size", size, setSize, true)}
+      {input("Name of cup (eg: green water bottle", name, setName, false)}
+      {input("Size of cup (mL)", size, setSize, true)}
       <TouchableOpacity onPress={addCup}>
         <Text style={{ padding: 50 }}>Add new cup</Text>
       </TouchableOpacity>
@@ -76,9 +69,6 @@ export default function CupSizeScreen({ navigation }: CupSizeScreenProps) {
           <Text>
             {name}: {size} mL
           </Text>
-          {/* <TouchableOpacity onPress={() => addCup(name)()}>
-              <Text>Add Friend</Text>
-            </TouchableOpacity> */}
         </View>
       ))}
     </View>

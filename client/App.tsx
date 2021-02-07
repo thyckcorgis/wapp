@@ -18,6 +18,7 @@ import {
   AddFriendsScreen,
   UserScreen,
   LogWaterScreen,
+  CupSizeScreen,
 } from "./components";
 const Stack = createStackNavigator();
 
@@ -58,7 +59,11 @@ export default function App() {
           component={WelcomeScreen}
           options={hideHeader}
         />
-        <Stack.Screen name="Home" component={HomeScreen} options={hideHeader} />
+        <Stack.Screen 
+          name="Home" 
+          component={HomeScreen} 
+          options={hideHeader} 
+        />
         <Stack.Screen
           name="Friends"
           component={FriendsScreen}
@@ -74,10 +79,19 @@ export default function App() {
           component={AddFriendsScreen}
           options={hideHeader}
         />
-        <Stack.Screen name="User" component={UserScreen} options={hideHeader} />
+        <Stack.Screen 
+          name="User" 
+          component={UserScreen} 
+          options={hideHeader} 
+        />
         <Stack.Screen
           name="LogWater"
           component={LogWaterScreen}
+          options={hideHeader}
+        />
+        <Stack.Screen
+          name="CupSize"
+          component={CupSizeScreen}
           options={hideHeader}
         />
       </Stack.Navigator>

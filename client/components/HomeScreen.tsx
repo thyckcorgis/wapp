@@ -56,7 +56,9 @@ export default function HomeScreen({ navigation, route }: HomeScreenProps) {
         </TouchableOpacity>
       </View>
       <View style={Styles.bigButton}>
-        <DrinkButton />
+        <TouchableOpacity onPress={() => navigation.navigate("LogWater")}>
+          <DrinkButton />
+        </TouchableOpacity>
       </View>
       <View style={Styles.navBar}>
         <TouchableOpacity onPress={() => navigation.navigate("Home")}>

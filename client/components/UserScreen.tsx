@@ -154,6 +154,7 @@ const styles = StyleSheet.create({
   },
   goalInput: {
     borderColor: Colours.yellow,
+    color: Colours.yellow,
   },
   submitButton: {
     borderColor: Colours.yellow,

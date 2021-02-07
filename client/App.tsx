@@ -24,6 +24,7 @@ import {
   CupSizeScreen,
   LitreboardsScreen,
 } from "./components";
+import { CalendarIcon } from "./assets";
 
 const Stack = createStackNavigator();
 const forFade: StackCardInterpolator = ({ current: { progress } }) => ({
@@ -36,7 +37,6 @@ export default function App() {
   const hideHeader = { headerShown: false };
   const disableSwipeBack = { gestureEnabled: false };
   const hideAndDisable = { ...hideHeader, ...disableSwipeBack };
-
   return (
     <NavigationContainer>
       <Stack.Navigator

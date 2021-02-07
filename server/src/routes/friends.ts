@@ -63,7 +63,9 @@ router.post("/", (req, res) => {
   } else {
     let allUsers = users.getAllUsers();
     const { friends } = user;
-    allUsers = allUsers.filter((u) => !friends.includes(u.username));
+    allUsers = allUsers.filter(
+      (u) => !friends.includes(u.username) && u.username !== user.username
+    );
     console.log(allUsers);
     res.json({ users: allUsers });
   }

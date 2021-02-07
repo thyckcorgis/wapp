@@ -35,7 +35,8 @@ const textField = (
   placeholder: string,
   value: string,
   setValue: React.Dispatch<React.SetStateAction<string>>,
-  numberPad: boolean
+  numberPad: boolean,
+  secureTextEntry?: boolean
 ) => (
   <TextInput
     style={{ ...Styles.inputField, ...styles.inputField }}
@@ -44,6 +45,7 @@ const textField = (
     onChangeText={(text) => setValue(text)}
     value={value}
     keyboardType={numberPad ? "decimal-pad" : "default"}
+    secureTextEntry={secureTextEntry}
   />
 );
 
@@ -51,14 +53,14 @@ const input = (
   placeholder: string,
   value: string,
   setValue: React.Dispatch<React.SetStateAction<string>>,
-  numberPad: boolean
-  //style?:
+  numberPad: boolean,
+  secureTextEntry?: boolean
 ) => (
   <View style={styles.item}>
     <Text style={{ ...Styles.body, ...styles.headerText }}>
       {placeholder + ":"}
     </Text>
-    {textField(placeholder, value, setValue, numberPad)}
+    {textField(placeholder, value, setValue, numberPad, secureTextEntry)}
   </View>
 );
 
@@ -111,8 +113,8 @@ export default function RegisterScreen({ navigation }: RegisterScreenProps) {
       >
         {input("Name", name, setName, false)}
         {input("Username", username, setUsername, false)}
-        {input("Password", password, setPassword, false)}
-        {input("Repeat Password", password2, setPassword2, false)}
+        {input("Password", password, setPassword, false, true)}
+        {input("Repeat Password", password2, setPassword2, false, true)}
         {input("Weight", weight, setWeight, true)}
         <Text style={{ ...Styles.body, ...styles.activityText }}>
           Activity Level

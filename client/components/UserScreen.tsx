@@ -43,7 +43,7 @@ export default function UserScreen({ navigation }: UserScreenProps) {
     } else {
       await uploadPushToken(username, token);
       setRegister("Success!");
-      deletePushToken(username)
+      deletePushToken(username);
       return token;
     }
   }
@@ -54,8 +54,13 @@ export default function UserScreen({ navigation }: UserScreenProps) {
   }
 
   async function updateIntake() {
-    if (newIntake === "" || Number(newIntake) <= 0) return;
-    const data = await setDailyIntake(username, Number(newIntake));
+    if (
+      newIntake === "" ||
+      isNaN(parseFloat(newIntake)) ||
+      Number(newIntake) <= 0
+    )
+      return;
+    const data = await setDailyIntake(username, parseFloat(newIntake));
     setIntake(newIntake);
     if (!data.ok) {
       console.log(data.messsage);
@@ -107,9 +112,9 @@ export default function UserScreen({ navigation }: UserScreenProps) {
             onPress={getNotifications}
           >
             <Text style={{ ...Styles.body, ...styles.logoutText }}>
-              {getNotifications() ? 
-              'Disable Push Notifications' : 
-              'Enable Push Notifications'}
+              {getNotifications()
+                ? "Disable Push Notifications"
+                : "Enable Push Notifications"}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity

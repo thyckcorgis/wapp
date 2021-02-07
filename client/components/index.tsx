@@ -10,3 +10,4 @@ export { default as WaterIntakeScreen } from "./WaterIntakeScreen";
 export { default as WelcomeScreen } from "./WelcomeScreen";
 export { default as UserScreen } from "./UserScreen";
 export { default as LogWaterScreen } from "./LogWaterScreen";
+export { default as CupSizeScreen } from "./CupSizeScreen";

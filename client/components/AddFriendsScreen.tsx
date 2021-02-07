@@ -98,35 +98,71 @@ export default function AddFriendsScreen({
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
-        <TouchableOpacity onPress={() => fetchAllData()}>
-          <Text style={{ padding: 50 }}>refresh</Text>
-        </TouchableOpacity>
-
-        <Text style={{ ...Styles.title }}>Add New Friends</Text>
+        <Text style={{ ...Styles.title, ...styles.title }}>
+          Add New Friends
+        </Text>
         <View style={styles.friendsBox}>
+          <Text style={{ ...Styles.body, ...styles.headerText }}>
+            Other Users:
+          </Text>
           {users.map(({ username, name }) => (
-            <View key={username}>
-              <Text>
-                Name: {name} Username: {username}
-              </Text>
+            <View style={styles.friendBox} key={username}>
+              <View style={styles.name}>
+                <Text style={{ ...Styles.body, ...styles.headerText }}>
+                  Name:{" "}
+                </Text>
+                <Text style={{ ...Styles.body, ...styles.friendText }}>
+                  {name}
+                </Text>
+              </View>
+              <View style={styles.name}>
+                <Text style={{ ...Styles.body, ...styles.headerText }}>
+                  Username:{" "}
+                </Text>
+                <Text style={{ ...Styles.body, ...styles.friendText }}>
+                  {username}
+                </Text>
+              </View>
               <TouchableOpacity
                 style={styles.smallButton}
                 onPress={() => addFriend(username)()}
               >
-                <Text>Add Friend</Text>
+                <Text style={{ ...Styles.body, ...styles.buttonText }}>
+                  Add Friend
+                </Text>
               </TouchableOpacity>
             </View>
           ))}
+        </View>
+        <View style={styles.friendsBox}>
+          <Text style={{ ...Styles.body, ...styles.headerText }}>
+            Pending requests:
+          </Text>
           {pendingRequests.map(({ username, name }) => (
-            <View key={username}>
-              <Text>
-                Name: {name} Username: {username}
-              </Text>
+            <View style={styles.friendBox} key={username}>
+              <View style={styles.name}>
+                <Text style={{ ...Styles.body, ...styles.headerText }}>
+                  Name:{" "}
+                </Text>
+                <Text style={{ ...Styles.body, ...styles.friendText }}>
+                  {name}
+                </Text>
+              </View>
+              <View style={styles.name}>
+                <Text style={{ ...Styles.body, ...styles.headerText }}>
+                  Username:{" "}
+                </Text>
+                <Text style={{ ...Styles.body, ...styles.friendText }}>
+                  {username}
+                </Text>
+              </View>
               <TouchableOpacity
                 style={styles.smallButton}
                 onPress={() => acceptFriend(username)()}
               >
-                <Text>Accept Friend</Text>
+                <Text style={{ ...Styles.body, ...styles.buttonText }}>
+                  Accept Friend
+                </Text>
               </TouchableOpacity>
             </View>
           ))}
@@ -150,22 +186,51 @@ const styles = StyleSheet.create({
     margin: 20,
     // height: 400,
     borderWidth: 1,
-    borderColor: "black",
+  },
+  friendBox: {
+    width: "100%",
+    backgroundColor: Colours.yellow,
+    marginVertical: 10,
+    borderRadius: 20,
+    justifyContent: "center",
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+  },
+  name: {
+    flexDirection: "row",
+    flex: 1,
+    alignItems: "center",
   },
   navBar: {
     justifyContent: "flex-end",
     bottom: 0,
   },
+  title: {
+    textAlign: "center",
+    color: Colours.yellow,
+    marginTop: 30,
+  },
   smallButton: {
     borderRadius: 20,
+    backgroundColor: Colours.lightBlue,
+    margin: 10,
     padding: 10,
     paddingHorizontal: 20,
     elevation: 2,
     alignSelf: "center",
-    width: "100%",
+    width: "50%",
   },
   buttonText: {
-    color: Colours.yellow,
+    color: Colours.darkBlue,
     textAlign: "center",
+  },
+  headerText: {
+    fontSize: 20,
+    color: Colours.darkBlue,
+  },
+  friendText: {
+    textAlignVertical: "center",
+    fontSize: 18,
+    color: Colours.medBlue,
   },
 });

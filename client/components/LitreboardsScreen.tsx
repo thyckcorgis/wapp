@@ -45,34 +45,47 @@ export default function LitreboardsScreen({
         style={Styles.background}
         colors={[Colours.darkBlue, Colours.medBlue]}
       />
-      <Text style={{ ...Styles.title, ...styles.title }}>Friends</Text>
-      <View style={styles.friendsBox}>
-        <TouchableOpacity
-          style={{ ...Styles.buttonShape, ...styles.addButton }}
-          onPress={() => navigation.navigate("AddFriends")}
-        >
-          <Text style={{ ...Styles.body, ...styles.addText }}>
-            Add friends +
-          </Text>
-        </TouchableOpacity>
-        <ScrollView contentContainerStyle={styles.friendsList}>
-          {friends.map(({ username, name }) => (
-            <View key={username} style={styles.friendBox}>
-              <View style={styles.name}>
-                <Text style={{ ...Styles.body, ...styles.headerText }}>
-                  Name:{" "}
-                </Text>
-                <Text style={{ ...Styles.body, ...styles.friendText }}>
-                  {name}
+      <Text style={{ ...Styles.title, ...styles.title }}>Litreboards</Text>
+      <View style={styles.litreboard}>
+        <ScrollView>
+          {friends.map(({ username, name, position, percent }) => (
+            <View style={styles.positionBox}>
+              <View style={styles.numberBox}>
+                <Text style={{ ...Styles.title, ...styles.positionText }}>
+                  #{position}
                 </Text>
               </View>
-              <View style={styles.name}>
-                <Text style={{ ...Styles.body, ...styles.headerText }}>
-                  Username:{" "}
-                </Text>
-                <Text style={{ ...Styles.body, ...styles.friendText }}>
-                  {username}
-                </Text>
+              <View key={username} style={styles.friendBox}>
+                <View style={styles.name}>
+                  <Text style={{ ...Styles.body, ...styles.headerText }}>
+                    Name:{" "}
+                  </Text>
+                  <Text style={{ ...Styles.body, ...styles.friendText }}>
+                    {name}
+                  </Text>
+                </View>
+                <View style={styles.name}>
+                  <Text style={{ ...Styles.body, ...styles.headerText }}>
+                    Username:{" "}
+                  </Text>
+                  <Text style={{ ...Styles.body, ...styles.friendText }}>
+                    {username}
+                  </Text>
+                </View>
+                <View style={styles.name}>
+                  <Text
+                    style={{
+                      ...Styles.body,
+                      ...styles.headerText,
+                      ...{ fontSize: 18 },
+                    }}
+                  >
+                    Goal Completion:{" "}
+                  </Text>
+                  <Text style={{ ...Styles.body, ...styles.friendText }}>
+                    {percent}
+                  </Text>
+                </View>
               </View>
             </View>
           ))}
@@ -91,24 +104,29 @@ export default function LitreboardsScreen({
 }
 
 const styles = StyleSheet.create({
-  friendsBox: {
+  litreboard: {
     flex: 1,
     margin: 20,
     // borderWidth: 1,
-    // borderColor: "black",
   },
-  friendsList: {
+  positionBox: {
+    flexDirection: "row",
+  },
+  numberBox: {
     flex: 1,
-    width: 250,
-    alignSelf: "center",
-    marginBottom: 30,
-    // borderWidth: 1,
-    // borderColor: "black",
+    marginHorizontal: 5,
+    borderRadius: 20,
+    height: 80,
+    marginVertical: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 20,
+    backgroundColor: Colours.darkBlue,
   },
   friendBox: {
-    width: "100%",
-    height: 80,
-    backgroundColor: Colours.yellow,
+    flex: 7,
+    marginHorizontal: 5,
+    backgroundColor: Colours.lightBlue,
     marginVertical: 10,
     borderRadius: 20,
     justifyContent: "center",
@@ -131,6 +149,10 @@ const styles = StyleSheet.create({
   title: {
     textAlign: "center",
     marginTop: 30,
+    color: Colours.yellow,
+  },
+  positionText: {
+    textAlign: "center",
     color: Colours.yellow,
   },
   headerText: {

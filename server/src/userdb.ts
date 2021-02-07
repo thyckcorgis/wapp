@@ -47,11 +47,19 @@ class Users {
     return metGoal;
   }
 
-  getAllUsers() {
-    return this.users.map((u) => ({
+  getUsernamesAndNames(users: User[]) {
+    return users.map((u) => ({
       username: u.username,
       name: u.name,
     }));
+  }
+
+  getNames(usernames: string[]) {
+    return this.getUsernamesAndNames(this.filterUsers(usernames));
+  }
+
+  getAllUsers() {
+    return this.getUsernamesAndNames(this.users);
   }
 
   connectFriends(name1: string, name2: string) {

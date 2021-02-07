@@ -48,7 +48,7 @@ router.post("/pending", (req, res) => {
   if (!user) {
     res.json({ ok: false, message: "User not found" });
   } else {
-    const pendingRequests = users.filterUsers(user.pendingRequests);
+    const pendingRequests = users.getNames(user.pendingRequests);
     res.json({ ok: true, pending: pendingRequests });
   }
 });

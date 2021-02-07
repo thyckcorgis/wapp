@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StyleSheet, View, TouchableOpacity } from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 import { LinearGradient } from "expo-linear-gradient";

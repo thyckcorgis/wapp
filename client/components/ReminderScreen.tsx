@@ -6,11 +6,14 @@ import {
   View,
   TouchableOpacity,
   TextInput,
+  Button,
+  Platform,
+  Dimensions,
 } from "react-native";
 import { Switch } from "react-native-switch";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 import { LinearGradient } from "expo-linear-gradient";
-import RNDateTimePicker from "@react-native-community/datetimepicker";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 import Styles from "../styles/styles";
 import Colours from "../styles/colours";
@@ -20,18 +23,33 @@ interface ReminderScreenProps {
 }
 
 export default function ReminderScreen({ navigation }: ReminderScreenProps) {
-  const [wakeTime, setWakeTime] = useState(false);
-  const toggleWake = () => setWakeTime(!wakeTime);
+  const [wakeTime, setWakeTime] = useState(new Date());
+  const [sleepTime, setSleepTime] = useState(new Date());
+  const [mode, setMode] = useState("date");
+  const [show, setShow] = useState(false);
 
-  const [sleepTime, setSleepTime] = useState(false);
-  const toggleSleep = () => setSleepTime(!sleepTime);
+  const onChangeWake = (event, selectedWake) => {
+    const currentWake = selectedWake || date;
+    setShow(Platform.OS === "ios");
+    setWakeTime(currentWake);
+  };
+  const onChangeSleep = (event, selectedSleep) => {
+    const currentSleep = selectedSleep || date;
+    setShow(Platform.OS === "ios");
+    setSleepTime(currentSleep);
+  };
 
-  //   const [time, setTime] = useState(new Time(1234567890));
+  const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+  };
 
-  //   const setWake = (event, selectedTime) => {
-  //     const currentTime = selectedTime || time;
-  //     setWakeTime(currentTime);
-  //   };
+  const showWakeTimepicker = () => {
+    showMode("time");
+  };
+  const showSleepTimepicker = () => {
+    showMode("time");
+  };
 
   return (
     <View style={Styles.screen}>
@@ -39,55 +57,81 @@ export default function ReminderScreen({ navigation }: ReminderScreenProps) {
         style={Styles.background}
         colors={[Colours.lightBlue, Colours.yellow]}
       />
-      <Text style={{ ...Styles.title, ...styles.titleText }}>
-        Set your daily reminders:
-      </Text>
-      <View style={styles.intervalBox}>
-        <Text style={{ ...Styles.body, ...styles.headerText }}>Wake Up:</Text>
-        <View style={styles.timeBox}>
-          <TextInput
-            style={styles.timeInput}
-            placeholder={"8:00"}
-            placeholderTextColor={Colours.medBlue}
-          />
-          <Switch
-            onValueChange={toggleWake}
-            activeText={"AM"}
-            activeTextStyle={styles.amText}
-            inActiveText={"PM"}
-            inactiveTextStyle={styles.pmText}
-            backgroundActive={Colours.yellow}
-            backgroundInactive={Colours.medBlue}
-            circleBorderWidth={0}
-            circleSize={40}
-            value={wakeTime}
-          />
-          <View>
-            {/* <RNDateTimePicker
+      <View style={styles.box}>
+        <Text style={{ ...Styles.title, ...styles.titleText }}>
+          Set your daily reminders:
+        </Text>
+
+        {/* WAKE TIME */}
+        <View style={styles.intervalBox}>
+          <TouchableOpacity
+            style={{ ...Styles.buttonShape, ...styles.wakeButton }}
+            onPress={showWakeTimepicker}
+          >
+            <Text style={{ ...Styles.body, ...styles.wakeText }}>
+              Set Wake Up Time
+            </Text>
+          </TouchableOpacity>
+          {show && (
+            <DateTimePicker
               testID="dateTimePicker"
-              value={time}
-              mode="time"
-              is24Hour={false}
-              //   onChange={setWake}
-            /> */}
-          </View>
+              value={wakeTime}
+              mode={mode}
+              is24Hour={true}
+              display="default"
+              onChange={onChangeWake}
+              textColor={Colours.medBlue}
+            />
+          )}
         </View>
+
+        {/* SLEEP TIME */}
+        <View style={styles.intervalBox}>
+          <TouchableOpacity
+            style={{ ...Styles.buttonShape, ...styles.sleepButton }}
+            onPress={showSleepTimepicker}
+          >
+            <Text style={{ ...Styles.body, ...styles.sleepText }}>
+              Set Sleep Time
+            </Text>
+          </TouchableOpacity>
+          {show && (
+            <DateTimePicker
+              testID="dateTimePicker"
+              value={sleepTime}
+              mode={mode}
+              is24Hour={true}
+              display="default"
+              onChange={onChangeSleep}
+              textColor={Colours.medBlue}
+            />
+          )}
+        </View>
+
+        <TouchableOpacity
+          onPress={() => reminders()}
+          style={{ ...Styles.buttonShape, ...styles.submitButton }}
+        >
+          <Text style={{ ...Styles.body, ...styles.submitText }}>Submit</Text>
+        </TouchableOpacity>
+        {/* RANDOM STUFF */}
+        <TouchableOpacity onPress={() => navigation.navigate("Welcome")}>
+          <Text style={{ padding: 50 }}>This is the reminder screen</Text>
+        </TouchableOpacity>
       </View>
-      <TouchableOpacity onPress={() => navigation.navigate("Welcome")}>
-        <Text style={{ padding: 50 }}>This is the reminder screen</Text>
-      </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  timeBox: {
-    flexDirection: "row",
-    paddingVertical: 10,
+  box: {
+    marginHorizontal: 50,
+    alignItems: "center",
   },
   intervalBox: {
     alignSelf: "center",
-    alignItems: "center",
+    // borderColor: "black",
+    // borderWidth: 1,
   },
   headerText: {
     fontSize: 18,
@@ -97,19 +141,29 @@ const styles = StyleSheet.create({
     color: Colours.darkBlue,
     paddingVertical: 20,
   },
-  amText: {
-    color: Colours.medBlue,
+  wakeButton: {
+    backgroundColor: Colours.yellow,
+    width: 150,
   },
-  pmText: {
+  wakeText: {
+    color: Colours.darkBlue,
+    textAlign: "center",
+  },
+  sleepButton: {
+    backgroundColor: Colours.darkBlue,
+    width: 150,
+  },
+  sleepText: {
+    color: Colours.yellow,
+    textAlign: "center",
+  },
+  submitText: {
+    textAlign: "center",
     color: Colours.yellow,
   },
-  timeInput: {
-    borderWidth: 1,
-    borderRadius: 20,
-    borderColor: Colours.medBlue,
-    width: 100,
-    height: 40,
-    marginHorizontal: 20,
-    textAlign: "center",
+  submitButton: {
+    marginTop: 30,
+    backgroundColor: Colours.medBlue,
+    marginVertical: 10,
   },
 });

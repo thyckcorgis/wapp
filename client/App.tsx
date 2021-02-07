@@ -6,87 +6,53 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import {
-  StartScreen,
-  SignInScreen,
-  RegisterScreen,
-  WaterIntakeScreen,
-  ReminderScreen,
-  WelcomeScreen,
-  HomeScreen,
-  FriendsScreen,
-  CalenderScreen,
-  AddFriendsScreen,
-  UserScreen,
-  LogWaterScreen,
-  CupSizeScreen,
+  StartScreen as Start,
+  SignInScreen as SignIn,
+  RegisterScreen as Register,
+  WaterIntakeScreen as WaterIntake,
+  ReminderScreen as Reminder,
+  WelcomeScreen as Welcome,
+  HomeScreen as Home,
+  FriendsScreen as Friends,
+  CalenderScreen as Calender,
+  AddFriendsScreen as AddFriends,
+  UserScreen as User,
+  LogWaterScreen as LogWater,
+  CupSizeScreen as CupSize,
 } from "./components";
 const Stack = createStackNavigator();
 
+interface ScreenProps {
+  name: string;
+  component: (t: any) => JSX.Element;
+}
+function hideHeader() {
+  return { headerShown: false };
+}
+const Screen = ({ name, component }: ScreenProps) => {
+  return (
+    <Stack.Screen name={name} component={component} options={hideHeader} />
+  );
+};
+
 export default function App() {
-  function hideHeader() {
-    return { headerShown: false };
-  }
   // return <ReminderScreen />;
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ ...hideHeader }}>
-        <Stack.Screen
-          name="Start"
-          component={StartScreen}
-          options={hideHeader}
-        />
-        <Stack.Screen
-          name="SignIn"
-          component={SignInScreen}
-          options={hideHeader}
-        />
-        <Stack.Screen
-          name="Register"
-          component={RegisterScreen}
-          options={hideHeader}
-        />
-        <Stack.Screen
-          name="Intake"
-          component={WaterIntakeScreen}
-          options={hideHeader}
-        />
-        <Stack.Screen
-          name="Reminder"
-          component={ReminderScreen}
-          options={hideHeader}
-        />
-        <Stack.Screen
-          name="Welcome"
-          component={WelcomeScreen}
-          options={hideHeader}
-        />
-        <Stack.Screen name="Home" component={HomeScreen} options={hideHeader} />
-        <Stack.Screen
-          name="Friends"
-          component={FriendsScreen}
-          options={hideHeader}
-        />
-        <Stack.Screen
-          name="Calender"
-          component={CalenderScreen}
-          options={hideHeader}
-        />
-        <Stack.Screen
-          name="AddFriends"
-          component={AddFriendsScreen}
-          options={hideHeader}
-        />
-        <Stack.Screen name="User" component={UserScreen} options={hideHeader} />
-        <Stack.Screen
-          name="LogWater"
-          component={LogWaterScreen}
-          options={hideHeader}
-        />
-        <Stack.Screen
-          name="CupSize"
-          component={CupSizeScreen}
-          options={hideHeader}
-        />
+        <Screen name="Start" component={Start} />
+        <Screen name="SignIn" component={SignIn} />
+        <Screen name="Register" component={Register} />
+        <Screen name="Intake" component={WaterIntake} />
+        <Screen name="Reminder" component={Reminder} />
+        <Screen name="Welcome" component={Welcome} />
+        <Screen name="Home" component={Home} />
+        <Screen name="Friends" component={Friends} />
+        <Screen name="Calender" component={Calender} />
+        <Screen name="AddFriends" component={AddFriends} />
+        <Screen name="User" component={User} />
+        <Screen name="LogWater" component={LogWater} />
+        <Screen name="CupSize" component={CupSize} />
       </Stack.Navigator>
     </NavigationContainer>
   );

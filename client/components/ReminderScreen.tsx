@@ -18,6 +18,7 @@ import { uploadPushToken } from "../api";
 
 interface User {
   username: string;
+  expoPushToken?: string;
 }
 interface ReminderScreenProps {
   navigation: StackNavigationHelpers;
@@ -30,7 +31,7 @@ export default function ReminderScreen({ navigation }: ReminderScreenProps) {
   useEffect(() => {
     (async () => {
       const user = (await getData("user")) as User;
-      if (user == null) return;
+      if (user == null || user.expoPushToken) return;
       const token = await registerForPushNotificationsAsync();
       if (token) {
         const newUser = await uploadPushToken(user.username, token);

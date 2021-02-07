@@ -5,6 +5,7 @@ import {
   View,
   TouchableOpacity,
   Platform,
+  ScrollView
 } from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 import { LinearGradient } from "expo-linear-gradient";
@@ -61,7 +62,8 @@ export default function ReminderScreen({ navigation }: ReminderScreenProps) {
   }
 
   return (
-    <View style={Styles.screen}>
+    <ScrollView> 
+      <View style={Styles.screen}>
       <LinearGradient
         style={Styles.background}
         colors={[Colours.lightBlue, Colours.yellow]}
@@ -115,7 +117,8 @@ export default function ReminderScreen({ navigation }: ReminderScreenProps) {
         </TouchableOpacity>
         {/* RANDOM STUFF */}
       </View>
-    </View>
+      </View>
+    </ScrollView>
   );
 }
 

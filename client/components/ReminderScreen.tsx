@@ -57,6 +57,7 @@ export default function ReminderScreen({ navigation }: ReminderScreenProps) {
       wakeTime: wakeTime.getHours(),
       sleepTime: sleepTime.getHours(),
     });
+    navigation.navigate("Welcome")
   }
 
   return (

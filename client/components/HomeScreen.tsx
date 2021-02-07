@@ -50,7 +50,6 @@ export default function HomeScreen({
   function refreshGoal() {
     (async () => {
       const user = (await getData("user")) as User;
-      console.log({ user });
       if (user == null) {
         console.log("User not found");
         navigation.navigate("SignIn");

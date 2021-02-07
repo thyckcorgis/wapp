@@ -21,7 +21,6 @@ import {
   CalendarIcon,
   DrinkButton,
   HomeIcon,
-  TipsIcon,
   FriendsIcon,
 } from "../assets";
 

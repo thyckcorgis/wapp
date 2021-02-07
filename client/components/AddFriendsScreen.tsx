@@ -6,6 +6,7 @@ import {
   RefreshControl,
   ScrollView,
   TouchableOpacity,
+  SafeAreaView,
 } from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 import { useState } from "react";
@@ -13,6 +14,8 @@ import { LinearGradient } from "expo-linear-gradient";
 
 import Styles from "../styles/styles";
 import Colours from "../styles/colours";
+
+import { HomeIcon, FriendsIcon } from "../assets";
 
 import fetch from "axios";
 import { API_URL } from "../constants";
@@ -85,37 +88,84 @@ export default function AddFriendsScreen({
   }, []);
 
   return (
-    <View style={Styles.screen}>
+    <SafeAreaView style={Styles.screen}>
+      <LinearGradient
+        style={Styles.background}
+        colors={[Colours.darkBlue, Colours.medBlue]}
+      />
       <ScrollView
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
-        <Text style={{ padding: 50 }}>This is the add friends screen</Text>
-        <TouchableOpacity onPress={() => navigation.navigate("Friends")}>
-          <Text style={{ padding: 50 }}>go back</Text>
+        <TouchableOpacity onPress={() => fetchAllData()}>
+          <Text style={{ padding: 50 }}>refresh</Text>
         </TouchableOpacity>
-        {users.map(({ username, name }) => (
-          <View key={username}>
-            <Text>
-              Name: {name} Username: {username}
-            </Text>
-            <TouchableOpacity onPress={() => addFriend(username)()}>
-              <Text>Add Friend</Text>
-            </TouchableOpacity>
-          </View>
-        ))}
-        {pendingRequests.map(({ username, name }) => (
-          <View key={username}>
-            <Text>
-              Name: {name} Username: {username}
-            </Text>
-            <TouchableOpacity onPress={() => acceptFriend(username)()}>
-              <Text>Accept Friend</Text>
-            </TouchableOpacity>
-          </View>
-        ))}
+
+        <Text style={{ ...Styles.title }}>Add New Friends</Text>
+        <View style={styles.friendsBox}>
+          {users.map(({ username, name }) => (
+            <View key={username}>
+              <Text>
+                Name: {name} Username: {username}
+              </Text>
+              <TouchableOpacity
+                style={styles.smallButton}
+                onPress={() => addFriend(username)()}
+              >
+                <Text>Add Friend</Text>
+              </TouchableOpacity>
+            </View>
+          ))}
+          {pendingRequests.map(({ username, name }) => (
+            <View key={username}>
+              <Text>
+                Name: {name} Username: {username}
+              </Text>
+              <TouchableOpacity
+                style={styles.smallButton}
+                onPress={() => acceptFriend(username)()}
+              >
+                <Text>Accept Friend</Text>
+              </TouchableOpacity>
+            </View>
+          ))}
+        </View>
       </ScrollView>
-    </View>
+      <View style={{ ...Styles.navBar }}>
+        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+          <HomeIcon />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Friends")}>
+          <FriendsIcon />
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  friendsBox: {
+    flex: 1,
+    margin: 20,
+    // height: 400,
+    borderWidth: 1,
+    borderColor: "black",
+  },
+  navBar: {
+    justifyContent: "flex-end",
+    bottom: 0,
+  },
+  smallButton: {
+    borderRadius: 20,
+    padding: 10,
+    paddingHorizontal: 20,
+    elevation: 2,
+    alignSelf: "center",
+    width: "100%",
+  },
+  buttonText: {
+    color: Colours.yellow,
+    textAlign: "center",
+  },
+});

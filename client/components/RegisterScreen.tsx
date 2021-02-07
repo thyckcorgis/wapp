@@ -25,6 +25,10 @@ interface RegisterScreenProps {
   navigation: StackNavigationHelpers;
 }
 
+const calculateDailyIntake = (weight: number, activityLevel: number) => {
+  return 420.69;
+};
+
 const textField = (
   placeholder: string,
   value: string,
@@ -66,12 +70,8 @@ export default function RegisterScreen({ navigation }: RegisterScreenProps) {
   const [error, setError] = useState("");
 
   async function registerUser() {
-    const userData = {
-      username,
-      name,
-      daily: 420.69,
-      password,
-    };
+    const daily = calculateDailyIntake(Number(weight), Number(activityLevel));
+    const userData = { username, name, daily, password };
     const { data } = await fetch({
       headers: {
         Accept: "application/json",
@@ -86,7 +86,7 @@ export default function RegisterScreen({ navigation }: RegisterScreenProps) {
       console.log(data.messsage);
     } else {
       storeData("user", data.user);
-      navigation.navigate("Intake");
+      navigation.navigate("Intake", { username, daily });
     }
   }
 

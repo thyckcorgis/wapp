@@ -16,17 +16,47 @@ import { LinearGradient } from "expo-linear-gradient";
 
 import Styles from "../styles/styles";
 import Colours from "../styles/colours";
+import { Route } from "@react-navigation/core";
+import { API_URL } from "../constants";
+import fetch from "axios";
+import { storeData } from "../storage";
+
+interface WaterIntakeParams {
+  username: string;
+  daily: number;
+}
 
 interface WaterIntakeScreenProps {
   navigation: StackNavigationHelpers;
+  route: Route<"Intake", WaterIntakeParams>;
 }
 
 export default function WaterIntakeScreen({
   navigation,
+  route: {
+    params: { daily, username },
+  },
 }: WaterIntakeScreenProps) {
-  const [intake, setIntake] = useState("");
-
-  const water = 69420;
+  const [intake, setIntake] = useState(daily);
+  async function addDailyIntake() {
+    const daily = intake;
+    const userData = { username, daily };
+    const { data } = await fetch({
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json;charset=UTF-8",
+      },
+      url: `${API_URL}/user/daily`,
+      data: userData,
+      method: "POST",
+    });
+    if (!data.ok) {
+      console.log(data.messsage);
+    } else {
+      storeData("user", data.user);
+      navigation.navigate("Reminder");
+    }
+  }
 
   return (
     <SafeAreaView style={Styles.screen}>
@@ -45,19 +75,19 @@ export default function WaterIntakeScreen({
               Set your daily water intake goal.
             </Text>
             <Text style={{ ...Styles.title, ...styles.text }}>
-              Based on your information, your recomended intake is {water}{" "}
+              Based on your information, your recomended intake is {intake}{" "}
               Litres. But you can change that to whatever you like!
             </Text>
             <TextInput
-              placeholder={water.toString()}
+              placeholder={String(42069)}
               placeholderTextColor={Colours.medBlue}
-              onChangeText={(text) => setIntake(text)}
-              value={intake}
+              onChangeText={(text) => setIntake(Number(text))}
+              value={String(intake)}
               style={styles.editField}
               keyboardType="number-pad"
             />
             <TouchableOpacity
-              onPress={() => navigation.navigate("Reminder")}
+              onPress={addDailyIntake}
               style={{ ...Styles.buttonShape, ...styles.submitButton }}
             >
               <Text style={{ ...Styles.body, ...styles.submitText }}>

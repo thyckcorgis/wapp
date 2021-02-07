@@ -27,6 +27,22 @@ router.post("/login", async (req, res) => {
 body:
 {
   username: string,
+  daily: number
+}
+ */
+router.post("/daily", async (req, res) => {
+  const { username, daily } = req.body as { username: string; daily: number };
+  const user = users.setDailyIntake(username, daily);
+  if (user) {
+    res.json({ ok: true, message: "Changed daily intake", user });
+  } else {
+    res.json({ ok: false, message: "User not found" });
+  }
+});
+/*
+body:
+{
+  username: string,
   password: string,
   name: string,
   daily: number

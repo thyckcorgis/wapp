@@ -86,7 +86,6 @@ export default function HomeScreen({
         </Text>
         <ProgressCircle
           percent={getPercentage(currentIntake, daily)}
-          // percent={100}
           radius={150}
           borderWidth={30}
           shadowColor={Colours.yellow}
@@ -128,6 +127,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: Colours.yellow,
     fontSize: 18,
-    padding: 30,
+    padding: "5%",
   },
 });

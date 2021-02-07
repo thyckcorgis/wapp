@@ -8,6 +8,8 @@ import {
 } from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 import { LinearGradient } from "expo-linear-gradient";
+// import { CircularProgressbar } from "react-circular-progressbar";
+// import "react-circular-progressbar/dist/styles.css";
 
 import Styles from "../styles/styles";
 import Colours from "../styles/colours";
@@ -37,6 +39,7 @@ interface HomeScreenProps {
 }
 
 export default function HomeScreen({ navigation, route }: HomeScreenProps) {
+  const percentage = 66;
   return (
     <SafeAreaView style={Styles.screen}>
       <LinearGradient
@@ -55,6 +58,7 @@ export default function HomeScreen({ navigation, route }: HomeScreenProps) {
         </TouchableOpacity>
       </View>
       <View style={Styles.bigButton}>
+        {/* <CircularProgressbar value={percentage} />; */}
         <TouchableOpacity onPress={() => navigation.navigate("LogWater")}>
           <DrinkButton />
         </TouchableOpacity>

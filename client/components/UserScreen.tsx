@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 import { getData, storeData } from "../storage";
-import { setDailyIntake } from "../api";
+import { setDailyIntake, uploadPushToken } from "../api";
 import { HomeIcon, FriendsIcon } from "../assets";
 
 import { LinearGradient } from "expo-linear-gradient";
@@ -17,6 +17,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import Styles from "../styles/styles";
 import Colours from "../styles/colours";
 import { ScrollView } from "react-native-gesture-handler";
+import { registerForPushNotificationsAsync } from "../notifications";
 
 interface UserScreenProps {
   navigation: StackNavigationHelpers;
@@ -31,6 +32,18 @@ export default function UserScreen({ navigation }: UserScreenProps) {
   const [newIntake, setNewIntake] = useState("");
   const [username, setUsername] = useState("");
   const [intake, setIntake] = useState("");
+  const [register, setRegister] = useState("Register for Push Notifications");
+
+  async function getNotifications() {
+    const token = await registerForPushNotificationsAsync();
+    if (!token) {
+      console.log("YOU NEED NOTIFICATIONS FOR THIS");
+      setRegister("Failed!");
+    } else {
+      await uploadPushToken(username, token);
+      setRegister("Success!");
+    }
+  }
 
   async function logout() {
     await storeData("user", null);
@@ -85,6 +98,14 @@ export default function UserScreen({ navigation }: UserScreenProps) {
             style={{ ...Styles.buttonShape, ...styles.submitButton }}
           >
             <Text style={{ ...Styles.body, ...styles.submitText }}>Submit</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{ ...Styles.buttonShape, ...styles.logoutButton }}
+            onPress={getNotifications}
+          >
+            <Text style={{ ...Styles.body, ...styles.logoutText }}>
+              {register}
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={{ ...Styles.buttonShape, ...styles.logoutButton }}

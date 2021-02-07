@@ -27,6 +27,10 @@ export async function uploadPushToken(username: string, expoPushToken: string) {
   return (await post("/user/notif", { username, expoPushToken })).data.user;
 }
 
+export async function deletePushToken(username: string) {
+  return (await post("/user/delete-token", { username })).data.user;
+}
+
 export async function logWaterIntake(username: string, water: number) {
   const userData = { username, water };
   return (await post("/log", userData)).data;
@@ -53,7 +57,7 @@ export async function acceptFriendRequest(username: string, friend: string) {
 }
 
 export async function getNonFriends(username: string) {
-  return (await post("/friend/toadd", { username })).data.users;
+  return (await post("/friend/to-add", { username })).data.users;
 }
 
 export async function getFriends(username: string) {

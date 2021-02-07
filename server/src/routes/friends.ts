@@ -56,7 +56,7 @@ router.post("/pending", (req, res) => {
 /**
  * Only sends users that haven't been added yet
  */
-router.post("/toadd", (req, res) => {
+router.post("/to-add", (req, res) => {
   const user = users.getUser(req.body.username);
   if (!user) {
     res.json({ ok: false, message: "User not found" });

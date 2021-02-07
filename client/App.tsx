@@ -3,7 +3,11 @@ import { StyleSheet, Text, View } from "react-native";
 import Notification from "./notifications";
 
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import {
+  createStackNavigator,
+  StackCardInterpolatedStyle,
+  StackCardInterpolator,
+} from "@react-navigation/stack";
 
 import {
   StartScreen,
@@ -20,25 +24,33 @@ import {
   LogWaterScreen,
   CupSizeScreen,
 } from "./components";
+
 const Stack = createStackNavigator();
+const forFade: StackCardInterpolator = ({ current: { progress } }) => ({
+  cardStyle: {
+    opacity: progress,
+  },
+});
 
 export default function App() {
-  function hideHeader() {
-    return { headerShown: false };
-  }
-  // return <ReminderScreen />;
+  const hideHeader = { headerShown: false };
+  const disableSwipeBack = { gestureEnabled: false };
+  const hideAndDisable = { ...hideHeader, ...disableSwipeBack };
+
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ ...hideHeader }}>
+      <Stack.Navigator
+        screenOptions={{ ...hideHeader, cardStyleInterpolator: forFade }}
+      >
         <Stack.Screen
           name="Start"
           component={StartScreen}
-          options={hideHeader}
+          options={hideAndDisable}
         />
         <Stack.Screen
           name="SignIn"
           component={SignInScreen}
-          options={hideHeader}
+          options={hideAndDisable}
         />
         <Stack.Screen
           name="Register"
@@ -60,7 +72,11 @@ export default function App() {
           component={WelcomeScreen}
           options={hideHeader}
         />
-        <Stack.Screen name="Home" component={HomeScreen} options={hideHeader} />
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={hideAndDisable}
+        />
         <Stack.Screen
           name="Friends"
           component={FriendsScreen}

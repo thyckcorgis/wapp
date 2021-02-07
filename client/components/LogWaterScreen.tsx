@@ -7,7 +7,7 @@ import Styles from "../styles/styles";
 import Colours from "../styles/colours";
 import { ScrollView, TextInput } from "react-native-gesture-handler";
 
-import { HomeIcon, FriendsIcon } from "../assets";
+import { HomeIcon } from "../assets";
 
 interface LogWaterScreenProps {
   navigation: StackNavigationHelpers;
@@ -34,7 +34,7 @@ export default function ReminderScreen({ navigation }: LogWaterScreenProps) {
         />
       </View>
       <View style={styles.cupList}>
-        <ScrollView>
+        <ScrollView keyboardDismissMode="on-drag">
           <TouchableOpacity
             style={{ ...Styles.buttonShape, ...styles.cupButton }}
             onPress={() => navigation.navigate("CupSize")}

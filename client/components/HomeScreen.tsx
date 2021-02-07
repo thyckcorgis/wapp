@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   StyleSheet,
@@ -24,21 +24,47 @@ import {
   HomeIcon,
   FriendsIcon,
 } from "../assets";
+import { getData } from "../storage";
 
-interface HomeParams {
-  username: string;
-  name: string;
-  friends: string[];
+interface User {
   daily: number;
   currentIntake: number;
+}
+
+interface HomeParams {
+  refresh?: boolean;
 }
 interface HomeScreenProps {
   navigation: StackNavigationHelpers;
   route: Route<"Home", HomeParams>;
 }
 
-export default function HomeScreen({ navigation, route }: HomeScreenProps) {
-  const percentage = 66;
+const getPercentage = (a: number, b: number) => Math.min(100, (a / b) * 100);
+
+export default function HomeScreen({
+  navigation,
+  route: { params: refresh },
+}: HomeScreenProps) {
+  const [currentIntake, setCurrentIntake] = useState(0);
+  const [daily, setDaily] = useState(0);
+  function refreshGoal() {
+    (async () => {
+      const user = (await getData("user")) as User;
+      console.log({ user });
+      if (user == null) {
+        console.log("User not found");
+        navigation.navigate("SignIn");
+      } else {
+        setCurrentIntake(user.currentIntake);
+        setDaily(user.daily);
+      }
+    })();
+  }
+  if (refresh) refreshGoal();
+
+  useEffect(() => {
+    refreshGoal();
+  }, [refresh, setCurrentIntake, setDaily]);
   return (
     <SafeAreaView style={Styles.screen}>
       <LinearGradient
@@ -61,21 +87,20 @@ export default function HomeScreen({ navigation, route }: HomeScreenProps) {
           Today is {new Date().toDateString()}.
         </Text>
         <ProgressCircle
-          percent={60}
+          percent={getPercentage(currentIntake, daily)}
           radius={150}
           borderWidth={30}
           shadowColor={Colours.yellow}
           color={Colours.darkYellow}
           bgColor={Colours.lightBlue}
           // bgColor={"transparent"}
-          children={
-            <TouchableOpacity onPress={() => navigation.navigate("LogWater")}>
-              <DrinkButton />
-            </TouchableOpacity>
-          }
-        ></ProgressCircle>
+        >
+          <TouchableOpacity onPress={() => navigation.navigate("LogWater")}>
+            <DrinkButton />
+          </TouchableOpacity>
+        </ProgressCircle>
         <Text style={{ ...Styles.body, ...styles.headerText }}>
-          Current Water / Total Water
+          {currentIntake} / {daily}
         </Text>
       </View>
       <View style={Styles.navBar}>

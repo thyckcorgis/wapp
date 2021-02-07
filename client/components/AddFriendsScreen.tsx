@@ -167,7 +167,9 @@ export default function AddFriendsScreen({
         </View>
       </ScrollView>
       <View style={{ ...Styles.navBar }}>
-        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("Home", { refresh: true })}
+        >
           <HomeIcon />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("Friends")}>

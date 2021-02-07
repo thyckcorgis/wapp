@@ -14,7 +14,7 @@ import Styles from "../styles/styles";
 import Colours from "../styles/colours";
 
 import { HomeIcon } from "../assets";
-import { getData } from "../storage";
+import { getData, storeData } from "../storage";
 import { Cup } from "./CupSizeScreen";
 import { logWaterIntake } from "../api";
 import { Route } from "@react-navigation/native";
@@ -33,21 +33,41 @@ export default function LogWaterScreen({
 }: LogWaterScreenProps) {
   const [username, setUsername] = useState("");
   const [cups, setCups] = useState<Cup[]>([]);
+  const [amount, setAmount] = useState('');
   useEffect(() => {
     async function refreshCups() {
       const { username } = (await getData("user")) as { username: string };
       const cups = (await getData("cups")) as Cup[];
-      if (!cups || !username) return navigation.navigate("SignIn");
+      if (!cups || !username) {
+        console.log("No cups or username");
+        return navigation.navigate("SignIn");
+      }
       setUsername(username);
       setCups(cups);
     }
     refreshCups();
   }, [refresh, setCups]);
   const logWater = (size: number) => async () => {
-    const data = await logWaterIntake(username, size);
-    console.log(data);
-    navigation.navigate("Home");
+    const { user } = await logWaterIntake(username, size);
+    console.log(user);
+    await storeData("user", user);
+    navigation.navigate("Home", { refresh: true });
   };
+  async function updateAmount() {
+    if (
+      amount === "" ||
+      isNaN(parseFloat(amount)) ||
+      Number(amount) <= 0
+    )
+      return;
+    const data = await logWaterIntake(username, parseFloat(amount));
+    setAmount('');
+    if (!data.ok) {
+      console.log(data.messsage);
+    } else {
+      //storeData("user", data.user);
+    }
+  }
   return (
     <View style={Styles.screen}>
       <LinearGradient
@@ -59,13 +79,28 @@ export default function LogWaterScreen({
       </Text>
       <View style={styles.manualBox}>
         <Text style={{ ...Styles.body, ...styles.smallText }}>
-          Manually add litres of water:
+          Input specific amount (mL):
         </Text>
-        <TextInput
-          style={styles.waterInput}
-          placeholderTextColor={Colours.yellow}
-          keyboardType="numeric"
-        />
+        <View 
+          style={{flexDirection: 'row',
+          justifyContent: "center",
+          alignSelf: "center",}}
+        >
+          <TextInput
+            style={styles.waterInput}
+            placeholder='0 mL'
+            placeholderTextColor={Colours.yellow}
+            keyboardType="numeric"
+            onChangeText={(text) => setAmount(text)}
+            value={String(amount)}
+          />
+          <TouchableOpacity
+              onPress={() => updateAmount()}
+              style={{ ...Styles.buttonShape, ...styles.submitButton, width:100 }}
+            >
+              <Text style={{...styles.smallText}}>Submit</Text>
+            </TouchableOpacity>
+          </View>
       </View>
       <View style={styles.cupList}>
         <Text style={{ ...Styles.body, ...styles.smallText }}>
@@ -153,5 +188,10 @@ const styles = StyleSheet.create({
     padding: 5,
     textAlign: "center",
     alignSelf: "center",
+  },
+  submitButton: {
+    borderColor: Colours.yellow,
+    borderWidth: 1,
+    marginVertical: 10,
   },
 });

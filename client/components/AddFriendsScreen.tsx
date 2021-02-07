@@ -8,6 +8,7 @@ import {
   getPendingRequests,
   sendFriendRequest,
   acceptFriendRequest,
+  getNonFriends,
 } from "../api";
 import { getData } from "../storage";
 
@@ -27,15 +28,18 @@ export default function AddFriendsScreen({
   const [users, setUsers] = useState<User[]>([]);
   const [pendingRequests, setPendingRequests] = useState<User[]>([]);
 
-  async function fetchAllData() {
-    const user = (await getData("user")) as User;
-    if (user == null) return;
-    const { username } = user;
+  function fetchAllData() {
+    (async () => {
+      const user = (await getData("user")) as User;
+      if (user == null) return;
+      const { username } = user;
 
-    setUsername(username);
-    let res = await fetch(`${API_URL}/friend/`);
-    setUsers(res.data.users);
-    setPendingRequests(await getPendingRequests(username));
+      setUsername(username);
+      let users = await getNonFriends(username);
+      setUsers(users);
+      let pending = await getPendingRequests(username);
+      setPendingRequests(pending);
+    })();
   }
 
   useEffect(() => {

@@ -52,7 +52,7 @@ class Users {
   }
 
   filterUsers(usernames: string[]) {
-    return this.users.filter((u) => u.username in usernames);
+    return this.users.filter((u) => usernames.includes(u.username));
   }
 
   addWaterIntake(username: string, water: number) {
@@ -65,10 +65,7 @@ class Users {
   }
 
   getUsernamesAndNames(users: User[]) {
-    return users.map((u) => ({
-      username: u.username,
-      name: u.name,
-    }));
+    return users.map(({ username, name }) => ({ username, name }));
   }
 
   getNames(usernames: string[]) {

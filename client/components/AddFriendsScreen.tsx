@@ -33,10 +33,6 @@ interface User {
   name: string;
 }
 
-const wait = (timeout) => {
-  return new Promise((resolve) => setTimeout(resolve, timeout));
-};
-
 export default function AddFriendsScreen({
   navigation,
 }: AddFriendsScreenProps) {
@@ -82,9 +78,10 @@ export default function AddFriendsScreen({
 
   const [refreshing, setRefreshing] = React.useState(false);
 
-  const onRefresh = React.useCallback(() => {
+  const onRefresh = React.useCallback(async () => {
     setRefreshing(true);
-    wait(2000).then(() => setRefreshing(false));
+    fetchAllData();
+    setRefreshing(false);
   }, []);
 
   return (
@@ -94,9 +91,6 @@ export default function AddFriendsScreen({
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
-        <TouchableOpacity onPress={() => fetchAllData()}>
-          <Text style={{ padding: 50 }}>refresh</Text>
-        </TouchableOpacity>
         <Text style={{ padding: 50 }}>This is the add friends screen</Text>
         <TouchableOpacity onPress={() => navigation.navigate("Friends")}>
           <Text style={{ padding: 50 }}>go back</Text>

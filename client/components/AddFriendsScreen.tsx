@@ -1,7 +1,21 @@
 import React, { useEffect } from "react";
-import { Text, StyleSheet, View, TouchableOpacity } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  View,
+  RefreshControl,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 import { useState } from "react";
+import { LinearGradient } from "expo-linear-gradient";
+
+import Styles from "../styles/styles";
+import Colours from "../styles/colours";
+
+import fetch from "axios";
+import { API_URL } from "../constants";
 import {
   getPendingRequests,
   sendFriendRequest,
@@ -18,6 +32,10 @@ interface User {
   username: string;
   name: string;
 }
+
+const wait = (timeout) => {
+  return new Promise((resolve) => setTimeout(resolve, timeout));
+};
 
 export default function AddFriendsScreen({
   navigation,
@@ -62,35 +80,48 @@ export default function AddFriendsScreen({
     };
   }
 
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
+
   return (
-    <View>
-      <TouchableOpacity onPress={() => fetchAllData()}>
-        <Text style={{ padding: 50 }}>refresh</Text>
-      </TouchableOpacity>
-      <Text style={{ padding: 50 }}>This is the add friends screen</Text>
-      <TouchableOpacity onPress={() => navigation.navigate("Friends")}>
-        <Text style={{ padding: 50 }}>go back</Text>
-      </TouchableOpacity>
-      {users.map(({ username, name }) => (
-        <View key={username}>
-          <Text>
-            Name: {name} Username: {username}
-          </Text>
-          <TouchableOpacity onPress={() => addFriend(username)()}>
-            <Text>Add Friend</Text>
-          </TouchableOpacity>
-        </View>
-      ))}
-      {pendingRequests.map(({ username, name }) => (
-        <View key={username}>
-          <Text>
-            Name: {name} Username: {username}
-          </Text>
-          <TouchableOpacity onPress={() => acceptFriend(username)()}>
-            <Text>Accept Friend</Text>
-          </TouchableOpacity>
-        </View>
-      ))}
+    <View style={Styles.screen}>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
+        <TouchableOpacity onPress={() => fetchAllData()}>
+          <Text style={{ padding: 50 }}>refresh</Text>
+        </TouchableOpacity>
+        <Text style={{ padding: 50 }}>This is the add friends screen</Text>
+        <TouchableOpacity onPress={() => navigation.navigate("Friends")}>
+          <Text style={{ padding: 50 }}>go back</Text>
+        </TouchableOpacity>
+        {users.map(({ username, name }) => (
+          <View key={username}>
+            <Text>
+              Name: {name} Username: {username}
+            </Text>
+            <TouchableOpacity onPress={() => addFriend(username)()}>
+              <Text>Add Friend</Text>
+            </TouchableOpacity>
+          </View>
+        ))}
+        {pendingRequests.map(({ username, name }) => (
+          <View key={username}>
+            <Text>
+              Name: {name} Username: {username}
+            </Text>
+            <TouchableOpacity onPress={() => acceptFriend(username)()}>
+              <Text>Accept Friend</Text>
+            </TouchableOpacity>
+          </View>
+        ))}
+      </ScrollView>
     </View>
   );
 }

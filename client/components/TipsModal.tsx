@@ -6,6 +6,7 @@ import {
   TouchableHighlight,
   StyleSheet,
 } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 import { TipsIcon } from "../assets/index";
 import Colours from "../styles/colours";
@@ -25,7 +26,7 @@ export default function TipsModal() {
         }}
       >
         <View style={styles.centeredView}>
-          <View style={styles.modalView} /*opacity={0.9}*/>
+          <View style={styles.modalView}>
             <Text style={{ ...Styles.title, ...styles.modalTitle }}>
               Tip of the day:{" "}
             </Text>
@@ -35,25 +36,25 @@ export default function TipsModal() {
               </Text>
             </View>
 
-            <TouchableHighlight
+            <TouchableOpacity
               style={{ ...styles.button, backgroundColor: Colours.medBlue }}
               onPress={() => {
                 setModalVisible(!modalVisible);
               }}
             >
               <Text style={{ ...Styles.body, ...styles.backText }}>Back</Text>
-            </TouchableHighlight>
+            </TouchableOpacity>
           </View>
         </View>
       </Modal>
 
-      <TouchableHighlight
+      <TouchableOpacity
         onPress={() => {
           setModalVisible(true);
         }}
       >
         <TipsIcon />
-      </TouchableHighlight>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -89,7 +90,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     elevation: 2,
     alignSelf: "center",
-    width: "100%",
+    width: "80%",
   },
   backText: {
     color: Colours.yellow,

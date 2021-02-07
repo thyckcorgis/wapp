@@ -26,10 +26,15 @@ body:
 }
 */
 router.post("/", (req, res) => {
-  const { username, water, friends } = req.body as LogReq;
+  const { username, water } = req.body as LogReq;
+  const user = users.getUser(username);
+  if (!user) {
+    res.json({ ok: false, message: "User not found" });
+    return;
+  }
   const intake = Number(water);
   const goalMet = users.addWaterIntake(username, intake);
-  const toNotify = users.filterUsers(friends);
+  const toNotify = users.filterUsers(user.friends);
   // notify friends
   const message = createMessage(username, intake, Boolean(goalMet));
   sendLogNotification(message, toNotify);

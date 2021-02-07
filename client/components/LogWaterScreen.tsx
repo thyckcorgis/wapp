@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   StyleSheet,
@@ -14,12 +14,31 @@ import Styles from "../styles/styles";
 import Colours from "../styles/colours";
 
 import { HomeIcon } from "../assets";
+import { getData } from "../storage";
+import { Cup } from "./CupSizeScreen";
+import { logWaterIntake } from "../api";
 
 interface LogWaterScreenProps {
   navigation: StackNavigationHelpers;
 }
 
 export default function ReminderScreen({ navigation }: LogWaterScreenProps) {
+  const [username, setUsername] = useState("");
+  const [cups, setCups] = useState<Cup[]>([]);
+  useEffect(() => {
+    (async () => {
+      const { username } = (await getData("user")) as { username: string };
+      const cups = (await getData("cups")) as Cup[];
+      if (!cups || !username) return navigation.navigate("SignIn");
+      setUsername(username);
+      setCups(cups);
+    })();
+  }, [setCups]);
+  const logWater = (size: number) => async () => {
+    const data = await logWaterIntake(username, size);
+    console.log(data);
+    navigation.navigate("Home");
+  };
   return (
     <View style={Styles.screen}>
       <LinearGradient
@@ -44,14 +63,14 @@ export default function ReminderScreen({ navigation }: LogWaterScreenProps) {
           Quickly add a cup:
         </Text>
         <ScrollView keyboardDismissMode="on-drag">
-          <TouchableOpacity
-            style={{ ...Styles.buttonShape, ...styles.cupButton }}
-            onPress={() => navigation.navigate("CupSize")}
-          >
-            <Text style={{ ...Styles.body, ...styles.cupText }}>
-              Small: 0.1 L
-            </Text>
-          </TouchableOpacity>
+          {cups.map(({ name, size }) => {
+            <TouchableOpacity
+              style={{ ...Styles.buttonShape, ...styles.cupButton }}
+              onPress={async () => await logWater(Number(size))()}
+            >
+              <Text style={{ ...Styles.body, ...styles.cupText }}>: 0.1 L</Text>
+            </TouchableOpacity>;
+          })}
           <TouchableOpacity
             style={{ ...Styles.buttonShape, ...styles.addCupButton }}
             onPress={() => navigation.navigate("CupSize")}

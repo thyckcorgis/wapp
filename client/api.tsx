@@ -1,4 +1,5 @@
 import fetch from "axios";
+import { ExpoPushToken } from "expo-notifications";
 import { API_URL } from "./constants";
 
 export async function registerUser(
@@ -83,4 +84,30 @@ export async function acceptFriendRequest(username: string, friend: string) {
     method: "POST",
   });
   return data;
+}
+
+export async function getNonFriends(username: string) {
+  const { data } = await fetch({
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json;charset=UTF-8",
+    },
+    url: `${API_URL}/friend`,
+    data: { username },
+    method: "POST",
+  });
+  return data.users;
+}
+
+export async function uploadPushToken(username: string, expoPushToken: string) {
+  const { data } = await fetch({
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json;charset=UTF-8",
+    },
+    url: `${API_URL}/user/notif`,
+    data: { username, expoPushToken },
+    method: "POST",
+  });
+  return data.user;
 }

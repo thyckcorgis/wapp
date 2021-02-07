@@ -11,11 +11,13 @@ interface LogWaterScreenProps {
 export default function ReminderScreen({ navigation }: LogWaterScreenProps) {
     return (
         <View>
-            <TouchableOpacity onPress={() => navigation.navigate("LogWater")}>
+            <TouchableOpacity onPress={() => navigation.navigate("Home")}>
                 <Text style={{padding:50}}>This is the log water screen</Text>
-            </TouchableOpacity>        
+            </TouchableOpacity>    
+            <TouchableOpacity onPress={() => navigation.navigate("CupSize")}>
+                <Text style={{padding:50}}>Customize your cup size</Text>
+            </TouchableOpacity>  
         </View>
-
     )
 }
 

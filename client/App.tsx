@@ -1,9 +1,9 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
+import Notification from "./notifications";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import Notification from "./notifications";
 
 import {
   StartScreen,
@@ -18,6 +18,7 @@ import {
   AddFriendsScreen,
   UserScreen,
   LogWaterScreen,
+  CupSizeScreen,
 } from "./components";
 const Stack = createStackNavigator();
 
@@ -66,7 +67,7 @@ export default function App() {
           options={hideHeader}
         />
         <Stack.Screen
-          name="Calendar"
+          name="Calender"
           component={CalenderScreen}
           options={hideHeader}
         />
@@ -79,6 +80,11 @@ export default function App() {
         <Stack.Screen
           name="LogWater"
           component={LogWaterScreen}
+          options={hideHeader}
+        />
+        <Stack.Screen
+          name="CupSize"
+          component={CupSizeScreen}
           options={hideHeader}
         />
       </Stack.Navigator>

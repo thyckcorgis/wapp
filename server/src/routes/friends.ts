@@ -53,10 +53,27 @@ router.post("/pending", (req, res) => {
   }
 });
 
-router.get("/", (_, res) => {
-  const allUsers = users.getAllUsers();
-  console.log(allUsers);
-  res.json({ users: allUsers });
+/**
+ * Only sends users that haven't been added yet
+ */
+router.post("/", (req, res) => {
+  const user = users.getUser(req.body.username);
+  if (!user) {
+    res.json({ ok: false, message: "User not found" });
+  } else {
+    let allUsers = users.getAllUsers();
+    const { friends, pendingRequests } = user;
+    allUsers = allUsers.filter(
+      ({ username }) =>
+        !(
+          friends.includes(username) ||
+          pendingRequests.includes(username) ||
+          username === user.username
+        )
+    );
+    console.log(allUsers);
+    res.json({ users: allUsers });
+  }
 });
 
 export default router;

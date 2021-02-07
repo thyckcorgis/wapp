@@ -27,6 +27,10 @@ export async function uploadPushToken(username: string, expoPushToken: string) {
   return (await post("/user/notif", { username, expoPushToken })).data.user;
 }
 
+export async function logWaterIntake(username: string, water: number) {
+  const userData = { username, water };
+  return (await post("/log", userData)).data;
+}
 export async function setDailyIntake(username: string, daily: number) {
   const userData = { username, daily };
   return (await post("/user/daily", userData)).data;

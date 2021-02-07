@@ -20,7 +20,7 @@ interface CupSizeScreenProps {
   navigation: StackNavigationHelpers;
 }
 
-interface Cup {
+export interface Cup {
   name: string;
   size: string;
 }

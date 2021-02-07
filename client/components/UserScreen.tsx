@@ -139,7 +139,7 @@ export default function UserScreen({ navigation }: UserScreenProps) {
 const styles = StyleSheet.create({
   profileBox: {
     flex: 1,
-    margin: 20,
+    margin:20,
     padding: 20,
     justifyContent: "center",
     // borderWidth: 1,
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
   submitButton: {
     borderColor: Colours.yellow,
     borderWidth: 1,
-    marginVertical: 30,
+    marginVertical: 10,
   },
   submitText: {
     textAlign: "center",
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
   },
   logoutButton: {
     backgroundColor: Colours.yellow,
-    marginVertical: 30,
+    marginVertical: 10,
   },
   logoutText: {
     textAlign: "center",

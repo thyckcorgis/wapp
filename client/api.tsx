@@ -91,6 +91,19 @@ export async function getNonFriends(username: string) {
       Accept: "application/json",
       "Content-Type": "application/json;charset=UTF-8",
     },
+    url: `${API_URL}/friend/toadd`,
+    data: { username },
+    method: "POST",
+  });
+  return data.users;
+}
+
+export async function getFriends(username: string) {
+  const { data } = await fetch({
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json;charset=UTF-8",
+    },
     url: `${API_URL}/friend`,
     data: { username },
     method: "POST",

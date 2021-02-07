@@ -2,8 +2,6 @@ import React, { useEffect } from "react";
 import { Text, StyleSheet, View, TouchableOpacity } from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 import { useState } from "react";
-import fetch from "axios";
-import { API_URL } from "../constants";
 import {
   getPendingRequests,
   sendFriendRequest,

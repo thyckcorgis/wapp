@@ -56,23 +56,38 @@ router.post("/pending", (req, res) => {
 /**
  * Only sends users that haven't been added yet
  */
+router.post("/toadd", (req, res) => {
+  const user = users.getUser(req.body.username);
+  if (!user) {
+    res.json({ ok: false, message: "User not found" });
+  } else {
+    const { friends, pendingRequests } = user;
+    let allUsers = users
+      .getAllUsers()
+      .filter(
+        ({ username }) =>
+          !(
+            friends.includes(username) ||
+            pendingRequests.includes(username) ||
+            username === user.username
+          )
+      );
+    console.log(allUsers);
+    res.json({ users: allUsers });
+  }
+});
+
 router.post("/", (req, res) => {
   const user = users.getUser(req.body.username);
   if (!user) {
     res.json({ ok: false, message: "User not found" });
   } else {
-    let allUsers = users.getAllUsers();
-    const { friends, pendingRequests } = user;
-    allUsers = allUsers.filter(
-      ({ username }) =>
-        !(
-          friends.includes(username) ||
-          pendingRequests.includes(username) ||
-          username === user.username
-        )
-    );
-    console.log(allUsers);
-    res.json({ users: allUsers });
+    const { friends } = user;
+    let allFriends = users
+      .getAllUsers()
+      .filter(({ username }) => friends.includes(username));
+    console.log(allFriends);
+    res.json({ users: allFriends });
   }
 });
 

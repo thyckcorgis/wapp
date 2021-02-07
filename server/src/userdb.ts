@@ -16,6 +16,9 @@ export function newUser(
     currentIntake: 0,
     pendingRequests: [],
     friends: [],
+    // reminders: {
+    //   wakeTime:
+    // }
   };
 }
 
@@ -131,6 +134,9 @@ export interface User extends UserReq {
   expoPushToken?: ExpoPushToken;
   friends: string[];
   pendingRequests: string[];
+  // reminders: {
+  //   wakeTime:
+  // }
 }
 
 export default new Users("./users.json");

@@ -114,10 +114,14 @@ class Users {
   }
 
   addPendingRequest(username: string, pending: string) {
-    return this.modifyUser(username, (user) => {
-      if (!user.pendingRequests.includes(pending))
+    let success = false;
+    this.modifyUser(username, (user) => {
+      if (!user.pendingRequests.includes(pending)) {
         user.pendingRequests.push(pending);
+        success = true;
+      }
     });
+    return success;
   }
 
   removePendingRequest(username: string, done: string) {

@@ -115,7 +115,8 @@ class Users {
 
   addPendingRequest(username: string, pending: string) {
     return this.modifyUser(username, (user) => {
-      user.pendingRequests.push(pending);
+      if (!user.pendingRequests.includes(pending))
+        user.pendingRequests.push(pending);
     });
   }
 

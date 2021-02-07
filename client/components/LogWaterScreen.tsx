@@ -33,6 +33,7 @@ export default function LogWaterScreen({
 }: LogWaterScreenProps) {
   const [username, setUsername] = useState("");
   const [cups, setCups] = useState<Cup[]>([]);
+  const [amount, setAmount] = useState('');
   useEffect(() => {
     async function refreshCups() {
       const { username } = (await getData("user")) as { username: string };
@@ -52,6 +53,21 @@ export default function LogWaterScreen({
     await storeData("user", user);
     navigation.navigate("Home", { refresh: true });
   };
+  async function updateAmount() {
+    if (
+      amount === "" ||
+      isNaN(parseFloat(amount)) ||
+      Number(amount) <= 0
+    )
+      return;
+    const data = await logWaterIntake(username, parseFloat(amount));
+    setAmount('');
+    if (!data.ok) {
+      console.log(data.messsage);
+    } else {
+      //storeData("user", data.user);
+    }
+  }
   return (
     <View style={Styles.screen}>
       <LinearGradient
@@ -63,13 +79,28 @@ export default function LogWaterScreen({
       </Text>
       <View style={styles.manualBox}>
         <Text style={{ ...Styles.body, ...styles.smallText }}>
-          Manually add litres of water:
+          Input specific amount (mL):
         </Text>
-        <TextInput
-          style={styles.waterInput}
-          placeholderTextColor={Colours.yellow}
-          keyboardType="numeric"
-        />
+        <View 
+          style={{flexDirection: 'row',
+          justifyContent: "center",
+          alignSelf: "center",}}
+        >
+          <TextInput
+            style={styles.waterInput}
+            placeholder='0 mL'
+            placeholderTextColor={Colours.yellow}
+            keyboardType="numeric"
+            onChangeText={(text) => setAmount(text)}
+            value={String(amount)}
+          />
+          <TouchableOpacity
+              onPress={() => updateAmount()}
+              style={{ ...Styles.buttonShape, ...styles.submitButton, width:100 }}
+            >
+              <Text style={{...styles.smallText}}>Submit</Text>
+            </TouchableOpacity>
+          </View>
       </View>
       <View style={styles.cupList}>
         <Text style={{ ...Styles.body, ...styles.smallText }}>
@@ -157,5 +188,10 @@ const styles = StyleSheet.create({
     padding: 5,
     textAlign: "center",
     alignSelf: "center",
+  },
+  submitButton: {
+    borderColor: Colours.yellow,
+    borderWidth: 1,
+    marginVertical: 10,
   },
 });

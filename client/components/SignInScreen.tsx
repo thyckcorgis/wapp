@@ -89,7 +89,7 @@ export default function SignInScreen({ navigation }: SignInScreen) {
 
 const styles = StyleSheet.create({
   signin: {
-    color: Colours.yellow,
+    color: "white",
     textAlign: "center",
     marginVertical: 30,
   },

@@ -90,7 +90,6 @@ export default function RegisterScreen({ navigation }: RegisterScreenProps) {
     }
   }
 
-
   return (
     <SafeAreaView style={Styles.screen}>
       <LinearGradient
@@ -133,11 +132,11 @@ export default function RegisterScreen({ navigation }: RegisterScreenProps) {
             <Picker.Item label="Very high" value="4" />
           </Picker>
         </View>
+        <Text style={Styles.error}>{error}</Text>
         <TouchableOpacity
           onPress={() => registerUser()}
           style={{ ...Styles.buttonShape, ...styles.submitButton }}
         >
-          <Text style={Styles.error}>{error}</Text>
           <Text style={{ ...Styles.body, ...styles.submitText }}>Submit</Text>
         </TouchableOpacity>
       </ScrollView>
@@ -164,7 +163,7 @@ const styles = StyleSheet.create({
   item: {
     width: 250,
     alignSelf: "center",
-    marginVertical: "5%",
+    marginVertical: "3%",
   },
   inputField: {
     borderColor: Colours.medBlue,
@@ -172,7 +171,7 @@ const styles = StyleSheet.create({
   },
   titleText: {
     textAlign: "center",
-    color: Colours.medBlue,
+    color: Colours.darkBlue,
     marginTop: 50,
   },
   activityText: {

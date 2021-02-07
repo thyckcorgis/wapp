@@ -1,5 +1,11 @@
 import React from "react";
-import { Text, StyleSheet, View, TouchableOpacity } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  SafeAreaView,
+} from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 import { LinearGradient } from "expo-linear-gradient";
 
@@ -9,7 +15,15 @@ import Colours from "../styles/colours";
 import { Route } from "@react-navigation/native";
 import TipsModal from "./TipsModal";
 
-// import { User, Wapp, Calendar, Drink, Home, Tips, Friends } from "../assets";
+import {
+  UserIcon,
+  WappLogo,
+  CalendarIcon,
+  DrinkButton,
+  HomeIcon,
+  TipsIcon,
+  FriendsIcon,
+} from "../assets";
 
 interface HomeParams {
   username: string;
@@ -25,15 +39,40 @@ interface HomeScreenProps {
 
 export default function HomeScreen({ navigation, route }: HomeScreenProps) {
   return (
-    <View>
-      <Text style={{ padding: 50 }}>This is the home screen</Text>
-      <TouchableOpacity onPress={() => navigation.navigate("Friends")}>
-        <Text style={{ padding: 50 }}>Go to friends screen</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate("Calender")}>
-        <Text style={{ padding: 50 }}>Go to calender screen</Text>
-      </TouchableOpacity>
-      <TipsModal />
-    </View>
+    <SafeAreaView style={Styles.screen}>
+      <LinearGradient
+        style={Styles.background}
+        colors={[Colours.darkBlue, Colours.medBlue]}
+      />
+      <View style={Styles.logoBox}>
+        <WappLogo />
+      </View>
+      <View style={{ ...Styles.navBar, ...styles.top }}>
+        <TouchableOpacity onPress={() => navigation.navigate("Users")}>
+          <UserIcon />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Calendar")}>
+          <CalendarIcon />
+        </TouchableOpacity>
+      </View>
+      <View style={Styles.bigButton}>
+        <DrinkButton />
+      </View>
+      <View style={Styles.navBar}>
+        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+          <HomeIcon />
+        </TouchableOpacity>
+        <TipsModal />
+        <TouchableOpacity onPress={() => navigation.navigate("Friends")}>
+          <FriendsIcon />
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  top: {
+    // alignSelf: "flex-start",
+  },
+});

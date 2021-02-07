@@ -25,8 +25,11 @@ interface RegisterScreenProps {
   navigation: StackNavigationHelpers;
 }
 
+// this is in litres
+// if you drink this many ounces of water a day you will day so don't do that
 const calculateDailyIntake = (weight: number, activityLevel: number) => {
-  return 420.69;
+  return (weight * 0.015 + activityLevel * 0.2).toFixed(1);
+  ;
 };
 
 const textField = (

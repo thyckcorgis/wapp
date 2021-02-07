@@ -26,7 +26,7 @@ export default function App() {
   function hideHeader() {
     return { headerShown: false };
   }
-  // return <ReminderScreen />;
+  return <ReminderScreen />;
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ ...hideHeader }}>

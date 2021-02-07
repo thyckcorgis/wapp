@@ -5,12 +5,8 @@ import {
   StyleSheet,
   View,
   TouchableOpacity,
-  TextInput,
-  Button,
   Platform,
-  Dimensions,
 } from "react-native";
-import { Switch } from "react-native-switch";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 import { LinearGradient } from "expo-linear-gradient";
 import DateTimePicker from "@react-native-community/datetimepicker";

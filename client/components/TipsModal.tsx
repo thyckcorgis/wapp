@@ -42,7 +42,7 @@ export default function TipsModal() {
                 setModalVisible(!modalVisible);
               }}
             >
-              <Text style={{ ...Styles.body, ...styles.backText }}>Back</Text>
+              <Text style={{ ...Styles.body, ...styles.backText }}>Got it</Text>
             </TouchableOpacity>
           </View>
         </View>

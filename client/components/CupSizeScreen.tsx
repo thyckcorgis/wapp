@@ -1,13 +1,7 @@
 import React from "react";
-import {
-  Text,
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  TextInput,
-} from "react-native";
+import { Text, View, TouchableOpacity, TextInput } from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 interface CupSizeScreenProps {
   navigation: StackNavigationHelpers;

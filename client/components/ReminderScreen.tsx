@@ -4,7 +4,6 @@ import {
   StyleSheet,
   View,
   TouchableOpacity,
-  Platform,
   ScrollView,
   SafeAreaView,
 } from "react-native";
@@ -64,7 +63,8 @@ export default function ReminderScreen({ navigation }: ReminderScreenProps) {
 
   return (
     <SafeAreaView style={Styles.screen}>
-      {/* <ScrollView> */}
+      {/* <View style={Styles.screen}> */}
+      {/* <ScrollView style={styles.scroll}> */}
       <LinearGradient
         style={Styles.background}
         colors={[Colours.lightBlue, Colours.yellow]}
@@ -119,11 +119,15 @@ export default function ReminderScreen({ navigation }: ReminderScreenProps) {
         {/* RANDOM STUFF */}
       </View>
       {/* </ScrollView> */}
+      {/* </View> */}
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  scroll: {
+    flex: 1,
+  },
   box: {
     marginHorizontal: 50,
     alignItems: "center",

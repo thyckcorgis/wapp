@@ -68,7 +68,7 @@ export default function UserScreen({ navigation }: UserScreenProps) {
       >
         <View style={styles.profileBox}>
           <Text style={{ ...Styles.body, ...styles.smallText }}>
-            Set new daily goal. Current daily goal is {intake}
+            Set new daily goal. Current daily goal is {intake} L
           </Text>
           <TextInput
             style={{ ...Styles.inputField, ...styles.goalInput }}

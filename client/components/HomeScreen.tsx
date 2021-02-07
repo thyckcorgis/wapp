@@ -51,7 +51,7 @@ export default function HomeScreen({ navigation, route }: HomeScreenProps) {
         <TouchableOpacity onPress={() => navigation.navigate("User")}>
           <UserIcon />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("Calendar")}>
+        <TouchableOpacity onPress={() => navigation.navigate("Calender")}>
           <CalendarIcon />
         </TouchableOpacity>
       </View>

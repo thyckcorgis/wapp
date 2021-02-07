@@ -2,7 +2,10 @@ import React from "react";
 import { Text, StyleSheet, View, TouchableOpacity } from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 import { LinearGradient } from "expo-linear-gradient";
+
+import Styles from "../styles/styles";
 import Colours from "../styles/colours";
+
 import { Route } from "@react-navigation/native";
 import TipsModal from "./TipsModal";
 

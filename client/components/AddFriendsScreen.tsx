@@ -36,10 +36,6 @@ interface User {
   name: string;
 }
 
-const wait = (timeout) => {
-  return new Promise((resolve) => setTimeout(resolve, timeout));
-};
-
 export default function AddFriendsScreen({
   navigation,
 }: AddFriendsScreenProps) {
@@ -85,9 +81,10 @@ export default function AddFriendsScreen({
 
   const [refreshing, setRefreshing] = React.useState(false);
 
-  const onRefresh = React.useCallback(() => {
+  const onRefresh = React.useCallback(async () => {
     setRefreshing(true);
-    wait(2000).then(() => setRefreshing(false));
+    fetchAllData();
+    setRefreshing(false);
   }, []);
 
   return (

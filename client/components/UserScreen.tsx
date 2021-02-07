@@ -1,16 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
-  Text,
   StyleSheet,
+  Text,
   View,
   TouchableOpacity,
   TextInput,
   SafeAreaView,
-  KeyboardAvoidingView,
 } from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 import { getData, storeData } from "../storage";
-import { useState } from "react";
 import { setDailyIntake } from "../api";
 import { HomeIcon, FriendsIcon } from "../assets";
 
@@ -26,33 +24,21 @@ interface UserScreenProps {
 
 interface User {
   username: string;
-  daily: string;
+  daily: number;
 }
 
 export default function UserScreen({ navigation }: UserScreenProps) {
   const [newIntake, setNewIntake] = useState("");
+  const [username, setUsername] = useState("");
   const [intake, setIntake] = useState("");
 
-  async function getUser() {
-    const user = (await getData("user")) as User;
-    if (user == null) {
-      return;
-    } else {
-      const { daily, username } = user;
-      setIntake(daily);
-      return username;
-    }
-  }
-
-  function logout() {
-    storeData("user", null);
+  async function logout() {
+    await storeData("user", null);
     navigation.navigate("SignIn");
   }
 
-  //const [intake, setIntake] = useState(`${daily}`);
   async function updateIntake() {
-    const username = getUser();
-    const data = await setDailyIntake(username.toString(), Number(newIntake));
+    const data = await setDailyIntake(username, Number(newIntake));
     if (!data.ok) {
       console.log(data.messsage);
     } else {
@@ -60,6 +46,14 @@ export default function UserScreen({ navigation }: UserScreenProps) {
       navigation.navigate("Reminder");
     }
   }
+  useEffect(() => {
+    (async () => {
+      const user = (await getData("user")) as User;
+      if (!user) return navigation.navigate("SignIn");
+      setUsername(user.username);
+      setIntake(user.daily.toPrecision(1));
+    })();
+  }, [setUsername, setIntake]);
 
   return (
     <SafeAreaView style={Styles.screen}>

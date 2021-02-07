@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   },
   title: {
     textAlign: "center",
-    color: Colours.medBlue,
+    color: Colours.darkBlue,
   },
   text: {
     marginVertical: 10,

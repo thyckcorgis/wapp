@@ -39,9 +39,11 @@ export default function UserScreen({ navigation }: UserScreenProps) {
     if (!token) {
       console.log("YOU NEED NOTIFICATIONS FOR THIS");
       setRegister("Failed!");
+      return token;
     } else {
       await uploadPushToken(username, token);
       setRegister("Success!");
+      return token;
     }
   }
 
@@ -104,7 +106,9 @@ export default function UserScreen({ navigation }: UserScreenProps) {
             onPress={getNotifications}
           >
             <Text style={{ ...Styles.body, ...styles.logoutText }}>
-              {register}
+              {getNotifications() ? 
+              'Disable Push Notifications' : 
+              'Enable Push Notifications'}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity

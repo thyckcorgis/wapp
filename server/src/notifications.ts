@@ -37,15 +37,7 @@ for (let pushToken of somePushTokens) {
 
 const extractToken = (f: User) => f.expoPushToken;
 
-export async function sendLogNotification(message: string, friends: User[]) {
-  const tokens = friends.map(extractToken).filter(Boolean) as string[];
-  const messages: ExpoPushMessage[] = [
-    {
-      to: tokens,
-      sound: "default",
-      body: message,
-    },
-  ];
+async function sendNotifications(messages: ExpoPushMessage[]) {
   let chunks = expo.chunkPushNotifications(messages);
   let tickets: ExpoPushTicket[] = [];
   // Send the chunks to the Expo push notification service. There are
@@ -99,4 +91,16 @@ export async function sendLogNotification(message: string, friends: User[]) {
       console.error(error);
     }
   }
+}
+
+export async function sendLogNotification(message: string, friends: User[]) {
+  const tokens = friends.map(extractToken).filter(Boolean) as string[];
+  const messages: ExpoPushMessage[] = [
+    {
+      to: tokens,
+      sound: "default",
+      body: message,
+    },
+  ];
+  await sendNotifications(messages);
 }

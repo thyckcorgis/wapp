@@ -9,12 +9,11 @@ import {
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 import { LinearGradient } from "expo-linear-gradient";
 import { useState } from "react";
-import fetch from "axios";
-import { API_URL } from "../constants";
 
 import Colours from "../styles/colours";
 import Styles from "../styles/styles";
 import { storeData } from "../storage";
+import { loginUser } from "../api";
 
 interface SignInScreen {
   navigation: StackNavigationHelpers;
@@ -26,19 +25,7 @@ export default function SignInScreen({ navigation }: SignInScreen) {
   const [error, setError] = useState("");
 
   async function login() {
-    const userData = {
-      username,
-      password,
-    };
-    const { data } = await fetch({
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json;charset=UTF-8",
-      },
-      url: `${API_URL}/user/login`,
-      data: userData,
-      method: "POST",
-    });
+    const data = await loginUser(username, password);
     if (!data.ok) {
       setError(data.message);
     } else {

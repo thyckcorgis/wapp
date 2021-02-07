@@ -16,7 +16,8 @@ import {
   FriendsScreen,
   CalenderScreen,
   AddFriendsScreen,
-  UserScreen
+  UserScreen,
+  LogWaterScreen,
 } from "./components";
 const Stack = createStackNavigator();
 
@@ -76,6 +77,11 @@ export default function App() {
         <Stack.Screen
           name="User"
           component={UserScreen}
+          options={hideHeader}
+        />
+        <Stack.Screen
+          name="LogWater"
+          component={LogWaterScreen}
           options={hideHeader}
         />
       </Stack.Navigator>

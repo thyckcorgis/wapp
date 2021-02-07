@@ -50,7 +50,7 @@ export default function LitreboardsScreen({
       <View style={styles.litreboard}>
         <ScrollView>
           {litreboard.map(({ username, name, percentage }: User, idx) => (
-            <View style={styles.positionBox}>
+            <View key={username} style={styles.positionBox}>
               <View style={styles.numberBox}>
                 <Text style={{ ...Styles.title, ...styles.positionText }}>
                   #{idx + 1}

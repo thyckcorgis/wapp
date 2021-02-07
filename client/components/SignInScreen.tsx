@@ -30,8 +30,8 @@ export default function SignInScreen({ navigation }: SignInScreen) {
     if (!data.ok) {
       setError(data.message);
     } else {
-      storeData("user", data.user);
-      navigation.navigate("Home");
+      await storeData("user", data.user);
+      navigation.navigate("Home", { refresh: true });
     }
   }
 

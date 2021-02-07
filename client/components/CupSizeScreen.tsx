@@ -76,7 +76,9 @@ export default function CupSizeScreen({ navigation }: CupSizeScreenProps) {
         style={Styles.background}
         colors={[Colours.darkBlue, Colours.medBlue]}
       />
-      <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("Home", { refresh: true })}
+      >
         <Text style={{ ...Styles.title, ...styles.title }}>Make a cup</Text>
       </TouchableOpacity>
       <View style={styles.cupBox}>

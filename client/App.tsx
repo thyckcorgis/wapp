@@ -5,7 +5,6 @@ import Notification from "./notifications";
 import { NavigationContainer } from "@react-navigation/native";
 import {
   createStackNavigator,
-  StackCardInterpolatedStyle,
   StackCardInterpolator,
 } from "@react-navigation/stack";
 
@@ -23,6 +22,7 @@ import {
   UserScreen,
   LogWaterScreen,
   CupSizeScreen,
+  LitreboardsScreen,
 } from "./components";
 
 const Stack = createStackNavigator();
@@ -70,7 +70,7 @@ export default function App() {
         <Stack.Screen
           name="Welcome"
           component={WelcomeScreen}
-          options={hideHeader}
+          options={hideAndDisable}
         />
         <Stack.Screen
           name="Home"
@@ -80,28 +80,33 @@ export default function App() {
         <Stack.Screen
           name="Friends"
           component={FriendsScreen}
-          options={hideHeader}
+          options={hideAndDisable}
+        />
+        <Stack.Screen
+          name="Litreboards"
+          component={LitreboardsScreen}
+          options={hideAndDisable}
         />
         <Stack.Screen
           name="Calender"
           component={CalenderScreen}
-          options={hideHeader}
+          options={hideAndDisable}
         />
         <Stack.Screen
           name="AddFriends"
           component={AddFriendsScreen}
-          options={hideHeader}
+          options={hideAndDisable}
         />
         <Stack.Screen name="User" component={UserScreen} options={hideHeader} />
         <Stack.Screen
           name="LogWater"
           component={LogWaterScreen}
-          options={hideHeader}
+          options={hideAndDisable}
         />
         <Stack.Screen
           name="CupSize"
           component={CupSizeScreen}
-          options={hideHeader}
+          options={hideAndDisable}
         />
       </Stack.Navigator>
     </NavigationContainer>

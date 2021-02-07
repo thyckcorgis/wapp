@@ -129,9 +129,6 @@ export default function UserScreen({ navigation }: UserScreenProps) {
         <TouchableOpacity onPress={() => navigation.navigate("Home")}>
           <HomeIcon />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("Friends")}>
-          <FriendsIcon />
-        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );

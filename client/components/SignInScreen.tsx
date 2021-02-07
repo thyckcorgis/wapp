@@ -5,6 +5,7 @@ import {
   View,
   TouchableOpacity,
   TextInput,
+  KeyboardAvoidingView
 } from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 import { LinearGradient } from "expo-linear-gradient";
@@ -36,7 +37,7 @@ export default function SignInScreen({ navigation }: SignInScreen) {
   }
 
   return (
-    <View style={Styles.screen}>
+    <KeyboardAvoidingView behavior='padding' style={Styles.screen}>
       <LinearGradient
         style={Styles.background}
         colors={[Colours.darkBlue, Colours.medBlue]}
@@ -68,7 +69,7 @@ export default function SignInScreen({ navigation }: SignInScreen) {
           Don't have an account? Sign up!
         </Text>
       </TouchableOpacity>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 

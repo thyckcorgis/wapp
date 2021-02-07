@@ -18,7 +18,7 @@ interface CalenderScreenProps {
   navigation: StackNavigationHelpers;
 }
 
-export default function AddFriendsScreen({ navigation }: CalenderScreenProps) {
+export default function CalenderScreen({ navigation }: CalenderScreenProps) {
   return (
     <SafeAreaView style={Styles.screen}>
       <LinearGradient

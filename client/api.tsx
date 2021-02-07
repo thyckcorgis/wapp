@@ -1,5 +1,4 @@
 import fetch from "axios";
-import { ExpoPushToken } from "expo-notifications";
 import { API_URL } from "./constants";
 
 export async function registerUser(

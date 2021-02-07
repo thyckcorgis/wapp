@@ -37,10 +37,10 @@ export default function WaterIntakeScreen({
     params: { daily, username },
   },
 }: WaterIntakeScreenProps) {
-  const [intake, setIntake] = useState(daily);
+  const [intake, setIntake] = useState(`${daily}`);
   async function addDailyIntake() {
-    const daily = intake;
-    const userData = { username, daily };
+    const dailyWater = Number(intake);
+    const userData = { username, dailyWater };
     const { data } = await fetch({
       headers: {
         Accept: "application/json",
@@ -75,16 +75,16 @@ export default function WaterIntakeScreen({
               Set your daily water intake goal.
             </Text>
             <Text style={{ ...Styles.title, ...styles.text }}>
-              Based on your information, your recomended intake is {intake}{" "}
+              Based on your information, your recomended intake is {daily}{" "}
               Litres. But you can change that to whatever you like!
             </Text>
             <TextInput
-              placeholder={String(42069)}
+              placeholder={daily.toString()}
               placeholderTextColor={Colours.medBlue}
-              onChangeText={(text) => setIntake(Number(text))}
+              onChangeText={(text) => setIntake(text)}
               value={String(intake)}
               style={styles.editField}
-              keyboardType="number-pad"
+              keyboardType="decimal-pad"
             />
             <TouchableOpacity
               onPress={addDailyIntake}

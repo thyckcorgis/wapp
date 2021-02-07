@@ -6,7 +6,7 @@ const router = Router();
 
 function createMessage(username: string, intake: number, goalMet: boolean) {
   if (goalMet) return `${username} just met their daily water intake goal!`;
-  return `${username} just drank ${intake} litres of water!`;
+  return `${username} just drank ${intake} mL of water!`;
 }
 
 interface LogReq {

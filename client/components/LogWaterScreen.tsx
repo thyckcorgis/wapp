@@ -22,7 +22,7 @@ interface LogWaterScreenProps {
   navigation: StackNavigationHelpers;
 }
 
-export default function ReminderScreen({ navigation }: LogWaterScreenProps) {
+export default function LogWaterScreen({ navigation }: LogWaterScreenProps) {
   const [username, setUsername] = useState("");
   const [cups, setCups] = useState<Cup[]>([]);
   useEffect(() => {
@@ -63,14 +63,17 @@ export default function ReminderScreen({ navigation }: LogWaterScreenProps) {
           Quickly add a cup:
         </Text>
         <ScrollView keyboardDismissMode="on-drag">
-          {cups.map(({ name, size }) => {
+          {cups.map(({ name, size }) => (
             <TouchableOpacity
               style={{ ...Styles.buttonShape, ...styles.cupButton }}
               onPress={async () => await logWater(Number(size))()}
+              key={name + size}
             >
-              <Text style={{ ...Styles.body, ...styles.cupText }}>: 0.1 L</Text>
-            </TouchableOpacity>;
-          })}
+              <Text style={{ ...Styles.body, ...styles.cupText }}>
+                {name}: {Number(size) / 1000} L
+              </Text>
+            </TouchableOpacity>
+          ))}
           <TouchableOpacity
             style={{ ...Styles.buttonShape, ...styles.addCupButton }}
             onPress={() => navigation.navigate("CupSize")}

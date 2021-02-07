@@ -77,6 +77,22 @@ class Users {
     this.saveFile();
     return user;
   }
+
+  addPendingRequest(username: string, pending: string) {
+    const user = this.getUser(username);
+    if (!user) return null;
+    user.pendingRequests.push(pending);
+    this.saveFile();
+    return user;
+  }
+
+  removePendingRequest(username: string, done: string) {
+    const user = this.getUser(username);
+    if (!user) return null;
+    user.pendingRequests = user.pendingRequests.filter((u) => u !== done);
+    this.saveFile();
+    return user;
+  }
 }
 
 export interface LoginReq {
@@ -93,6 +109,7 @@ export interface User extends UserReq {
   currentIntake: number;
   expoPushToken?: ExpoPushToken;
   friends: string[];
+  pendingRequests: string[];
 }
 
 export default new Users("./users.json");

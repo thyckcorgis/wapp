@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { friendRequestNotification } from "src/notifications";
 import users from "../userdb";
 
 const router = Router();
@@ -8,10 +9,6 @@ interface FriendReq {
   friend: string;
 }
 
-function sendFriendRequest(username: string, friend: string) {
-  console.log("Send friend request here");
-  console.log({ username, friend });
-}
 /*
 body:
 {
@@ -22,15 +19,37 @@ body:
 router.post("/request", (req, res) => {
   const { username, friend } = req.body as FriendReq;
   // send notification to friend
-  sendFriendRequest(username, friend);
-  res.json({ ok: true, message: "Request sent" });
+  const user = users.getUser(friend);
+  if (!user) {
+    res.json({ ok: false, message: "User not found" });
+  } else {
+    users.addPendingRequest(friend, username);
+    friendRequestNotification(username, user, "send");
+    res.json({ ok: true, message: "Request sent" });
+  }
 });
 
 router.post("/accept", (req, res) => {
   const { username, friend } = req.body as FriendReq;
-  // send notification to
-  users.connectFriends(username, friend);
-  res.json({ ok: true, message: "Added friend" });
+  const user = users.getUser(friend);
+  if (!user) {
+    res.json({ ok: false, message: "User not found" });
+  } else {
+    users.connectFriends(username, friend);
+    users.removePendingRequest(username, friend);
+    friendRequestNotification(username, user, "accept");
+    res.json({ ok: true, message: "Friend request accepted" });
+  }
+});
+
+router.post("/pending", (req, res) => {
+  const username = req.body.username as string;
+  const user = users.getUser(username);
+  if (!user) {
+    res.json({ ok: false, message: "User not found" });
+  } else {
+    res.json({ ok: true, pending: user.pendingRequests });
+  }
 });
 
 router.get("/", (_, res) => {

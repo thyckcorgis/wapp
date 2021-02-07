@@ -45,3 +45,42 @@ export async function loginUser(username: string, password: string) {
   });
   return data;
 }
+
+export async function getPendingRequests(username: string) {
+  const { data } = await fetch({
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json;charset=UTF-8",
+    },
+    url: `${API_URL}/friend/pending`,
+    data: { username },
+    method: "POST",
+  });
+  return data.pending;
+}
+
+export async function sendFriendRequest(username: string, friend: string) {
+  const { data } = await fetch({
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json;charset=UTF-8",
+    },
+    url: `${API_URL}/friend/request`,
+    data: { username, friend },
+    method: "POST",
+  });
+  return data;
+}
+
+export async function acceptFriendRequest(username: string, friend: string) {
+  const { data } = await fetch({
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json;charset=UTF-8",
+    },
+    url: `${API_URL}/friend/accept`,
+    data: { username, friend },
+    method: "POST",
+  });
+  return data;
+}

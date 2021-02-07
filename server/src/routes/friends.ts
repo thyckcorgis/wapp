@@ -54,7 +54,9 @@ router.post("/pending", (req, res) => {
 });
 
 router.get("/", (_, res) => {
-  res.json({ users: users.getAllUsers() });
+  const allUsers = users.getAllUsers();
+  console.log(allUsers);
+  res.json({ users: allUsers });
 });
 
 export default router;

@@ -99,9 +99,6 @@ export default function RegisterScreen({ navigation }: RegisterScreenProps) {
         style={Styles.background}
         colors={[Colours.lightBlue, Colours.yellow]}
       />
-      <TouchableOpacity onPress={() => navigation.navigate("Intake")}>
-        <Text>Next</Text>
-      </TouchableOpacity>
       <TouchableOpacity onPress={() => registerUser()}>
         <Text style={{ ...Styles.title, ...styles.titleText }}>
           Who are you?

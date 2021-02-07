@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import {
   Text,
   StyleSheet,
@@ -15,63 +15,49 @@ import Colours from "../styles/colours";
 
 import { HomeIcon } from "../assets";
 
-interface CalenderScreenProps {
+interface CalendarScreenProps {
   navigation: StackNavigationHelpers;
 }
 
-export default class CalenderScreen extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selectedStartDate: null,
-    };
-    this.onDateChange = this.onDateChange.bind(this);
-  }
+export default function CalendarScreen({ navigation }: CalendarScreenProps) {
+  const [date, setDate] = useState<moment.Moment | null>(null);
 
-  onDateChange(date) {
-    this.setState({
-      selectedStartDate: date,
-    });
-  }
-  render() {
-    const { selectedStartDate } = this.state;
-    const startDate = selectedStartDate ? selectedStartDate.toString() : "";
-    return (
-      <SafeAreaView style={Styles.screen}>
-        <LinearGradient
-          style={Styles.background}
-          colors={[Colours.darkBlue, Colours.medBlue]}
+  const startDate = date?.toString() || "";
+  return (
+    <SafeAreaView style={Styles.screen}>
+      <LinearGradient
+        style={Styles.background}
+        colors={[Colours.darkBlue, Colours.medBlue]}
+      />
+      <View style={styles.calendarBox}>
+        <CalendarPicker
+          onDateChange={(date) => setDate(date)}
+          startFromMonday={true}
+          todayBackgroundColor={Colours.darkBlue}
+          todayTextStyle={styles.today}
+          selectedDayColor={Colours.yellow}
+          selectedDayTextColor={Colours.darkBlue}
+          textStyle={{ ...Styles.body, ...styles.text }}
+          monthTitleStyle={Styles.title}
+          yearTitleStyle={Styles.title}
+          dayLabelsWrapper={styles.divider}
         />
-        <View style={styles.calendarBox}>
-          <CalendarPicker
-            onDateChange={this.onDateChange}
-            startFromMonday={true}
-            todayBackgroundColor={Colours.darkBlue}
-            todayTextStyle={styles.today}
-            selectedDayColor={Colours.yellow}
-            selectedDayTextColor={Colours.darkBlue}
-            textStyle={{ ...Styles.body, ...styles.text }}
-            monthTitleStyle={Styles.title}
-            yearTitleStyle={Styles.title}
-            dayLabelsWrapper={styles.divider}
-          />
-          <View style={styles.infoBox}>
-            <Text style={{ ...Styles.body, ...styles.infoHeader }}>
-              SELECTED DATE:
-            </Text>
-            <Text style={{ ...Styles.body, ...styles.infoText }}>
-              {startDate}
-            </Text>
-          </View>
+        <View style={styles.infoBox}>
+          <Text style={{ ...Styles.body, ...styles.infoHeader }}>
+            SELECTED DATE:
+          </Text>
+          <Text style={{ ...Styles.body, ...styles.infoText }}>
+            {startDate}
+          </Text>
         </View>
-        <View style={{ ...Styles.navBar }}>
-          <TouchableOpacity onPress={this.props.navigation.navigate("Home")}>
-            <HomeIcon />
-          </TouchableOpacity>
-        </View>
-      </SafeAreaView>
-    );
-  }
+      </View>
+      <View style={{ ...Styles.navBar }}>
+        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+          <HomeIcon />
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({

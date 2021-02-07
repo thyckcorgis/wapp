@@ -25,7 +25,7 @@ export default function TipsModal() {
         }}
       >
         <View style={styles.centeredView}>
-          <View style={styles.modalView} opacity={0.9}>
+          <View style={styles.modalView} /*opacity={0.9}*/>
             <Text style={{ ...Styles.title, ...styles.modalTitle }}>
               Tip of the day:{" "}
             </Text>
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
   },
   modalView: {
     marginHorizontal: 40,
-    height: "30%",
+    height: "40%",
     backgroundColor: Colours.yellow,
     borderRadius: 20,
     padding: 40,

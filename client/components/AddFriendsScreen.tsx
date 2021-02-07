@@ -102,9 +102,7 @@ export default function AddFriendsScreen({
           Add New Friends
         </Text>
         <View style={styles.friendsBox}>
-          <Text style={{ ...Styles.body, ...styles.headerText }}>
-            Other Users:
-          </Text>
+          <Text style={{ ...Styles.body, ...styles.title }}>Other Users:</Text>
           {users.map(({ username, name }) => (
             <View style={styles.friendBox} key={username}>
               <View style={styles.name}>
@@ -135,7 +133,7 @@ export default function AddFriendsScreen({
           ))}
         </View>
         <View style={styles.friendsBox}>
-          <Text style={{ ...Styles.body, ...styles.headerText }}>
+          <Text style={{ ...Styles.body, ...styles.title }}>
             Pending requests:
           </Text>
           {pendingRequests.map(({ username, name }) => (
@@ -184,8 +182,7 @@ const styles = StyleSheet.create({
   friendsBox: {
     flex: 1,
     margin: 20,
-    // height: 400,
-    borderWidth: 1,
+    // borderWidth: 1,
   },
   friendBox: {
     width: "100%",

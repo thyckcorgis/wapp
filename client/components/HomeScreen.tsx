@@ -24,9 +24,11 @@ import {
   HomeIcon,
   FriendsIcon,
 } from "../assets";
-import { getData } from "../storage";
+import { getData, storeData } from "../storage";
+import { poll } from "../api";
 
 interface User {
+  username: string;
   daily: number;
   currentIntake: number;
 }
@@ -40,6 +42,13 @@ interface HomeScreenProps {
 }
 
 const getPercentage = (a: number, b: number) => Math.min(100, (a / b) * 100);
+
+async function pollUser() {
+  const { username } = (await getData("user")) as User;
+  if (!username) return false;
+  const user = await poll(username);
+  await storeData("user", user);
+}
 
 export default function HomeScreen({
   navigation,
@@ -59,9 +68,13 @@ export default function HomeScreen({
       }
     })();
   }
-  if (refresh) refreshGoal();
+  if (refresh) {
+    pollUser();
+    refreshGoal();
+  }
 
   useEffect(() => {
+    pollUser();
     refreshGoal();
   }, [refresh, setCurrentIntake, setDaily]);
   return (
@@ -99,7 +112,7 @@ export default function HomeScreen({
           </TouchableOpacity>
         </ProgressCircle>
         <Text style={{ ...Styles.body, ...styles.headerText }}>
-          {currentIntake} / {daily}
+          {currentIntake.toFixed(2)} / {daily.toFixed(2)}
         </Text>
       </View>
       <View style={Styles.navBar}>

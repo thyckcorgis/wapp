@@ -56,6 +56,7 @@ export default function SignInScreen({ navigation }: SignInScreen) {
         value={password}
         placeholderTextColor={Colours.yellow}
         style={{ ...Styles.inputField, ...styles.inputField }}
+        secureTextEntry
       />
       <Text style={Styles.error}>{error}</Text>
       <TouchableOpacity

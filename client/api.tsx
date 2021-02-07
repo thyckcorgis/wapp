@@ -45,7 +45,7 @@ export async function loginUser(username: string, password: string) {
 }
 
 export async function getPendingRequests(username: string) {
-  return (await post("/friend/pending", { username })).data.pending;
+  return (await fetch(`${API_URL}/friend/to-add/${username}`)).data.pending;
 }
 
 export async function sendFriendRequest(username: string, friend: string) {
@@ -57,9 +57,17 @@ export async function acceptFriendRequest(username: string, friend: string) {
 }
 
 export async function getNonFriends(username: string) {
-  return (await post("/friend/to-add", { username })).data.users;
+  return (await fetch(`${API_URL}/friend/to-add/${username}`)).data.users;
 }
 
 export async function getFriends(username: string) {
-  return (await post("/friend", { username })).data.users;
+  return (await fetch(`${API_URL}/friend/${username}`)).data.users;
+}
+
+export async function resetCurrentIntake(username: string) {
+  return (await fetch(`${API_URL}/log/reset/${username}`)).data.users;
+}
+
+export async function poll(username: string) {
+  return (await fetch(`${API_URL}/user/${username}`)).data.user;
 }

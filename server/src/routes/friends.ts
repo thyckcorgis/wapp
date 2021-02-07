@@ -45,9 +45,8 @@ router.post("/accept", (req, res) => {
   }
 });
 
-router.post("/pending", (req, res) => {
-  const username = req.body.username as string;
-  const user = users.getUser(username);
+router.get("/pending/:user", (req, res) => {
+  const user = users.getUser(req.params.user);
   if (!user) {
     res.json({ ok: false, message: "User not found" });
   } else {
@@ -59,8 +58,8 @@ router.post("/pending", (req, res) => {
 /**
  * Only sends users that haven't been added yet
  */
-router.post("/to-add", (req, res) => {
-  const user = users.getUser(req.body.username);
+router.get("/to-add/:user", (req, res) => {
+  const user = users.getUser(req.params.user);
   if (!user) {
     res.json({ ok: false, message: "User not found" });
   } else {
@@ -80,8 +79,8 @@ router.post("/to-add", (req, res) => {
   }
 });
 
-router.post("/", (req, res) => {
-  const user = users.getUser(req.body.username);
+router.get("/:user", (req, res) => {
+  const user = users.getUser(req.params.user);
   if (!user) {
     res.json({ ok: false, message: "User not found" });
   } else {

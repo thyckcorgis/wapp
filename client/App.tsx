@@ -1,12 +1,9 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import Notification from "./notifications";
+import { StyleSheet } from "react-native";
+import useNotifications from "./hooks/useNotifications";
 
 import { NavigationContainer } from "@react-navigation/native";
-import {
-  createStackNavigator,
-  StackCardInterpolator,
-} from "@react-navigation/stack";
+import { createStackNavigator } from "@react-navigation/stack";
 
 import {
   StartScreen,
@@ -24,16 +21,17 @@ import {
   CupSizeScreen,
   LitreboardsScreen,
 } from "./components";
-import { CalendarIcon } from "./assets";
+import { StackCardStyleInterpolator } from "react-navigation-stack";
 
 const Stack = createStackNavigator();
-const forFade: StackCardInterpolator = ({ current: { progress } }) => ({
+const forFade: StackCardStyleInterpolator = ({ current: { progress } }) => ({
   cardStyle: {
     opacity: progress,
   },
 });
 
 export default function App() {
+  const [notification] = useNotifications();
   const hideHeader = { headerShown: false };
   const disableSwipeBack = { gestureEnabled: false };
   const hideAndDisable = { ...hideHeader, ...disableSwipeBack };

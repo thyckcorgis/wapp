@@ -11,9 +11,8 @@ import {
   setNotificationChannelAsync,
   AndroidImportance,
   NotificationContentInput,
-  ExpoPushToken,
 } from "expo-notifications";
-import React, { useState, useEffect, useRef, MutableRefObject } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Text, View, Button, Platform } from "react-native";
 import { Subscription } from "@unimodules/core";
 
@@ -27,8 +26,11 @@ setNotificationHandler({
   }),
 });
 
+// Grabbed from documentation lmao
+
 export default function App() {
   const [expoPushToken, setExpoPushToken] = useState("");
+
   const [notification, setNotification] = useState<Notification>();
   const notificationListener = useRef<Subscription>();
   const responseListener = useRef<Subscription>();
@@ -59,7 +61,6 @@ export default function App() {
         removeNotificationSubscription(responseListener.current);
     };
   }, []);
-
   return (
     <View
       style={{

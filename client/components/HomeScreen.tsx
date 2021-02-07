@@ -48,7 +48,7 @@ export default function HomeScreen({ navigation, route }: HomeScreenProps) {
         <WappLogo />
       </View>
       <View style={{ ...Styles.navBar, ...styles.top }}>
-        <TouchableOpacity onPress={() => navigation.navigate("Users")}>
+        <TouchableOpacity onPress={() => navigation.navigate("User")}>
           <UserIcon />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("Calendar")}>

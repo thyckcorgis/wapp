@@ -96,6 +96,11 @@ router.post("/delete-token", (req, res) => {
   }
 });
 
+// for polling
+router.get("/:user", (req, res) => {
+  res.json({ user: users.getUser(req.params.user) });
+});
+
 router.get("/", (_, res) => {
   res.json({ users: users.users });
 });

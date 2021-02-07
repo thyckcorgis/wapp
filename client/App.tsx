@@ -65,7 +65,7 @@ export default function App() {
           options={hideHeader}
         />
         <Stack.Screen
-          name="Calendar"
+          name="Calender"
           component={CalenderScreen}
           options={hideHeader}
         />

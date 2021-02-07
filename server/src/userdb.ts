@@ -60,6 +60,14 @@ class Users {
     user1.friends.push(user2.username);
     user2.friends.push(user1.username);
   }
+
+  setDailyIntake(username: string, daily: number) {
+    const user = this.getUser(username);
+    if (!user) return null;
+    user.daily = daily;
+    this.saveFile();
+    return user;
+  }
 }
 
 export interface LoginReq {

@@ -1,9 +1,22 @@
-import * as Notifications from "expo-notifications";
+import {
+  Notification,
+  setNotificationHandler,
+  addNotificationReceivedListener,
+  addNotificationResponseReceivedListener,
+  removeNotificationSubscription,
+  scheduleNotificationAsync,
+  getPermissionsAsync,
+  requestPermissionsAsync,
+  getExpoPushTokenAsync,
+  setNotificationChannelAsync,
+  AndroidImportance,
+  NotificationContentInput,
+} from "expo-notifications";
 import React, { useState, useEffect, useRef, MutableRefObject } from "react";
 import { Text, View, Button, Platform } from "react-native";
 import { Subscription } from "@unimodules/core";
 
-Notifications.setNotificationHandler({
+setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
     shouldPlaySound: false,
@@ -13,9 +26,7 @@ Notifications.setNotificationHandler({
 
 export default function App() {
   const [expoPushToken, setExpoPushToken] = useState("");
-  const [notification, setNotification] = useState<
-    Notifications.Notification | false
-  >(false);
+  const [notification, setNotification] = useState<Notification>();
   const notificationListener = useRef<Subscription>();
   const responseListener = useRef<Subscription>();
 
@@ -25,13 +36,13 @@ export default function App() {
       if (!token) return;
       setExpoPushToken(token);
 
-      notificationListener.current = Notifications.addNotificationReceivedListener(
+      notificationListener.current = addNotificationReceivedListener(
         (notification) => {
           setNotification(notification);
         }
       );
 
-      responseListener.current = Notifications.addNotificationResponseReceivedListener(
+      responseListener.current = addNotificationResponseReceivedListener(
         (response) => {
           console.log(response);
         }
@@ -40,11 +51,9 @@ export default function App() {
 
     return () => {
       if (notificationListener.current)
-        Notifications.removeNotificationSubscription(
-          notificationListener.current
-        );
+        removeNotificationSubscription(notificationListener.current);
       if (responseListener.current)
-        Notifications.removeNotificationSubscription(responseListener.current);
+        removeNotificationSubscription(responseListener.current);
     };
   }, []);
 
@@ -70,42 +79,48 @@ export default function App() {
       <Button
         title="Press to schedule a notification"
         onPress={async () => {
-          await schedulePushNotification();
+          await schedulePushNotification({ title: "hi" }, 0.02);
         }}
       />
     </View>
   );
 }
 
-async function schedulePushNotification() {
-  await Notifications.scheduleNotificationAsync({
-    content: {
-      title: "You've got mail! 📬",
-      body: "Here is the notification body",
-      data: { data: "goes here" },
-    },
-    trigger: { seconds: 2 },
+/*
+content: {
+  title: "You've got mail! 📬",
+  body: "Here is the notification body",
+  data: { data: "goes here" },
+}
+*/
+export async function schedulePushNotification(
+  content: NotificationContentInput,
+  minutes: number
+) {
+  await scheduleNotificationAsync({
+    content,
+    trigger: { seconds: minutes * 60 },
   });
 }
 
-async function registerForPushNotificationsAsync() {
+export async function registerForPushNotificationsAsync() {
   let token;
-  const { status: existingStatus } = await Notifications.getPermissionsAsync();
+  const { status: existingStatus } = await getPermissionsAsync();
   let finalStatus = existingStatus;
   if (existingStatus !== "granted") {
-    const { status } = await Notifications.requestPermissionsAsync();
+    const { status } = await requestPermissionsAsync();
     finalStatus = status;
   }
   if (finalStatus !== "granted") {
     alert("Failed to get push token for push notification!");
     return;
   }
-  token = (await Notifications.getExpoPushTokenAsync()).data;
+  token = (await getExpoPushTokenAsync()).data;
 
   if (Platform.OS === "android") {
-    Notifications.setNotificationChannelAsync("default", {
+    setNotificationChannelAsync("default", {
       name: "default",
-      importance: Notifications.AndroidImportance.MAX,
+      importance: AndroidImportance.MAX,
       vibrationPattern: [0, 250, 250, 250],
       lightColor: "#FF231F7C",
     });

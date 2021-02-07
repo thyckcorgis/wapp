@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 import { getData, storeData } from "../storage";
-import { setDailyIntake, uploadPushToken } from "../api";
+import { setDailyIntake, uploadPushToken, deletePushToken } from "../api";
 import { HomeIcon, FriendsIcon } from "../assets";
 
 import { LinearGradient } from "expo-linear-gradient";
@@ -43,6 +43,7 @@ export default function UserScreen({ navigation }: UserScreenProps) {
     } else {
       await uploadPushToken(username, token);
       setRegister("Success!");
+      deletePushToken(username)
       return token;
     }
   }

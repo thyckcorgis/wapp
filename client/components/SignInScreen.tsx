@@ -43,11 +43,8 @@ export default function SignInScreen({ navigation }: SignInScreen) {
       setError(data.message);
     } else {
       storeData("user", data.user);
+      navigation.navigate("Home");
     }
-  }
-
-  function nextScreen() {
-    navigation.navigate("Welcome");
   }
 
   return (

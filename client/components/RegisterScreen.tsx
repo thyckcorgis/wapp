@@ -72,6 +72,14 @@ export default function RegisterScreen({ navigation }: RegisterScreenProps) {
   const [error, setError] = useState("");
 
   async function register() {
+    if (
+      name === "" ||
+      username === "" ||
+      password === "" ||
+      password2 === "" ||
+      weight === ""
+    )
+      return;
     const daily = calculateDailyIntake(Number(weight), Number(activityLevel));
     const data = await registerUser(username, password, name, Number(daily));
     if (!data.ok) {

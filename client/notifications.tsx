@@ -11,10 +11,13 @@ import {
   setNotificationChannelAsync,
   AndroidImportance,
   NotificationContentInput,
+  ExpoPushToken,
 } from "expo-notifications";
 import React, { useState, useEffect, useRef, MutableRefObject } from "react";
 import { Text, View, Button, Platform } from "react-native";
 import { Subscription } from "@unimodules/core";
+
+import { uploadPushToken } from "./api";
 
 setNotificationHandler({
   handleNotification: async () => ({
@@ -80,6 +83,15 @@ export default function App() {
         title="Press to schedule a notification"
         onPress={async () => {
           await schedulePushNotification({ title: "hi" }, 0.02);
+        }}
+      />
+      <Button
+        title="Press to upload push token"
+        onPress={async () => {
+          await uploadPushToken(
+            "charles",
+            (await registerForPushNotificationsAsync()) as string
+          );
         }}
       />
     </View>

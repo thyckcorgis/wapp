@@ -38,6 +38,7 @@ export default function UserScreen({ navigation }: UserScreenProps) {
     const token = await registerForPushNotificationsAsync();
     if (!token) {
       console.log("YOU NEED NOTIFICATIONS FOR THIS");
+      setRegister("Failed!");
     } else {
       await uploadPushToken(username, token);
       setRegister("Success!");

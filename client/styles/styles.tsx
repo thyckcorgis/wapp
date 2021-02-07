@@ -30,12 +30,17 @@ const Styles = StyleSheet.create({
     flex: 1,
   },
   navBar: {
-    justifyContent: "center",
+    justifyContent: "space-between",
+    height: 100,
     width: Dimensions.get("window").width,
     flexDirection: "row",
     alignItems: "center",
-    borderWidth: 1,
-    borderColor: "black",
+    padding: "3%",
+  },
+  logoBox: {
+    position: "absolute",
+    left: Dimensions.get("window").width / 2 - 104.35 / 2,
+    top: 35,
   },
   // TEXT
   title: {

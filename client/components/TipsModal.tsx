@@ -1,90 +1,109 @@
 import React, { useState } from "react";
-import { Text, View, Alert, Modal, TouchableHighlight, StyleSheet } from "react-native";
+import {
+  Text,
+  View,
+  Modal,
+  TouchableHighlight,
+  StyleSheet,
+} from "react-native";
 
-
-// this is just straight from the react documentation
-
+import { TipsIcon } from "../assets/index";
+import Colours from "../styles/colours";
+import Styles from "../styles/styles";
 
 export default function TipsModal() {
-    const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
-    return (
+  return (
     <View style={styles.centeredView}>
       <Modal
         animationType="slide"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
           setModalVisible(false);
         }}
       >
         <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>Tip of the day: </Text>
-            <Text style={styles.modalText}>If you see a bathroom in a dream - DON'T USE IT! </Text>
-
+          <View style={styles.modalView} opacity={0.9}>
+            <Text style={{ ...Styles.title, ...styles.modalTitle }}>
+              Tip of the day:{" "}
+            </Text>
+            <View style={styles.tipBox}>
+              <Text style={{ ...Styles.body, ...styles.modalText }}>
+                If you see a bathroom in a dream - DON'T USE IT!{" "}
+              </Text>
+            </View>
 
             <TouchableHighlight
-              style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
+              style={{ ...styles.button, backgroundColor: Colours.medBlue }}
               onPress={() => {
                 setModalVisible(!modalVisible);
               }}
             >
-              <Text style={styles.textStyle}>Return</Text>
+              <Text style={{ ...Styles.body, ...styles.backText }}>Back</Text>
             </TouchableHighlight>
           </View>
         </View>
       </Modal>
 
       <TouchableHighlight
-        style={styles.openButton}
         onPress={() => {
           setModalVisible(true);
         }}
       >
-        <Text style={styles.textStyle}>Tips</Text>
+        <TipsIcon />
       </TouchableHighlight>
     </View>
-
-    )
+  );
 }
 
 const styles = StyleSheet.create({
-    centeredView: {
-      flex: 1,
-      justifyContent: "center",
-      alignItems: "center",
-      marginTop: 22
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalView: {
+    marginHorizontal: 40,
+    height: "30%",
+    backgroundColor: Colours.yellow,
+    borderRadius: 20,
+    padding: 40,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
     },
-    modalView: {
-      margin: 20,
-      backgroundColor: "white",
-      borderRadius: 20,
-      padding: 35,
-      alignItems: "center",
-      shadowColor: "#000",
-      shadowOffset: {
-        width: 0,
-        height: 2
-      },
-      shadowOpacity: 0.25,
-      shadowRadius: 3.84,
-      elevation: 5
-    },
-    openButton: {
-      backgroundColor: "#F194FF",
-      borderRadius: 20,
-      padding: 10,
-      elevation: 2
-    },
-    textStyle: {
-      color: "white",
-      fontWeight: "bold",
-      textAlign: "center"
-    },
-    modalText: {
-      marginBottom: 15,
-      textAlign: "center"
-    }
-  });
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  tipBox: {
+    flex: 1,
+    justifyContent: "center",
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    paddingHorizontal: 20,
+    elevation: 2,
+    alignSelf: "center",
+    width: "100%",
+  },
+  backText: {
+    color: Colours.yellow,
+    textAlign: "center",
+  },
+  modalText: {
+    marginBottom: 15,
+    fontSize: 20,
+    textAlign: "center",
+    color: Colours.darkBlue,
+  },
+  modalTitle: {
+    marginBottom: 15,
+    textAlign: "center",
+    color: Colours.darkBlue,
+  },
+});

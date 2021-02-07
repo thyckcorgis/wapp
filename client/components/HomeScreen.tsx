@@ -44,19 +44,29 @@ export default function HomeScreen({ navigation, route }: HomeScreenProps) {
         style={Styles.background}
         colors={[Colours.darkBlue, Colours.medBlue]}
       />
-      <View style={{ ...Styles.navBar, ...styles.top }}>
-        <UserIcon />
+      <View style={Styles.logoBox}>
         <WappLogo />
-        <CalendarIcon />
       </View>
-      <Text style={{ padding: 50 }}>This is the home screen</Text>
-      <TouchableOpacity onPress={() => navigation.navigate("Friends")}>
-        <Text style={{ padding: 50 }}>Go to friends screen</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate("Calender")}>
-        <Text style={{ padding: 50 }}>Go to calender screen</Text>
-      </TouchableOpacity>
-      <TipsModal />
+      <View style={{ ...Styles.navBar, ...styles.top }}>
+        <TouchableOpacity onPress={() => navigation.navigate("Users")}>
+          <UserIcon />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Calendar")}>
+          <CalendarIcon />
+        </TouchableOpacity>
+      </View>
+      <View style={Styles.bigButton}>
+        <DrinkButton />
+      </View>
+      <View style={Styles.navBar}>
+        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+          <HomeIcon />
+        </TouchableOpacity>
+        <TipsModal />
+        <TouchableOpacity onPress={() => navigation.navigate("Friends")}>
+          <FriendsIcon />
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 }

@@ -67,7 +67,7 @@ export default function CupSizeScreen({ navigation }: CupSizeScreenProps) {
             </TouchableOpacity>    
             {input("Name", name, setName, false)}
             {input("Size", size, setSize, true)}
-            <TouchableOpacity onPress={() => setCups({name, size})}>
+            <TouchableOpacity onPress={() => setCups([name, size])}>
                 <Text style={{padding:50}}>Add new cup</Text>
             </TouchableOpacity> 
             {cups.map(({ name, size }) => (

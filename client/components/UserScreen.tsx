@@ -84,14 +84,16 @@ export default function UserScreen({ navigation }: UserScreenProps) {
         style={Styles.background}
         colors={[Colours.darkBlue, Colours.medBlue]}
       />
-      <Text style={{ ...Styles.title, ...styles.title }}>Profile</Text>
+      <Text style={{ ...Styles.title, ...styles.title }}>
+        Profile: {username}
+      </Text>
       <ScrollView
         keyboardDismissMode="on-drag"
         contentContainerStyle={styles.profileBox}
       >
         <View style={styles.profileBox}>
           <Text style={{ ...Styles.body, ...styles.smallText }}>
-            Set new daily goal. Current daily goal is {intake} L
+            Edit your daily goal. Your current daily goal is {intake} L
           </Text>
           <TextInput
             style={{ ...Styles.inputField, ...styles.goalInput }}
@@ -180,6 +182,7 @@ const styles = StyleSheet.create({
   },
   smallText: {
     textAlign: "center",
+    fontSize: 20,
     color: Colours.yellow,
   },
 });

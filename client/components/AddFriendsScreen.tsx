@@ -27,17 +27,19 @@ export default function AddFriendsScreen({
   const [users, setUsers] = useState<User[]>([]);
   const [pendingRequests, setPendingRequests] = useState<User[]>([]);
 
-  useEffect(() => {
-    (async () => {
-      const user = (await getData("user")) as User;
-      if (user == null) return;
-      const { username } = user;
+  async function fetchAllData() {
+    const user = (await getData("user")) as User;
+    if (user == null) return;
+    const { username } = user;
 
-      setUsername(username);
-      let res = await fetch(`${API_URL}/friend/`);
-      setUsers(res.data.users);
-      setPendingRequests(await getPendingRequests(username));
-    })();
+    setUsername(username);
+    let res = await fetch(`${API_URL}/friend/`);
+    setUsers(res.data.users);
+    setPendingRequests(await getPendingRequests(username));
+  }
+
+  useEffect(() => {
+    fetchAllData();
   }, [setUsername, setUsers, setPendingRequests]);
 
   function addFriend(friend: string) {
@@ -60,6 +62,9 @@ export default function AddFriendsScreen({
 
   return (
     <View>
+      <TouchableOpacity onPress={() => fetchAllData()}>
+        <Text style={{ padding: 50 }}>refresh</Text>
+      </TouchableOpacity>
       <Text style={{ padding: 50 }}>This is the add friends screen</Text>
       <TouchableOpacity onPress={() => navigation.navigate("Friends")}>
         <Text style={{ padding: 50 }}>go back</Text>

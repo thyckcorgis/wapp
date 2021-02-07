@@ -91,7 +91,7 @@ export async function getNonFriends(username: string) {
       Accept: "application/json",
       "Content-Type": "application/json;charset=UTF-8",
     },
-    url: `${API_URL}/friend/`,
+    url: `${API_URL}/friend`,
     data: { username },
     method: "POST",
   });

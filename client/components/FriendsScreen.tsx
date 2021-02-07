@@ -23,10 +23,11 @@ interface FriendsScreenProps {
 interface User {
   username: string;
   name: string;
-}
+} 
 
 export default function FriendsScreen({ navigation }: FriendsScreenProps) {
   const [friends, setFriends] = useState([]);
+  
   useEffect(() => {
     (async () => {
       const user = (await getData("user")) as User;
@@ -35,6 +36,7 @@ export default function FriendsScreen({ navigation }: FriendsScreenProps) {
       setFriends(friends);
     })();
   }, [setFriends]);
+
   return (
     <SafeAreaView style={Styles.screen}>
       <LinearGradient
@@ -47,12 +49,22 @@ export default function FriendsScreen({ navigation }: FriendsScreenProps) {
           style={{ ...Styles.buttonShape, ...styles.addButton }}
           onPress={() => navigation.navigate("AddFriends")}
         >
-          <Text style={{ ...Styles.body, ...styles.addText }}>
-            Add friends +
-          </Text>
         </TouchableOpacity>
         <ScrollView contentContainerStyle={styles.friendsList}>
           <Text>#1 Friend</Text>
+          {friends.map(({ username, name }) => (
+            <View key={username}>
+              <Text>
+                Name: {name} Username: {username}
+              </Text>
+              {/* <TouchableOpacity
+                style={styles.smallButton}
+                onPress={() => addFriend(username)()}
+              >
+                <Text>Add Friend</Text>
+              </TouchableOpacity> */}
+            </View>
+          ))}
         </ScrollView>
       </View>
       <View style={{ ...Styles.navBar }}>

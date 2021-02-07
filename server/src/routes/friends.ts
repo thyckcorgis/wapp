@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { friendRequestNotification } from "src/notifications";
+import { friendRequestNotification } from "../notifications";
 import users from "../userdb";
 
 const router = Router();

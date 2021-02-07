@@ -62,9 +62,14 @@ router.post("/", (req, res) => {
     res.json({ ok: false, message: "User not found" });
   } else {
     let allUsers = users.getAllUsers();
-    const { friends } = user;
+    const { friends, pendingRequests } = user;
     allUsers = allUsers.filter(
-      (u) => !friends.includes(u.username) && u.username !== user.username
+      ({ username }) =>
+        !(
+          friends.includes(username) ||
+          pendingRequests.includes(username) ||
+          username === user.username
+        )
     );
     console.log(allUsers);
     res.json({ users: allUsers });

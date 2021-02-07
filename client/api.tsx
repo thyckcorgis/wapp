@@ -45,7 +45,7 @@ export async function loginUser(username: string, password: string) {
 }
 
 export async function getPendingRequests(username: string) {
-  return (await fetch(`${API_URL}/friend/to-add/${username}`)).data.pending;
+  return (await fetch(`${API_URL}/friend/pending/${username}`)).data.pending;
 }
 
 export async function sendFriendRequest(username: string, friend: string) {

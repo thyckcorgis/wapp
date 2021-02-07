@@ -2,6 +2,23 @@
 import { ExpoPushToken } from "expo-server-sdk";
 import { readFileSync, writeFileSync } from "fs";
 
+export function newUser(
+  username: string,
+  password: string,
+  name: string,
+  daily: number
+): User {
+  return {
+    username,
+    password,
+    name,
+    daily,
+    currentIntake: 0,
+    pendingRequests: [],
+    friends: [],
+  };
+}
+
 class Users {
   users: User[];
   filePath: string;

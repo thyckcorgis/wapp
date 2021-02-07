@@ -9,7 +9,7 @@ import {
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 import { LinearGradient } from "expo-linear-gradient";
 import { getData } from "../storage";
-import { getFriends } from "../api";
+import { getFriends, getLitreBoard } from "../api";
 
 import Styles from "../styles/styles";
 import Colours from "../styles/colours";
@@ -28,16 +28,16 @@ interface User {
 export default function LitreboardsScreen({
   navigation,
 }: LitreboardsScreenProps) {
-  const [friends, setFriends] = useState([]);
+  const [litreboard, setLitreBoard] = useState([]);
 
   useEffect(() => {
     (async () => {
       const user = (await getData("user")) as User;
       if (user == null) return navigation.navigate("SignIn");
-      const friends = await getFriends(user.username);
-      setFriends(friends);
+      const litreboard = await getLitreBoard(user.username);
+      setLitreBoard(litreboard);
     })();
-  }, [setFriends]);
+  }, [setLitreBoard]);
 
   return (
     <SafeAreaView style={Styles.screen}>
@@ -56,26 +56,28 @@ export default function LitreboardsScreen({
           </Text>
         </TouchableOpacity>
         <ScrollView contentContainerStyle={styles.friendsList}>
-          {friends.map(({ username, name }) => (
-            <View key={username} style={styles.friendBox}>
-              <View style={styles.name}>
-                <Text style={{ ...Styles.body, ...styles.headerText }}>
-                  Name:{" "}
-                </Text>
-                <Text style={{ ...Styles.body, ...styles.friendText }}>
-                  {name}
-                </Text>
+          {litreboard.map(
+            ({ username, name, currentIntake, daily, percentage }) => (
+              <View key={username} style={styles.friendBox}>
+                <View style={styles.name}>
+                  <Text style={{ ...Styles.body, ...styles.headerText }}>
+                    Name:{" "}
+                  </Text>
+                  <Text style={{ ...Styles.body, ...styles.friendText }}>
+                    {name}
+                  </Text>
+                </View>
+                <View style={styles.name}>
+                  <Text style={{ ...Styles.body, ...styles.headerText }}>
+                    Username:{" "}
+                  </Text>
+                  <Text style={{ ...Styles.body, ...styles.friendText }}>
+                    {username}
+                  </Text>
+                </View>
               </View>
-              <View style={styles.name}>
-                <Text style={{ ...Styles.body, ...styles.headerText }}>
-                  Username:{" "}
-                </Text>
-                <Text style={{ ...Styles.body, ...styles.friendText }}>
-                  {username}
-                </Text>
-              </View>
-            </View>
-          ))}
+            )
+          )}
         </ScrollView>
       </View>
       <View style={{ ...Styles.navBar }}>

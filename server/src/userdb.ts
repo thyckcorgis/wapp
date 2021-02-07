@@ -138,6 +138,14 @@ class Users {
     this.users.forEach((u) => (u.currentIntake = 0));
     this.saveFile();
   }
+
+  getAllFriends(username: string) {
+    let allFriends: User[] = [];
+    this.modifyUser(username, (user) => {
+      allFriends = this.filterUsers(user.friends);
+    });
+    return allFriends;
+  }
 }
 
 export interface LoginReq {

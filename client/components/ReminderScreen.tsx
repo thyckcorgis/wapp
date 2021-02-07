@@ -26,7 +26,7 @@ export default function ReminderScreen({ navigation }: ReminderScreenProps) {
   const [sleepTime, setSleepTime] = useState(false);
   const toggleSleep = () => setSleepTime(!sleepTime);
 
-  const [time, setTime] = useState(new Time(1234567890));
+  //   const [time, setTime] = useState(new Time(1234567890));
 
   //   const setWake = (event, selectedTime) => {
   //     const currentTime = selectedTime || time;
@@ -63,13 +63,13 @@ export default function ReminderScreen({ navigation }: ReminderScreenProps) {
             value={wakeTime}
           />
           <View>
-            <RNDateTimePicker
+            {/* <RNDateTimePicker
               testID="dateTimePicker"
               value={time}
               mode="time"
               is24Hour={false}
               //   onChange={setWake}
-            />
+            /> */}
           </View>
         </View>
       </View>

@@ -58,11 +58,7 @@ export default function App() {
           component={WelcomeScreen}
           options={hideHeader}
         />
-        <Stack.Screen
-          name="Home"
-          component={ReminderScreen}
-          options={hideHeader}
-        />
+        <Stack.Screen name="Home" component={HomeScreen} options={hideHeader} />
         <Stack.Screen
           name="Friends"
           component={FriendsScreen}

@@ -33,7 +33,6 @@ const input = (
   value: string,
   setValue: React.Dispatch<React.SetStateAction<string>>,
   numberPad: boolean
-  //style?:
 ) => (
   <View>
     <Text>{placeholder + ":"}</Text>
@@ -46,7 +45,6 @@ export default function CupSizeScreen({ navigation }: CupSizeScreenProps) {
   const [name, setName] = useState("");
   const [size, setSize] = useState("");
 
-  
   function addCup() {
     if (name === "" || size === "") return;
     setCups((c) => [...c, { name, size }]);

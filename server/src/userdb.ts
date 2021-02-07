@@ -55,12 +55,19 @@ class Users {
     return this.users.filter((u) => usernames.includes(u.username));
   }
 
-  addWaterIntake(username: string, water: number) {
+  modifyUser(username: string, callBack: (user: User) => void) {
     const user = this.getUser(username);
-    if (user == null) return;
-    user.currentIntake += water;
-    const metGoal = user.currentIntake >= user.daily;
-    this.saveFile();
+    if (!user) return null;
+    callBack(user);
+    return user;
+  }
+
+  addWaterIntake(username: string, water: number) {
+    let metGoal = false;
+    this.modifyUser(username, (user) => {
+      user.currentIntake += water;
+      metGoal = user.currentIntake >= user.daily;
+    });
     return metGoal;
   }
 
@@ -85,35 +92,27 @@ class Users {
   }
 
   setDailyIntake(username: string, daily: number) {
-    const user = this.getUser(username);
-    if (!user) return null;
-    user.daily = daily;
-    this.saveFile();
-    return user;
+    return this.modifyUser(username, (user) => {
+      user.daily = daily;
+    });
   }
 
   setPushToken(username: string, expoPushToken: ExpoPushToken) {
-    const user = this.getUser(username);
-    if (!user) return null;
-    user.expoPushToken = expoPushToken;
-    this.saveFile();
-    return user;
+    return this.modifyUser(username, (user) => {
+      user.expoPushToken = expoPushToken;
+    });
   }
 
   addPendingRequest(username: string, pending: string) {
-    const user = this.getUser(username);
-    if (!user) return null;
-    user.pendingRequests.push(pending);
-    this.saveFile();
-    return user;
+    return this.modifyUser(username, (user) => {
+      user.pendingRequests.push(pending);
+    });
   }
 
   removePendingRequest(username: string, done: string) {
-    const user = this.getUser(username);
-    if (!user) return null;
-    user.pendingRequests = user.pendingRequests.filter((u) => u !== done);
-    this.saveFile();
-    return user;
+    return this.modifyUser(username, (user) => {
+      user.pendingRequests = user.pendingRequests.filter((u) => u !== done);
+    });
   }
 }
 

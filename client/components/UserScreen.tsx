@@ -38,7 +38,9 @@ export default function UserScreen({ navigation }: UserScreenProps) {
   }
 
   async function updateIntake() {
+    if (newIntake === "" || Number(newIntake) <= 0) return;
     const data = await setDailyIntake(username, Number(newIntake));
+    setIntake(newIntake);
     if (!data.ok) {
       console.log(data.messsage);
     } else {
@@ -51,7 +53,7 @@ export default function UserScreen({ navigation }: UserScreenProps) {
       const user = (await getData("user")) as User;
       if (!user) return navigation.navigate("SignIn");
       setUsername(user.username);
-      setIntake(user.daily.toPrecision(1));
+      setIntake(user.daily.toFixed(1));
     })();
   }, [setUsername, setIntake]);
 

@@ -17,10 +17,8 @@ import { LinearGradient } from "expo-linear-gradient";
 import Styles from "../styles/styles";
 import Colours from "../styles/colours";
 import { Route } from "@react-navigation/core";
-import { API_URL } from "../constants";
-import fetch from "axios";
 import { storeData } from "../storage";
-import setDailyIntake from "../setDailyIntake";
+import { setDailyIntake } from "../api";
 
 interface WaterIntakeParams {
   username: string;

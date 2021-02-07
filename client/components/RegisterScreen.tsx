@@ -20,6 +20,7 @@ import { Picker } from "@react-native-picker/picker";
 
 import { useState } from "react";
 import fetch from "axios";
+import { registerUser } from "../api";
 
 interface RegisterScreenProps {
   navigation: StackNavigationHelpers;
@@ -29,7 +30,6 @@ interface RegisterScreenProps {
 // if you drink this many ounces of water a day you will die so don't do that
 const calculateDailyIntake = (weight: number, activityLevel: number) => {
   return (weight * 0.015 + activityLevel * 0.2).toFixed(1);
-  ;
 };
 
 const textField = (
@@ -72,18 +72,9 @@ export default function RegisterScreen({ navigation }: RegisterScreenProps) {
   const [activityLevel, setActivityLevel] = useState("");
   const [error, setError] = useState("");
 
-  async function registerUser() {
+  async function register() {
     const daily = calculateDailyIntake(Number(weight), Number(activityLevel));
-    const userData = { username, name, daily, password };
-    const { data } = await fetch({
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json;charset=UTF-8",
-      },
-      url: `${API_URL}/user/register`,
-      data: userData,
-      method: "POST",
-    });
+    const data = await registerUser(username, password, name, Number(daily));
     if (!data.ok) {
       setError(data.message);
       console.log(data.messsage);
@@ -99,7 +90,7 @@ export default function RegisterScreen({ navigation }: RegisterScreenProps) {
         style={Styles.background}
         colors={[Colours.lightBlue, Colours.yellow]}
       />
-      <TouchableOpacity onPress={() => registerUser()}>
+      <TouchableOpacity onPress={() => register()}>
         <Text style={{ ...Styles.title, ...styles.titleText }}>
           Who are you?
         </Text>
@@ -134,7 +125,7 @@ export default function RegisterScreen({ navigation }: RegisterScreenProps) {
         </View>
         <Text style={Styles.error}>{error}</Text>
         <TouchableOpacity
-          onPress={() => registerUser()}
+          onPress={() => register()}
           style={{ ...Styles.buttonShape, ...styles.submitButton }}
         >
           <Text style={{ ...Styles.body, ...styles.submitText }}>Submit</Text>

@@ -112,7 +112,7 @@ export default function HomeScreen({
           </TouchableOpacity>
         </ProgressCircle>
         <Text style={{ ...Styles.body, ...styles.headerText }}>
-          {currentIntake.toFixed(2)} / {daily.toFixed(2)}
+          {currentIntake.toFixed(2)} / {daily.toFixed(2)} L
         </Text>
       </View>
       <View style={Styles.navBar}>

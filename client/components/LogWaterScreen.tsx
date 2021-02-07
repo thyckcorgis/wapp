@@ -100,7 +100,7 @@ export default function LogWaterScreen({
               width: 100,
             }}
           >
-            <Text style={{ ...styles.smallText }}>Submit</Text>
+            <Text style={{ ...Styles.body, ...styles.submitText }}>Submit</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -184,6 +184,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Colours.yellow,
     borderRadius: 20,
+    color: Colours.yellow,
     height: 50,
     width: 100,
     marginVertical: 10,
@@ -192,8 +193,14 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   submitButton: {
-    borderColor: Colours.yellow,
-    borderWidth: 1,
+    // borderColor: Colours.yellow,
+    // borderWidth: 1,
+    backgroundColor: Colours.yellow,
     marginVertical: 10,
+    marginHorizontal: 10,
+  },
+  submitText: {
+    color: Colours.darkBlue,
+    textAlign: "center",
   },
 });

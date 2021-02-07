@@ -100,11 +100,9 @@ export default function RegisterScreen({ navigation }: RegisterScreenProps) {
         style={Styles.background}
         colors={[Colours.lightBlue, Colours.yellow]}
       />
-      <TouchableOpacity onPress={() => register()}>
-        <Text style={{ ...Styles.title, ...styles.titleText }}>
-          Who are you?
-        </Text>
-      </TouchableOpacity>
+      {/* <TouchableOpacity onPress={() => register()}> */}
+      <Text style={{ ...Styles.title, ...styles.titleText }}>Who are you?</Text>
+      {/* </TouchableOpacity> */}
 
       <ScrollView
         keyboardDismissMode="on-drag"
@@ -114,7 +112,7 @@ export default function RegisterScreen({ navigation }: RegisterScreenProps) {
         {input("Name", name, setName, false)}
         {input("Username", username, setUsername, false)}
         {input("Password", password, setPassword, false, true)}
-        {input("Repeat Password", password2, setPassword2, false, true)}
+        {input("Confirm Password", password2, setPassword2, false, true)}
         {input("Weight", weight, setWeight, true)}
         <Text style={{ ...Styles.body, ...styles.activityText }}>
           Activity Level
@@ -123,6 +121,7 @@ export default function RegisterScreen({ navigation }: RegisterScreenProps) {
           <Picker
             mode="dropdown"
             selectedValue={activityLevel}
+            itemStyle={{ ...Styles.body, ...styles.pickerItems }}
             style={{ width: "100%" }}
             onValueChange={(itemValue) => setActivityLevel(itemValue as string)}
           >
@@ -173,16 +172,16 @@ const styles = StyleSheet.create({
   titleText: {
     textAlign: "center",
     color: Colours.darkBlue,
-    marginTop: 50,
+    marginVertical: 30,
   },
   activityText: {
     textAlign: "center",
-    color: Colours.medBlue,
+    color: Colours.darkBlue,
     fontSize: 20,
   },
   headerText: {
     textAlign: "left",
-    color: Colours.medBlue,
+    color: Colours.darkBlue,
     fontSize: 20,
   },
   submitText: {
@@ -192,5 +191,9 @@ const styles = StyleSheet.create({
   submitButton: {
     backgroundColor: Colours.medBlue,
     marginVertical: 10,
+  },
+  pickerItems: {
+    color: Colours.darkBlue,
+    fontSize: 14,
   },
 });

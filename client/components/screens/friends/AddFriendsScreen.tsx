@@ -6,6 +6,7 @@ import {
   RefreshControl,
   ScrollView,
   TouchableOpacity,
+  TextInput,
 } from "react-native";
 
 import { Colours, Styles } from "../../../styles";
@@ -53,6 +54,8 @@ export default function AddFriendsScreen({ navigation }: ScreenProps) {
   const [username, setUsername] = useState("");
   const [users, setUsers] = useState<User[]>([]);
   const [pendingRequests, setPendingRequests] = useState<User[]>([]);
+  const [search, setSearch] = useState("");
+  console.log(users);
 
   function fetchAllData() {
     (async () => {
@@ -109,6 +112,21 @@ export default function AddFriendsScreen({ navigation }: ScreenProps) {
         <Text style={{ ...Styles.title, ...styles.title }}>
           Add New Friends
         </Text>
+        <Text>Search</Text>
+        <TextInput
+          //style={styles.}
+          placeholder="search friends..."
+          onChangeText={(text) => setSearch(text)}
+          value={search}
+        />
+        <TouchableOpacity
+          onPress={() => 1 + 1}
+          style={{ ...Styles.buttonShape /*...styles.searchButton*/ }}
+        >
+          <Text style={{ ...Styles.body /* ...styles.searchText */ }}>
+            Search
+          </Text>
+        </TouchableOpacity>
         <View style={styles.friendsBox}>
           <Text style={{ ...Styles.body, ...styles.title }}>Other Users:</Text>
           {users?.map(({ username, name }) => (

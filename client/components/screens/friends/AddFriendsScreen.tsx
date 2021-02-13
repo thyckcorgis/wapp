@@ -55,7 +55,7 @@ export default function AddFriendsScreen({ navigation }: ScreenProps) {
   const [users, setUsers] = useState<User[]>([]);
   const [pendingRequests, setPendingRequests] = useState<User[]>([]);
   const [search, setSearch] = useState("");
-  const [searchedFriends, setSearchedFriends] = useState<User[]>([]);
+  const [searchResults, setSearchResults] = useState<User[]>([]);
 
   function fetchAllData() {
     (async () => {
@@ -94,18 +94,18 @@ export default function AddFriendsScreen({ navigation }: ScreenProps) {
     };
   }
 
-  //let displaySearch: {username: string, name: string}[] = []
-
   function searchFriends() {
-    setSearchedFriends (searchedFriends => {
+    setSearchResults (searchResults => {
+      while (searchResults.length != 0) {
+        searchResults.pop()
+      }
       for (let i=0;i<users.length;i++) {
-        if (users[i].username.startsWith(search)) {
-          searchedFriends.push(users[i])
+        if (users[i].name.startsWith(search)) {
+          searchResults.push(users[i])
         } 
       }
-      return searchedFriends
+      return searchResults
     })
-    console.log(searchedFriends)
   }
 
   const [refreshing, setRefreshing] = React.useState(false);
@@ -143,7 +143,7 @@ export default function AddFriendsScreen({ navigation }: ScreenProps) {
         </TouchableOpacity>
         <View style={styles.friendsBox}>
           <Text style={{ ...Styles.body, ...styles.title }}>Search results:</Text>
-          {searchedFriends?.map(({ username, name }) => (
+          {searchResults?.map(({ username, name }) => (
               <View style={styles.friendBox} key={username}>
                 <TextRow title="Name:" text={name} />
                 <TextRow title="Username:" text={username} />

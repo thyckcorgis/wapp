@@ -7,7 +7,6 @@ import TipsModal from "./TipsModal";
 
 interface NavbarProps {
   navigation: StackNavigationHelpers;
-  middle?: string;
   right?: string;
   tips?: boolean;
 }

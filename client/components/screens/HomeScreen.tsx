@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Text, StyleSheet, View, TouchableOpacity } from "react-native";
 import { Route } from "@react-navigation/native";
-import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 import ProgressCircle from "react-native-progress-circle";
 
 import { Colours, Styles } from "../../styles";
@@ -12,6 +11,7 @@ import { poll } from "../../api";
 
 import Navbar from "../Navbar";
 import SafeGradient from "../SafeGradient";
+import ScreenProps from "./ScreenProps";
 
 interface User {
   username: string;
@@ -22,8 +22,8 @@ interface User {
 interface HomeParams {
   refresh?: boolean;
 }
-interface HomeScreenProps {
-  navigation: StackNavigationHelpers;
+
+interface HomeScreenProps extends ScreenProps {
   route: Route<"Home", HomeParams>;
 }
 

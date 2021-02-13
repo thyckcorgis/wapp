@@ -7,7 +7,6 @@ import {
   TextInput,
   KeyboardAvoidingView,
 } from "react-native";
-import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 import { LinearGradient } from "expo-linear-gradient";
 
 import { Colours, Styles } from "../../styles";
@@ -16,12 +15,9 @@ import { CorgiLogo } from "../../assets";
 import { storeData } from "../../storage";
 import { loginUser } from "../../api";
 import { SolidButton } from "../buttons";
+import ScreenProps from "./ScreenProps";
 
-interface SignInScreen {
-  navigation: StackNavigationHelpers;
-}
-
-export default function SignInScreen({ navigation }: SignInScreen) {
+export default function SignInScreen({ navigation }: ScreenProps) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");

@@ -1,18 +1,14 @@
 import React, { useEffect } from "react";
 import { View, TouchableOpacity } from "react-native";
-import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 
 import { Colours, Styles } from "../../styles";
 import { StartIcon } from "../../assets";
 
 import { getData } from "../../storage";
 import SafeGradient from "../SafeGradient";
+import ScreenProps from "./ScreenProps";
 
-interface StartScreenProps {
-  navigation: StackNavigationHelpers;
-}
-
-export default function StartScreen({ navigation }: StartScreenProps) {
+export default function StartScreen({ navigation }: ScreenProps) {
   useEffect(() => {
     (async () => {
       try {

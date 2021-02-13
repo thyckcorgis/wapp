@@ -6,7 +6,6 @@ import {
   TextInput,
   StyleSheet,
 } from "react-native";
-import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 
 import { Colours, Styles } from "../../styles";
 
@@ -14,10 +13,7 @@ import { getData, storeData } from "../../storage";
 
 import Navbar from "../Navbar";
 import SafeGradient from "../SafeGradient";
-
-interface CupSizeScreenProps {
-  navigation: StackNavigationHelpers;
-}
+import ScreenProps from "./ScreenProps";
 
 export interface Cup {
   name: string;
@@ -54,7 +50,7 @@ const input = (
   </View>
 );
 
-export default function CupSizeScreen({ navigation }: CupSizeScreenProps) {
+export default function CupSizeScreen({ navigation }: ScreenProps) {
   const [name, setName] = useState("");
   const [size, setSize] = useState("");
 

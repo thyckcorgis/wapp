@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Text, StyleSheet, View } from "react-native";
-import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 import CalendarPicker from "react-native-calendar-picker";
 
 import { Colours, Styles } from "../../styles";
@@ -8,11 +7,9 @@ import { Colours, Styles } from "../../styles";
 import Navbar from "../Navbar";
 import SafeGradient from "../SafeGradient";
 
-interface CalendarScreenProps {
-  navigation: StackNavigationHelpers;
-}
+import ScreenProps from "./ScreenProps";
 
-export default function CalendarScreen({ navigation }: CalendarScreenProps) {
+export default function CalendarScreen({ navigation }: ScreenProps) {
   const [date, setDate] = useState<moment.Moment | null>(null);
 
   const startDate = date?.toString() || "";

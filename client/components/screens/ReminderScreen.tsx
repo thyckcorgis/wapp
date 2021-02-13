@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Text, StyleSheet, View, TouchableOpacity } from "react-native";
-import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
 import { Colours, Styles } from "../../styles";
@@ -9,16 +8,14 @@ import { getData, storeData } from "../../storage";
 import { registerForPushNotificationsAsync } from "../../notifications";
 import { uploadPushToken } from "../../api";
 import SafeGradient from "../SafeGradient";
+import ScreenProps from "./ScreenProps";
 
 interface User {
   username: string;
   expoPushToken?: string;
 }
-interface ReminderScreenProps {
-  navigation: StackNavigationHelpers;
-}
 
-export default function ReminderScreen({ navigation }: ReminderScreenProps) {
+export default function ReminderScreen({ navigation }: ScreenProps) {
   const [wakeTime, setWakeTime] = useState(new Date());
   const [sleepTime, setSleepTime] = useState(new Date());
 

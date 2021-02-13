@@ -1,7 +1,7 @@
-export const API_URL = "https://thyck.top/wapee";
+// export const API_URL = "https://thyck.top/wapee";
 
 // if you're working locally
-// export const API_URL = "http://10.0.0.58:5003/wapee";
+export const API_URL = "http://10.0.0.58:5003/wapee";
 
 export const defaultCups = [
   {

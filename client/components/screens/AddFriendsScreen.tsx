@@ -12,18 +12,18 @@ import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/s
 import { useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 
-import Styles from "../styles/styles";
-import Colours from "../styles/colours";
+import Styles from "../../styles/styles";
+import Colours from "../../styles/colours";
 
-import { HomeIcon, FriendsIcon } from "../assets";
+import { HomeIcon, FriendsIcon } from "../../assets";
 
 import {
   getPendingRequests,
   sendFriendRequest,
   acceptFriendRequest,
   getNonFriends,
-} from "../api";
-import { getData } from "../storage";
+} from "../../api";
+import { getData } from "../../storage";
 
 interface AddFriendsScreenProps {
   navigation: StackNavigationHelpers;

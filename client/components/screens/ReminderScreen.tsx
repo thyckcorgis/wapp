@@ -73,6 +73,7 @@ export default function ReminderScreen({ navigation }: ScreenProps) {
             display="default"
             onChange={onChangeWake}
             textColor={Colours.medBlue}
+            style={{height:162}}
           />
         </View>
 
@@ -91,6 +92,7 @@ export default function ReminderScreen({ navigation }: ScreenProps) {
             display="default"
             onChange={onChangeSleep}
             textColor={Colours.medBlue}
+            style={{height:162}}
           />
         </View>
 
@@ -126,7 +128,7 @@ const styles = StyleSheet.create({
   },
   titleText: {
     color: Colours.darkBlue,
-    paddingVertical: 20,
+    paddingVertical: 10,
   },
   wakeButton: {
     backgroundColor: Colours.yellow,

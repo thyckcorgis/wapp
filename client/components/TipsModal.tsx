@@ -9,8 +9,7 @@ import {
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 import { TipsIcon } from "../assets/index";
-import Colours from "../styles/colours";
-import Styles from "../styles/styles";
+import { Colours, Styles } from "../styles";
 
 export default function TipsModal() {
   const [modalVisible, setModalVisible] = useState(false);

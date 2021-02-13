@@ -4,15 +4,14 @@ import {
   StyleSheet,
   View,
   TouchableOpacity,
-  ScrollView,
   SafeAreaView,
 } from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 import { LinearGradient } from "expo-linear-gradient";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
-import Styles from "../../styles/styles";
-import Colours from "../../styles/colours";
+import { Colours, Styles } from "../../styles";
+
 import { getData, storeData } from "../../storage";
 import { registerForPushNotificationsAsync } from "../../notifications";
 import { uploadPushToken } from "../../api";

@@ -6,16 +6,12 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from "react-native";
+import { Route } from "@react-navigation/native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 import { LinearGradient } from "expo-linear-gradient";
 import ProgressCircle from "react-native-progress-circle";
 
-import Styles from "../../styles/styles";
-import Colours from "../../styles/colours";
-
-import { Route } from "@react-navigation/native";
-import TipsModal from "../TipsModal";
-
+import { Colours, Styles } from "../../styles";
 import {
   UserIcon,
   WappLogo,
@@ -24,8 +20,11 @@ import {
   HomeIcon,
   FriendsIcon,
 } from "../../assets";
+
 import { getData, storeData } from "../../storage";
 import { poll } from "../../api";
+
+import TipsModal from "../TipsModal";
 
 interface User {
   username: string;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Text,
   View,
@@ -8,13 +8,11 @@ import {
   StyleSheet,
 } from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
-import { useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 
-import Styles from "../../styles/styles";
-import Colours from "../../styles/colours";
-
+import { Colours, Styles } from "../../styles";
 import { HomeIcon } from "../../assets";
+
 import { getData, storeData } from "../../storage";
 
 interface CupSizeScreenProps {

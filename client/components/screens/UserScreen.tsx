@@ -8,15 +8,14 @@ import {
   SafeAreaView,
 } from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
-import { getData, storeData } from "../../storage";
-import { setDailyIntake, uploadPushToken } from "../../api";
-import { HomeIcon } from "../../assets";
-
+import { ScrollView } from "react-native-gesture-handler";
 import { LinearGradient } from "expo-linear-gradient";
 
-import Styles from "../../styles/styles";
-import Colours from "../../styles/colours";
-import { ScrollView } from "react-native-gesture-handler";
+import { Colours, Styles } from "../../styles";
+import { HomeIcon } from "../../assets";
+
+import { getData, storeData } from "../../storage";
+import { setDailyIntake, uploadPushToken } from "../../api";
 import { registerForPushNotificationsAsync } from "../../notifications";
 
 interface UserScreenProps {

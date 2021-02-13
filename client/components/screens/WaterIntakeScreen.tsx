@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Text,
   StyleSheet,
@@ -10,13 +10,12 @@ import {
   SafeAreaView,
   KeyboardAvoidingView,
 } from "react-native";
+import { Route } from "@react-navigation/core";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
-import { useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 
-import Styles from "../../styles/styles";
-import Colours from "../../styles/colours";
-import { Route } from "@react-navigation/core";
+import { Colours, Styles } from "../../styles";
+
 import { storeData } from "../../storage";
 import { setDailyIntake } from "../../api";
 

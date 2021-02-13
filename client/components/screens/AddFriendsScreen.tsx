@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   StyleSheet,
@@ -9,12 +9,9 @@ import {
   SafeAreaView,
 } from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
-import { useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 
-import Styles from "../../styles/styles";
-import Colours from "../../styles/colours";
-
+import { Colours, Styles } from "../../styles";
 import { HomeIcon, FriendsIcon } from "../../assets";
 
 import {

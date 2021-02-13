@@ -7,17 +7,17 @@ import {
   ScrollView,
   TextInput,
 } from "react-native";
+import { Route } from "@react-navigation/native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 import { LinearGradient } from "expo-linear-gradient";
 
-import Styles from "../../styles/styles";
-import Colours from "../../styles/colours";
-
+import { Colours, Styles } from "../../styles";
 import { HomeIcon } from "../../assets";
+
 import { getData, storeData } from "../../storage";
-import { Cup } from "./CupSizeScreen";
 import { logWaterIntake } from "../../api";
-import { Route } from "@react-navigation/native";
+
+import { Cup } from "./CupSizeScreen";
 
 interface LogWaterParams {
   refresh?: boolean;

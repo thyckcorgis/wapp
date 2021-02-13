@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Text,
   StyleSheet,
@@ -9,11 +9,10 @@ import {
 } from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 import { LinearGradient } from "expo-linear-gradient";
-import { useState } from "react";
 
-import Colours from "../../styles/colours";
-import Styles from "../../styles/styles";
+import { Colours, Styles } from "../../styles";
 import { CorgiLogo } from "../../assets";
+
 import { storeData } from "../../storage";
 import { loginUser } from "../../api";
 

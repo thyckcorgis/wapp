@@ -1,12 +1,12 @@
 import React from "react";
 import { View, TouchableOpacity, SafeAreaView } from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
-import { getData } from "../../storage";
-import { WelcomeIcon } from "../../assets";
 import { LinearGradient } from "expo-linear-gradient";
 
-import Styles from "../../styles/styles";
-import Colours from "../../styles/colours";
+import { Colours, Styles } from "../../styles";
+import { WelcomeIcon } from "../../assets";
+
+import { getData } from "../../storage";
 
 interface WelcomeScreenProps {
   navigation: StackNavigationHelpers;

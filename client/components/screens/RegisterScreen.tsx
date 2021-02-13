@@ -1,5 +1,4 @@
-import React from "react";
-import { storeData } from "../../storage";
+import React, { useState } from "react";
 import {
   Text,
   StyleSheet,
@@ -11,15 +10,14 @@ import {
   Dimensions,
 } from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
-import { LinearGradient } from "expo-linear-gradient";
-import { defaultCups } from "../../constants";
-
-import Styles from "../../styles/styles";
-import Colours from "../../styles/colours";
 import { Picker } from "@react-native-picker/picker";
+import { LinearGradient } from "expo-linear-gradient";
 
-import { useState } from "react";
+import { Colours, Styles } from "../../styles";
+
 import { registerUser } from "../../api";
+import { storeData } from "../../storage";
+import { defaultCups } from "../../constants";
 
 interface RegisterScreenProps {
   navigation: StackNavigationHelpers;

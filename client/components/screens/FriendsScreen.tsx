@@ -8,14 +8,13 @@ import {
 } from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 import { LinearGradient } from "expo-linear-gradient";
+import { ScrollView } from "react-native-gesture-handler";
+
+import { Colours, Styles } from "../../styles";
+import { HomeIcon, LitreBoardsIcon } from "../../assets";
+
 import { getData } from "../../storage";
 import { getFriends } from "../../api";
-
-import Styles from "../../styles/styles";
-import Colours from "../../styles/colours";
-
-import { HomeIcon, LitreBoardsIcon } from "../../assets";
-import { ScrollView } from "react-native-gesture-handler";
 
 interface FriendsScreenProps {
   navigation: StackNavigationHelpers;

@@ -12,19 +12,12 @@ import { LinearGradient } from "expo-linear-gradient";
 import ProgressCircle from "react-native-progress-circle";
 
 import { Colours, Styles } from "../../styles";
-import {
-  UserIcon,
-  WappLogo,
-  CalendarIcon,
-  DrinkButton,
-  HomeIcon,
-  FriendsIcon,
-} from "../../assets";
+import { UserIcon, WappLogo, CalendarIcon, DrinkButton } from "../../assets";
 
 import { getData, storeData } from "../../storage";
 import { poll } from "../../api";
 
-import TipsModal from "../TipsModal";
+import Navbar from "../Navbar";
 
 interface User {
   username: string;
@@ -114,15 +107,7 @@ export default function HomeScreen({
           {currentIntake.toFixed(2)} / {daily.toFixed(2)} L
         </Text>
       </View>
-      <View style={Styles.navBar}>
-        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-          <HomeIcon />
-        </TouchableOpacity>
-        <TipsModal />
-        <TouchableOpacity onPress={() => navigation.navigate("Friends")}>
-          <FriendsIcon />
-        </TouchableOpacity>
-      </View>
+      <Navbar navigation={navigation} tips={true} right="Friends" />
     </SafeAreaView>
   );
 }

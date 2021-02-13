@@ -11,9 +11,10 @@ import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/s
 import { LinearGradient } from "expo-linear-gradient";
 
 import { Colours, Styles } from "../../styles";
-import { HomeIcon } from "../../assets";
 
 import { getData, storeData } from "../../storage";
+
+import Navbar from "../Navbar";
 
 interface CupSizeScreenProps {
   navigation: StackNavigationHelpers;
@@ -89,11 +90,7 @@ export default function CupSizeScreen({ navigation }: CupSizeScreenProps) {
           <Text style={{ ...Styles.body, ...styles.addText }}>Add new cup</Text>
         </TouchableOpacity>
       </View>
-      <View style={{ ...Styles.navBar }}>
-        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-          <HomeIcon />
-        </TouchableOpacity>
-      </View>
+      <Navbar navigation={navigation} />
     </SafeAreaView>
   );
 }

@@ -12,12 +12,12 @@ import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/s
 import { LinearGradient } from "expo-linear-gradient";
 
 import { Colours, Styles } from "../../styles";
-import { HomeIcon } from "../../assets";
 
 import { getData, storeData } from "../../storage";
 import { logWaterIntake } from "../../api";
 
 import { Cup } from "./CupSizeScreen";
+import Navbar from "../Navbar";
 
 interface LogWaterParams {
   refresh?: boolean;
@@ -130,11 +130,7 @@ export default function LogWaterScreen({
           </TouchableOpacity>
         </ScrollView>
       </View>
-      <View style={{ ...Styles.navBar }}>
-        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-          <HomeIcon />
-        </TouchableOpacity>
-      </View>
+      <Navbar navigation={navigation} />
     </View>
   );
 }

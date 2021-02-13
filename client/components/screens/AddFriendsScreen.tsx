@@ -12,7 +12,6 @@ import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/s
 import { LinearGradient } from "expo-linear-gradient";
 
 import { Colours, Styles } from "../../styles";
-import { HomeIcon, FriendsIcon } from "../../assets";
 
 import {
   getPendingRequests,
@@ -21,6 +20,8 @@ import {
   getNonFriends,
 } from "../../api";
 import { getData } from "../../storage";
+
+import Navbar from "../Navbar";
 
 interface AddFriendsScreenProps {
   navigation: StackNavigationHelpers;
@@ -162,16 +163,7 @@ export default function AddFriendsScreen({
           ))}
         </View>
       </ScrollView>
-      <View style={{ ...Styles.navBar }}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate("Home", { refresh: true })}
-        >
-          <HomeIcon />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("Friends")}>
-          <FriendsIcon />
-        </TouchableOpacity>
-      </View>
+      <Navbar navigation={navigation} right="Friends" />
     </SafeAreaView>
   );
 }

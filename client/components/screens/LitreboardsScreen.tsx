@@ -1,20 +1,15 @@
 import React, { useState, useEffect } from "react";
-import {
-  Text,
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  SafeAreaView,
-} from "react-native";
+import { Text, StyleSheet, View, SafeAreaView } from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 import { ScrollView } from "react-native-gesture-handler";
 import { LinearGradient } from "expo-linear-gradient";
 
 import { Colours, Styles } from "../../styles";
-import { HomeIcon, FriendsIcon } from "../../assets";
 
 import { getData } from "../../storage";
 import { getLitreBoard } from "../../api";
+
+import Navbar from "../Navbar";
 
 interface LitreboardsScreenProps {
   navigation: StackNavigationHelpers;
@@ -91,14 +86,7 @@ export default function LitreboardsScreen({
           ))}
         </ScrollView>
       </View>
-      <View style={{ ...Styles.navBar }}>
-        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-          <HomeIcon />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("Friends")}>
-          <FriendsIcon />
-        </TouchableOpacity>
-      </View>
+      <Navbar navigation={navigation} right="Friends" />
     </SafeAreaView>
   );
 }

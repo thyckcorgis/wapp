@@ -11,10 +11,11 @@ import { LinearGradient } from "expo-linear-gradient";
 import { ScrollView } from "react-native-gesture-handler";
 
 import { Colours, Styles } from "../../styles";
-import { HomeIcon, LitreBoardsIcon } from "../../assets";
 
 import { getData } from "../../storage";
 import { getFriends } from "../../api";
+
+import Navbar from "../Navbar";
 
 interface FriendsScreenProps {
   navigation: StackNavigationHelpers;
@@ -75,14 +76,7 @@ export default function FriendsScreen({ navigation }: FriendsScreenProps) {
           ))}
         </ScrollView>
       </View>
-      <View style={{ ...Styles.navBar }}>
-        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-          <HomeIcon />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("Litreboards")}>
-          <LitreBoardsIcon />
-        </TouchableOpacity>
-      </View>
+      <Navbar navigation={navigation} right="Litreboards" />
     </SafeAreaView>
   );
 }

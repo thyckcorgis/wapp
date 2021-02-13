@@ -12,13 +12,14 @@ const tips = [
   'Wife: "I just got stung by a jellyfish. quick, pee on it!"\nHusband: *peeing on jellyfish* "This is for stinging my wife." ',
   "Don't pee on anyone, or else they're going to be pissed.",
 ];
+const rand = () => Math.floor(Math.random() * tips.length);
 
 export default function TipsModal() {
   const [modalVisible, setModalVisible] = useState(false);
-  const rand = Math.floor(Math.random() * 5)
+  const idx = rand();
 
   //works for all tips as of now it might not necessarily work for future ones
-  const height = 230 + 6 * tips[rand].split(' ').length
+  const height = 230 + 6 * tips[idx].split(" ").length;
 
   return (
     <View style={styles.centeredView}>
@@ -31,13 +32,13 @@ export default function TipsModal() {
         }}
       >
         <View style={styles.centeredView}>
-          <View style={{...styles.modalView, height:height}}>
+          <View style={{ ...styles.modalView, height: height }}>
             <Text style={{ ...Styles.title, ...styles.modalTitle }}>
               Tip of the day:{" "}
             </Text>
             <View style={styles.tipBox}>
               <Text style={{ ...Styles.body, ...styles.modalText }}>
-                {tips[rand] + " "}
+                {tips[idx] + " "}
               </Text>
             </View>
 

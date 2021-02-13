@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { View, TouchableOpacity } from "react-native";
 
-import { Colours, Styles } from "../../styles";
-import { StartIcon } from "../../assets";
+import { Colours, Styles } from "../../../styles";
+import { StartIcon } from "../../../assets";
 
-import { getData } from "../../storage";
-import SafeGradient from "../SafeGradient";
-import ScreenProps from "./ScreenProps";
+import { getData } from "../../../storage";
+import SafeGradient from "../../SafeGradient";
+import ScreenProps from "../ScreenProps";
 
 export default function StartScreen({ navigation }: ScreenProps) {
   useEffect(() => {

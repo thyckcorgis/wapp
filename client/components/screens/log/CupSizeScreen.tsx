@@ -7,13 +7,13 @@ import {
   StyleSheet,
 } from "react-native";
 
-import { Colours, Styles } from "../../styles";
+import { Colours, Styles } from "../../../styles";
 
-import { getData, storeData } from "../../storage";
+import { getData, storeData } from "../../../storage";
 
-import Navbar from "../Navbar";
-import SafeGradient from "../SafeGradient";
-import ScreenProps from "./ScreenProps";
+import Navbar from "../../Navbar";
+import SafeGradient from "../../SafeGradient";
+import ScreenProps from "../ScreenProps";
 
 export interface Cup {
   name: string;

@@ -9,15 +9,15 @@ import {
 } from "react-native";
 import { Route } from "@react-navigation/native";
 
-import { Colours, Styles } from "../../styles";
+import { Colours, Styles } from "../../../styles";
 
-import { getData, storeData } from "../../storage";
-import { logWaterIntake } from "../../api";
+import { getData, storeData } from "../../../storage";
+import { logWaterIntake } from "../../../api";
 
 import { Cup } from "./CupSizeScreen";
-import Navbar from "../Navbar";
-import SafeGradient from "../SafeGradient";
-import ScreenProps from "./ScreenProps";
+import Navbar from "../../Navbar";
+import SafeGradient from "../../SafeGradient";
+import ScreenProps from "../ScreenProps";
 
 interface LogWaterParams {
   refresh?: boolean;

@@ -6,23 +6,22 @@ import {
   RefreshControl,
   ScrollView,
   TouchableOpacity,
+  TextInput,
 } from "react-native";
 
-import { Colours, Styles } from "../../styles";
+import { Colours, Styles } from "../../../styles";
 
 import {
   getPendingRequests,
   sendFriendRequest,
   acceptFriendRequest,
   getNonFriends,
-  setDailyIntake,
-} from "../../api";
-import { getData } from "../../storage";
+} from "../../../api";
+import { getData } from "../../../storage";
 
-import Navbar from "../Navbar";
-import SafeGradient from "../SafeGradient";
-import ScreenProps from "./ScreenProps";
-import { TextInput } from "react-native-gesture-handler";
+import Navbar from "../../Navbar";
+import SafeGradient from "../../SafeGradient";
+import ScreenProps from "../ScreenProps";
 
 interface User {
   username: string;
@@ -129,16 +128,18 @@ export default function AddFriendsScreen({ navigation }: ScreenProps) {
         </Text>
         <Text>Search</Text>
         <TextInput
-              //style={styles.}
-              placeholder="search friends..."
-              onChangeText={(text) => setSearch(text)}
-              value={search}
-            />        
+          //style={styles.}
+          placeholder="search friends..."
+          onChangeText={(text) => setSearch(text)}
+          value={search}
+        />
         <TouchableOpacity
           onPress={() => searchFriends()}
           style={{ ...Styles.buttonShape, /*...styles.searchButton*/ }}
         >
-          <Text style={{ ...Styles.body, /* ...styles.searchText */}}>Search</Text>
+          <Text style={{ ...Styles.body /* ...styles.searchText */ }}>
+            Search
+          </Text>
         </TouchableOpacity>
         <View style={styles.friendsBox}>
           <Text style={{ ...Styles.body, ...styles.title }}>Search results:</Text>

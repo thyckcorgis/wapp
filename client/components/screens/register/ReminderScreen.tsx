@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Text, StyleSheet, View, TouchableOpacity } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
-import { Colours, Styles } from "../../styles";
+import { Colours, Styles } from "../../../styles";
 
-import { getData, storeData } from "../../storage";
-import { registerForPushNotificationsAsync } from "../../notifications";
-import { uploadPushToken } from "../../api";
-import SafeGradient from "../SafeGradient";
-import ScreenProps from "./ScreenProps";
+import { getData, storeData } from "../../../storage";
+import { registerForPushNotificationsAsync } from "../../../notifications";
+import { uploadPushToken } from "../../../api";
+import SafeGradient from "../../SafeGradient";
+import ScreenProps from "../ScreenProps";
 
 interface User {
   username: string;
@@ -73,7 +73,7 @@ export default function ReminderScreen({ navigation }: ScreenProps) {
             display="default"
             onChange={onChangeWake}
             textColor={Colours.medBlue}
-            style={{height:162}}
+            style={{ height: 162 }}
           />
         </View>
 
@@ -92,7 +92,7 @@ export default function ReminderScreen({ navigation }: ScreenProps) {
             display="default"
             onChange={onChangeSleep}
             textColor={Colours.medBlue}
-            style={{height:162}}
+            style={{ height: 162 }}
           />
         </View>
 

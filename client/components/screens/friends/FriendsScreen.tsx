@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Text, StyleSheet, View } from "react-native";
-import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 import { ScrollView } from "react-native-gesture-handler";
 
-import { Colours, Styles } from "../../styles";
+import { Colours, Styles } from "../../../styles";
 
-import { getData } from "../../storage";
-import { getFriends } from "../../api";
+import { getData } from "../../../storage";
+import { getFriends } from "../../../api";
 
-import Navbar from "../Navbar";
-import SafeGradient from "../SafeGradient";
-import { ClearButton } from "../buttons";
-import ScreenProps from "./ScreenProps";
+import Navbar from "../../Navbar";
+import SafeGradient from "../../SafeGradient";
+import { ClearButton } from "../../buttons";
+import ScreenProps from "../ScreenProps";
 
 interface User {
   username: string;

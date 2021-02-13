@@ -11,13 +11,13 @@ import {
 } from "react-native";
 import { Route } from "@react-navigation/native";
 
-import { Colours, Styles } from "../../styles";
+import { Colours, Styles } from "../../../styles";
 
-import { storeData } from "../../storage";
-import { setDailyIntake } from "../../api";
+import { storeData } from "../../../storage";
+import { setDailyIntake } from "../../../api";
 
-import SafeGradient from "../SafeGradient";
-import ScreenProps from "./ScreenProps";
+import SafeGradient from "../../SafeGradient";
+import ScreenProps from "./../ScreenProps";
 
 interface WaterIntakeParams {
   username: string;

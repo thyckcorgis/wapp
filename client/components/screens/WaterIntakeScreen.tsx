@@ -7,17 +7,17 @@ import {
   TextInput,
   ScrollView,
   Dimensions,
-  SafeAreaView,
   KeyboardAvoidingView,
 } from "react-native";
 import { Route } from "@react-navigation/core";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
-import { LinearGradient } from "expo-linear-gradient";
 
 import { Colours, Styles } from "../../styles";
 
 import { storeData } from "../../storage";
 import { setDailyIntake } from "../../api";
+
+import SafeGradient from "../SafeGradient";
 
 interface WaterIntakeParams {
   username: string;
@@ -46,11 +46,7 @@ export default function WaterIntakeScreen({
     }
   }
   return (
-    <SafeAreaView style={Styles.screen}>
-      <LinearGradient
-        style={Styles.background}
-        colors={[Colours.lightBlue, Colours.yellow]}
-      />
+    <SafeGradient colors={[Colours.lightBlue, Colours.yellow]}>
       <KeyboardAvoidingView behavior="padding">
         <ScrollView
           style={styles.scroll}
@@ -84,7 +80,7 @@ export default function WaterIntakeScreen({
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
-    </SafeAreaView>
+    </SafeGradient>
   );
 }
 

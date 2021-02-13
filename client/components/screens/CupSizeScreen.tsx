@@ -4,17 +4,16 @@ import {
   View,
   TouchableOpacity,
   TextInput,
-  SafeAreaView,
   StyleSheet,
 } from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
-import { LinearGradient } from "expo-linear-gradient";
 
 import { Colours, Styles } from "../../styles";
 
 import { getData, storeData } from "../../storage";
 
 import Navbar from "../Navbar";
+import SafeGradient from "../SafeGradient";
 
 interface CupSizeScreenProps {
   navigation: StackNavigationHelpers;
@@ -70,11 +69,7 @@ export default function CupSizeScreen({ navigation }: CupSizeScreenProps) {
   }
 
   return (
-    <SafeAreaView style={Styles.screen}>
-      <LinearGradient
-        style={Styles.background}
-        colors={[Colours.darkBlue, Colours.medBlue]}
-      />
+    <SafeGradient>
       <TouchableOpacity
         onPress={() => navigation.navigate("Home", { refresh: true })}
       >
@@ -91,7 +86,7 @@ export default function CupSizeScreen({ navigation }: CupSizeScreenProps) {
         </TouchableOpacity>
       </View>
       <Navbar navigation={navigation} />
-    </SafeAreaView>
+    </SafeGradient>
   );
 }
 

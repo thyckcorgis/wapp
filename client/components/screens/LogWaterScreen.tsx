@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import { Route } from "@react-navigation/native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
-import { LinearGradient } from "expo-linear-gradient";
 
 import { Colours, Styles } from "../../styles";
 
@@ -18,6 +17,7 @@ import { logWaterIntake } from "../../api";
 
 import { Cup } from "./CupSizeScreen";
 import Navbar from "../Navbar";
+import SafeGradient from "../SafeGradient";
 
 interface LogWaterParams {
   refresh?: boolean;
@@ -65,11 +65,7 @@ export default function LogWaterScreen({
     }
   }
   return (
-    <View style={Styles.screen}>
-      <LinearGradient
-        style={Styles.background}
-        colors={[Colours.darkBlue, Colours.medBlue]}
-      />
+    <SafeGradient>
       <Text style={{ ...Styles.title, ...styles.title }}>
         How much water did you drink?
       </Text>
@@ -131,7 +127,7 @@ export default function LogWaterScreen({
         </ScrollView>
       </View>
       <Navbar navigation={navigation} />
-    </View>
+    </SafeGradient>
   );
 }
 

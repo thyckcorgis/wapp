@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { Text, StyleSheet, View, SafeAreaView } from "react-native";
+import { Text, StyleSheet, View } from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
-import { LinearGradient } from "expo-linear-gradient";
 import CalendarPicker from "react-native-calendar-picker";
 
 import { Colours, Styles } from "../../styles";
 
 import Navbar from "../Navbar";
+import SafeGradient from "../SafeGradient";
 
 interface CalendarScreenProps {
   navigation: StackNavigationHelpers;
@@ -17,11 +17,7 @@ export default function CalendarScreen({ navigation }: CalendarScreenProps) {
 
   const startDate = date?.toString() || "";
   return (
-    <SafeAreaView style={Styles.screen}>
-      <LinearGradient
-        style={Styles.background}
-        colors={[Colours.darkBlue, Colours.medBlue]}
-      />
+    <SafeGradient>
       <View style={styles.calendarBox}>
         <CalendarPicker
           onDateChange={(date) => setDate(date)}
@@ -45,7 +41,7 @@ export default function CalendarScreen({ navigation }: CalendarScreenProps) {
         </View>
       </View>
       <Navbar navigation={navigation} />
-    </SafeAreaView>
+    </SafeGradient>
   );
 }
 

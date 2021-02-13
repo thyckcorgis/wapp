@@ -6,18 +6,17 @@ import {
   TouchableOpacity,
   TextInput,
   ScrollView,
-  SafeAreaView,
   Dimensions,
 } from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 import { Picker } from "@react-native-picker/picker";
-import { LinearGradient } from "expo-linear-gradient";
 
 import { Colours, Styles } from "../../styles";
 
 import { registerUser } from "../../api";
 import { storeData } from "../../storage";
 import { defaultCups } from "../../constants";
+import SafeGradient from "../SafeGradient";
 
 interface RegisterScreenProps {
   navigation: StackNavigationHelpers;
@@ -93,20 +92,10 @@ export default function RegisterScreen({ navigation }: RegisterScreenProps) {
   }
 
   return (
-    <SafeAreaView style={Styles.screen}>
-      <LinearGradient
-        style={Styles.background}
-        colors={[Colours.lightBlue, Colours.yellow]}
-      />
-      {/* <TouchableOpacity onPress={() => register()}> */}
+    <SafeGradient colors={[Colours.lightBlue, Colours.yellow]}>
       <Text style={{ ...Styles.title, ...styles.titleText }}>Who are you?</Text>
-      {/* </TouchableOpacity> */}
 
-      <ScrollView
-        keyboardDismissMode="on-drag"
-        style={styles.scroll}
-        //showsVerticalScrollIndicator="true"
-      >
+      <ScrollView keyboardDismissMode="on-drag" style={styles.scroll}>
         {input("Name", name, setName, false)}
         {input("Username", username, setUsername, false)}
         {input("Password", password, setPassword, false, true)}
@@ -138,7 +127,7 @@ export default function RegisterScreen({ navigation }: RegisterScreenProps) {
           <Text style={{ ...Styles.body, ...styles.submitText }}>Submit</Text>
         </TouchableOpacity>
       </ScrollView>
-    </SafeAreaView>
+    </SafeGradient>
   );
 }
 

@@ -6,10 +6,8 @@ import {
   RefreshControl,
   ScrollView,
   TouchableOpacity,
-  SafeAreaView,
 } from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
-import { LinearGradient } from "expo-linear-gradient";
 
 import { Colours, Styles } from "../../styles";
 
@@ -22,6 +20,7 @@ import {
 import { getData } from "../../storage";
 
 import Navbar from "../Navbar";
+import SafeGradient from "../SafeGradient";
 
 interface AddFriendsScreenProps {
   navigation: StackNavigationHelpers;
@@ -85,11 +84,7 @@ export default function AddFriendsScreen({
   }, []);
 
   return (
-    <SafeAreaView style={Styles.screen}>
-      <LinearGradient
-        style={Styles.background}
-        colors={[Colours.darkBlue, Colours.medBlue]}
-      />
+    <SafeGradient>
       <ScrollView
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
@@ -164,7 +159,7 @@ export default function AddFriendsScreen({
         </View>
       </ScrollView>
       <Navbar navigation={navigation} right="Friends" />
-    </SafeAreaView>
+    </SafeGradient>
   );
 }
 

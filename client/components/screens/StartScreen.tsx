@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { View, TouchableOpacity } from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
-import { LinearGradient } from "expo-linear-gradient";
 
 import { Colours, Styles } from "../../styles";
 import { StartIcon } from "../../assets";
 
 import { getData } from "../../storage";
+import SafeGradient from "../SafeGradient";
 
 interface StartScreenProps {
   navigation: StackNavigationHelpers;
@@ -23,16 +23,12 @@ export default function StartScreen({ navigation }: StartScreenProps) {
   }, []);
 
   return (
-    <View style={Styles.screen}>
-      <LinearGradient
-        colors={[Colours.lightBlue, Colours.yellow]}
-        style={Styles.background}
-      />
+    <SafeGradient colors={[Colours.lightBlue, Colours.yellow]}>
       <TouchableOpacity onPress={() => navigation.navigate("SignIn")}>
         <View style={Styles.bigButton}>
           <StartIcon />
         </View>
       </TouchableOpacity>
-    </View>
+    </SafeGradient>
   );
 }

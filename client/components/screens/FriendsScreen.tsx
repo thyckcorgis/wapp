@@ -1,13 +1,6 @@
 import React, { useState, useEffect } from "react";
-import {
-  Text,
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  SafeAreaView,
-} from "react-native";
+import { Text, StyleSheet, View, TouchableOpacity } from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
-import { LinearGradient } from "expo-linear-gradient";
 import { ScrollView } from "react-native-gesture-handler";
 
 import { Colours, Styles } from "../../styles";
@@ -16,6 +9,7 @@ import { getData } from "../../storage";
 import { getFriends } from "../../api";
 
 import Navbar from "../Navbar";
+import SafeGradient from "../SafeGradient";
 
 interface FriendsScreenProps {
   navigation: StackNavigationHelpers;
@@ -38,11 +32,7 @@ export default function FriendsScreen({ navigation }: FriendsScreenProps) {
   }, [setFriends]);
 
   return (
-    <SafeAreaView style={Styles.screen}>
-      <LinearGradient
-        style={Styles.background}
-        colors={[Colours.darkBlue, Colours.medBlue]}
-      />
+    <SafeGradient>
       <Text style={{ ...Styles.title, ...styles.title }}>Friends</Text>
       <View style={styles.friendsBox}>
         <TouchableOpacity
@@ -77,7 +67,7 @@ export default function FriendsScreen({ navigation }: FriendsScreenProps) {
         </ScrollView>
       </View>
       <Navbar navigation={navigation} right="Litreboards" />
-    </SafeAreaView>
+    </SafeGradient>
   );
 }
 

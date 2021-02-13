@@ -1,14 +1,7 @@
 import React, { useState, useEffect } from "react";
-import {
-  Text,
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  SafeAreaView,
-} from "react-native";
+import { Text, StyleSheet, View, TouchableOpacity } from "react-native";
 import { Route } from "@react-navigation/native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
-import { LinearGradient } from "expo-linear-gradient";
 import ProgressCircle from "react-native-progress-circle";
 
 import { Colours, Styles } from "../../styles";
@@ -18,6 +11,7 @@ import { getData, storeData } from "../../storage";
 import { poll } from "../../api";
 
 import Navbar from "../Navbar";
+import SafeGradient from "../SafeGradient";
 
 interface User {
   username: string;
@@ -70,11 +64,7 @@ export default function HomeScreen({
     refreshGoal();
   }, [refresh, setCurrentIntake, setDaily]);
   return (
-    <SafeAreaView style={Styles.screen}>
-      <LinearGradient
-        style={Styles.background}
-        colors={[Colours.darkBlue, Colours.medBlue]}
-      />
+    <SafeGradient>
       <View style={Styles.logoBox}>
         <WappLogo />
       </View>
@@ -108,7 +98,7 @@ export default function HomeScreen({
         </Text>
       </View>
       <Navbar navigation={navigation} tips={true} right="Friends" />
-    </SafeAreaView>
+    </SafeGradient>
   );
 }
 

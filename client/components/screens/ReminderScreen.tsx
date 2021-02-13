@@ -1,13 +1,6 @@
 import React, { useState, useEffect } from "react";
-import {
-  Text,
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  SafeAreaView,
-} from "react-native";
+import { Text, StyleSheet, View, TouchableOpacity } from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
-import { LinearGradient } from "expo-linear-gradient";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
 import { Colours, Styles } from "../../styles";
@@ -15,6 +8,7 @@ import { Colours, Styles } from "../../styles";
 import { getData, storeData } from "../../storage";
 import { registerForPushNotificationsAsync } from "../../notifications";
 import { uploadPushToken } from "../../api";
+import SafeGradient from "../SafeGradient";
 
 interface User {
   username: string;
@@ -61,13 +55,7 @@ export default function ReminderScreen({ navigation }: ReminderScreenProps) {
   }
 
   return (
-    <SafeAreaView style={Styles.screen}>
-      {/* <View style={Styles.screen}> */}
-      {/* <ScrollView style={styles.scroll}> */}
-      <LinearGradient
-        style={Styles.background}
-        colors={[Colours.lightBlue, Colours.yellow]}
-      />
+    <SafeGradient colors={[Colours.lightBlue, Colours.yellow]}>
       <View style={styles.box}>
         <Text style={{ ...Styles.title, ...styles.titleText }}>
           Set your daily reminders:
@@ -115,11 +103,8 @@ export default function ReminderScreen({ navigation }: ReminderScreenProps) {
         >
           <Text style={{ ...Styles.body, ...styles.submitText }}>Submit</Text>
         </TouchableOpacity>
-        {/* RANDOM STUFF */}
       </View>
-      {/* </ScrollView> */}
-      {/* </View> */}
-    </SafeAreaView>
+    </SafeGradient>
   );
 }
 

@@ -5,11 +5,9 @@ import {
   View,
   TouchableOpacity,
   TextInput,
-  SafeAreaView,
 } from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 import { ScrollView } from "react-native-gesture-handler";
-import { LinearGradient } from "expo-linear-gradient";
 
 import { Colours, Styles } from "../../styles";
 
@@ -18,6 +16,7 @@ import { setDailyIntake, uploadPushToken } from "../../api";
 import { registerForPushNotificationsAsync } from "../../notifications";
 
 import Navbar from "../Navbar";
+import SafeGradient from "../SafeGradient";
 
 interface UserScreenProps {
   navigation: StackNavigationHelpers;
@@ -78,11 +77,7 @@ export default function UserScreen({ navigation }: UserScreenProps) {
   }, [setUsername, setIntake]);
 
   return (
-    <SafeAreaView style={Styles.screen}>
-      <LinearGradient
-        style={Styles.background}
-        colors={[Colours.darkBlue, Colours.medBlue]}
-      />
+    <SafeGradient>
       <Text style={{ ...Styles.title, ...styles.title }}>
         Profile: {username}
       </Text>
@@ -125,7 +120,7 @@ export default function UserScreen({ navigation }: UserScreenProps) {
         </View>
       </ScrollView>
       <Navbar navigation={navigation} />
-    </SafeAreaView>
+    </SafeGradient>
   );
 }
 

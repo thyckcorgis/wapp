@@ -15,6 +15,10 @@ const tips = [
 
 export default function TipsModal() {
   const [modalVisible, setModalVisible] = useState(false);
+  const rand = Math.floor(Math.random() * 5)
+
+  //works for all tips as of now it might not necessarily work for future ones
+  const height = 230 + 6 * tips[rand].split(' ').length
 
   return (
     <View style={styles.centeredView}>
@@ -27,13 +31,13 @@ export default function TipsModal() {
         }}
       >
         <View style={styles.centeredView}>
-          <View style={styles.modalView}>
+          <View style={{...styles.modalView, height:height}}>
             <Text style={{ ...Styles.title, ...styles.modalTitle }}>
               Tip of the day:{" "}
             </Text>
             <View style={styles.tipBox}>
               <Text style={{ ...Styles.body, ...styles.modalText }}>
-                {tips[1] + " "}
+                {tips[rand] + " "}
               </Text>
             </View>
 
@@ -68,7 +72,7 @@ const styles = StyleSheet.create({
   },
   modalView: {
     marginHorizontal: 40,
-    height: "40%",
+    //height: "40%",
     backgroundColor: Colours.yellow,
     borderRadius: 20,
     padding: 40,

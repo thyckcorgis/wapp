@@ -11,4 +11,4 @@ export { default as WelcomeScreen } from "./WelcomeScreen";
 export { default as UserScreen } from "./UserScreen";
 export { default as LogWaterScreen } from "./LogWaterScreen";
 export { default as CupSizeScreen } from "./CupSizeScreen";
-export { default as LitreboardsScreen } from "./LitreboardsScreen";
+export { default as Litreboards } from "./LitreboardsScreen";

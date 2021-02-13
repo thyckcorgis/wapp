@@ -70,4 +70,4 @@ web-build/
 dist
 .env
 
-full-stack-session.sh
+users.json

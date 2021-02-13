@@ -18,60 +18,116 @@ export async function registerUser(
   name: string,
   daily: number
 ) {
-  const userData = { username, password, name, daily };
-  const { data } = await post("/user/register", userData);
-  return data;
+  try {
+    const userData = { username, password, name, daily };
+    const { data } = await post("/user/register", userData);
+    return data;
+  } catch (err) {
+    throw err;
+  }
 }
 
 export async function uploadPushToken(username: string, expoPushToken: string) {
-  return (await post("/user/notif", { username, expoPushToken })).data.user;
+  try {
+    return (await post("/user/notif", { username, expoPushToken })).data.user;
+  } catch (err) {
+    throw err;
+  }
 }
 
 export async function deletePushToken(username: string) {
-  return (await post("/user/delete-token", { username })).data.user;
+  try {
+    return (await post("/user/delete-token", { username })).data.user;
+  } catch (err) {
+    throw err;
+  }
 }
 
 export async function logWaterIntake(username: string, water: number) {
-  const userData = { username, water };
-  return (await post("/log", userData)).data;
+  try {
+    const userData = { username, water };
+    return (await post("/log", userData)).data;
+  } catch (err) {
+    throw err;
+  }
 }
 export async function setDailyIntake(username: string, daily: number) {
-  const userData = { username, daily };
-  return (await post("/user/daily", userData)).data;
+  try {
+    const userData = { username, daily };
+    return (await post("/user/daily", userData)).data;
+  } catch (err) {
+    throw err;
+  }
 }
 
 export async function loginUser(username: string, password: string) {
-  return (await post("/user/login", { username, password })).data;
+  try {
+    return (await post("/user/login", { username, password })).data;
+  } catch (err) {
+    throw err;
+  }
 }
 
 export async function getPendingRequests(username: string) {
-  return (await fetch(`${API_URL}/friend/pending/${username}`)).data.pending;
+  try {
+    return (await fetch(`${API_URL}/friend/pending/${username}`)).data.pending;
+  } catch (err) {
+    throw err;
+  }
 }
 
 export async function sendFriendRequest(username: string, friend: string) {
-  return (await post("/friend/request", { username, friend })).data;
+  try {
+    return (await post("/friend/request", { username, friend })).data;
+  } catch (err) {
+    throw err;
+  }
 }
 
 export async function acceptFriendRequest(username: string, friend: string) {
-  return (await post("/friend/accept", { username, friend })).data;
+  try {
+    return (await post("/friend/accept", { username, friend })).data;
+  } catch (err) {
+    throw err;
+  }
 }
 
 export async function getNonFriends(username: string) {
-  return (await fetch(`${API_URL}/friend/to-add/${username}`)).data.users;
+  try {
+    return (await fetch(`${API_URL}/friend/to-add/${username}`)).data.users;
+  } catch (err) {
+    throw err;
+  }
 }
 
 export async function getFriends(username: string) {
-  return (await fetch(`${API_URL}/friend/${username}`)).data.users;
+  try {
+    return (await fetch(`${API_URL}/friend/${username}`)).data.users;
+  } catch (err) {
+    throw err;
+  }
 }
 
 export async function resetCurrentIntake(username: string) {
-  return (await fetch(`${API_URL}/log/reset/${username}`)).data.users;
+  try {
+    return (await fetch(`${API_URL}/log/reset/${username}`)).data.users;
+  } catch (err) {
+    throw err;
+  }
 }
 
 export async function getLitreBoard(username: string) {
-  return (await fetch(`${API_URL}/friend/litreboard/${username}`)).data.users;
+  try {
+    return (await fetch(`${API_URL}/friend/litreboard/${username}`)).data.users;
+  } catch (err) {
+    throw err;
+  }
 }
 
 export async function poll(username: string) {
-  return (await fetch(`${API_URL}/user/${username}`)).data.user;
+  try {
+    return (await fetch(`${API_URL}/user/${username}`)).data.user;
+  } catch (err) {
+    throw err;
+  }
 }

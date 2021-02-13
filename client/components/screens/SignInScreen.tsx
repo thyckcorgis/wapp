@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Text,
   StyleSheet,
@@ -9,13 +9,13 @@ import {
 } from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 import { LinearGradient } from "expo-linear-gradient";
-import { useState } from "react";
 
-import Colours from "../styles/colours";
-import Styles from "../styles/styles";
-import { CorgiLogo } from "../assets";
-import { storeData } from "../storage";
-import { loginUser } from "../api";
+import { Colours, Styles } from "../../styles";
+import { CorgiLogo } from "../../assets";
+
+import { storeData } from "../../storage";
+import { loginUser } from "../../api";
+import { SolidButton } from "../buttons";
 
 interface SignInScreen {
   navigation: StackNavigationHelpers;
@@ -61,12 +61,8 @@ export default function SignInScreen({ navigation }: SignInScreen) {
           secureTextEntry
         />
         <Text style={Styles.error}>{error}</Text>
-        <TouchableOpacity
-          onPress={() => login()}
-          style={{ ...Styles.buttonShape, ...styles.loginButton }}
-        >
-          <Text style={{ ...Styles.body, ...styles.loginText }}>Log In</Text>
-        </TouchableOpacity>
+        <SolidButton onPress={() => login()} label="Login" />
+
         <TouchableOpacity onPress={() => navigation.navigate("Register")}>
           <Text style={{ ...Styles.body, ...styles.signupText }}>
             Don't have an account? Sign up!

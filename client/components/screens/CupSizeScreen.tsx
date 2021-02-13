@@ -1,21 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Text,
   View,
   TouchableOpacity,
   TextInput,
-  SafeAreaView,
   StyleSheet,
 } from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
-import { useState } from "react";
-import { LinearGradient } from "expo-linear-gradient";
 
-import Styles from "../styles/styles";
-import Colours from "../styles/colours";
+import { Colours, Styles } from "../../styles";
 
-import { HomeIcon } from "../assets";
-import { getData, storeData } from "../storage";
+import { getData, storeData } from "../../storage";
+
+import Navbar from "../Navbar";
+import SafeGradient from "../SafeGradient";
 
 interface CupSizeScreenProps {
   navigation: StackNavigationHelpers;
@@ -71,11 +69,7 @@ export default function CupSizeScreen({ navigation }: CupSizeScreenProps) {
   }
 
   return (
-    <SafeAreaView style={Styles.screen}>
-      <LinearGradient
-        style={Styles.background}
-        colors={[Colours.darkBlue, Colours.medBlue]}
-      />
+    <SafeGradient>
       <TouchableOpacity
         onPress={() => navigation.navigate("Home", { refresh: true })}
       >
@@ -91,12 +85,8 @@ export default function CupSizeScreen({ navigation }: CupSizeScreenProps) {
           <Text style={{ ...Styles.body, ...styles.addText }}>Add new cup</Text>
         </TouchableOpacity>
       </View>
-      <View style={{ ...Styles.navBar }}>
-        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-          <HomeIcon />
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
+      <Navbar navigation={navigation} />
+    </SafeGradient>
   );
 }
 

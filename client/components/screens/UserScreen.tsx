@@ -5,19 +5,19 @@ import {
   View,
   TouchableOpacity,
   TextInput,
-  SafeAreaView,
 } from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
-import { getData, storeData } from "../storage";
-import { setDailyIntake, uploadPushToken, deletePushToken } from "../api";
-import { HomeIcon, FriendsIcon } from "../assets";
-
-import { LinearGradient } from "expo-linear-gradient";
-
-import Styles from "../styles/styles";
-import Colours from "../styles/colours";
 import { ScrollView } from "react-native-gesture-handler";
-import { registerForPushNotificationsAsync } from "../notifications";
+
+import { Colours, Styles } from "../../styles";
+
+import { getData, storeData } from "../../storage";
+import { setDailyIntake, uploadPushToken } from "../../api";
+import { registerForPushNotificationsAsync } from "../../notifications";
+
+import Navbar from "../Navbar";
+import SafeGradient from "../SafeGradient";
+import { ClearButton, SolidButton } from "../buttons/";
 
 interface UserScreenProps {
   navigation: StackNavigationHelpers;
@@ -78,11 +78,7 @@ export default function UserScreen({ navigation }: UserScreenProps) {
   }, [setUsername, setIntake]);
 
   return (
-    <SafeAreaView style={Styles.screen}>
-      <LinearGradient
-        style={Styles.background}
-        colors={[Colours.darkBlue, Colours.medBlue]}
-      />
+    <SafeGradient>
       <Text style={{ ...Styles.title, ...styles.title }}>
         Profile: {username}
       </Text>
@@ -102,34 +98,13 @@ export default function UserScreen({ navigation }: UserScreenProps) {
             value={String(newIntake)}
             keyboardType="decimal-pad"
           />
-          <TouchableOpacity
-            onPress={() => updateIntake()}
-            style={{ ...Styles.buttonShape, ...styles.submitButton }}
-          >
-            <Text style={{ ...Styles.body, ...styles.submitText }}>Submit</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{ ...Styles.buttonShape, ...styles.logoutButton }}
-            onPress={getNotifications}
-          >
-            <Text style={{ ...Styles.body, ...styles.logoutText }}>
-              {register}
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{ ...Styles.buttonShape, ...styles.logoutButton }}
-            onPress={logout}
-          >
-            <Text style={{ ...Styles.body, ...styles.logoutText }}>Logout</Text>
-          </TouchableOpacity>
+          <ClearButton onPress={() => updateIntake()} label="Submit" />
+          <SolidButton onPress={getNotifications} label={register} />
+          <SolidButton onPress={logout} label="Logout" />
         </View>
       </ScrollView>
-      <View style={Styles.navBar}>
-        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-          <HomeIcon />
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
+      <Navbar navigation={navigation} />
+    </SafeGradient>
   );
 }
 
@@ -154,23 +129,6 @@ const styles = StyleSheet.create({
   goalInput: {
     borderColor: Colours.yellow,
     color: Colours.yellow,
-  },
-  submitButton: {
-    borderColor: Colours.yellow,
-    borderWidth: 1,
-    marginVertical: 10,
-  },
-  submitText: {
-    textAlign: "center",
-    color: Colours.yellow,
-  },
-  logoutButton: {
-    backgroundColor: Colours.yellow,
-    marginVertical: 10,
-  },
-  logoutText: {
-    textAlign: "center",
-    color: Colours.darkBlue,
   },
   title: {
     textAlign: "center",

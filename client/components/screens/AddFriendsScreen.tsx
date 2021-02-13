@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   StyleSheet,
@@ -6,24 +6,21 @@ import {
   RefreshControl,
   ScrollView,
   TouchableOpacity,
-  SafeAreaView,
 } from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
-import { useState } from "react";
-import { LinearGradient } from "expo-linear-gradient";
 
-import Styles from "../styles/styles";
-import Colours from "../styles/colours";
-
-import { HomeIcon, FriendsIcon } from "../assets";
+import { Colours, Styles } from "../../styles";
 
 import {
   getPendingRequests,
   sendFriendRequest,
   acceptFriendRequest,
   getNonFriends,
-} from "../api";
-import { getData } from "../storage";
+} from "../../api";
+import { getData } from "../../storage";
+
+import Navbar from "../Navbar";
+import SafeGradient from "../SafeGradient";
 
 interface AddFriendsScreenProps {
   navigation: StackNavigationHelpers;
@@ -87,11 +84,7 @@ export default function AddFriendsScreen({
   }, []);
 
   return (
-    <SafeAreaView style={Styles.screen}>
-      <LinearGradient
-        style={Styles.background}
-        colors={[Colours.darkBlue, Colours.medBlue]}
-      />
+    <SafeGradient>
       <ScrollView
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
@@ -165,17 +158,8 @@ export default function AddFriendsScreen({
           ))}
         </View>
       </ScrollView>
-      <View style={{ ...Styles.navBar }}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate("Home", { refresh: true })}
-        >
-          <HomeIcon />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("Friends")}>
-          <FriendsIcon />
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
+      <Navbar navigation={navigation} right="Friends" />
+    </SafeGradient>
   );
 }
 

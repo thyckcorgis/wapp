@@ -7,17 +7,17 @@ import {
   ScrollView,
   TextInput,
 } from "react-native";
-import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
-import { LinearGradient } from "expo-linear-gradient";
-
-import Styles from "../styles/styles";
-import Colours from "../styles/colours";
-
-import { HomeIcon } from "../assets";
-import { getData, storeData } from "../storage";
-import { Cup } from "./CupSizeScreen";
-import { logWaterIntake } from "../api";
 import { Route } from "@react-navigation/native";
+import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
+
+import { Colours, Styles } from "../../styles";
+
+import { getData, storeData } from "../../storage";
+import { logWaterIntake } from "../../api";
+
+import { Cup } from "./CupSizeScreen";
+import Navbar from "../Navbar";
+import SafeGradient from "../SafeGradient";
 
 interface LogWaterParams {
   refresh?: boolean;
@@ -65,11 +65,7 @@ export default function LogWaterScreen({
     }
   }
   return (
-    <View style={Styles.screen}>
-      <LinearGradient
-        style={Styles.background}
-        colors={[Colours.darkBlue, Colours.medBlue]}
-      />
+    <SafeGradient>
       <Text style={{ ...Styles.title, ...styles.title }}>
         How much water did you drink?
       </Text>
@@ -130,12 +126,8 @@ export default function LogWaterScreen({
           </TouchableOpacity>
         </ScrollView>
       </View>
-      <View style={{ ...Styles.navBar }}>
-        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-          <HomeIcon />
-        </TouchableOpacity>
-      </View>
-    </View>
+      <Navbar navigation={navigation} />
+    </SafeGradient>
   );
 }
 

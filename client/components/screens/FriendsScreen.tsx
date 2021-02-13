@@ -1,21 +1,16 @@
 import React, { useState, useEffect } from "react";
-import {
-  Text,
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  SafeAreaView,
-} from "react-native";
+import { Text, StyleSheet, View } from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
-import { LinearGradient } from "expo-linear-gradient";
-import { getData } from "../storage";
-import { getFriends } from "../api";
-
-import Styles from "../styles/styles";
-import Colours from "../styles/colours";
-
-import { HomeIcon, LitreBoardsIcon } from "../assets";
 import { ScrollView } from "react-native-gesture-handler";
+
+import { Colours, Styles } from "../../styles";
+
+import { getData } from "../../storage";
+import { getFriends } from "../../api";
+
+import Navbar from "../Navbar";
+import SafeGradient from "../SafeGradient";
+import { ClearButton } from "../buttons";
 
 interface FriendsScreenProps {
   navigation: StackNavigationHelpers;
@@ -38,21 +33,13 @@ export default function FriendsScreen({ navigation }: FriendsScreenProps) {
   }, [setFriends]);
 
   return (
-    <SafeAreaView style={Styles.screen}>
-      <LinearGradient
-        style={Styles.background}
-        colors={[Colours.darkBlue, Colours.medBlue]}
-      />
+    <SafeGradient>
       <Text style={{ ...Styles.title, ...styles.title }}>Friends</Text>
       <View style={styles.friendsBox}>
-        <TouchableOpacity
-          style={{ ...Styles.buttonShape, ...styles.addButton }}
+        <ClearButton
+          label="Add friends +"
           onPress={() => navigation.navigate("AddFriends")}
-        >
-          <Text style={{ ...Styles.body, ...styles.addText }}>
-            Add friends +
-          </Text>
-        </TouchableOpacity>
+        />
         <ScrollView contentContainerStyle={styles.friendsList}>
           {friends.map(({ username, name }) => (
             <View key={username} style={styles.friendBox}>
@@ -76,15 +63,8 @@ export default function FriendsScreen({ navigation }: FriendsScreenProps) {
           ))}
         </ScrollView>
       </View>
-      <View style={{ ...Styles.navBar }}>
-        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-          <HomeIcon />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("Litreboards")}>
-          <LitreBoardsIcon />
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
+      <Navbar navigation={navigation} right="Litreboards" />
+    </SafeGradient>
   );
 }
 
@@ -116,15 +96,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flex: 1,
     alignItems: "center",
-  },
-  addButton: {
-    borderColor: Colours.yellow,
-    borderWidth: 1,
-    marginVertical: 30,
-  },
-  addText: {
-    textAlign: "center",
-    color: Colours.yellow,
   },
   title: {
     textAlign: "center",

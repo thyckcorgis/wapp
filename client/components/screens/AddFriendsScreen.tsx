@@ -28,6 +28,28 @@ interface User {
   name: string;
 }
 
+interface TextRowProps {
+  title: string;
+  text: string;
+}
+const TextRow = ({ title, text }: TextRowProps) => (
+  <View style={styles.name}>
+    <Text style={{ ...Styles.body, ...styles.headerText }}>{title + " "}</Text>
+    <Text style={{ ...Styles.body, ...styles.friendText }}>{text}</Text>
+  </View>
+);
+
+interface SmallButtonProps {
+  label: string;
+  onPress: () => void;
+}
+
+const SmallButton = ({ label, onPress }: SmallButtonProps) => (
+  <TouchableOpacity style={styles.smallButton} onPress={onPress}>
+    <Text style={{ ...Styles.body, ...styles.buttonText }}>{label}</Text>
+  </TouchableOpacity>
+);
+
 export default function AddFriendsScreen({ navigation }: ScreenProps) {
   const [username, setUsername] = useState("");
   const [users, setUsers] = useState<User[]>([]);
@@ -107,30 +129,12 @@ export default function AddFriendsScreen({ navigation }: ScreenProps) {
           <Text style={{ ...Styles.body, ...styles.title }}>Other Users:</Text>
           {users?.map(({ username, name }) => (
             <View style={styles.friendBox} key={username}>
-              <View style={styles.name}>
-                <Text style={{ ...Styles.body, ...styles.headerText }}>
-                  Name:{" "}
-                </Text>
-                <Text style={{ ...Styles.body, ...styles.friendText }}>
-                  {name}
-                </Text>
-              </View>
-              <View style={styles.name}>
-                <Text style={{ ...Styles.body, ...styles.headerText }}>
-                  Username:{" "}
-                </Text>
-                <Text style={{ ...Styles.body, ...styles.friendText }}>
-                  {username}
-                </Text>
-              </View>
-              <TouchableOpacity
-                style={styles.smallButton}
+              <TextRow title="Name:" text={name} />
+              <TextRow title="Username:" text={username} />
+              <SmallButton
+                label="Add Friend"
                 onPress={() => addFriend(username)()}
-              >
-                <Text style={{ ...Styles.body, ...styles.buttonText }}>
-                  Add Friend
-                </Text>
-              </TouchableOpacity>
+              />
             </View>
           ))}
         </View>
@@ -140,30 +144,12 @@ export default function AddFriendsScreen({ navigation }: ScreenProps) {
           </Text>
           {pendingRequests?.map(({ username, name }) => (
             <View style={styles.friendBox} key={username}>
-              <View style={styles.name}>
-                <Text style={{ ...Styles.body, ...styles.headerText }}>
-                  Name:{" "}
-                </Text>
-                <Text style={{ ...Styles.body, ...styles.friendText }}>
-                  {name}
-                </Text>
-              </View>
-              <View style={styles.name}>
-                <Text style={{ ...Styles.body, ...styles.headerText }}>
-                  Username:{" "}
-                </Text>
-                <Text style={{ ...Styles.body, ...styles.friendText }}>
-                  {username}
-                </Text>
-              </View>
-              <TouchableOpacity
-                style={styles.smallButton}
+              <TextRow title="Name:" text={name} />
+              <TextRow title="Username:" text={username} />
+              <SmallButton
+                label="Accept Friend"
                 onPress={() => acceptFriend(username)()}
-              >
-                <Text style={{ ...Styles.body, ...styles.buttonText }}>
-                  Accept Friend
-                </Text>
-              </TouchableOpacity>
+              />
             </View>
           ))}
         </View>

@@ -8,19 +8,19 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-import { Colours, Styles } from "../../styles";
+import { Colours, Styles } from "../../../styles";
 
 import {
   getPendingRequests,
   sendFriendRequest,
   acceptFriendRequest,
   getNonFriends,
-} from "../../api";
-import { getData } from "../../storage";
+} from "../../../api";
+import { getData } from "../../../storage";
 
-import Navbar from "../Navbar";
-import SafeGradient from "../SafeGradient";
-import ScreenProps from "./ScreenProps";
+import Navbar from "../../Navbar";
+import SafeGradient from "../../SafeGradient";
+import ScreenProps from "../ScreenProps";
 
 interface User {
   username: string;

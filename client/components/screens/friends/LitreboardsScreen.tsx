@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Text, StyleSheet, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 
-import { Colours, Styles } from "../../styles";
+import { Colours, Styles } from "../../../styles";
 
-import { getData } from "../../storage";
-import { getLitreBoard } from "../../api";
+import { getData } from "../../../storage";
+import { getLitreBoard } from "../../../api";
 
-import Navbar from "../Navbar";
-import SafeGradient from "../SafeGradient";
-import ScreenProps from "./ScreenProps";
+import Navbar from "../../Navbar";
+import SafeGradient from "../../SafeGradient";
+import ScreenProps from "../ScreenProps";
 
 interface User {
   username: string;

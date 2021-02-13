@@ -10,13 +10,13 @@ import {
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 
-import { Colours, Styles } from "../../styles";
+import { Colours, Styles } from "../../../styles";
 
-import { registerUser } from "../../api";
-import { storeData } from "../../storage";
-import { defaultCups } from "../../constants";
-import SafeGradient from "../SafeGradient";
-import ScreenProps from "./ScreenProps";
+import { registerUser } from "../../../api";
+import { storeData } from "../../../storage";
+import { defaultCups } from "../../../constants";
+import SafeGradient from "../../SafeGradient";
+import ScreenProps from "../ScreenProps";
 
 // this is in litres
 // if you drink this many ounces of water a day you will die so don't do that

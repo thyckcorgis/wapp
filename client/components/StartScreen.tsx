@@ -18,7 +18,7 @@ export default function StartScreen({ navigation }: StartScreenProps) {
     (async () => {
       const data = await getData("user");
       if (data !== null) {
-        navigation.navigate("Home", data);
+        //navigation.navigate("Home", data);
       }
     })();
   }, []);

@@ -15,6 +15,7 @@ import {
   sendFriendRequest,
   acceptFriendRequest,
   getNonFriends,
+  setDailyIntake,
 } from "../../api";
 import { getData } from "../../storage";
 
@@ -55,7 +56,7 @@ export default function AddFriendsScreen({ navigation }: ScreenProps) {
   const [users, setUsers] = useState<User[]>([]);
   const [pendingRequests, setPendingRequests] = useState<User[]>([]);
   const [search, setSearch] = useState("");
-  console.log(users)
+  const [searchedFriends, setSearchedFriends] = useState<User[]>([]);
 
   function fetchAllData() {
     (async () => {
@@ -94,6 +95,20 @@ export default function AddFriendsScreen({ navigation }: ScreenProps) {
     };
   }
 
+  //let displaySearch: {username: string, name: string}[] = []
+
+  function searchFriends() {
+    setSearchedFriends (searchedFriends => {
+      for (let i=0;i<users.length;i++) {
+        if (users[i].username.startsWith(search)) {
+          searchedFriends.push(users[i])
+        } 
+      }
+      return searchedFriends
+    })
+    console.log(searchedFriends)
+  }
+
   const [refreshing, setRefreshing] = React.useState(false);
 
   const onRefresh = React.useCallback(async () => {
@@ -120,11 +135,24 @@ export default function AddFriendsScreen({ navigation }: ScreenProps) {
               value={search}
             />        
         <TouchableOpacity
-          onPress={() => 1+1}
+          onPress={() => searchFriends()}
           style={{ ...Styles.buttonShape, /*...styles.searchButton*/ }}
         >
           <Text style={{ ...Styles.body, /* ...styles.searchText */}}>Search</Text>
         </TouchableOpacity>
+        <View style={styles.friendsBox}>
+          <Text style={{ ...Styles.body, ...styles.title }}>Search results:</Text>
+          {searchedFriends?.map(({ username, name }) => (
+              <View style={styles.friendBox} key={username}>
+                <TextRow title="Name:" text={name} />
+                <TextRow title="Username:" text={username} />
+                <SmallButton
+                  label="Add Friend"
+                  onPress={() => addFriend(username)()}
+                />
+              </View>
+            ))}
+          </View>
         <View style={styles.friendsBox}>
           <Text style={{ ...Styles.body, ...styles.title }}>Other Users:</Text>
           {users?.map(({ username, name }) => (

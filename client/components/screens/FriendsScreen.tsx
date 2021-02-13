@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, StyleSheet, View, TouchableOpacity } from "react-native";
+import { Text, StyleSheet, View } from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 import { ScrollView } from "react-native-gesture-handler";
 
@@ -10,6 +10,7 @@ import { getFriends } from "../../api";
 
 import Navbar from "../Navbar";
 import SafeGradient from "../SafeGradient";
+import { ClearButton } from "../buttons";
 
 interface FriendsScreenProps {
   navigation: StackNavigationHelpers;
@@ -35,14 +36,10 @@ export default function FriendsScreen({ navigation }: FriendsScreenProps) {
     <SafeGradient>
       <Text style={{ ...Styles.title, ...styles.title }}>Friends</Text>
       <View style={styles.friendsBox}>
-        <TouchableOpacity
-          style={{ ...Styles.buttonShape, ...styles.addButton }}
+        <ClearButton
+          label="Add friends +"
           onPress={() => navigation.navigate("AddFriends")}
-        >
-          <Text style={{ ...Styles.body, ...styles.addText }}>
-            Add friends +
-          </Text>
-        </TouchableOpacity>
+        />
         <ScrollView contentContainerStyle={styles.friendsList}>
           {friends.map(({ username, name }) => (
             <View key={username} style={styles.friendBox}>
@@ -99,15 +96,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flex: 1,
     alignItems: "center",
-  },
-  addButton: {
-    borderColor: Colours.yellow,
-    borderWidth: 1,
-    marginVertical: 30,
-  },
-  addText: {
-    textAlign: "center",
-    color: Colours.yellow,
   },
   title: {
     textAlign: "center",

@@ -15,6 +15,7 @@ import { CorgiLogo } from "../../assets";
 
 import { storeData } from "../../storage";
 import { loginUser } from "../../api";
+import { SolidButton } from "../buttons";
 
 interface SignInScreen {
   navigation: StackNavigationHelpers;
@@ -60,12 +61,8 @@ export default function SignInScreen({ navigation }: SignInScreen) {
           secureTextEntry
         />
         <Text style={Styles.error}>{error}</Text>
-        <TouchableOpacity
-          onPress={() => login()}
-          style={{ ...Styles.buttonShape, ...styles.loginButton }}
-        >
-          <Text style={{ ...Styles.body, ...styles.loginText }}>Log In</Text>
-        </TouchableOpacity>
+        <SolidButton onPress={() => login()} label="Login" />
+
         <TouchableOpacity onPress={() => navigation.navigate("Register")}>
           <Text style={{ ...Styles.body, ...styles.signupText }}>
             Don't have an account? Sign up!

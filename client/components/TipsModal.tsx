@@ -1,15 +1,17 @@
 import React, { useState } from "react";
-import {
-  Text,
-  View,
-  Modal,
-  TouchableHighlight,
-  StyleSheet,
-} from "react-native";
+import { Text, View, Modal, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 import { TipsIcon } from "../assets/index";
 import { Colours, Styles } from "../styles";
+
+const tips = [
+  "If you see a bathroom in a dream - DON'T USE IT!",
+  "When you smell pee in the streets, you can tell that urine the wrong neighbourhood.",
+  "Why can't you hear a pterodactyl pee? Because they're extinct.",
+  'Wife: "I just got stung by a jellyfish. quick, pee on it!"\nHusband: *peeing on jellyfish* "This is for stinging my wife." ',
+  "Don't pee on anyone, or else they're going to be pissed.",
+];
 
 export default function TipsModal() {
   const [modalVisible, setModalVisible] = useState(false);
@@ -31,7 +33,7 @@ export default function TipsModal() {
             </Text>
             <View style={styles.tipBox}>
               <Text style={{ ...Styles.body, ...styles.modalText }}>
-                If you see a bathroom in a dream - DON'T USE IT!{" "}
+                {tips[1] + " "}
               </Text>
             </View>
 

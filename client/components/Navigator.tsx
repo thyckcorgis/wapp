@@ -1,3 +1,4 @@
+import React from "react";
 import { StackCardStyleInterpolator } from "react-navigation-stack";
 
 import { NavigationContainer } from "@react-navigation/native";
@@ -56,6 +57,7 @@ export default function Navigator() {
       >
         {screens.map((screen) => (
           <Stack.Screen
+            key={screen.name}
             name={screen.name}
             component={screen.component}
             options={screen.disable ? hideAndDisable : hideHeader}

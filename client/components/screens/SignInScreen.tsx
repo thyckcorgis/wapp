@@ -11,11 +11,11 @@ import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/s
 import { LinearGradient } from "expo-linear-gradient";
 import { useState } from "react";
 
-import Colours from "../styles/colours";
-import Styles from "../styles/styles";
-import { CorgiLogo } from "../assets";
-import { storeData } from "../storage";
-import { loginUser } from "../api";
+import Colours from "../../styles/colours";
+import Styles from "../../styles/styles";
+import { CorgiLogo } from "../../assets";
+import { storeData } from "../../storage";
+import { loginUser } from "../../api";
 
 interface SignInScreen {
   navigation: StackNavigationHelpers;

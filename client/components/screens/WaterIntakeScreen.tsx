@@ -14,11 +14,11 @@ import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/s
 import { useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 
-import Styles from "../styles/styles";
-import Colours from "../styles/colours";
+import Styles from "../../styles/styles";
+import Colours from "../../styles/colours";
 import { Route } from "@react-navigation/core";
-import { storeData } from "../storage";
-import { setDailyIntake } from "../api";
+import { storeData } from "../../storage";
+import { setDailyIntake } from "../../api";
 
 interface WaterIntakeParams {
   username: string;

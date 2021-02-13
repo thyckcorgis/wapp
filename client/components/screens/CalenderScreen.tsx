@@ -10,10 +10,10 @@ import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/s
 import { LinearGradient } from "expo-linear-gradient";
 import CalendarPicker from "react-native-calendar-picker";
 
-import Styles from "../styles/styles";
-import Colours from "../styles/colours";
+import Styles from "../../styles/styles";
+import Colours from "../../styles/colours";
 
-import { HomeIcon } from "../assets";
+import { HomeIcon } from "../../assets";
 
 interface CalendarScreenProps {
   navigation: StackNavigationHelpers;

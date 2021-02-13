@@ -10,11 +10,11 @@ import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/s
 import { LinearGradient } from "expo-linear-gradient";
 import ProgressCircle from "react-native-progress-circle";
 
-import Styles from "../styles/styles";
-import Colours from "../styles/colours";
+import Styles from "../../styles/styles";
+import Colours from "../../styles/colours";
 
 import { Route } from "@react-navigation/native";
-import TipsModal from "./TipsModal";
+import TipsModal from "../TipsModal";
 
 import {
   UserIcon,
@@ -23,9 +23,9 @@ import {
   DrinkButton,
   HomeIcon,
   FriendsIcon,
-} from "../assets";
-import { getData, storeData } from "../storage";
-import { poll } from "../api";
+} from "../../assets";
+import { getData, storeData } from "../../storage";
+import { poll } from "../../api";
 
 interface User {
   username: string;

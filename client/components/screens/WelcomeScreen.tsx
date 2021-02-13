@@ -1,14 +1,12 @@
 import React from "react";
-import { Text, StyleSheet, View, TouchableOpacity, SafeAreaView } from "react-native";
+import { View, TouchableOpacity, SafeAreaView } from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
-import { getData } from "../storage";
-import { WelcomeIcon } from "../assets";
+import { getData } from "../../storage";
+import { WelcomeIcon } from "../../assets";
 import { LinearGradient } from "expo-linear-gradient";
 
-
-import Styles from "../styles/styles";
-import Colours from "../styles/colours";
-
+import Styles from "../../styles/styles";
+import Colours from "../../styles/colours";
 
 interface WelcomeScreenProps {
   navigation: StackNavigationHelpers;
@@ -28,9 +26,8 @@ export default function WelcomeScreen({ navigation }: WelcomeScreenProps) {
       <TouchableOpacity onPress={nextScreen}>
         <View style={Styles.bigButton}>
           <WelcomeIcon />
-        </View>      
+        </View>
       </TouchableOpacity>
     </SafeAreaView>
   );
 }
-

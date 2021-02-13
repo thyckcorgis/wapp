@@ -11,11 +11,11 @@ import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/s
 import { useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 
-import Styles from "../styles/styles";
-import Colours from "../styles/colours";
+import Styles from "../../styles/styles";
+import Colours from "../../styles/colours";
 
-import { HomeIcon } from "../assets";
-import { getData, storeData } from "../storage";
+import { HomeIcon } from "../../assets";
+import { getData, storeData } from "../../storage";
 
 interface CupSizeScreenProps {
   navigation: StackNavigationHelpers;

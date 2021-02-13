@@ -10,13 +10,13 @@ import {
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 import { LinearGradient } from "expo-linear-gradient";
 
-import Styles from "../styles/styles";
-import Colours from "../styles/colours";
+import Styles from "../../styles/styles";
+import Colours from "../../styles/colours";
 
-import { HomeIcon } from "../assets";
-import { getData, storeData } from "../storage";
+import { HomeIcon } from "../../assets";
+import { getData, storeData } from "../../storage";
 import { Cup } from "./CupSizeScreen";
-import { logWaterIntake } from "../api";
+import { logWaterIntake } from "../../api";
 import { Route } from "@react-navigation/native";
 
 interface LogWaterParams {

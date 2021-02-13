@@ -1,5 +1,5 @@
 import React from "react";
-import { storeData } from "../storage";
+import { storeData } from "../../storage";
 import {
   Text,
   StyleSheet,
@@ -12,14 +12,14 @@ import {
 } from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 import { LinearGradient } from "expo-linear-gradient";
-import { defaultCups } from "../constants";
+import { defaultCups } from "../../constants";
 
-import Styles from "../styles/styles";
-import Colours from "../styles/colours";
+import Styles from "../../styles/styles";
+import Colours from "../../styles/colours";
 import { Picker } from "@react-native-picker/picker";
 
 import { useState } from "react";
-import { registerUser } from "../api";
+import { registerUser } from "../../api";
 
 interface RegisterScreenProps {
   navigation: StackNavigationHelpers;

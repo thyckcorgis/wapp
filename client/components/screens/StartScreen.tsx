@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
-import { StyleSheet, View, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity } from "react-native";
 import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 import { LinearGradient } from "expo-linear-gradient";
 
-import Styles from "../styles/styles";
-import Colours from "../styles/colours";
+import Styles from "../../styles/styles";
+import Colours from "../../styles/colours";
 
-import { StartIcon } from "../assets";
-import { getData } from "../storage";
+import { StartIcon } from "../../assets";
+import { getData } from "../../storage";
 
 interface StartScreenProps {
   navigation: StackNavigationHelpers;

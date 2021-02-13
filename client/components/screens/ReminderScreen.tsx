@@ -11,11 +11,11 @@ import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/s
 import { LinearGradient } from "expo-linear-gradient";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
-import Styles from "../styles/styles";
-import Colours from "../styles/colours";
-import { getData, storeData } from "../storage";
-import { registerForPushNotificationsAsync } from "../notifications";
-import { uploadPushToken } from "../api";
+import Styles from "../../styles/styles";
+import Colours from "../../styles/colours";
+import { getData, storeData } from "../../storage";
+import { registerForPushNotificationsAsync } from "../../notifications";
+import { uploadPushToken } from "../../api";
 
 interface User {
   username: string;

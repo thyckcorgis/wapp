@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Text, StyleSheet, View } from "react-native";
-import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 import { ScrollView } from "react-native-gesture-handler";
 
 import { Colours, Styles } from "../../styles";
@@ -10,19 +9,15 @@ import { getLitreBoard } from "../../api";
 
 import Navbar from "../Navbar";
 import SafeGradient from "../SafeGradient";
+import ScreenProps from "./ScreenProps";
 
-interface LitreboardsScreenProps {
-  navigation: StackNavigationHelpers;
-}
 interface User {
   username: string;
   name: string;
   percentage: number;
 }
 
-export default function LitreboardsScreen({
-  navigation,
-}: LitreboardsScreenProps) {
+export default function LitreboardsScreen({ navigation }: ScreenProps) {
   const [litreboard, setLitreBoard] = useState([]);
 
   useEffect(() => {

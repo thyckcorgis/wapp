@@ -8,7 +8,6 @@ import {
   ScrollView,
   Dimensions,
 } from "react-native";
-import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 import { Picker } from "@react-native-picker/picker";
 
 import { Colours, Styles } from "../../styles";
@@ -17,10 +16,7 @@ import { registerUser } from "../../api";
 import { storeData } from "../../storage";
 import { defaultCups } from "../../constants";
 import SafeGradient from "../SafeGradient";
-
-interface RegisterScreenProps {
-  navigation: StackNavigationHelpers;
-}
+import ScreenProps from "./ScreenProps";
 
 // this is in litres
 // if you drink this many ounces of water a day you will die so don't do that
@@ -61,7 +57,7 @@ const input = (
   </View>
 );
 
-export default function RegisterScreen({ navigation }: RegisterScreenProps) {
+export default function RegisterScreen({ navigation }: ScreenProps) {
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");

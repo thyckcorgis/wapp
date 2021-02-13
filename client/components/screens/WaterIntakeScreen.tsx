@@ -9,8 +9,7 @@ import {
   Dimensions,
   KeyboardAvoidingView,
 } from "react-native";
-import { Route } from "@react-navigation/core";
-import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
+import { Route } from "@react-navigation/native";
 
 import { Colours, Styles } from "../../styles";
 
@@ -18,14 +17,14 @@ import { storeData } from "../../storage";
 import { setDailyIntake } from "../../api";
 
 import SafeGradient from "../SafeGradient";
+import ScreenProps from "./ScreenProps";
 
 interface WaterIntakeParams {
   username: string;
   daily: number;
 }
 
-interface WaterIntakeScreenProps {
-  navigation: StackNavigationHelpers;
+interface WaterIntakeScreenProps extends ScreenProps {
   route: Route<"Intake", WaterIntakeParams>;
 }
 

@@ -8,7 +8,6 @@ import {
   TextInput,
 } from "react-native";
 import { Route } from "@react-navigation/native";
-import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 
 import { Colours, Styles } from "../../styles";
 
@@ -18,12 +17,13 @@ import { logWaterIntake } from "../../api";
 import { Cup } from "./CupSizeScreen";
 import Navbar from "../Navbar";
 import SafeGradient from "../SafeGradient";
+import ScreenProps from "./ScreenProps";
 
 interface LogWaterParams {
   refresh?: boolean;
 }
-interface LogWaterScreenProps {
-  navigation: StackNavigationHelpers;
+
+interface LogWaterScreenProps extends ScreenProps {
   route: Route<"LogWater", LogWaterParams>;
 }
 

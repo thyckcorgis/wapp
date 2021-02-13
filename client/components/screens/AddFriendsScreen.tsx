@@ -7,7 +7,6 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
 
 import { Colours, Styles } from "../../styles";
 
@@ -21,19 +20,14 @@ import { getData } from "../../storage";
 
 import Navbar from "../Navbar";
 import SafeGradient from "../SafeGradient";
-
-interface AddFriendsScreenProps {
-  navigation: StackNavigationHelpers;
-}
+import ScreenProps from "./ScreenProps";
 
 interface User {
   username: string;
   name: string;
 }
 
-export default function AddFriendsScreen({
-  navigation,
-}: AddFriendsScreenProps) {
+export default function AddFriendsScreen({ navigation }: ScreenProps) {
   const [username, setUsername] = useState("");
   const [users, setUsers] = useState<User[]>([]);
   const [pendingRequests, setPendingRequests] = useState<User[]>([]);

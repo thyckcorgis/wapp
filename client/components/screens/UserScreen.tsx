@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  TextInput,
-} from "react-native";
-import { StackNavigationHelpers } from "@react-navigation/stack/lib/typescript/src/types";
+import { StyleSheet, Text, View, TextInput } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 
 import { Colours, Styles } from "../../styles";
@@ -18,17 +11,14 @@ import { registerForPushNotificationsAsync } from "../../notifications";
 import Navbar from "../Navbar";
 import SafeGradient from "../SafeGradient";
 import { ClearButton, SolidButton } from "../buttons/";
-
-interface UserScreenProps {
-  navigation: StackNavigationHelpers;
-}
+import ScreenProps from "./ScreenProps";
 
 interface User {
   username: string;
   daily: number;
 }
 
-export default function UserScreen({ navigation }: UserScreenProps) {
+export default function UserScreen({ navigation }: ScreenProps) {
   const [newIntake, setNewIntake] = useState("");
   const [username, setUsername] = useState("");
   const [intake, setIntake] = useState("");

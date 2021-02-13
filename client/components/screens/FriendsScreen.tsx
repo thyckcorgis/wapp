@@ -11,16 +11,14 @@ import { getFriends } from "../../api";
 import Navbar from "../Navbar";
 import SafeGradient from "../SafeGradient";
 import { ClearButton } from "../buttons";
+import ScreenProps from "./ScreenProps";
 
-interface FriendsScreenProps {
-  navigation: StackNavigationHelpers;
-}
 interface User {
   username: string;
   name: string;
 }
 
-export default function FriendsScreen({ navigation }: FriendsScreenProps) {
+export default function FriendsScreen({ navigation }: ScreenProps) {
   const [friends, setFriends] = useState([]);
 
   useEffect(() => {

@@ -17,6 +17,7 @@ import { registerForPushNotificationsAsync } from "../../notifications";
 
 import Navbar from "../Navbar";
 import SafeGradient from "../SafeGradient";
+import { ClearButton, SolidButton } from "../buttons/";
 
 interface UserScreenProps {
   navigation: StackNavigationHelpers;
@@ -97,26 +98,9 @@ export default function UserScreen({ navigation }: UserScreenProps) {
             value={String(newIntake)}
             keyboardType="decimal-pad"
           />
-          <TouchableOpacity
-            onPress={() => updateIntake()}
-            style={{ ...Styles.buttonShape, ...styles.submitButton }}
-          >
-            <Text style={{ ...Styles.body, ...styles.submitText }}>Submit</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{ ...Styles.buttonShape, ...styles.logoutButton }}
-            onPress={getNotifications}
-          >
-            <Text style={{ ...Styles.body, ...styles.logoutText }}>
-              {register}
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{ ...Styles.buttonShape, ...styles.logoutButton }}
-            onPress={logout}
-          >
-            <Text style={{ ...Styles.body, ...styles.logoutText }}>Logout</Text>
-          </TouchableOpacity>
+          <ClearButton onPress={() => updateIntake()} label="Submit" />
+          <SolidButton onPress={getNotifications} label={register} />
+          <SolidButton onPress={logout} label="Logout" />
         </View>
       </ScrollView>
       <Navbar navigation={navigation} />
@@ -145,23 +129,6 @@ const styles = StyleSheet.create({
   goalInput: {
     borderColor: Colours.yellow,
     color: Colours.yellow,
-  },
-  submitButton: {
-    borderColor: Colours.yellow,
-    borderWidth: 1,
-    marginVertical: 10,
-  },
-  submitText: {
-    textAlign: "center",
-    color: Colours.yellow,
-  },
-  logoutButton: {
-    backgroundColor: Colours.yellow,
-    marginVertical: 10,
-  },
-  logoutText: {
-    textAlign: "center",
-    color: Colours.darkBlue,
   },
   title: {
     textAlign: "center",

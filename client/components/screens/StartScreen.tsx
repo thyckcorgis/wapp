@@ -15,9 +15,13 @@ interface StartScreenProps {
 export default function StartScreen({ navigation }: StartScreenProps) {
   useEffect(() => {
     (async () => {
-      const data = await getData("user");
-      if (data !== null) {
-        navigation.navigate("Home", data);
+      try {
+        const data = await getData("user");
+        if (data !== null) {
+          navigation.navigate("Home", data);
+        }
+      } catch (err) {
+        console.log(err);
       }
     })();
   }, []);

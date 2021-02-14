@@ -85,6 +85,18 @@ export default function AddFriendsScreen({ navigation }: ScreenProps) {
     setRefreshing(false);
   }, []);
 
+  let displayResults
+  if (searchResults.length != 0) {
+    displayResults = <UserList
+    title="Search results:"
+    list={searchResults}
+    label="Add Friend"
+    onPress={addFriend(username)}
+  />
+  } else {
+    displayResults = <Text style={{ ...Styles.title, ...styles.title }}>No users found &#x1F62D;</Text>
+  }
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <SafeGradient>
@@ -108,12 +120,7 @@ export default function AddFriendsScreen({ navigation }: ScreenProps) {
             style={{ ...Styles.inputField, ...styles.searchBar }}
           />
 
-          <UserList
-            title="Search results:"
-            list={searchResults}
-            label="Add Friend"
-            onPress={addFriend(username)}
-          />
+          {displayResults}
           <UserList
             title="Pending requests:"
             list={pendingRequests}

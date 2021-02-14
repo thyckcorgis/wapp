@@ -70,6 +70,10 @@ export default function AddFriendsScreen({ navigation }: ScreenProps) {
   }
 
   function searchFriends(text: string) {
+    if (text === "") {
+      setSearchResults([])
+      return
+    }
     setSearchResults(
       users.filter(
         (u) => u.name.startsWith(text) || u.username.startsWith(text)
@@ -93,7 +97,10 @@ export default function AddFriendsScreen({ navigation }: ScreenProps) {
     label="Add Friend"
     onPress={addFriend(username)}
   />
-  } else {
+  } else if (!search) {
+    displayResults = null
+  }
+  else {
     displayResults = <Text style={{ ...Styles.title, ...styles.title }}>No users found &#x1F62D;</Text>
   }
 

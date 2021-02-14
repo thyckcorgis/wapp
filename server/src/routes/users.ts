@@ -1,7 +1,8 @@
 import { Router } from "express";
 import { hash, compare } from "bcrypt";
-import users, { UserReq, LoginReq, newUser } from "../userdb";
+import users, { UserReq, LoginReq, newUser, User } from "../userdb";
 import { ExpoPushToken } from "expo-server-sdk";
+import { AuthReq, checkAuth, createToken } from "src/auth";
 
 const router = Router();
 
@@ -20,22 +21,23 @@ router.post("/login", async (req, res) => {
   const user = users.getUser(username);
   if (!user) return authFail();
   if (!(await compare(password, user.password))) return authFail();
-
-  res.json({ ok: true, message: "Login successfully", user });
+  const token = createToken(user);
+  res.json({ ok: true, message: "Login successfully", token });
 });
 
 /*
 body:
 {
-  username: string,
   daily: number
 }
  */
-router.post("/daily", async (req, res) => {
-  const { username, daily } = req.body as { username: string; daily: number };
+router.post("/daily", checkAuth, async (req: AuthReq, res) => {
+  const { daily } = req.body;
+  const { username } = req.userData as User;
   const user = users.setDailyIntake(username, daily);
   if (user) {
-    res.json({ ok: true, message: "Changed daily intake", user });
+    const token = createToken(user);
+    res.json({ ok: true, message: "Changed daily intake", token });
   } else {
     res.json({ ok: false, message: "User not found" });
   }
@@ -65,19 +67,13 @@ router.post("/register", async (req, res) => {
   }
 });
 
-/*
-body: {
-  username: string;
-  expoPushToken: ExpoPushToken 
-}
- */
 interface NotifReq {
-  username: string;
   expoPushToken: ExpoPushToken;
 }
 
-router.post("/notif", (req, res) => {
-  const { username, expoPushToken } = req.body as NotifReq;
+router.post("/notif", checkAuth, (req: AuthReq, res) => {
+  const { expoPushToken } = req.body as NotifReq;
+  const { username } = req.userData as User;
   const user = users.setPushToken(username, expoPushToken);
   if (user) {
     res.json({ ok: true, message: "Set push token successful", user });
@@ -86,8 +82,8 @@ router.post("/notif", (req, res) => {
   }
 });
 
-router.post("/delete-token", (req, res) => {
-  const username = req.body.username as string;
+router.delete("/token", checkAuth, (req: AuthReq, res) => {
+  const { username } = req.userData as User;
   const user = users.deletePushToken(username);
   if (user) {
     res.json({ ok: true, message: "Delete push token successful", user });
@@ -97,8 +93,8 @@ router.post("/delete-token", (req, res) => {
 });
 
 // for polling
-router.get("/:user", (req, res) => {
-  res.json({ user: users.getUser(req.params.user) });
+router.get("/", checkAuth, (req: AuthReq, res) => {
+  res.json({ user: users.getUser(req.userData?.username || "") });
 });
 
 router.get("/", (_, res) => {

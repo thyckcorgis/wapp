@@ -1,6 +1,7 @@
 import JWT from "jsonwebtoken";
 import { createHmac } from "crypto";
 import { NextFunction, Request, Response } from "express";
+import { User } from "./userdb";
 
 if (process.env.NODE_ENV !== "production") require("dotenv").config();
 
@@ -16,11 +17,8 @@ export function hmacHash(text: string) {
 export function authFail(res: Response) {
   res.status(401).json({ message: "Auth failed" });
 }
-export interface UserData {
-  username: string;
-}
 export interface AuthReq extends Request {
-  userData?: UserData;
+  userData?: User;
 }
 
 // Middleware for JSON webtoken authentication
@@ -33,12 +31,12 @@ export function checkAuth(req: AuthReq, res: Response, next: NextFunction) {
     req.userData = JWT.verify(
       token as string,
       process.env.JWT_KEY as string
-    ) as UserData;
+    ) as User;
     next();
   } catch (err) {
     return authFail(res);
   }
 }
 
-export const createToken = (user: UserData) =>
+export const createToken = (user: User) =>
   JWT.sign(user, JWT_KEY, { expiresIn: EXPIRES_IN });

@@ -63,7 +63,9 @@ const Styles = StyleSheet.create({
     margin: 10,
     width: 250,
     textAlign: "left",
+    textAlignVertical: "center",
     fontSize: 14,
+    fontFamily: "Avenir-Light",
     borderBottomWidth: 1,
   },
   //   BUTTONS

@@ -6,7 +6,7 @@ import {
   ScrollView,
   TextInput,
   TouchableWithoutFeedback,
-  Keyboard
+  Keyboard,
 } from "react-native";
 
 import { Colours, Styles } from "../../../styles";
@@ -92,18 +92,20 @@ export default function AddFriendsScreen({ navigation }: ScreenProps) {
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }
+          keyboardDismissMode="on-drag"
         >
           <Text style={{ ...Styles.title, ...styles.title }}>
             Add New Friends
           </Text>
-          <Text>Search</Text>
           <TextInput
             placeholder="Search friends..."
+            placeholderTextColor={Colours.yellow}
             onChangeText={(text) => {
               setSearch(text);
               searchFriends(text);
             }}
             value={search}
+            style={{ ...Styles.inputField, ...styles.searchBar }}
           />
 
           <UserList
@@ -130,5 +132,14 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: Colours.yellow,
     marginTop: 30,
+  },
+  searchBar: {
+    borderColor: Colours.yellow,
+    borderWidth: 1,
+    borderRadius: 20,
+    padding: 10,
+    marginVertical: 30,
+    fontSize: 18,
+    color: Colours.yellow,
   },
 });

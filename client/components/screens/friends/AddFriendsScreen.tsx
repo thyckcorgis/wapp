@@ -50,6 +50,25 @@ const SmallButton = ({ label, onPress }: SmallButtonProps) => (
   </TouchableOpacity>
 );
 
+interface UserListProps {
+  title: string;
+  list: User[];
+  label: string;
+  onPress: () => void;
+}
+const UserList = ({ title, list, label, onPress }: UserListProps) =>
+  list.length > 0 ? (
+    <View style={styles.friendsBox}>
+      <Text style={{ ...Styles.body, ...styles.title }}>{title}</Text>
+      {list?.map(({ username, name }) => (
+        <View style={styles.friendBox} key={username}>
+          <TextRow title="Name:" text={name} />
+          <TextRow title="Username:" text={username} />
+          <SmallButton label={label} onPress={onPress} />
+        </View>
+      ))}
+    </View>
+  ) : null;
 export default function AddFriendsScreen({ navigation }: ScreenProps) {
   const [username, setUsername] = useState("");
   const [users, setUsers] = useState<User[]>([]);
@@ -95,17 +114,11 @@ export default function AddFriendsScreen({ navigation }: ScreenProps) {
   }
 
   function searchFriends() {
-    setSearchResults (searchResults => {
-      while (searchResults.length != 0) {
-        searchResults.pop()
-      }
-      for (let i=0;i<users.length;i++) {
-        if (users[i].name.startsWith(search)) {
-          searchResults.push(users[i])
-        } 
-      }
-      return searchResults
-    })
+    setSearchResults(
+      users.filter(
+        (u) => u.name.startsWith(search) || u.username.startsWith(search)
+      )
+    );
   }
 
   const [refreshing, setRefreshing] = React.useState(false);
@@ -128,60 +141,30 @@ export default function AddFriendsScreen({ navigation }: ScreenProps) {
         </Text>
         <Text>Search</Text>
         <TextInput
-          //style={styles.}
-          placeholder="search friends..."
+          placeholder="Search friends..."
           onChangeText={(text) => setSearch(text)}
           value={search}
         />
-        <TouchableOpacity
-          onPress={() => searchFriends()}
-          style={{ ...Styles.buttonShape, /*...styles.searchButton*/ }}
-        >
-          <Text style={{ ...Styles.body /* ...styles.searchText */ }}>
-            Search
-          </Text>
-        </TouchableOpacity>
-        <View style={styles.friendsBox}>
-          <Text style={{ ...Styles.body, ...styles.title }}>Search results:</Text>
-          {searchResults?.map(({ username, name }) => (
-              <View style={styles.friendBox} key={username}>
-                <TextRow title="Name:" text={name} />
-                <TextRow title="Username:" text={username} />
-                <SmallButton
-                  label="Add Friend"
-                  onPress={() => addFriend(username)()}
-                />
-              </View>
-            ))}
-          </View>
-        <View style={styles.friendsBox}>
-          <Text style={{ ...Styles.body, ...styles.title }}>Other Users:</Text>
-          {users?.map(({ username, name }) => (
-            <View style={styles.friendBox} key={username}>
-              <TextRow title="Name:" text={name} />
-              <TextRow title="Username:" text={username} />
-              <SmallButton
-                label="Add Friend"
-                onPress={() => addFriend(username)()}
-              />
-            </View>
-          ))}
-        </View>
-        <View style={styles.friendsBox}>
-          <Text style={{ ...Styles.body, ...styles.title }}>
-            Pending requests:
-          </Text>
-          {pendingRequests?.map(({ username, name }) => (
-            <View style={styles.friendBox} key={username}>
-              <TextRow title="Name:" text={name} />
-              <TextRow title="Username:" text={username} />
-              <SmallButton
-                label="Accept Friend"
-                onPress={() => acceptFriend(username)()}
-              />
-            </View>
-          ))}
-        </View>
+        <SmallButton label="Search" onPress={searchFriends} />
+
+        <UserList
+          title="Search results:"
+          list={searchResults}
+          label="Add Friend"
+          onPress={addFriend(username)}
+        />
+        <UserList
+          title="Other users:"
+          list={users}
+          label="Add Friend"
+          onPress={addFriend(username)}
+        />
+        <UserList
+          title="Pending requests:"
+          list={pendingRequests}
+          label="Accept Friend"
+          onPress={acceptFriend(username)}
+        />
       </ScrollView>
       <Navbar navigation={navigation} right="Friends" />
     </SafeGradient>

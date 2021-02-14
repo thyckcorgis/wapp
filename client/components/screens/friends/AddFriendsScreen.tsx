@@ -113,10 +113,10 @@ export default function AddFriendsScreen({ navigation }: ScreenProps) {
     };
   }
 
-  function searchFriends() {
+  function searchFriends(text: string) {
     setSearchResults(
       users.filter(
-        (u) => u.name.startsWith(search) || u.username.startsWith(search)
+        (u) => u.name.startsWith(text) || u.username.startsWith(text)
       )
     );
   }
@@ -142,20 +142,16 @@ export default function AddFriendsScreen({ navigation }: ScreenProps) {
         <Text>Search</Text>
         <TextInput
           placeholder="Search friends..."
-          onChangeText={(text) => setSearch(text)}
+          onChangeText={(text) => {
+            setSearch(text);
+            searchFriends(text);
+          }}
           value={search}
         />
-        <SmallButton label="Search" onPress={searchFriends} />
 
         <UserList
           title="Search results:"
           list={searchResults}
-          label="Add Friend"
-          onPress={addFriend(username)}
-        />
-        <UserList
-          title="Other users:"
-          list={users}
           label="Add Friend"
           onPress={addFriend(username)}
         />

@@ -2,10 +2,8 @@ import React, { useState, useEffect } from "react";
 import {
   Text,
   StyleSheet,
-  View,
   RefreshControl,
   ScrollView,
-  TouchableOpacity,
   TextInput,
 } from "react-native";
 
@@ -22,53 +20,9 @@ import { getData } from "../../../storage";
 import Navbar from "../../Navbar";
 import SafeGradient from "../../SafeGradient";
 import ScreenProps from "../ScreenProps";
+import UserList from "../../UserList";
+import { User } from "../../UserArray";
 
-interface User {
-  username: string;
-  name: string;
-}
-
-interface TextRowProps {
-  title: string;
-  text: string;
-}
-const TextRow = ({ title, text }: TextRowProps) => (
-  <View style={styles.name}>
-    <Text style={{ ...Styles.body, ...styles.headerText }}>{title + " "}</Text>
-    <Text style={{ ...Styles.body, ...styles.friendText }}>{text}</Text>
-  </View>
-);
-
-interface SmallButtonProps {
-  label: string;
-  onPress: () => void;
-}
-
-const SmallButton = ({ label, onPress }: SmallButtonProps) => (
-  <TouchableOpacity style={styles.smallButton} onPress={onPress}>
-    <Text style={{ ...Styles.body, ...styles.buttonText }}>{label}</Text>
-  </TouchableOpacity>
-);
-
-interface UserListProps {
-  title: string;
-  list: User[];
-  label: string;
-  onPress: () => void;
-}
-const UserList = ({ title, list, label, onPress }: UserListProps) =>
-  list.length > 0 ? (
-    <View style={styles.friendsBox}>
-      <Text style={{ ...Styles.body, ...styles.title }}>{title}</Text>
-      {list?.map(({ username, name }) => (
-        <View style={styles.friendBox} key={username}>
-          <TextRow title="Name:" text={name} />
-          <TextRow title="Username:" text={username} />
-          <SmallButton label={label} onPress={onPress} />
-        </View>
-      ))}
-    </View>
-  ) : null;
 export default function AddFriendsScreen({ navigation }: ScreenProps) {
   const [username, setUsername] = useState("");
   const [users, setUsers] = useState<User[]>([]);
@@ -168,55 +122,9 @@ export default function AddFriendsScreen({ navigation }: ScreenProps) {
 }
 
 const styles = StyleSheet.create({
-  friendsBox: {
-    flex: 1,
-    margin: 20,
-    // borderWidth: 1,
-  },
-  friendBox: {
-    width: "100%",
-    backgroundColor: Colours.yellow,
-    marginVertical: 10,
-    borderRadius: 20,
-    justifyContent: "center",
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-  },
-  name: {
-    flexDirection: "row",
-    flex: 1,
-    alignItems: "center",
-  },
-  navBar: {
-    justifyContent: "flex-end",
-    bottom: 0,
-  },
   title: {
     textAlign: "center",
     color: Colours.yellow,
     marginTop: 30,
-  },
-  smallButton: {
-    borderRadius: 20,
-    backgroundColor: Colours.lightBlue,
-    margin: 10,
-    padding: 10,
-    paddingHorizontal: 20,
-    elevation: 2,
-    alignSelf: "center",
-    width: "50%",
-  },
-  buttonText: {
-    color: Colours.darkBlue,
-    textAlign: "center",
-  },
-  headerText: {
-    fontSize: 20,
-    color: Colours.darkBlue,
-  },
-  friendText: {
-    textAlignVertical: "center",
-    fontSize: 18,
-    color: Colours.medBlue,
   },
 });

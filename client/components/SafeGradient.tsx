@@ -1,4 +1,4 @@
-import React, { ReactChild, ReactChildren } from "react";
+import React, { ReactChild } from "react";
 import { SafeAreaView } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Styles, Colours } from "../styles";

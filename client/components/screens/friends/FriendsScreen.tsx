@@ -11,6 +11,7 @@ import Navbar from "../../Navbar";
 import SafeGradient from "../../SafeGradient";
 import { ClearButton } from "../../buttons";
 import ScreenProps from "../ScreenProps";
+import UserArray from "../../UserArray";
 
 interface User {
   username: string;
@@ -38,26 +39,7 @@ export default function FriendsScreen({ navigation }: ScreenProps) {
           onPress={() => navigation.navigate("AddFriends")}
         />
         <ScrollView contentContainerStyle={styles.friendsList}>
-          {friends.map(({ username, name }) => (
-            <View key={username} style={styles.friendBox}>
-              <View style={styles.name}>
-                <Text style={{ ...Styles.body, ...styles.headerText }}>
-                  Name:{" "}
-                </Text>
-                <Text style={{ ...Styles.body, ...styles.friendText }}>
-                  {name}
-                </Text>
-              </View>
-              <View style={styles.name}>
-                <Text style={{ ...Styles.body, ...styles.headerText }}>
-                  Username:{" "}
-                </Text>
-                <Text style={{ ...Styles.body, ...styles.friendText }}>
-                  {username}
-                </Text>
-              </View>
-            </View>
-          ))}
+          <UserArray list={friends} style={{ height: 80 }} />
         </ScrollView>
       </View>
       <Navbar navigation={navigation} right="Litreboards" />
@@ -80,6 +62,11 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     // borderColor: "black",
   },
+  title: {
+    textAlign: "center",
+    marginTop: 30,
+    color: Colours.yellow,
+  },
   friendBox: {
     width: "100%",
     height: 80,
@@ -93,11 +80,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flex: 1,
     alignItems: "center",
-  },
-  title: {
-    textAlign: "center",
-    marginTop: 30,
-    color: Colours.yellow,
   },
   headerText: {
     fontSize: 20,

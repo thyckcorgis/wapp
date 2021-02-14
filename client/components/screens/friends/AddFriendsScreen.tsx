@@ -5,6 +5,8 @@ import {
   RefreshControl,
   ScrollView,
   TextInput,
+  TouchableWithoutFeedback,
+  Keyboard
 } from "react-native";
 
 import { Colours, Styles } from "../../../styles";
@@ -84,40 +86,42 @@ export default function AddFriendsScreen({ navigation }: ScreenProps) {
   }, []);
 
   return (
-    <SafeGradient>
-      <ScrollView
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
-      >
-        <Text style={{ ...Styles.title, ...styles.title }}>
-          Add New Friends
-        </Text>
-        <Text>Search</Text>
-        <TextInput
-          placeholder="Search friends..."
-          onChangeText={(text) => {
-            setSearch(text);
-            searchFriends(text);
-          }}
-          value={search}
-        />
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <SafeGradient>
+        <ScrollView
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        >
+          <Text style={{ ...Styles.title, ...styles.title }}>
+            Add New Friends
+          </Text>
+          <Text>Search</Text>
+          <TextInput
+            placeholder="Search friends..."
+            onChangeText={(text) => {
+              setSearch(text);
+              searchFriends(text);
+            }}
+            value={search}
+          />
 
-        <UserList
-          title="Search results:"
-          list={searchResults}
-          label="Add Friend"
-          onPress={addFriend(username)}
-        />
-        <UserList
-          title="Pending requests:"
-          list={pendingRequests}
-          label="Accept Friend"
-          onPress={acceptFriend(username)}
-        />
-      </ScrollView>
-      <Navbar navigation={navigation} right="Friends" />
-    </SafeGradient>
+          <UserList
+            title="Search results:"
+            list={searchResults}
+            label="Add Friend"
+            onPress={addFriend(username)}
+          />
+          <UserList
+            title="Pending requests:"
+            list={pendingRequests}
+            label="Accept Friend"
+            onPress={acceptFriend(username)}
+          />
+        </ScrollView>
+        <Navbar navigation={navigation} right="Friends" />
+      </SafeGradient>
+    </TouchableWithoutFeedback>
   );
 }
 

@@ -70,6 +70,10 @@ export default function AddFriendsScreen({ navigation }: ScreenProps) {
   }
 
   function searchFriends(text: string) {
+    if (text === "") {
+      setSearchResults([])
+      return
+    }
     setSearchResults(
       users.filter(
         (u) => u.name.startsWith(text) || u.username.startsWith(text)
@@ -84,6 +88,21 @@ export default function AddFriendsScreen({ navigation }: ScreenProps) {
     fetchAllData();
     setRefreshing(false);
   }, []);
+
+  let displayResults
+  if (searchResults.length != 0) {
+    displayResults = <UserList
+    title="Search results:"
+    list={searchResults}
+    label="Add Friend"
+    onPress={addFriend(username)}
+  />
+  } else if (!search) {
+    displayResults = null
+  }
+  else {
+    displayResults = <Text style={{ ...Styles.title, ...styles.title }}>No users found &#x1F62D;</Text>
+  }
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -108,12 +127,7 @@ export default function AddFriendsScreen({ navigation }: ScreenProps) {
             style={{ ...Styles.inputField, ...styles.searchBar }}
           />
 
-          <UserList
-            title="Search results:"
-            list={searchResults}
-            label="Add Friend"
-            onPress={addFriend(username)}
-          />
+          {displayResults}
           <UserList
             title="Pending requests:"
             list={pendingRequests}

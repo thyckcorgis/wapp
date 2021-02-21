@@ -1,6 +1,7 @@
 import { Router } from "express";
+import { AuthReq, checkAuth } from "src/auth";
 import { friendRequestNotification } from "../notifications";
-import users from "../userdb";
+import users, { User } from "../userdb";
 
 const router = Router();
 
@@ -12,106 +13,79 @@ interface FriendReq {
 /*
 body:
 {
-  username: string,
   friend: string
 }
 */
-router.post("/request", (req, res) => {
-  const { username, friend } = req.body as FriendReq;
+router.post("/request", checkAuth, (req: AuthReq, res) => {
+  const { friend } = req.body as FriendReq;
   // send notification to friend
-  const user = users.getUser(friend);
-  if (!user) {
-    res.json({ ok: false, message: "User not found" });
+  const user = req.userData as User;
+  const { username } = user;
+  if (users.addPendingRequest(friend, username)) {
+    friendRequestNotification(username, user, "send");
+    res.json({ ok: true, message: "Request sent" });
   } else {
-    if (users.addPendingRequest(friend, username)) {
-      friendRequestNotification(username, user, "send");
-      res.json({ ok: true, message: "Request sent" });
-    } else {
-      res.json({ ok: false, message: "Request already sent" });
-    }
+    res.json({ ok: false, message: "Request already sent" });
   }
 });
 
-router.post("/accept", (req, res) => {
-  const { username, friend } = req.body as FriendReq;
-  const user = users.getUser(friend);
-  if (!user) {
-    res.json({ ok: false, message: "User not found" });
-  } else {
-    users.connectFriends(username, friend);
-    users.removePendingRequest(username, friend);
-    friendRequestNotification(username, user, "accept");
-    res.json({ ok: true, message: "Friend request accepted" });
-  }
+router.post("/accept", checkAuth, (req: AuthReq, res) => {
+  const { friend } = req.body as FriendReq;
+  const user = req.userData as User;
+  const { username } = user;
+  users.connectFriends(username, friend);
+  users.removePendingRequest(username, friend);
+  friendRequestNotification(username, user, "accept");
+  res.json({ ok: true, message: "Friend request accepted" });
 });
 
-router.get("/pending/:user", (req, res) => {
-  const user = users.getUser(req.params.user);
-  if (!user) {
-    res.json({ ok: false, message: "User not found" });
-  } else {
-    const pendingRequests = users.getNames(user.pendingRequests);
-    res.json({ ok: true, pending: pendingRequests });
-  }
+router.get("/pending", checkAuth, (req: AuthReq, res) => {
+  const user = req.userData as User;
+  const pendingRequests = users.getNames(user.pendingRequests);
+  res.json({ ok: true, pending: pendingRequests });
 });
 
 /**
  * Only sends users that haven't been added yet
  */
-router.get("/to-add/:user", (req, res) => {
-  const user = users.getUser(req.params.user);
-  if (!user) {
-    res.json({ ok: false, message: "User not found" });
-  } else {
-    const { friends, pendingRequests } = user;
-    let allUsers = users
-      .getAllUsers()
-      .filter(
-        ({ username }) =>
-          !(
-            friends.includes(username) ||
-            pendingRequests.includes(username) ||
-            username === user.username
-          )
-      );
-    console.log(allUsers);
-    res.json({ users: allUsers });
-  }
+router.get("/to-add", checkAuth, (req: AuthReq, res) => {
+  const user = req.userData as User;
+  const { friends, pendingRequests } = user;
+  let allUsers = users
+    .getAllUsers()
+    .filter(
+      ({ username }) =>
+        !(
+          friends.includes(username) ||
+          pendingRequests.includes(username) ||
+          username === user.username
+        )
+    );
+  console.log(allUsers);
+  res.json({ users: allUsers });
 });
 
-router.get("/litreboard/:user", (req, res) => {
-  const user = users.getUser(req.params.user);
-  if (!user) {
-    res.json({ ok: false, message: "User not found" });
-    return;
-  }
-  let allFriends = users.getAllFriends(user.username);
-  if (!allFriends) {
-    res.json({ ok: false, message: "Friends not found" });
-    return;
-  }
+const completion = (b: User, a: User) =>
+  a.currentIntake / a.daily - b.currentIntake / b.daily;
+const percentage = (user: User) => ({
+  username: user.username,
+  name: user.name,
+  currrentIntake: user.currentIntake,
+  daily: user.daily,
+  percentage: (user.currentIntake / user.daily) * 100,
+});
+
+router.get("/litreboard", checkAuth, (req: AuthReq, res) => {
+  const user = req.userData as User;
+  const allFriends = users.getAllFriends(user.username);
   allFriends.push(user);
-  const sorted = allFriends
-    .sort((b, a) => a.currentIntake / a.daily - b.currentIntake / b.daily)
-    .map((u) => ({
-      username: u.username,
-      name: u.name,
-      currrentIntake: u.currentIntake,
-      daily: u.daily,
-      percentage: (u.currentIntake / u.daily) * 100,
-    }));
+  const sorted = allFriends.sort(completion).map(percentage);
   res.json({ users: sorted });
 });
 
-router.get("/:user", (req, res) => {
-  const user = users.getUser(req.params.user);
-  if (!user) {
-    res.json({ ok: false, message: "User not found" });
-  } else {
-    let allFriends = users.getAllFriends(user.username);
-    console.log(allFriends);
-    res.json({ users: allFriends });
-  }
+router.get("/", checkAuth, (req: AuthReq, res) => {
+  const allFriends = users.getAllFriends(req.userData?.username as string);
+  res.json({ users: allFriends });
 });
 
 export default router;

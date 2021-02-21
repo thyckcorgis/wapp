@@ -1,6 +1,7 @@
 import { Router } from "express";
+import { AuthReq, checkAuth, createToken } from "src/auth";
 import { sendLogNotification } from "../notifications";
-import users from "../userdb";
+import users, { User } from "../userdb";
 
 const router = Router();
 
@@ -10,34 +11,35 @@ function createMessage(username: string, intake: number, goalMet: boolean) {
 }
 
 interface LogReq {
-  username: string;
   water: number;
-  friends: string[];
 }
 
 // http methods what dx
-router.get("/reset/:user", (req, res) => {
-  users.resetCurrentIntake(req.params.user);
-  res.json({ ok: true, message: "reset user" });
+router.patch("/reset", checkAuth, (req: AuthReq, res) => {
+  const { username } = req.userData as User;
+  const user = users.resetCurrentIntake(username);
+  if (user) {
+    const token = createToken(user);
+    res.json({ ok: true, message: "Reset user", token });
+  } else {
+    res.json({ ok: false, message: "Error resetting" });
+  }
 });
 
-router.get("/reset", (_, res) => {
-  users.resetAllCurrentIntake();
-  res.json({ ok: true, message: "reset all" });
-});
+// router.get("/reset", (_, res) => {
+//   users.resetAllCurrentIntake();
+//   res.json({ ok: true, message: "reset all" });
+// });
 
 /*
 body:
 {
-  username: string,
   water: number // water intake
-  friends: [
-    string // usernames
-  ]
 }
 */
-router.post("/", (req, res) => {
-  const { username, water } = req.body as LogReq;
+router.post("/", checkAuth, (req: AuthReq, res) => {
+  const { username } = req.userData as User;
+  const { water } = req.body as LogReq;
   const user = users.getUser(username);
   if (!user) {
     res.json({ ok: false, message: "User not found" });
@@ -49,7 +51,8 @@ router.post("/", (req, res) => {
   // notify friends
   const message = createMessage(username, intake, Boolean(goalMet));
   sendLogNotification(message, toNotify);
-  res.json({ ok: true, message: "Added log", user });
+  const token = createToken(users.getUser(username) as User);
+  res.json({ ok: true, message: "Added log", token });
 });
 
 export default router;

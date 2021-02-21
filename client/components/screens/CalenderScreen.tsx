@@ -13,6 +13,26 @@ export default function CalendarScreen({ navigation }: ScreenProps) {
   const [date, setDate] = useState<moment.Moment | null>(null);
 
   const startDate = date?.toString() || "";
+
+  const yellow = [
+    '#FFFFB7',
+    '#FFF192',
+    '#FFEA61',
+    '#FFDD3C',
+    '#FFD400'
+  ]
+  let today = date;
+  // idk what this code is lmao its from the calenderpicker documentation
+  let day = today?.clone().startOf('month');
+  let customDatesStyles = [];
+  while(day?.add(1, 'day').isSame(today, 'month')) {
+    customDatesStyles.push({
+      date: day.clone(),
+      style: {backgroundColor: yellow[Math.floor(Number(day.toString().slice(8,10))/6)]},
+      //style: {backgroundColor: yellow[Math.floor(Math.random()*5)]},
+      textStyle: {color: 'black'}, // white text on yellow background not good :(
+    });
+  }
   return (
     <SafeGradient>
       <View style={styles.calendarBox}>
@@ -27,6 +47,7 @@ export default function CalendarScreen({ navigation }: ScreenProps) {
           monthTitleStyle={Styles.title}
           yearTitleStyle={Styles.title}
           dayLabelsWrapper={styles.divider}
+          customDatesStyles={customDatesStyles}
         />
         <View style={styles.infoBox}>
           <Text style={{ ...Styles.body, ...styles.infoHeader }}>

@@ -29,7 +29,6 @@ export default function CalendarScreen({ navigation }: ScreenProps) {
     customDatesStyles.push({
       date: day.clone(),
       style: {backgroundColor: yellow[Math.floor(Number(day.toString().slice(8,10))/6)]},
-      //style: {backgroundColor: yellow[Math.floor(Math.random()*5)]},
       textStyle: {color: 'black'}, // white text on yellow background not good :(
     });
   }
@@ -51,10 +50,15 @@ export default function CalendarScreen({ navigation }: ScreenProps) {
         />
         <View style={styles.infoBox}>
           <Text style={{ ...Styles.body, ...styles.infoHeader }}>
-            SELECTED DATE:
+            {startDate.slice(0,15)}
           </Text>
           <Text style={{ ...Styles.body, ...styles.infoText }}>
-            {startDate}
+            On this day you drank x{/*water*/} litres of water!
+          </Text>
+          <Text style={{ ...Styles.body, ...styles.infoText }}>
+            {(Number(date?.toString().slice(8,10)) > 15) ? 
+            'You reached your goal! Way to go! ' + String.fromCodePoint(0x1F929) : 
+            'You did not reach your goal ' + String.fromCodePoint(0x1F614)}
           </Text>
         </View>
       </View>

@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   ScrollView,
   TextInput,
+  Alert,
 } from "react-native";
 import { Route } from "@react-navigation/native";
 
@@ -18,6 +19,7 @@ import { Cup } from "./CupSizeScreen";
 import Navbar from "../../Navbar";
 import SafeGradient from "../../SafeGradient";
 import ScreenProps from "../ScreenProps";
+import { deleteNotificationChannelGroupAsync } from "expo-notifications";
 
 interface LogWaterParams {
   refresh?: boolean;
@@ -64,6 +66,32 @@ export default function LogWaterScreen({
       navigation.navigate("Home", { refresh: true });
     }
   }
+  function deleteCupAlert(name: string, size: string) {
+    Alert.alert(
+      `Delete Cup: ${name}`,
+      '',
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "OK", onPress: () => deleteCup(name, size) }
+      ],
+      { cancelable: true }
+    );
+  }
+  async function deleteCup(name: string, size: string) {
+    for(let i=0;i<cups.length;i++) {
+      if(cups[i].name === name && cups[i].size === size) {
+         cups.splice(i,1);
+      }
+   }
+    // cups.pop();
+    await storeData("cups", cups);
+    navigation.navigate("Home")
+    navigation.navigate("LogWater")
+  }
   return (
     <SafeGradient>
       <Text style={{ ...Styles.title, ...styles.title }}>
@@ -109,6 +137,7 @@ export default function LogWaterScreen({
             <TouchableOpacity
               style={{ ...Styles.buttonShape, ...styles.cupButton }}
               onPress={async () => await logWater(Number(size))()}
+              onLongPress={() => deleteCupAlert(name, size)}
               key={name + size}
             >
               <Text style={{ ...Styles.body, ...styles.cupText }}>

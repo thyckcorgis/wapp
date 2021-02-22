@@ -30,6 +30,7 @@ import {
   LogWater,
   CupSize,
   Litreboards,
+  WaterLog,
 } from "./screens";
 
 const screens = [
@@ -47,6 +48,7 @@ const screens = [
   { name: "User", component: User, disable: true },
   { name: "LogWater", component: LogWater, disable: true },
   { name: "CupSize", component: CupSize, disable: true },
+  { name: "WaterLog", component: WaterLog, disable: true },
 ];
 
 export default function Navigator() {

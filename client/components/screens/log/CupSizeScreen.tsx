@@ -72,7 +72,7 @@ export default function CupSizeScreen({ navigation }: ScreenProps) {
         <Text style={{ ...Styles.title, ...styles.title }}>Make a cup</Text>
       </TouchableOpacity>
       <View style={styles.cupBox}>
-        {input("Name of cup (eg: My Green Bottle)", name, setName, false)}
+        {input("Name of cup (eg: The Purple Bottle)", name, setName, false)}
         {input("Size of cup (mL)", size, setSize, true)}
         <TouchableOpacity
           style={{ ...Styles.buttonShape, ...styles.addButton }}

@@ -5,8 +5,6 @@ import {
   RefreshControl,
   ScrollView,
   TextInput,
-  TouchableWithoutFeedback,
-  Keyboard,
 } from "react-native";
 
 import { Colours, Styles } from "../../../styles";
@@ -70,6 +68,10 @@ export default function AddFriendsScreen({ navigation }: ScreenProps) {
   }
 
   function searchFriends(text: string) {
+    if (text === "") {
+      setSearchResults([])
+      return
+    }
     setSearchResults(
       users.filter(
         (u) => u.name.startsWith(text) || u.username.startsWith(text)
@@ -85,46 +87,54 @@ export default function AddFriendsScreen({ navigation }: ScreenProps) {
     setRefreshing(false);
   }, []);
 
-  return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <SafeGradient>
-        <ScrollView
-          refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-          }
-          keyboardDismissMode="on-drag"
-        >
-          <Text style={{ ...Styles.title, ...styles.title }}>
-            Add New Friends
-          </Text>
-          <TextInput
-            placeholder="Search friends..."
-            placeholderTextColor={Colours.yellow}
-            onChangeText={(text) => {
-              setSearch(text);
-              searchFriends(text);
-            }}
-            value={search}
-            style={{ ...Styles.inputField, ...styles.searchBar }}
-          />
+  let displayResults
+  if (searchResults.length != 0) {
+    displayResults = <UserList
+    title="Search results:"
+    list={searchResults}
+    label="Add Friend"
+    onPress={addFriend(username)}
+  />
+  } else if (!search) {
+    displayResults = null
+  }
+  else {
+    displayResults = <Text style={{ ...Styles.title, ...styles.title }}>No users found &#x1F62D;</Text>
+  }
 
-          <UserList
-            title="Search results:"
-            list={searchResults}
-            label="Add Friend"
-            onPress={addFriend(username)}
-          />
-          <UserList
-            title="Pending requests:"
-            list={pendingRequests}
-            label="Accept Friend"
-            onPress={acceptFriend(username)}
-          />
-        </ScrollView>
-        <Navbar navigation={navigation} right="Friends" />
-      </SafeGradient>
-    </TouchableWithoutFeedback>
-  );
+  return (
+    <SafeGradient>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+        keyboardDismissMode="on-drag"
+      >
+        <Text style={{ ...Styles.title, ...styles.title }}>
+          Add New Friends
+        </Text>
+        <TextInput
+          placeholder="Search friends..."
+          placeholderTextColor={Colours.yellow}
+          onChangeText={(text) => {
+            setSearch(text);
+            searchFriends(text);
+          }}
+          value={search}
+          style={{ ...Styles.inputField, ...styles.searchBar }}
+        />
+
+        {displayResults}
+        <UserList
+          title="Pending requests:"
+          list={pendingRequests}
+          label="Accept Friend"
+          onPress={acceptFriend(username)}
+        />
+      </ScrollView>
+      <Navbar navigation={navigation} right="Friends" />
+    </SafeGradient>
+);
 }
 
 const styles = StyleSheet.create({

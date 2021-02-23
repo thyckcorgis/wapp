@@ -13,6 +13,25 @@ export default function CalendarScreen({ navigation }: ScreenProps) {
   const [date, setDate] = useState<moment.Moment | null>(null);
 
   const startDate = date?.toString() || "";
+
+  const yellow = [
+    '#FFFFB7',
+    '#FFF192',
+    '#FFEA61',
+    '#FFDD3C',
+    '#FFD400'
+  ]
+  let today = date;
+  // idk what this code is lmao its from the calenderpicker documentation
+  let day = today?.clone().startOf('month');
+  let customDatesStyles = [];
+  while(day?.add(1, 'day').isSame(today, 'month')) {
+    customDatesStyles.push({
+      date: day.clone(),
+      style: {backgroundColor: yellow[Math.floor(Number(day.toString().slice(8,10))/6)]},
+      textStyle: {color: 'black'}, // white text on yellow background not good :(
+    });
+  }
   return (
     <SafeGradient>
       <View style={styles.calendarBox}>
@@ -27,13 +46,19 @@ export default function CalendarScreen({ navigation }: ScreenProps) {
           monthTitleStyle={Styles.title}
           yearTitleStyle={Styles.title}
           dayLabelsWrapper={styles.divider}
+          customDatesStyles={customDatesStyles}
         />
         <View style={styles.infoBox}>
           <Text style={{ ...Styles.body, ...styles.infoHeader }}>
-            SELECTED DATE:
+            {startDate.slice(0,15)}
           </Text>
           <Text style={{ ...Styles.body, ...styles.infoText }}>
-            {startDate}
+            On this day you drank x{/*water*/} litres of water!
+          </Text>
+          <Text style={{ ...Styles.body, ...styles.infoText }}>
+            {(Number(date?.toString().slice(8,10)) > 15) ? 
+            'You reached your goal! Way to go! ' + String.fromCodePoint(0x1F929) : 
+            'You did not reach your goal ' + String.fromCodePoint(0x1F614)}
           </Text>
         </View>
       </View>

@@ -31,7 +31,7 @@ const Styles = StyleSheet.create({
   },
   navBar: {
     justifyContent: "space-between",
-    height: 100,
+    height: 50,
     width: Dimensions.get("window").width,
     flexDirection: "row",
     alignItems: "center",

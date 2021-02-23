@@ -11,6 +11,7 @@ export { default as Start } from "./register/StartScreen";
 export { default as WaterIntake } from "./log/WaterIntakeScreen";
 export { default as LogWater } from "./log/LogWaterScreen";
 export { default as CupSize } from "./log/CupSizeScreen";
+export { default as WaterLog } from "./log/WaterLogScreen";
 
 export { default as AddFriends } from "./friends/AddFriendsScreen";
 export { default as Friends } from "./friends/FriendsScreen";

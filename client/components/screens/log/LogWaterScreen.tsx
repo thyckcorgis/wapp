@@ -4,8 +4,10 @@ import {
   StyleSheet,
   View,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   ScrollView,
   TextInput,
+  Animated,
 } from "react-native";
 import { Route } from "@react-navigation/native";
 
@@ -15,6 +17,7 @@ import { getData, storeData } from "../../../storage";
 import { logWaterIntake } from "../../../api";
 
 import { Cup } from "./CupSizeScreen";
+// import AwesomeButton from "react-native-really-awesome-button";
 import Navbar from "../../Navbar";
 import SafeGradient from "../../SafeGradient";
 import ScreenProps from "../ScreenProps";
@@ -52,6 +55,7 @@ export default function LogWaterScreen({
     await storeData("user", user);
     navigation.navigate("Home", { refresh: true });
   };
+
   async function updateAmount() {
     if (amount === "" || isNaN(parseFloat(amount)) || Number(amount) <= 0)
       return;
@@ -64,6 +68,7 @@ export default function LogWaterScreen({
       navigation.navigate("Home", { refresh: true });
     }
   }
+
   return (
     <SafeGradient>
       <Text style={{ ...Styles.title, ...styles.title }}>
@@ -88,6 +93,9 @@ export default function LogWaterScreen({
             onChangeText={(text) => setAmount(text)}
             value={String(amount)}
           />
+          {/* <AwesomeButton progress onPress={() => updateAmount()}>
+            Submit
+          </AwesomeButton> */}
           <TouchableOpacity
             onPress={() => updateAmount()}
             style={{

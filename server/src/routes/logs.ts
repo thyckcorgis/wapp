@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { AuthReq, checkAuth, createToken } from "src/auth";
+import { AuthReq, checkAuth, createToken } from "../auth";
 import { sendLogNotification } from "../notifications";
 import users, { User } from "../userdb";
 

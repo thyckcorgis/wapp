@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { AuthReq, checkAuth } from "src/auth";
+import { AuthReq, checkAuth } from "../auth";
 import { friendRequestNotification } from "../notifications";
 import users, { User } from "../userdb";
 

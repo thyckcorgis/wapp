@@ -31,11 +31,12 @@ const Styles = StyleSheet.create({
   },
   navBar: {
     justifyContent: "space-between",
-    height: 50,
+    height: 80,
+    borderWidth: 1,
     width: Dimensions.get("window").width,
     flexDirection: "row",
     alignItems: "center",
-    padding: "3%",
+    paddingHorizontal: "3%",
   },
   logoBox: {
     position: "absolute",

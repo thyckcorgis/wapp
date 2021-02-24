@@ -10,6 +10,7 @@ import { getData, storeData } from "../../storage";
 import { poll } from "../../api";
 
 import Navbar from "../Navbar";
+import { ClearButton, SolidButton } from "../buttons/";
 import SafeGradient from "../SafeGradient";
 import ScreenProps from "./ScreenProps";
 
@@ -68,7 +69,7 @@ export default function HomeScreen({
       <View style={Styles.logoBox}>
         <WappLogo />
       </View>
-      <View style={{...Styles.navBar, height:100}}>
+      <View style={{ ...Styles.navBar, height: 100 }}>
         <TouchableOpacity onPress={() => navigation.navigate("User")}>
           <UserIcon />
         </TouchableOpacity>
@@ -97,7 +98,11 @@ export default function HomeScreen({
           {currentIntake.toFixed(2)} / {daily.toFixed(2)} L
         </Text>
       </View>
-      <View style={{height:50}}></View>
+      <SolidButton
+        onPress={() => navigation.navigate("WaterLog")}
+        label={"Today's Water Breakdown"}
+      />
+      <View style={{ height: 50 }}></View>
       <Navbar navigation={navigation} tips={true} right="Friends" />
     </SafeGradient>
   );

@@ -17,7 +17,6 @@ import { getData, storeData } from "../../../storage";
 import { logWaterIntake } from "../../../api";
 
 import { Cup } from "./CupSizeScreen";
-// import AwesomeButton from "react-native-really-awesome-button";
 import Navbar from "../../Navbar";
 import SafeGradient from "../../SafeGradient";
 import ScreenProps from "../ScreenProps";
@@ -72,29 +71,29 @@ export default function LogWaterScreen({
   function deleteCupAlert(name: string, size: string) {
     Alert.alert(
       `Delete Cup: ${name}`,
-      '',
+      "",
       [
         {
           text: "Cancel",
           onPress: () => console.log("Cancel Pressed"),
-          style: "cancel"
+          style: "cancel",
         },
-        { text: "OK", onPress: () => deleteCup(name, size) }
+        { text: "OK", onPress: () => deleteCup(name, size) },
       ],
       { cancelable: true }
     );
   }
   async function deleteCup(name: string, size: string) {
-    for(let i=0;i<cups.length;i++) {
-      if(cups[i].name === name && cups[i].size === size) {
-         cups.splice(i,1);
-         break
+    for (let i = 0; i < cups.length; i++) {
+      if (cups[i].name === name && cups[i].size === size) {
+        cups.splice(i, 1);
+        break;
       }
-   }
+    }
     // cups.pop();
     await storeData("cups", cups);
-    navigation.navigate("Home")
-    navigation.navigate("LogWater")
+    navigation.navigate("Home");
+    navigation.navigate("LogWater");
   }
   return (
     <SafeGradient>
@@ -120,11 +119,10 @@ export default function LogWaterScreen({
             onChangeText={(text) => setAmount(text)}
             value={String(amount)}
           />
-          {/* <AwesomeButton progress onPress={() => updateAmount()}>
-            Submit
-          </AwesomeButton> */}
           <TouchableOpacity
-            onPress={() => updateAmount()}
+            // onPress={() => updateAmount()}
+            onLongPress={() => updateAmount()}
+            activeOpacity={0.6}
             style={{
               ...Styles.buttonShape,
               ...styles.submitButton,
@@ -162,7 +160,7 @@ export default function LogWaterScreen({
           </TouchableOpacity>
         </ScrollView>
       </View>
-      <Navbar navigation={navigation} right="WaterLog" />
+      <Navbar navigation={navigation} />
     </SafeGradient>
   );
 }
@@ -205,6 +203,7 @@ const styles = StyleSheet.create({
     color: Colours.yellow,
   },
   smallText: {
+    fontSize: 18,
     textAlign: "center",
     color: Colours.yellow,
   },

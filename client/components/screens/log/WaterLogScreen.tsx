@@ -4,7 +4,6 @@ import {
   StyleSheet,
   View,
   TouchableOpacity,
-  TouchableWithoutFeedback,
   ScrollView,
   TextInput,
   Alert,
@@ -17,24 +16,23 @@ import { getData, storeData } from "../../../storage";
 import { logWaterIntake } from "../../../api";
 
 import { Cup } from "./CupSizeScreen";
-// import AwesomeButton from "react-native-really-awesome-button";
 import Navbar from "../../Navbar";
 import SafeGradient from "../../SafeGradient";
 import ScreenProps from "../ScreenProps";
 import { deleteNotificationChannelGroupAsync } from "expo-notifications";
 
-interface LogWaterParams {
+interface WaterLogParams {
   refresh?: boolean;
 }
 
-interface LogWaterScreenProps extends ScreenProps {
-  route: Route<"LogWater", LogWaterParams>;
+interface WaterLogScreenProps extends ScreenProps {
+  route: Route<"WaterLog", WaterLogParams>;
 }
 
-export default function LogWaterScreen({
+export default function WaterLogScreen({
   navigation,
   route: { params: refresh },
-}: LogWaterScreenProps) {
+}: WaterLogScreenProps) {
   const [username, setUsername] = useState("");
   const [cups, setCups] = useState<Cup[]>([]);
   const [amount, setAmount] = useState("");
@@ -56,7 +54,6 @@ export default function LogWaterScreen({
     await storeData("user", user);
     navigation.navigate("Home", { refresh: true });
   };
-
   async function updateAmount() {
     if (amount === "" || isNaN(parseFloat(amount)) || Number(amount) <= 0)
       return;
@@ -99,70 +96,13 @@ export default function LogWaterScreen({
   return (
     <SafeGradient>
       <Text style={{ ...Styles.title, ...styles.title }}>
-        How much water did you drink?
+        Today's water breakdown:
       </Text>
-      <View style={styles.manualBox}>
-        <Text style={{ ...Styles.body, ...styles.smallText }}>
-          Input specific amount (mL):
-        </Text>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "center",
-            alignSelf: "center",
-          }}
-        >
-          <TextInput
-            style={styles.waterInput}
-            placeholder="0 mL"
-            placeholderTextColor={Colours.yellow}
-            keyboardType="numeric"
-            onChangeText={(text) => setAmount(text)}
-            value={String(amount)}
-          />
-          {/* <AwesomeButton progress onPress={() => updateAmount()}>
-            Submit
-          </AwesomeButton> */}
-          <TouchableOpacity
-            onPress={() => updateAmount()}
-            style={{
-              ...Styles.buttonShape,
-              ...styles.submitButton,
-              width: 100,
-            }}
-          >
-            <Text style={{ ...Styles.body, ...styles.submitText }}>Submit</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+      
       <View style={styles.cupList}>
-        <Text style={{ ...Styles.body, ...styles.smallText }}>
-          Quickly add a cup:
-        </Text>
-        <ScrollView keyboardDismissMode="on-drag">
-          {cups.map(({ name, size }) => (
-            <TouchableOpacity
-              style={{ ...Styles.buttonShape, ...styles.cupButton }}
-              onPress={async () => await logWater(Number(size))()}
-              onLongPress={() => deleteCupAlert(name, size)}
-              key={name + size}
-            >
-              <Text style={{ ...Styles.body, ...styles.cupText }}>
-                {name}: {Number(size) / 1000} L
-              </Text>
-            </TouchableOpacity>
-          ))}
-          <TouchableOpacity
-            style={{ ...Styles.buttonShape, ...styles.addCupButton }}
-            onPress={() => navigation.navigate("CupSize")}
-          >
-            <Text style={{ ...Styles.body, ...styles.addCupText }}>
-              Add a cup size +
-            </Text>
-          </TouchableOpacity>
-        </ScrollView>
+
       </View>
-      <Navbar navigation={navigation} right="WaterLog" />
+      <Navbar navigation={navigation} right="LogWater" />
     </SafeGradient>
   );
 }

@@ -3,7 +3,7 @@ import { View, TouchableOpacity } from "react-native";
 import { NavigationScreenProp } from "react-navigation";
 
 import { Styles } from "../styles";
-import { HomeIcon, FriendsIcon, LitreBoardsIcon } from "../assets";
+import { HomeIcon, FriendsIcon, LitreBoardsIcon, CorgiLogo, WappLogo } from "../assets";
 
 import TipsModal from "./TipsModal";
 
@@ -16,6 +16,8 @@ interface NavbarProps {
 const icons: { [k: string]: JSX.Element } = {
   Friends: <FriendsIcon />,
   Litreboards: <LitreBoardsIcon />,
+  LogWater: <WappLogo />,
+  WaterLog: <CorgiLogo />,
 };
 
 export default function Navbar({ navigation, right, tips }: NavbarProps) {

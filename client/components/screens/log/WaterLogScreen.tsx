@@ -69,39 +69,37 @@ export default function WaterLogScreen({
   function deleteCupAlert(name: string, size: string) {
     Alert.alert(
       `Delete Cup: ${name}`,
-      '',
+      "",
       [
         {
           text: "Cancel",
           onPress: () => console.log("Cancel Pressed"),
-          style: "cancel"
+          style: "cancel",
         },
-        { text: "OK", onPress: () => deleteCup(name, size) }
+        { text: "OK", onPress: () => deleteCup(name, size) },
       ],
       { cancelable: true }
     );
   }
   async function deleteCup(name: string, size: string) {
-    for(let i=0;i<cups.length;i++) {
-      if(cups[i].name === name && cups[i].size === size) {
-         cups.splice(i,1);
-         break
+    for (let i = 0; i < cups.length; i++) {
+      if (cups[i].name === name && cups[i].size === size) {
+        cups.splice(i, 1);
+        break;
       }
-   }
+    }
     // cups.pop();
     await storeData("cups", cups);
-    navigation.navigate("Home")
-    navigation.navigate("LogWater")
+    navigation.navigate("Home");
+    navigation.navigate("LogWater");
   }
   return (
     <SafeGradient>
       <Text style={{ ...Styles.title, ...styles.title }}>
         Today's water breakdown:
       </Text>
-      
-      <View style={styles.cupList}>
 
-      </View>
+      <View style={styles.cupList}></View>
       <Navbar navigation={navigation} right="LogWater" />
     </SafeGradient>
   );

@@ -1,5 +1,5 @@
-import React from "react";
-import { TouchableOpacity, Text, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { TouchableOpacity, Text, StyleSheet, Animated } from "react-native";
 import { Colours } from "../../styles";
 
 type AddButtonProps = {
@@ -7,10 +7,34 @@ type AddButtonProps = {
 };
 
 export default function AddButton({ onAdd }: AddButtonProps) {
+  const [scaleValue] = useState(new Animated.Value(0));
+  const onButtonClicked = () => {
+    Animated.timing(scaleValue, {
+      toValue: 1,
+      useNativeDriver: true,
+      duration: 700,
+    }).start(() => {
+      scaleValue.setValue(0);
+    });
+  };
+
+  const scaleValueInterpolation = scaleValue.interpolate({
+    inputRange: [0, 0.25, 1],
+    outputRange: [1, 20, 30],
+  });
+
   return (
-    <TouchableOpacity style={styles.container} onPress={onAdd}>
-      <Text style={styles.plus}>+</Text>
-    </TouchableOpacity>
+    <>
+      <Animated.View
+        style={[
+          styles.container,
+          { transform: [{ scale: scaleValueInterpolation }] },
+        ]}
+      />
+      <TouchableOpacity style={styles.container} onPress={onButtonClicked}>
+        <Text style={styles.plus}>+</Text>
+      </TouchableOpacity>
+    </>
   );
 }
 
@@ -18,9 +42,9 @@ const styles = StyleSheet.create({
   container: {
     width: 55,
     height: 55,
-    backgroundColor: Colours.darkBlue,
+    backgroundColor: Colours.yellow,
     borderRadius: 28,
-    borderWidth: 1,
+    // borderWidth: 1,
     borderColor: Colours.yellow,
     position: "absolute",
     right: 20,
@@ -31,7 +55,7 @@ const styles = StyleSheet.create({
     elevation: 1,
   },
   plus: {
-    color: Colours.yellow,
+    color: Colours.medBlue,
     fontSize: 24,
     fontWeight: "bold",
   },

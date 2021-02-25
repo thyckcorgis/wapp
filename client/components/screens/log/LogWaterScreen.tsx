@@ -168,8 +168,8 @@ export default function LogWaterScreen({
               Add a cup size +
             </Text>
           </TouchableOpacity>
-          <AddButton onAdd={onAdd} />
         </ScrollView>
+        <AddButton onAdd={onAdd} />
       </View>
       <Navbar navigation={navigation} />
     </SafeGradient>

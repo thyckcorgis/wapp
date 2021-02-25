@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, TextInput } from "react-native";
+import { StyleSheet, Text, View, TextInput, Switch } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 
 import { Colours, Styles } from "../../styles";
+import { EditIcon } from "../../assets";
 
 import { getData, storeData } from "../../storage";
 import { setDailyIntake, uploadPushToken } from "../../api";
 import { registerForPushNotificationsAsync } from "../../notifications";
 
 import Navbar from "../Navbar";
+import { Avatar, Accessory } from "react-native-elements";
 import SafeGradient from "../SafeGradient";
 import { ClearButton, SolidButton } from "../buttons/";
 import ScreenProps from "./ScreenProps";
+import colours from "../../styles/colours";
 
 interface User {
   username: string;
@@ -23,6 +26,8 @@ export default function UserScreen({ navigation }: ScreenProps) {
   const [username, setUsername] = useState("");
   const [intake, setIntake] = useState("");
   const [register, setRegister] = useState("Enable Push Notifications");
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
   async function getNotifications() {
     const token = await registerForPushNotificationsAsync();
@@ -70,26 +75,56 @@ export default function UserScreen({ navigation }: ScreenProps) {
   return (
     <SafeGradient>
       <Text style={{ ...Styles.title, ...styles.title }}>
-        Profile: {username}
+        Hello, {username}
       </Text>
-      <ScrollView
-        keyboardDismissMode="on-drag"
-        contentContainerStyle={styles.profileBox}
+      <Avatar
+        size="large"
+        rounded
+        overlayContainerStyle={{
+          backgroundColor: Colours.yellow,
+        }}
+        containerStyle={styles.profilePic}
+        title={username.substring(0, 2)}
+        titleStyle={{ ...Styles.title, ...styles.initialsText }}
+        // onAccessoryPress={() => do something}
       >
-        <View style={styles.profileBox}>
-          <Text style={{ ...Styles.body, ...styles.smallText }}>
-            Edit your daily goal. Your current daily goal is {intake} L
-          </Text>
-          <TextInput
-            style={{ ...Styles.inputField, ...styles.goalInput }}
-            placeholderTextColor={Colours.yellow}
-            placeholder={intake}
-            onChangeText={(text) => setNewIntake(text)}
-            value={String(newIntake)}
-            keyboardType="decimal-pad"
-          />
-          <ClearButton onPress={() => updateIntake()} label="Submit" />
-          <SolidButton onPress={getNotifications} label={register} />
+        {/* Honestly not sure how to do the accessory part? */}
+        {/* <Accessory /> */}
+      </Avatar>
+      <ScrollView keyboardDismissMode="on-drag">
+        <View style={styles.userBox}>
+          <View style={styles.editGoalBox}>
+            <Text style={{ ...Styles.body, ...styles.smallText }}>
+              Edit your daily goal. Your current daily goal is {intake} L
+            </Text>
+            <TextInput
+              style={{ ...Styles.inputField, ...styles.goalInput }}
+              placeholderTextColor={Colours.yellow}
+              placeholder={intake}
+              onChangeText={(text) => setNewIntake(text)}
+              value={String(newIntake)}
+              keyboardType="decimal-pad"
+            />
+            <ClearButton onPress={() => updateIntake()} label="Submit" />
+          </View>
+          <View style={styles.notifyBox}>
+            <Text
+              style={{
+                ...Styles.body,
+                ...styles.smallText,
+                ...{ fontSize: 15 },
+              }}
+            >
+              Enable Push Notifications
+            </Text>
+            <Switch
+              trackColor={{ false: Colours.darkBlue, true: Colours.lightBlue }}
+              thumbColor={isEnabled ? Colours.yellow : Colours.medBlue}
+              ios_backgroundColor={Colours.lightBlue}
+              onValueChange={getNotifications}
+              value={isEnabled}
+            />
+          </View>
           <SolidButton onPress={logout} label="Logout" />
         </View>
       </ScrollView>
@@ -99,26 +134,41 @@ export default function UserScreen({ navigation }: ScreenProps) {
 }
 
 const styles = StyleSheet.create({
-  profileBox: {
+  userBox: {
     flex: 1,
-    margin: 20,
     padding: 20,
     justifyContent: "center",
-    // borderWidth: 1,
-    // borderColor: "black",
-  },
-  friendsList: {
-    flex: 1,
-    width: 250,
-    alignSelf: "center",
-    marginBottom: 30,
     alignItems: "center",
     // borderWidth: 1,
-    // borderColor: "black",
+  },
+  editGoalBox: {
+    borderWidth: 1,
+    borderColor: Colours.yellow,
+    borderRadius: 20,
+    padding: 10,
+    width: 300,
+    marginBottom: 10,
+  },
+  notifyBox: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    width: 300,
+    alignSelf: "center",
+    alignItems: "center",
+    padding: 10,
+    // borderWidth: 1,
+  },
+  profilePic: {
+    alignSelf: "center",
+    margin: 5,
   },
   goalInput: {
     borderColor: Colours.yellow,
     color: Colours.yellow,
+  },
+  initialsText: {
+    color: Colours.darkBlue,
+    textAlignVertical: "center",
   },
   title: {
     textAlign: "center",

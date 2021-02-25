@@ -64,6 +64,7 @@ export default function HomeScreen({
     pollUser();
     refreshGoal();
   }, [refresh, setCurrentIntake, setDaily]);
+
   return (
     <SafeGradient>
       <View style={Styles.logoBox}>

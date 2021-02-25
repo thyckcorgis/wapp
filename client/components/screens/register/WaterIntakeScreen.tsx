@@ -17,7 +17,7 @@ import { storeData } from "../../../storage";
 import { setDailyIntake } from "../../../api";
 
 import SafeGradient from "../../SafeGradient";
-import ScreenProps from "./../ScreenProps";
+import ScreenProps from "../ScreenProps";
 
 interface WaterIntakeParams {
   username: string;

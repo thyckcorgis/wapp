@@ -17,6 +17,7 @@ export default function AddButton({ onAdd }: AddButtonProps) {
     }).start(() => {
       scaleValue.setValue(0);
     });
+    onAdd();
     console.log("Button clicked");
   };
 

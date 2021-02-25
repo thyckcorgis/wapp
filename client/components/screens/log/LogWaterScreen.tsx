@@ -40,6 +40,7 @@ export default function LogWaterScreen({
 
   const onAdd = () => {
     navigation.navigate("AddCupModal");
+    console.log("Modal opened!!");
   };
 
   useEffect(() => {
@@ -162,14 +163,17 @@ export default function LogWaterScreen({
           ))}
           <TouchableOpacity
             style={{ ...Styles.buttonShape, ...styles.addCupButton }}
-            onPress={() => navigation.navigate("CupSize")}
+            // TEMPORARY BUTTON... REMOVE WHEN ADD BUTTON IS FIXED
+            onPress={() => navigation.navigate("AddCupModal")}
           >
             <Text style={{ ...Styles.body, ...styles.addCupText }}>
               Add a cup size +
             </Text>
           </TouchableOpacity>
         </ScrollView>
-        <AddButton onAdd={onAdd} />
+        <TouchableOpacity onPress={() => navigation.navigate("AddCupModal")}>
+          <AddButton onAdd={onAdd} />
+        </TouchableOpacity>
       </View>
       <Navbar navigation={navigation} />
     </SafeGradient>

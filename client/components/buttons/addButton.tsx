@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { TouchableOpacity, Text, StyleSheet, Animated } from "react-native";
-import { Colours } from "../../styles";
+import { Colours, Styles } from "../../styles";
+import { ScreenProps } from "react-native-screens";
 
 type AddButtonProps = {
   onAdd: () => void;
@@ -16,6 +17,7 @@ export default function AddButton({ onAdd }: AddButtonProps) {
     }).start(() => {
       scaleValue.setValue(0);
     });
+    console.log("Button clicked");
   };
 
   const scaleValueInterpolation = scaleValue.interpolate({
@@ -32,7 +34,7 @@ export default function AddButton({ onAdd }: AddButtonProps) {
         ]}
       />
       <TouchableOpacity style={styles.container} onPress={onButtonClicked}>
-        <Text style={styles.plus}>+</Text>
+        <Text style={{ ...Styles.title, ...styles.plus }}>+</Text>
       </TouchableOpacity>
     </>
   );
@@ -56,7 +58,6 @@ const styles = StyleSheet.create({
   },
   plus: {
     color: Colours.medBlue,
-    fontSize: 24,
-    fontWeight: "bold",
+    fontSize: 35,
   },
 });

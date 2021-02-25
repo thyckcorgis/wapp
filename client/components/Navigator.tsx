@@ -1,15 +1,36 @@
 import React from "react";
-import { StackCardStyleInterpolator } from "react-navigation-stack";
+// import { StackCardStyleInterpolator } from "react-navigation-stack";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 const Stack = createStackNavigator();
-const forFade: StackCardStyleInterpolator = ({ current: { progress } }) => ({
-  cardStyle: {
-    opacity: progress,
+
+// const forFade: StackCardStyleInterpolator = ({ current: { progress } }) => ({
+//   cardStyle: {
+//     opacity: progress,
+//   },
+// });
+
+const opacityTransition: object = {
+  gestureDirection: "horizontal",
+  transitionSpec: {
+    open: {
+      animation: "timing",
+    },
+    close: {
+      animation: "timing",
+      config: {
+        duration: 300,
+      },
+    },
   },
-});
+  cardStyleInterpolator: ({ current }: { current: { progress: number } }) => ({
+    cardStyle: {
+      opacity: current.progress,
+    },
+  }),
+};
 
 const hideHeader = { headerShown: false };
 const disableSwipeBack = { gestureEnabled: false };
@@ -57,7 +78,11 @@ export default function Navigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        screenOptions={{ ...hideHeader, cardStyleInterpolator: forFade }}
+        screenOptions={{
+          ...hideHeader,
+          // cardStyleInterpolator: forFade,
+          ...opacityTransition,
+        }}
       >
         {screens.map((screen) => (
           <Stack.Screen

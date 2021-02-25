@@ -6,7 +6,7 @@ type AddButtonProps = {
   onAdd: () => void;
 };
 
-export default function addButton({ onAdd }: AddButtonProps) {
+export default function AddButton({ onAdd }: AddButtonProps) {
   return (
     <TouchableOpacity style={styles.container} onPress={onAdd}>
       <Text style={styles.plus}>+</Text>
@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
   container: {
     width: 55,
     height: 55,
+    backgroundColor: Colours.darkBlue,
     borderRadius: 28,
     borderWidth: 1,
     borderColor: Colours.yellow,

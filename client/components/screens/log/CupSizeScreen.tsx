@@ -8,11 +8,10 @@ import {
 } from "react-native";
 
 import { Colours, Styles } from "../../../styles";
-
-import { getData, storeData } from "../../../storage";
-
 import Navbar from "../../Navbar";
 import SafeGradient from "../../SafeGradient";
+
+import { getData, storeData } from "../../../storage";
 import ScreenProps from "../ScreenProps";
 
 export interface Cup {
@@ -20,6 +19,7 @@ export interface Cup {
   size: string;
 }
 
+// ALL INPUT FIELDS
 const textField = (
   placeholder: string,
   value: string,

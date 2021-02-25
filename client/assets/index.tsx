@@ -9,6 +9,7 @@ export { default as WappLogo } from "./wapp_logo.svg";
 export { default as CalendarIcon } from "./calendar_icon.svg";
 
 export { default as DrinkButton } from "./drink_button.svg";
+export { default as XButton } from "./x_button.svg";
 
 export { default as HomeIcon } from "./home_icon.svg";
 export { default as TipsIcon } from "./tips_icon.svg";

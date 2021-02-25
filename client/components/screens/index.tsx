@@ -8,9 +8,9 @@ export { default as Register } from "./register/RegisterScreen";
 export { default as Welcome } from "./register/WelcomeScreen";
 export { default as Start } from "./register/StartScreen";
 
-export { default as WaterIntake } from "./log/WaterIntakeScreen";
+export { default as WaterIntake } from "./register/WaterIntakeScreen";
 export { default as LogWater } from "./log/LogWaterScreen";
-export { default as CupSize } from "./log/CupSizeScreen";
+export { default as AddCupModal } from "./log/AddCupModal";
 export { default as WaterLog } from "./log/WaterLogScreen";
 
 export { default as AddFriends } from "./friends/AddFriendsScreen";

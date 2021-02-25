@@ -15,7 +15,8 @@ import { Colours, Styles } from "../../../styles";
 import { getData, storeData } from "../../../storage";
 import { logWaterIntake } from "../../../api";
 
-import { Cup } from "./CupSizeScreen";
+import { Cup } from "./AddCupModal";
+import { AddButton } from "../../buttons";
 import Navbar from "../../Navbar";
 import SafeGradient from "../../SafeGradient";
 import ScreenProps from "../ScreenProps";
@@ -36,6 +37,12 @@ export default function LogWaterScreen({
   const [username, setUsername] = useState("");
   const [cups, setCups] = useState<Cup[]>([]);
   const [amount, setAmount] = useState("");
+
+  const onAdd = () => {
+    navigation.navigate("AddCupModal");
+    console.log("Modal opened!!");
+  };
+
   useEffect(() => {
     async function refreshCups() {
       const { username } = (await getData("user")) as { username: string };
@@ -49,6 +56,7 @@ export default function LogWaterScreen({
     }
     refreshCups();
   }, [refresh, setCups]);
+
   const logWater = (size: number) => async () => {
     const { user } = await logWaterIntake(username, size);
     await storeData("user", user);
@@ -67,6 +75,8 @@ export default function LogWaterScreen({
       navigation.navigate("Home", { refresh: true });
     }
   }
+
+  // DELETING CUP FUNCTIONS
   function deleteCupAlert(name: string, size: string) {
     Alert.alert(
       `Delete Cup: ${name}`,
@@ -82,6 +92,7 @@ export default function LogWaterScreen({
       { cancelable: true }
     );
   }
+
   async function deleteCup(name: string, size: string) {
     for (let i = 0; i < cups.length; i++) {
       if (cups[i].name === name && cups[i].size === size) {
@@ -94,6 +105,7 @@ export default function LogWaterScreen({
     navigation.navigate("Home");
     navigation.navigate("LogWater");
   }
+
   return (
     <SafeGradient>
       <Text style={{ ...Styles.title, ...styles.title }}>
@@ -151,13 +163,17 @@ export default function LogWaterScreen({
           ))}
           <TouchableOpacity
             style={{ ...Styles.buttonShape, ...styles.addCupButton }}
-            onPress={() => navigation.navigate("CupSize")}
+            // TEMPORARY BUTTON... REMOVE WHEN ADD BUTTON IS FIXED
+            onPress={() => navigation.navigate("AddCupModal")}
           >
             <Text style={{ ...Styles.body, ...styles.addCupText }}>
               Add a cup size +
             </Text>
           </TouchableOpacity>
         </ScrollView>
+        <TouchableOpacity onPress={() => navigation.navigate("AddCupModal")}>
+          <AddButton onAdd={onAdd} />
+        </TouchableOpacity>
       </View>
       <Navbar navigation={navigation} />
     </SafeGradient>

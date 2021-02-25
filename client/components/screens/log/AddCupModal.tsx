@@ -8,11 +8,11 @@ import {
 } from "react-native";
 
 import { Colours, Styles } from "../../../styles";
-
-import { getData, storeData } from "../../../storage";
-
+import { XButton } from "../../../assets";
 import Navbar from "../../Navbar";
 import SafeGradient from "../../SafeGradient";
+
+import { getData, storeData } from "../../../storage";
 import ScreenProps from "../ScreenProps";
 
 export interface Cup {
@@ -50,7 +50,7 @@ const input = (
   </View>
 );
 
-export default function CupSizeScreen({ navigation }: ScreenProps) {
+export default function AddCupModal({ navigation }: ScreenProps) {
   const [name, setName] = useState("");
   const [size, setSize] = useState("");
 
@@ -65,13 +65,15 @@ export default function CupSizeScreen({ navigation }: ScreenProps) {
   }
 
   return (
-    <SafeGradient>
+    <SafeGradient colors={[Colours.lightBlue, Colours.yellow]}>
       <TouchableOpacity
-        onPress={() => navigation.navigate("Home", { refresh: true })}
+        style={styles.xButton}
+        onPress={() => navigation.navigate("LogWater", { refresh: true })}
       >
-        <Text style={{ ...Styles.title, ...styles.title }}>Make a cup</Text>
+        <XButton />
       </TouchableOpacity>
       <View style={styles.cupBox}>
+        <Text style={{ ...Styles.title, ...styles.title }}>Make a cup</Text>
         {input("Name of cup (eg: The Purple Bottle)", name, setName, false)}
         {input("Size of cup (mL)", size, setSize, true)}
         <TouchableOpacity
@@ -81,34 +83,36 @@ export default function CupSizeScreen({ navigation }: ScreenProps) {
           <Text style={{ ...Styles.body, ...styles.addText }}>Add new cup</Text>
         </TouchableOpacity>
       </View>
-      <Navbar navigation={navigation} />
     </SafeGradient>
   );
 }
 
 const styles = StyleSheet.create({
+  xButton: {
+    top: 50,
+  },
   cupBox: {
     flex: 1,
     justifyContent: "center",
-    margin: 40,
+    marginHorizontal: 40,
   },
   inputField: {
-    borderColor: Colours.yellow,
+    borderColor: Colours.darkBlue,
   },
   title: {
     textAlign: "center",
-    color: Colours.yellow,
-    marginTop: 30,
+    color: Colours.darkBlue,
+    marginBottom: 30,
   },
   smallText: {
     textAlign: "center",
-    color: Colours.yellow,
+    color: Colours.darkBlue,
   },
   addButton: {
-    backgroundColor: Colours.yellow,
+    backgroundColor: Colours.darkBlue,
   },
   addText: {
     textAlign: "center",
-    color: Colours.darkBlue,
+    color: Colours.yellow,
   },
 });

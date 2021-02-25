@@ -100,7 +100,7 @@ export default function WaterLogScreen({
       </Text>
 
       <View style={styles.cupList}></View>
-      <Navbar navigation={navigation} right="LogWater" />
+      <Navbar navigation={navigation} />
     </SafeGradient>
   );
 }

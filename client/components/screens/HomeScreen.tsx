@@ -101,7 +101,7 @@ export default function HomeScreen({
       </View>
       <SolidButton
         onPress={() => navigation.navigate("WaterLog")}
-        label={"Today's Water Breakdown"}
+        label={"Today's Drink History"}
       />
       <View style={{ height: 50 }}></View>
       <Navbar navigation={navigation} tips={true} right="Friends" />

@@ -15,7 +15,7 @@ import { Colours, Styles } from "../../../styles";
 import { getData, storeData } from "../../../storage";
 import { logWaterIntake } from "../../../api";
 
-import { Cup } from "./CupSizeScreen";
+import { Cup } from "./AddCupModal";
 import { AddButton } from "../../buttons";
 import Navbar from "../../Navbar";
 import SafeGradient from "../../SafeGradient";

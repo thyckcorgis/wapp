@@ -49,7 +49,6 @@ import {
   AddFriends,
   User,
   LogWater,
-  CupSize,
   Litreboards,
   WaterLog,
   AddCupModal,
@@ -69,7 +68,6 @@ const screens = [
   { name: "AddFriends", component: AddFriends, disable: true },
   { name: "User", component: User, disable: true },
   { name: "LogWater", component: LogWater, disable: true },
-  { name: "CupSize", component: CupSize, disable: false },
   { name: "WaterLog", component: WaterLog, disable: true },
   { name: "AddCupModal", component: AddCupModal, disable: false },
 ];

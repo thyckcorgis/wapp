@@ -18,7 +18,7 @@ export default function AddButton({ onAdd }: AddButtonProps) {
       scaleValue.setValue(0);
     });
     onAdd();
-    console.log("Button clicked");
+    // console.log("Button clicked");
   };
 
   const scaleValueInterpolation = scaleValue.interpolate({

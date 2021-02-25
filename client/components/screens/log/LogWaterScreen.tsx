@@ -40,7 +40,7 @@ export default function LogWaterScreen({
 
   const onAdd = () => {
     navigation.navigate("AddCupModal");
-    console.log("Modal opened!!");
+    // console.log("Modal opened!!");
   };
 
   useEffect(() => {

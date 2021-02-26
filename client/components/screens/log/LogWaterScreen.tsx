@@ -16,7 +16,7 @@ import { getData, storeData } from "../../../storage";
 import { logWaterIntake } from "../../../api";
 
 import { Cup } from "./AddCupModal";
-import { AddButton } from "../../buttons";
+import { GrowingButton } from "../../buttons";
 import Navbar from "../../Navbar";
 import SafeGradient from "../../SafeGradient";
 import ScreenProps from "../ScreenProps";
@@ -38,11 +38,12 @@ export default function LogWaterScreen({
   const [cups, setCups] = useState<Cup[]>([]);
   const [amount, setAmount] = useState("");
 
-  const onAdd = () => {
-    navigation.navigate("AddCupModal");
-    // console.log("Modal opened!!");
-  };
+  // const onAdd = () => {
+  //   navigation.navigate("AddCupModal");
+  //   // console.log("Modal opened!!");
+  // };
 
+  // REFRESHING/UPDATING CUPS
   useEffect(() => {
     async function refreshCups() {
       const { username } = (await getData("user")) as { username: string };
@@ -57,12 +58,28 @@ export default function LogWaterScreen({
     refreshCups();
   }, [refresh, setCups]);
 
+  // LOGGING WATER
   const logWater = (size: number) => async () => {
     const { user } = await logWaterIntake(username, size);
     await storeData("user", user);
     navigation.navigate("Home", { refresh: true });
   };
 
+  function updateAmountAlert() {
+    Alert.alert(
+      `Log ${amount} mL of water?`,
+      "",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+        { text: "Yup", onPress: () => updateAmount() },
+      ],
+      { cancelable: true }
+    );
+  }
   async function updateAmount() {
     if (amount === "" || isNaN(parseFloat(amount)) || Number(amount) <= 0)
       return;
@@ -100,7 +117,6 @@ export default function LogWaterScreen({
         break;
       }
     }
-    // cups.pop();
     await storeData("cups", cups);
     navigation.navigate("Home");
     navigation.navigate("LogWater");
@@ -132,7 +148,7 @@ export default function LogWaterScreen({
           />
           <TouchableOpacity
             // onPress={() => updateAmount()}
-            onLongPress={() => updateAmount()}
+            onPress={() => updateAmountAlert()}
             activeOpacity={0.6}
             style={{
               ...Styles.buttonShape,
@@ -161,19 +177,11 @@ export default function LogWaterScreen({
               </Text>
             </TouchableOpacity>
           ))}
-          <TouchableOpacity
-            style={{ ...Styles.buttonShape, ...styles.addCupButton }}
-            // TEMPORARY BUTTON... REMOVE WHEN ADD BUTTON IS FIXED
-            onPress={() => navigation.navigate("AddCupModal")}
-          >
-            <Text style={{ ...Styles.body, ...styles.addCupText }}>
-              Add a cup size +
-            </Text>
-          </TouchableOpacity>
         </ScrollView>
-        <TouchableOpacity onPress={() => navigation.navigate("AddCupModal")}>
-          <AddButton onAdd={onAdd} />
-        </TouchableOpacity>
+        <GrowingButton
+          onTap={() => navigation.navigate("AddCupModal")}
+          Logo={<Text style={{ ...Styles.title, ...styles.plus }}>+</Text>}
+        />
       </View>
       <Navbar navigation={navigation} />
     </SafeGradient>
@@ -194,10 +202,11 @@ const styles = StyleSheet.create({
     padding: 10,
     // borderWidth: 1,
   },
-
-  addCupButton: {
-    borderColor: Colours.yellow,
-    borderWidth: 1,
+  plus: {
+    fontSize: 35,
+    textAlignVertical: "center",
+    textAlign: "center",
+    color: Colours.medBlue,
   },
   addCupText: {
     textAlign: "center",

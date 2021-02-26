@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { TouchableOpacity, Text, StyleSheet, Animated } from "react-native";
+import { View, Animated, TouchableOpacity, StyleSheet } from "react-native";
 import { Colours, Styles } from "../../styles";
-import { ScreenProps } from "react-native-screens";
 
-type AddButtonProps = {
-  onAdd: () => void;
-};
+interface GrowingButtonProps {
+  onTap: () => void;
+  Logo: JSX.Element;
+}
 
-export default function AddButton({ onAdd }: AddButtonProps) {
+const GrowingButton: React.FC<GrowingButtonProps> = ({ onTap, Logo }) => {
   const [scaleValue] = useState(new Animated.Value(0));
   const onButtonClicked = () => {
     Animated.timing(scaleValue, {
@@ -17,8 +17,7 @@ export default function AddButton({ onAdd }: AddButtonProps) {
     }).start(() => {
       scaleValue.setValue(0);
     });
-    onAdd();
-    // console.log("Button clicked");
+    onTap();
   };
 
   const scaleValueInterpolation = scaleValue.interpolate({
@@ -35,30 +34,26 @@ export default function AddButton({ onAdd }: AddButtonProps) {
         ]}
       />
       <TouchableOpacity style={styles.container} onPress={onButtonClicked}>
-        <Text style={{ ...Styles.title, ...styles.plus }}>+</Text>
+        {Logo}
       </TouchableOpacity>
     </>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
+    position: "absolute",
+    backgroundColor: Colours.yellow,
     width: 55,
     height: 55,
-    backgroundColor: Colours.yellow,
     borderRadius: 28,
-    // borderWidth: 1,
-    borderColor: Colours.yellow,
-    position: "absolute",
-    right: 20,
     alignItems: "center",
     justifyContent: "center",
+    right: 20,
     bottom: 20,
     zIndex: 1,
     elevation: 1,
   },
-  plus: {
-    color: Colours.medBlue,
-    fontSize: 35,
-  },
 });
+
+export default GrowingButton;

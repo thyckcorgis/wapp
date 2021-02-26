@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   TextInput,
   StyleSheet,
+  KeyboardAvoidingView,
 } from "react-native";
 
 import { Colours, Styles } from "../../../styles";
@@ -72,8 +73,8 @@ export default function AddCupModal({ navigation }: ScreenProps) {
       >
         <XButton />
       </TouchableOpacity>
-      <View style={styles.cupBox}>
-        <Text style={{ ...Styles.title, ...styles.title }}>Make a cup</Text>
+      <KeyboardAvoidingView behavior="padding" style={styles.cupBox}>
+        <Text style={{ ...Styles.title, ...styles.title }}>Create new cup</Text>
         {input("Name of cup (eg: The Purple Bottle)", name, setName, false)}
         {input("Size of cup (mL)", size, setSize, true)}
         <TouchableOpacity
@@ -82,7 +83,7 @@ export default function AddCupModal({ navigation }: ScreenProps) {
         >
           <Text style={{ ...Styles.body, ...styles.addText }}>Add new cup</Text>
         </TouchableOpacity>
-      </View>
+      </KeyboardAvoidingView>
     </SafeGradient>
   );
 }

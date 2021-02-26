@@ -30,6 +30,7 @@ export default function UserScreen({ navigation }: ScreenProps) {
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
   async function getNotifications() {
+    toggleSwitch();
     const token = await registerForPushNotificationsAsync();
     if (!token) {
       console.log("YOU NEED NOTIFICATIONS FOR THIS");
@@ -54,8 +55,12 @@ export default function UserScreen({ navigation }: ScreenProps) {
       Number(newIntake) <= 0
     )
       return;
+
     const data = await setDailyIntake(username, parseFloat(newIntake));
+    console.log("here");
+
     setIntake(newIntake);
+
     if (!data.ok) {
       console.log(data.messsage);
     } else {

@@ -99,9 +99,12 @@ export default function HomeScreen({
           bgColor={Colours.lightBlue}
           // bgColor={"transparent"}
         >
-          <TouchableOpacity onPress={() => navigation.navigate("LogWater")}>
-            <DrinkButton />
-          </TouchableOpacity>
+          <View>
+            <ScalingButton
+              onTap={() => navigation.navigate("LogWater")}
+              Logo={<DrinkButton />}
+            />
+          </View>
         </ProgressCircle>
         <Text style={{ ...Styles.body, ...styles.headerText }}>
           {currentIntake.toFixed(2)} / {daily.toFixed(2)} L
@@ -118,13 +121,6 @@ export default function HomeScreen({
 }
 
 const styles = StyleSheet.create({
-  progressBox: {
-    // position: "absolute",
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-  },
   headerText: {
     textAlign: "center",
     color: Colours.yellow,

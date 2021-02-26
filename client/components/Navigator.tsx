@@ -56,7 +56,7 @@ import {
 
 const screens = [
   { name: "Start", component: Start, disable: true },
-  { name: "SignIn", component: SignIn, disable: true },
+  { name: "SignIn", component: SignIn, disable: false },
   { name: "Register", component: Register, disable: false },
   { name: "Intake", component: WaterIntake, disable: false },
   { name: "Reminder", component: Reminder, disable: false },

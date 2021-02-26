@@ -12,7 +12,7 @@ const ScalingButton: React.FC<ScalingButtonProps> = ({ onTap, Logo }) => {
     Animated.timing(scaleValue, {
       toValue: 1,
       useNativeDriver: true,
-      duration: 300,
+      duration: 200,
     }).start(() => {
       scaleValue.setValue(0);
     });

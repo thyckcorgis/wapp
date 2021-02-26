@@ -38,11 +38,6 @@ export default function LogWaterScreen({
   const [cups, setCups] = useState<Cup[]>([]);
   const [amount, setAmount] = useState("");
 
-  // const onAdd = () => {
-  //   navigation.navigate("AddCupModal");
-  //   // console.log("Modal opened!!");
-  // };
-
   // REFRESHING/UPDATING CUPS
   useEffect(() => {
     async function refreshCups() {
@@ -165,6 +160,7 @@ export default function LogWaterScreen({
           ))}
         </ScrollView>
         <GrowingButton
+          ContainerStyle={styles.container}
           onTap={() => navigation.navigate("AddCupModal")}
           Logo={<Text style={{ ...Styles.title, ...styles.plus }}>+</Text>}
         />
@@ -187,6 +183,19 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     padding: 10,
     // borderWidth: 1,
+  },
+  container: {
+    position: "absolute",
+    backgroundColor: Colours.yellow,
+    width: 55,
+    height: 55,
+    borderRadius: 28,
+    alignItems: "center",
+    justifyContent: "center",
+    right: 20,
+    bottom: 20,
+    zIndex: 1,
+    elevation: 1,
   },
   plus: {
     fontSize: 35,

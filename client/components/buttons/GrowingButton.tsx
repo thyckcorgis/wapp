@@ -5,9 +5,14 @@ import { Colours, Styles } from "../../styles";
 interface GrowingButtonProps {
   onTap: () => void;
   Logo: JSX.Element;
+  ContainerStyle: object;
 }
 
-const GrowingButton: React.FC<GrowingButtonProps> = ({ onTap, Logo }) => {
+const GrowingButton: React.FC<GrowingButtonProps> = ({
+  onTap,
+  Logo,
+  ContainerStyle,
+}) => {
   const [scaleValue] = useState(new Animated.Value(0));
   const onButtonClicked = () => {
     Animated.timing(scaleValue, {
@@ -29,31 +34,15 @@ const GrowingButton: React.FC<GrowingButtonProps> = ({ onTap, Logo }) => {
     <>
       <Animated.View
         style={[
-          styles.container,
+          { ...ContainerStyle },
           { transform: [{ scale: scaleValueInterpolation }] },
         ]}
       />
-      <TouchableOpacity style={styles.container} onPress={onButtonClicked}>
+      <TouchableOpacity style={{ ...ContainerStyle }} onPress={onButtonClicked}>
         {Logo}
       </TouchableOpacity>
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    position: "absolute",
-    backgroundColor: Colours.yellow,
-    width: 55,
-    height: 55,
-    borderRadius: 28,
-    alignItems: "center",
-    justifyContent: "center",
-    right: 20,
-    bottom: 20,
-    zIndex: 1,
-    elevation: 1,
-  },
-});
 
 export default GrowingButton;

@@ -1,26 +1,49 @@
 import React from "react";
-import { View, TouchableOpacity } from "react-native";
-
-import { Styles } from "../../../styles";
+import {
+  View,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  SafeAreaView,
+  Keyboard,
+} from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import { Colours, Styles } from "../../../styles";
 import { WelcomeIcon } from "../../../assets";
+import { GrowingButton } from "../../buttons";
 
-import { getData } from "../../../storage";
-
-import SafeGradient from "../../SafeGradient";
 import ScreenProps from "../ScreenProps";
 
 export default function WelcomeScreen({ navigation }: ScreenProps) {
-  async function nextScreen() {
-    const data = await getData("user");
-    navigation.navigate("Home", data);
-  }
   return (
-    <SafeGradient>
-      <TouchableOpacity onPress={nextScreen}>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <SafeAreaView style={Styles.background}>
+        <LinearGradient
+          style={Styles.background}
+          colors={[Colours.darkBlue, Colours.medBlue]}
+        />
         <View style={Styles.bigButton}>
-          <WelcomeIcon />
+          <GrowingButton
+            ContainerStyle={styles.container}
+            onTap={() => navigation.navigate("Home")}
+            Logo={<WelcomeIcon />}
+          />
         </View>
-      </TouchableOpacity>
-    </SafeGradient>
+      </SafeAreaView>
+    </TouchableWithoutFeedback>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    position: "absolute",
+    backgroundColor: Colours.yellow,
+    width: 250,
+    height: 250,
+    borderRadius: 400,
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "center",
+    zIndex: 1,
+    elevation: 1,
+  },
+});

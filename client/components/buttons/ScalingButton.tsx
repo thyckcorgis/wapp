@@ -26,7 +26,10 @@ const ScalingButton: React.FC<ScalingButtonProps> = ({ onTap, Logo }) => {
 
   return (
     <Animated.View style={{ transform: [{ scale: scaleValueInterpolation }] }}>
-      <TouchableWithoutFeedback onPress={onButtonClicked}>
+      <TouchableWithoutFeedback
+        hitSlop={{ top: 20, bottom: 20, left: 50, right: 50 }}
+        onPress={onButtonClicked}
+      >
         {Logo}
       </TouchableWithoutFeedback>
     </Animated.View>

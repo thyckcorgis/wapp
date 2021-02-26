@@ -15,11 +15,6 @@ const Styles = StyleSheet.create({
   },
   background: {
     position: "absolute",
-    // left: 0,
-    // right: 0,
-    // top: 0,
-    // bottom: 0,
-
     left: -100,
     right: -100,
     top: -100,
@@ -32,7 +27,6 @@ const Styles = StyleSheet.create({
   navBar: {
     justifyContent: "space-between",
     height: 80,
-    // borderWidth: 1,
     width: Dimensions.get("window").width,
     flexDirection: "row",
     alignItems: "center",
@@ -42,8 +36,9 @@ const Styles = StyleSheet.create({
     position: "absolute",
     ...centered,
     top: 35,
-    zIndex: 2,
+    zIndex: 1,
   },
+
   // TEXT
   title: {
     fontFamily: "Avenir-Light",
@@ -70,6 +65,7 @@ const Styles = StyleSheet.create({
     fontFamily: "Avenir-Light",
     borderBottomWidth: 1,
   },
+
   //   BUTTONS
   buttonShape: {
     ...centered,

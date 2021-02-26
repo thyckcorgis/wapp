@@ -60,6 +60,21 @@ export default function LogWaterScreen({
     navigation.navigate("Home", { refresh: true });
   };
 
+  function updateAmountAlert() {
+    Alert.alert(
+      `Log ${amount} mL of water?`,
+      "",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+        { text: "Yup", onPress: () => updateAmount() },
+      ],
+      { cancelable: true }
+    );
+  }
   async function updateAmount() {
     if (amount === "" || isNaN(parseFloat(amount)) || Number(amount) <= 0)
       return;
@@ -97,7 +112,6 @@ export default function LogWaterScreen({
         break;
       }
     }
-    // cups.pop();
     await storeData("cups", cups);
     navigation.navigate("Home");
     navigation.navigate("LogWater");
@@ -129,7 +143,7 @@ export default function LogWaterScreen({
           />
           <TouchableOpacity
             // onPress={() => updateAmount()}
-            onLongPress={() => updateAmount()}
+            onPress={() => updateAmountAlert()}
             activeOpacity={0.6}
             style={{
               ...Styles.buttonShape,

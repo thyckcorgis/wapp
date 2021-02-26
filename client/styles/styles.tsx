@@ -40,8 +40,9 @@ const Styles = StyleSheet.create({
   },
   logoBox: {
     position: "absolute",
-    left: Dimensions.get("window").width / 2 - 104.35 / 2,
+    ...centered,
     top: 35,
+    zIndex: 2,
   },
   // TEXT
   title: {

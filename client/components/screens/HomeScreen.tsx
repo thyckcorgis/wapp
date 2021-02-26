@@ -1,16 +1,24 @@
 import React, { useState, useEffect } from "react";
-import { Text, StyleSheet, View, TouchableOpacity } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  Animated,
+  Easing,
+  TouchableWithoutFeedback,
+} from "react-native";
 import { Route } from "@react-navigation/native";
 import ProgressCircle from "react-native-progress-circle";
 
 import { Colours, Styles } from "../../styles";
-import { UserIcon, WappLogo, CalendarIcon, DrinkButton } from "../../assets";
+import { UserIcon, CalendarIcon, DrinkButton, WappLogo } from "../../assets";
 
 import { getData, storeData } from "../../storage";
 import { poll } from "../../api";
 
 import Navbar from "../Navbar";
-import { ClearButton, SolidButton } from "../buttons/";
+import { ScalingButton, SolidButton } from "../buttons/";
 import SafeGradient from "../SafeGradient";
 import ScreenProps from "./ScreenProps";
 
@@ -68,7 +76,7 @@ export default function HomeScreen({
   return (
     <SafeGradient>
       <View style={Styles.logoBox}>
-        <WappLogo />
+        <ScalingButton onTap={() => {}} Logo={<WappLogo />} />
       </View>
       <View style={{ ...Styles.navBar, height: 100 }}>
         <TouchableOpacity onPress={() => navigation.navigate("User")}>

@@ -5,9 +5,8 @@ import {
   View,
   TouchableOpacity,
   TextInput,
-  KeyboardAvoidingView,
 } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
+import SafeGradient from "../SafeGradient";
 
 import { Colours, Styles } from "../../styles";
 import { CorgiLogo } from "../../assets";
@@ -34,41 +33,32 @@ export default function SignInScreen({ navigation }: ScreenProps) {
   }
 
   return (
-    <KeyboardAvoidingView behavior="padding" style={Styles.screen}>
-      <LinearGradient
-        style={Styles.background}
-        colors={[Colours.darkBlue, Colours.medBlue]}
+    <SafeGradient>
+      <Text style={{ ...Styles.title, ...styles.signin }}>Sign In</Text>
+      <TextInput
+        placeholder="Username"
+        onChangeText={(text) => setUsername(text)}
+        value={username}
+        placeholderTextColor={Colours.yellow}
+        style={{ ...Styles.inputField, ...styles.inputField }}
       />
-      <View style={Styles.screen}>
-        <Text style={{ ...Styles.title, ...styles.signin }}>Sign In</Text>
-        <TextInput
-          placeholder="Username"
-          onChangeText={(text) => setUsername(text)}
-          value={username}
-          placeholderTextColor={Colours.yellow}
-          style={{ ...Styles.inputField, ...styles.inputField }}
-        />
-        <TextInput
-          placeholder="Password"
-          onChangeText={(text) => setPassword(text)}
-          value={password}
-          placeholderTextColor={Colours.yellow}
-          style={{ ...Styles.inputField, ...styles.inputField }}
-          secureTextEntry
-        />
-        <Text style={Styles.error}>{error}</Text>
-        <SolidButton onPress={() => login()} label="Login" />
+      <TextInput
+        placeholder="Password"
+        onChangeText={(text) => setPassword(text)}
+        value={password}
+        placeholderTextColor={Colours.yellow}
+        style={{ ...Styles.inputField, ...styles.inputField }}
+        secureTextEntry
+      />
+      <Text style={Styles.error}>{error}</Text>
+      <SolidButton onPress={() => login()} label="Login" />
 
-        <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-          <Text style={{ ...Styles.body, ...styles.signupText }}>
-            Don't have an account? Sign up!
-          </Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.corgiBox}>
-        <CorgiLogo />
-      </View>
-    </KeyboardAvoidingView>
+      <TouchableOpacity onPress={() => navigation.navigate("Register")}>
+        <Text style={{ ...Styles.body, ...styles.signupText }}>
+          Don't have an account? Sign up!
+        </Text>
+      </TouchableOpacity>
+    </SafeGradient>
   );
 }
 
@@ -88,7 +78,6 @@ const styles = StyleSheet.create({
   },
   loginButton: {
     backgroundColor: Colours.yellow,
-    // marginVertical: 10,
   },
   loginText: {
     textAlign: "center",

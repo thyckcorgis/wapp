@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { AuthReq, checkAuth } from "../auth";
-import { friendRequestNotification } from "../notifications";
-import users, { User } from "../userdb";
+import { AuthReq, checkAuth } from "../helpers/auth";
+import { friendRequestNotification } from "../helpers/notifications";
+import users, { User } from "../helpers/userdb";
 
 const router = Router();
 

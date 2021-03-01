@@ -1,8 +1,8 @@
 import { Router } from "express";
 import { hash, compare } from "bcrypt";
-import users, { UserReq, LoginReq, newUser, User } from "../userdb";
+import users, { UserReq, LoginReq, newUser, User } from "../helpers/userdb";
 import { ExpoPushToken } from "expo-server-sdk";
-import { AuthReq, checkAuth, createToken } from "../auth";
+import { AuthReq, checkAuth, createToken } from "../helpers/auth";
 
 const router = Router();
 

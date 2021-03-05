@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Text, View, Modal, StyleSheet } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { Platform, Text, View, Modal, StyleSheet } from "react-native";
+import { TouchableOpacity, TouchableWithoutFeedback } from "react-native-gesture-handler";
 
 import { TipsIcon } from "../assets/index";
 import { Colours, Styles } from "../styles";
@@ -43,23 +43,22 @@ export default function TipsModal() {
       >
         <View style={styles.centeredView}>
           <View style={{ ...styles.modalView, height: height }}>
-            <Text style={{ ...Styles.title, ...styles.modalTitle }}>
-              Tip of the day:{" "}
-            </Text>
+            <Text style={{ ...Styles.title, ...styles.modalTitle }}>Tip of the day: </Text>
             <View style={styles.tipBox}>
-              <Text style={{ ...Styles.body, ...styles.modalText }}>
-                {tips[idx] + " "}
-              </Text>
+              <Text style={{ ...Styles.body, ...styles.modalText }}>{tips[idx] + " "}</Text>
             </View>
-
-            <TouchableOpacity
-              style={{ ...styles.button, backgroundColor: Colours.medBlue }}
-              onPress={() => {
-                setModalVisible(!modalVisible);
-              }}
-            >
-              <Text style={{ ...Styles.body, ...styles.backText }}>Got it</Text>
-            </TouchableOpacity>
+            {Platform.OS === "ios" ? (
+              <TouchableOpacity
+                onPress={() => {
+                  setModalVisible(false);
+                  console.log("poop");
+                }}
+                hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                style={{ ...styles.button, backgroundColor: Colours.medBlue }}
+              >
+                <Text style={{ ...Styles.body, ...styles.backText }}>Got it</Text>
+              </TouchableOpacity>
+            ) : null}
           </View>
         </View>
       </Modal>

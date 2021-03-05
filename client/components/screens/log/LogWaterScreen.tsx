@@ -17,7 +17,7 @@ import { logWaterIntake } from "../../../api";
 
 import { Cup } from "./AddCupModal";
 import { GrowingButton } from "../../buttons";
-import Navbar from "../../Navbar";
+import BottomNavbar from "../../BottomNavbar";
 import SafeGradient from "../../SafeGradient";
 import ScreenProps from "../ScreenProps";
 import { deleteNotificationChannelGroupAsync } from "expo-notifications";
@@ -179,7 +179,7 @@ export default function LogWaterScreen({
           Logo={<Text style={{ ...Styles.title, ...styles.plus }}>+</Text>}
         />
       </View>
-      <Navbar navigation={navigation} />
+      <BottomNavbar navigation={navigation} />
     </SafeGradient>
   );
 }

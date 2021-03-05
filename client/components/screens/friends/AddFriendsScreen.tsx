@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Text,
-  StyleSheet,
-  RefreshControl,
-  ScrollView,
-  TextInput,
-} from "react-native";
+import { Text, StyleSheet, RefreshControl, ScrollView, TextInput } from "react-native";
 
 import { Colours, Styles } from "../../../styles";
 
@@ -17,7 +11,7 @@ import {
 } from "../../../api";
 import { getData } from "../../../storage";
 
-import Navbar from "../../Navbar";
+import BottomNavbar from "../../BottomNavbar";
 import SafeGradient from "../../SafeGradient";
 import ScreenProps from "../ScreenProps";
 import UserList from "../../UserList";
@@ -69,14 +63,10 @@ export default function AddFriendsScreen({ navigation }: ScreenProps) {
 
   function searchFriends(text: string) {
     if (text === "") {
-      setSearchResults([])
-      return
+      setSearchResults([]);
+      return;
     }
-    setSearchResults(
-      users.filter(
-        (u) => u.name.startsWith(text) || u.username.startsWith(text)
-      )
-    );
+    setSearchResults(users.filter((u) => u.name.startsWith(text) || u.username.startsWith(text)));
   }
 
   const [refreshing, setRefreshing] = React.useState(false);
@@ -87,32 +77,31 @@ export default function AddFriendsScreen({ navigation }: ScreenProps) {
     setRefreshing(false);
   }, []);
 
-  let displayResults
+  let displayResults;
   if (searchResults.length != 0) {
-    displayResults = <UserList
-    title="Search results:"
-    list={searchResults}
-    label="Add Friend"
-    onPress={addFriend(username)}
-  />
+    displayResults = (
+      <UserList
+        title="Search results:"
+        list={searchResults}
+        label="Add Friend"
+        onPress={addFriend(username)}
+      />
+    );
   } else if (!search) {
-    displayResults = null
-  }
-  else {
-    displayResults = <Text style={{ ...Styles.title, ...styles.title }}>No users found &#x1F62D;</Text>
+    displayResults = null;
+  } else {
+    displayResults = (
+      <Text style={{ ...Styles.title, ...styles.title }}>No users found &#x1F62D;</Text>
+    );
   }
 
   return (
     <SafeGradient>
       <ScrollView
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
         keyboardDismissMode="on-drag"
       >
-        <Text style={{ ...Styles.title, ...styles.title }}>
-          Add New Friends
-        </Text>
+        <Text style={{ ...Styles.title, ...styles.title }}>Add New Friends</Text>
         <TextInput
           placeholder="Search friends..."
           placeholderTextColor={Colours.yellow}
@@ -132,9 +121,9 @@ export default function AddFriendsScreen({ navigation }: ScreenProps) {
           onPress={acceptFriend(username)}
         />
       </ScrollView>
-      <Navbar navigation={navigation} right="Friends" />
+      <BottomNavbar navigation={navigation} right="Friends" />
     </SafeGradient>
-);
+  );
 }
 
 const styles = StyleSheet.create({

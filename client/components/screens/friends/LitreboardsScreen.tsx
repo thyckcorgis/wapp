@@ -7,7 +7,7 @@ import { Colours, Styles } from "../../../styles";
 import { getData } from "../../../storage";
 import { getLitreBoard } from "../../../api";
 
-import Navbar from "../../Navbar";
+import BottomNavbar from "../../BottomNavbar";
 import SafeGradient from "../../SafeGradient";
 import ScreenProps from "../ScreenProps";
 
@@ -37,26 +37,16 @@ export default function LitreboardsScreen({ navigation }: ScreenProps) {
           {litreboard.map(({ username, name, percentage }: User, idx) => (
             <View key={username} style={styles.positionBox}>
               <View style={styles.numberBox}>
-                <Text style={{ ...Styles.title, ...styles.positionText }}>
-                  #{idx + 1}
-                </Text>
+                <Text style={{ ...Styles.title, ...styles.positionText }}>#{idx + 1}</Text>
               </View>
               <View key={username} style={styles.friendBox}>
                 <View style={styles.name}>
-                  <Text style={{ ...Styles.body, ...styles.headerText }}>
-                    Name:{" "}
-                  </Text>
-                  <Text style={{ ...Styles.body, ...styles.friendText }}>
-                    {name}
-                  </Text>
+                  <Text style={{ ...Styles.body, ...styles.headerText }}>Name: </Text>
+                  <Text style={{ ...Styles.body, ...styles.friendText }}>{name}</Text>
                 </View>
                 <View style={styles.name}>
-                  <Text style={{ ...Styles.body, ...styles.headerText }}>
-                    Username:{" "}
-                  </Text>
-                  <Text style={{ ...Styles.body, ...styles.friendText }}>
-                    {username}
-                  </Text>
+                  <Text style={{ ...Styles.body, ...styles.headerText }}>Username: </Text>
+                  <Text style={{ ...Styles.body, ...styles.friendText }}>{username}</Text>
                 </View>
                 <View style={styles.name}>
                   <Text
@@ -77,7 +67,7 @@ export default function LitreboardsScreen({ navigation }: ScreenProps) {
           ))}
         </ScrollView>
       </View>
-      <Navbar navigation={navigation} right="Friends" />
+      <BottomNavbar navigation={navigation} right="Friends" />
     </SafeGradient>
   );
 }

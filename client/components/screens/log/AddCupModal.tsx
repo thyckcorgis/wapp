@@ -10,7 +10,7 @@ import {
 
 import { Colours, Styles } from "../../../styles";
 import { XButton } from "../../../assets";
-import Navbar from "../../Navbar";
+import BottomNavbar from "../../BottomNavbar";
 import SafeGradient from "../../SafeGradient";
 
 import { getData, storeData } from "../../../storage";
@@ -44,9 +44,7 @@ const input = (
   numberPad: boolean
 ) => (
   <View>
-    <Text style={{ ...Styles.body, ...styles.smallText }}>
-      {placeholder + ":"}
-    </Text>
+    <Text style={{ ...Styles.body, ...styles.smallText }}>{placeholder + ":"}</Text>
     {textField(placeholder, value, setValue, numberPad)}
   </View>
 );
@@ -77,10 +75,7 @@ export default function AddCupModal({ navigation }: ScreenProps) {
         <Text style={{ ...Styles.title, ...styles.title }}>Create new cup</Text>
         {input("Name of cup (eg: The Purple Bottle)", name, setName, false)}
         {input("Size of cup (mL)", size, setSize, true)}
-        <TouchableOpacity
-          style={{ ...Styles.buttonShape, ...styles.addButton }}
-          onPress={addCup}
-        >
+        <TouchableOpacity style={{ ...Styles.buttonShape, ...styles.addButton }} onPress={addCup}>
           <Text style={{ ...Styles.body, ...styles.addText }}>Add new cup</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>

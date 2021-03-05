@@ -26,21 +26,10 @@ const Styles = StyleSheet.create({
   },
   navBar: {
     justifyContent: "space-between",
-    height: 80,
     width: Dimensions.get("window").width,
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: "3%",
-  },
-  logoBox: {
-    position: "absolute",
-    ...centered,
-    top: "7%",
-    zIndex: 1,
-  },
-  randomBox: {
-    flex: 1,
-    margin: "1%",
   },
 
   // TEXT

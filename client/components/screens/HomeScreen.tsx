@@ -1,13 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Text,
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  Animated,
-  Easing,
-  TouchableWithoutFeedback,
-} from "react-native";
+import { Text, StyleSheet, View } from "react-native";
 import { Route } from "@react-navigation/native";
 import ProgressCircle from "react-native-progress-circle";
 
@@ -17,7 +9,8 @@ import { UserIcon, CalendarIcon, DrinkButton, WappLogo } from "../../assets";
 import { getData, storeData } from "../../storage";
 import { poll } from "../../api";
 
-import Navbar from "../Navbar";
+import TopNavbar from "../TopNavbar";
+import BottomNavbar from "../BottomNavbar";
 import { ScalingButton, SolidButton } from "../buttons/";
 import SafeGradient from "../SafeGradient";
 import ScreenProps from "./ScreenProps";
@@ -45,10 +38,7 @@ async function pollUser() {
   await storeData("user", user);
 }
 
-export default function HomeScreen({
-  navigation,
-  route: { params: refresh },
-}: HomeScreenProps) {
+export default function HomeScreen({ navigation, route: { params: refresh } }: HomeScreenProps) {
   const [currentIntake, setCurrentIntake] = useState(0);
   const [daily, setDaily] = useState(0);
   function refreshGoal() {
@@ -75,17 +65,7 @@ export default function HomeScreen({
 
   return (
     <SafeGradient>
-      <View style={Styles.logoBox}>
-        <ScalingButton onTap={() => {}} Logo={<WappLogo />} />
-      </View>
-      <View style={{ ...Styles.navBar, height: 100 }}>
-        <TouchableOpacity onPress={() => navigation.navigate("User")}>
-          <UserIcon />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("Calender")}>
-          <CalendarIcon />
-        </TouchableOpacity>
-      </View>
+      <TopNavbar navigation={navigation} />
       <View style={Styles.bigButton}>
         <Text style={{ ...Styles.body, ...styles.headerText }}>
           Today is {new Date().toDateString()}.
@@ -99,10 +79,7 @@ export default function HomeScreen({
           bgColor={Colours.lightBlue}
         >
           <View>
-            <ScalingButton
-              onTap={() => navigation.navigate("LogWater")}
-              Logo={<DrinkButton />}
-            />
+            <ScalingButton onTap={() => navigation.navigate("LogWater")} Logo={<DrinkButton />} />
           </View>
         </ProgressCircle>
         <Text style={{ ...Styles.body, ...styles.headerText }}>
@@ -114,7 +91,7 @@ export default function HomeScreen({
         label={"Today's Drink History"}
       />
       <View style={{ height: 50 }}></View>
-      <Navbar navigation={navigation} tips={true} right="Friends" />
+      <BottomNavbar navigation={navigation} tips={true} right="Friends" />
     </SafeGradient>
   );
 }

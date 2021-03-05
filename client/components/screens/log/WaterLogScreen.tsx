@@ -16,7 +16,7 @@ import { getData, storeData } from "../../../storage";
 import { logWaterIntake } from "../../../api";
 
 import { Cup } from "./CupSizeScreen";
-import Navbar from "../../Navbar";
+import BottomNavbar from "../../BottomNavbar";
 import SafeGradient from "../../SafeGradient";
 import ScreenProps from "../ScreenProps";
 import { deleteNotificationChannelGroupAsync } from "expo-notifications";
@@ -55,8 +55,7 @@ export default function WaterLogScreen({
     navigation.navigate("Home", { refresh: true });
   };
   async function updateAmount() {
-    if (amount === "" || isNaN(parseFloat(amount)) || Number(amount) <= 0)
-      return;
+    if (amount === "" || isNaN(parseFloat(amount)) || Number(amount) <= 0) return;
     const data = await logWaterIntake(username, parseFloat(amount));
     setAmount("");
     if (!data.ok) {
@@ -95,12 +94,10 @@ export default function WaterLogScreen({
   }
   return (
     <SafeGradient>
-      <Text style={{ ...Styles.title, ...styles.title }}>
-        Today's water breakdown:
-      </Text>
+      <Text style={{ ...Styles.title, ...styles.title }}>Today's water breakdown:</Text>
 
       <View style={styles.cupList}></View>
-      <Navbar navigation={navigation} />
+      <BottomNavbar navigation={navigation} />
     </SafeGradient>
   );
 }

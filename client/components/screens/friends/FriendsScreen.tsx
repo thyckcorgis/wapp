@@ -7,7 +7,7 @@ import { Colours, Styles } from "../../../styles";
 import { getData } from "../../../storage";
 import { getFriends } from "../../../api";
 
-import Navbar from "../../Navbar";
+import BottomNavbar from "../../BottomNavbar";
 import SafeGradient from "../../SafeGradient";
 import { ClearButton } from "../../buttons";
 import ScreenProps from "../ScreenProps";
@@ -34,15 +34,12 @@ export default function FriendsScreen({ navigation }: ScreenProps) {
     <SafeGradient>
       <Text style={{ ...Styles.title, ...styles.title }}>Friends</Text>
       <View style={styles.friendsBox}>
-        <ClearButton
-          label="Add friends +"
-          onPress={() => navigation.navigate("AddFriends")}
-        />
+        <ClearButton label="Add friends +" onPress={() => navigation.navigate("AddFriends")} />
         <ScrollView contentContainerStyle={styles.friendsList}>
           <UserArray list={friends} style={{ height: 80 }} />
         </ScrollView>
       </View>
-      <Navbar navigation={navigation} right="Litreboards" />
+      <BottomNavbar navigation={navigation} right="Litreboards" />
     </SafeGradient>
   );
 }

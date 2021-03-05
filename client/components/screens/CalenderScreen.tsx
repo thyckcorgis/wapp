@@ -5,7 +5,7 @@ import moment from "moment";
 
 import { Colours, Styles } from "../../styles";
 
-import Navbar from "../Navbar";
+import BottomNavbar from "../BottomNavbar";
 import SafeGradient from "../SafeGradient";
 
 import ScreenProps from "./ScreenProps";
@@ -69,13 +69,12 @@ export default function CalendarScreen({ navigation }: ScreenProps) {
           </Text>
           <Text style={{ ...Styles.body, ...styles.infoText }}>
             {Number(date?.toString().slice(8, 10)) > 15
-              ? "You reached your goal! Way to go! " +
-                String.fromCodePoint(0x1f929)
+              ? "You reached your goal! Way to go! " + String.fromCodePoint(0x1f929)
               : "You did not reach your goal " + String.fromCodePoint(0x1f614)}
           </Text>
         </View>
       </View>
-      <Navbar navigation={navigation} />
+      <BottomNavbar navigation={navigation} />
     </SafeGradient>
   );
 }

@@ -9,7 +9,7 @@ import { getData, storeData } from "../../storage";
 import { setDailyIntake, uploadPushToken } from "../../api";
 import { registerForPushNotificationsAsync } from "../../notifications";
 
-import Navbar from "../Navbar";
+import BottomNavbar from "../BottomNavbar";
 import { Avatar, Accessory } from "react-native-elements";
 import SafeGradient from "../SafeGradient";
 import { ClearButton, SolidButton } from "../buttons/";
@@ -49,12 +49,7 @@ export default function UserScreen({ navigation }: ScreenProps) {
   }
 
   async function updateIntake() {
-    if (
-      newIntake === "" ||
-      isNaN(parseFloat(newIntake)) ||
-      Number(newIntake) <= 0
-    )
-      return;
+    if (newIntake === "" || isNaN(parseFloat(newIntake)) || Number(newIntake) <= 0) return;
 
     const data = await setDailyIntake(username, parseFloat(newIntake));
     console.log("here");
@@ -79,9 +74,7 @@ export default function UserScreen({ navigation }: ScreenProps) {
 
   return (
     <SafeGradient>
-      <Text style={{ ...Styles.title, ...styles.title }}>
-        Hello, {username}
-      </Text>
+      <Text style={{ ...Styles.title, ...styles.title }}>Hello, {username}</Text>
       <Avatar
         size="large"
         rounded
@@ -133,7 +126,7 @@ export default function UserScreen({ navigation }: ScreenProps) {
           <SolidButton onPress={logout} label="Logout" />
         </View>
       </ScrollView>
-      <Navbar navigation={navigation} />
+      <BottomNavbar navigation={navigation} />
     </SafeGradient>
   );
 }

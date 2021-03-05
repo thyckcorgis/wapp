@@ -2,12 +2,7 @@
 import { ExpoPushToken } from "expo-server-sdk";
 import { readFileSync, writeFileSync } from "fs";
 
-export function newUser(
-  username: string,
-  password: string,
-  name: string,
-  daily: number
-): User {
+export function newUser(username: string, password: string, name: string, daily: number): User {
   return {
     username,
     password,
@@ -38,10 +33,7 @@ class Users {
   }
 
   saveFile() {
-    writeFileSync(
-      this.filePath,
-      Buffer.from(JSON.stringify(this.users, null, 2))
-    );
+    writeFileSync(this.filePath, Buffer.from(JSON.stringify(this.users, null, 2)));
   }
 
   getUser(username: string) {

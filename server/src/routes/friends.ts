@@ -65,8 +65,7 @@ router.get("/to-add", checkAuth, (req: AuthReq, res) => {
   res.json({ users: allUsers });
 });
 
-const completion = (b: User, a: User) =>
-  a.currentIntake / a.daily - b.currentIntake / b.daily;
+const completion = (b: User, a: User) => a.currentIntake / a.daily - b.currentIntake / b.daily;
 const percentage = (user: User) => ({
   username: user.username,
   name: user.name,

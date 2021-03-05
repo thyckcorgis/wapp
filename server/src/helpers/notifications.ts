@@ -73,12 +73,8 @@ async function sendNotifications(messages: ExpoPushMessage[]) {
       for (let receiptId in receipts) {
         let { status } = receipts[receiptId];
         if (status === "error") {
-          let { message, details } = receipts[
-            receiptId
-          ] as ExpoPushErrorReceipt;
-          console.error(
-            `There was an error sending a notification: ${message}`
-          );
+          let { message, details } = receipts[receiptId] as ExpoPushErrorReceipt;
+          console.error(`There was an error sending a notification: ${message}`);
           if (details && details.error) {
             // The error codes are listed in the Expo documentation:
             // https://docs.expo.io/push-notifications/sending-notifications/#individual-errors

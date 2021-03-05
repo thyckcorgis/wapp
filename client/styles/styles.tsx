@@ -10,15 +10,15 @@ const Styles = StyleSheet.create({
   // SCREENS AND GENERAL BOXES
   screen: {
     ...centered,
-    marginVertical: "10%",
-    flex: 1,
+    width: "100%",
+    height: "100%",
   },
   background: {
     position: "absolute",
-    left: -100,
-    right: -100,
-    top: -100,
-    bottom: -100,
+    left: "-100%",
+    right: "-100%",
+    top: 0,
+    bottom: 0,
   },
   bigButton: {
     ...centered,
@@ -35,8 +35,12 @@ const Styles = StyleSheet.create({
   logoBox: {
     position: "absolute",
     ...centered,
-    top: 35,
+    top: "7%",
     zIndex: 1,
+  },
+  randomBox: {
+    flex: 1,
+    margin: "1%",
   },
 
   // TEXT

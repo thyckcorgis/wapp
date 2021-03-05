@@ -1,11 +1,6 @@
 import React, { useEffect } from "react";
-import {
-  View,
-  StyleSheet,
-  TouchableWithoutFeedback,
-  SafeAreaView,
-  Keyboard,
-} from "react-native";
+import { View, StyleSheet } from "react-native";
+import SafeGradient from "../../SafeGradient";
 import { LinearGradient } from "expo-linear-gradient";
 import { Colours, Styles } from "../../../styles";
 import { StartIcon } from "../../../assets";
@@ -29,21 +24,15 @@ export default function StartScreen({ navigation }: ScreenProps) {
   }, []);
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <SafeAreaView style={Styles.background}>
-        <LinearGradient
-          style={Styles.background}
-          colors={[Colours.lightBlue, Colours.yellow]}
+    <SafeGradient colors={[Colours.lightBlue, Colours.yellow]}>
+      <View style={Styles.bigButton}>
+        <GrowingButton
+          ContainerStyle={styles.container}
+          onTap={() => navigation.navigate("SignIn")}
+          Logo={<StartIcon />}
         />
-        <View style={Styles.bigButton}>
-          <GrowingButton
-            ContainerStyle={styles.container}
-            onTap={() => navigation.navigate("SignIn")}
-            Logo={<StartIcon />}
-          />
-        </View>
-      </SafeAreaView>
-    </TouchableWithoutFeedback>
+      </View>
+    </SafeGradient>
   );
 }
 

@@ -8,11 +8,7 @@ interface GrowingButtonProps {
   ContainerStyle: object;
 }
 
-const GrowingButton: React.FC<GrowingButtonProps> = ({
-  onTap,
-  Logo,
-  ContainerStyle,
-}) => {
+const GrowingButton: React.FC<GrowingButtonProps> = ({ onTap, Logo, ContainerStyle }) => {
   const [scaleValue] = useState(new Animated.Value(0));
   const onButtonClicked = () => {
     Animated.timing(scaleValue, {
@@ -33,10 +29,7 @@ const GrowingButton: React.FC<GrowingButtonProps> = ({
   return (
     <>
       <Animated.View
-        style={[
-          { ...ContainerStyle },
-          { transform: [{ scale: scaleValueInterpolation }] },
-        ]}
+        style={[{ ...ContainerStyle }, { transform: [{ scale: scaleValueInterpolation }] }]}
       />
       <TouchableOpacity style={{ ...ContainerStyle }} onPress={onButtonClicked}>
         {Logo}

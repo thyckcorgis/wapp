@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  View,
-  StyleSheet,
-  TouchableWithoutFeedback,
-  SafeAreaView,
-  Keyboard,
-} from "react-native";
+import { View, StyleSheet, TouchableWithoutFeedback, SafeAreaView, Keyboard } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Colours, Styles } from "../../../styles";
 import { WelcomeIcon } from "../../../assets";
@@ -17,10 +11,7 @@ export default function WelcomeScreen({ navigation }: ScreenProps) {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <SafeAreaView style={Styles.background}>
-        <LinearGradient
-          style={Styles.background}
-          colors={[Colours.darkBlue, Colours.medBlue]}
-        />
+        <LinearGradient style={Styles.background} colors={[Colours.darkBlue, Colours.medBlue]} />
         <View style={Styles.bigButton}>
           <GrowingButton
             ContainerStyle={styles.container}

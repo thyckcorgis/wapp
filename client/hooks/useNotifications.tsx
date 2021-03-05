@@ -14,24 +14,19 @@ export default function useNotifications() {
 
   useEffect(() => {
     (async () => {
-      notificationListener.current = addNotificationReceivedListener(
-        (notification) => {
-          setNotification(notification);
-        }
-      );
+      notificationListener.current = addNotificationReceivedListener((notification) => {
+        setNotification(notification);
+      });
 
-      responseListener.current = addNotificationResponseReceivedListener(
-        (response) => {
-          console.log(response);
-        }
-      );
+      responseListener.current = addNotificationResponseReceivedListener((response) => {
+        console.log(response);
+      });
     })();
 
     return () => {
       if (notificationListener.current)
         removeNotificationSubscription(notificationListener.current);
-      if (responseListener.current)
-        removeNotificationSubscription(responseListener.current);
+      if (responseListener.current) removeNotificationSubscription(responseListener.current);
     };
   }, []);
   return [notification];

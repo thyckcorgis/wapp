@@ -8,17 +8,9 @@ interface ButtonProps {
   textStyle: object;
   viewStyle: object;
 }
-export default function RoundButton({
-  label,
-  onPress,
-  textStyle,
-  viewStyle,
-}: ButtonProps) {
+export default function RoundButton({ label, onPress, textStyle, viewStyle }: ButtonProps) {
   return (
-    <TouchableOpacity
-      onPress={onPress}
-      style={{ ...Styles.buttonShape, ...viewStyle }}
-    >
+    <TouchableOpacity onPress={onPress} style={{ ...Styles.buttonShape, ...viewStyle }}>
       <Text style={{ ...Styles.body, ...textStyle }}>{label}</Text>
     </TouchableOpacity>
   );

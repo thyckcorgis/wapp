@@ -41,24 +41,19 @@ export default function App() {
       if (!token) return;
       setExpoPushToken(token);
 
-      notificationListener.current = addNotificationReceivedListener(
-        (notification) => {
-          setNotification(notification);
-        }
-      );
+      notificationListener.current = addNotificationReceivedListener((notification) => {
+        setNotification(notification);
+      });
 
-      responseListener.current = addNotificationResponseReceivedListener(
-        (response) => {
-          console.log(response);
-        }
-      );
+      responseListener.current = addNotificationResponseReceivedListener((response) => {
+        console.log(response);
+      });
     })();
 
     return () => {
       if (notificationListener.current)
         removeNotificationSubscription(notificationListener.current);
-      if (responseListener.current)
-        removeNotificationSubscription(responseListener.current);
+      if (responseListener.current) removeNotificationSubscription(responseListener.current);
     };
   }, []);
   return (
@@ -71,14 +66,9 @@ export default function App() {
     >
       <Text>Your expo push token: {expoPushToken}</Text>
       <View style={{ alignItems: "center", justifyContent: "center" }}>
-        <Text>
-          Title: {notification && notification.request.content.title}{" "}
-        </Text>
+        <Text>Title: {notification && notification.request.content.title} </Text>
         <Text>Body: {notification && notification.request.content.body}</Text>
-        <Text>
-          Data:{" "}
-          {notification && JSON.stringify(notification.request.content.data)}
-        </Text>
+        <Text>Data: {notification && JSON.stringify(notification.request.content.data)}</Text>
       </View>
       <Button
         title="Press to schedule a notification"
@@ -89,10 +79,7 @@ export default function App() {
       <Button
         title="Press to upload push token"
         onPress={async () => {
-          await uploadPushToken(
-            "charles",
-            (await registerForPushNotificationsAsync()) as string
-          );
+          await uploadPushToken("charles", (await registerForPushNotificationsAsync()) as string);
         }}
       />
     </View>
@@ -106,10 +93,7 @@ content: {
   data: { data: "goes here" },
 }
 */
-export async function schedulePushNotification(
-  content: NotificationContentInput,
-  minutes: number
-) {
+export async function schedulePushNotification(content: NotificationContentInput, minutes: number) {
   await scheduleNotificationAsync({
     content,
     trigger: { seconds: minutes * 60 },

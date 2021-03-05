@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import {
-  Text,
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  TextInput,
-} from "react-native";
+import { Text, StyleSheet, View, TouchableOpacity, TextInput } from "react-native";
 import SafeGradient from "../SafeGradient";
 
 import { Colours, Styles } from "../../styles";

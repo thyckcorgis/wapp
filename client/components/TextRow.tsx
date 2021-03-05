@@ -11,9 +11,7 @@ interface TextRowProps {
 export default function TextRow({ title, text }: TextRowProps) {
   return (
     <View style={styles.name}>
-      <Text style={{ ...Styles.body, ...styles.headerText }}>
-        {title + " "}
-      </Text>
+      <Text style={{ ...Styles.body, ...styles.headerText }}>{title + " "}</Text>
       <Text style={{ ...Styles.body, ...styles.friendText }}>{text}</Text>
     </View>
   );

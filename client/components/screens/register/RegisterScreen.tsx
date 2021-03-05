@@ -50,9 +50,7 @@ const input = (
   secureTextEntry?: boolean
 ) => (
   <View style={styles.item}>
-    <Text style={{ ...Styles.body, ...styles.headerText }}>
-      {placeholder + ":"}
-    </Text>
+    <Text style={{ ...Styles.body, ...styles.headerText }}>{placeholder + ":"}</Text>
     {textField(placeholder, value, setValue, numberPad, secureTextEntry)}
   </View>
 );
@@ -67,13 +65,7 @@ export default function RegisterScreen({ navigation }: ScreenProps) {
   const [error, setError] = useState("");
 
   async function register() {
-    if (
-      name === "" ||
-      username === "" ||
-      password === "" ||
-      password2 === "" ||
-      weight === ""
-    )
+    if (name === "" || username === "" || password === "" || password2 === "" || weight === "")
       return;
     const daily = calculateDailyIntake(Number(weight), Number(activityLevel));
     const data = await registerUser(username, password, name, Number(daily));
@@ -97,9 +89,7 @@ export default function RegisterScreen({ navigation }: ScreenProps) {
         {input("Password", password, setPassword, false, true)}
         {input("Confirm Password", password2, setPassword2, false, true)}
         {input("Weight", weight, setWeight, true)}
-        <Text style={{ ...Styles.body, ...styles.activityText }}>
-          Activity Level
-        </Text>
+        <Text style={{ ...Styles.body, ...styles.activityText }}>Activity Level</Text>
         <View style={styles.pickerContainer}>
           <Picker
             mode="dropdown"

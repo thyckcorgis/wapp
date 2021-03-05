@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { View, StyleSheet } from "react-native";
 import SafeGradient from "../../SafeGradient";
-import { LinearGradient } from "expo-linear-gradient";
 import { Colours, Styles } from "../../../styles";
 import { StartIcon } from "../../../assets";
 import { GrowingButton } from "../../buttons";

@@ -97,7 +97,6 @@ export default function HomeScreen({
           shadowColor={Colours.yellow}
           color={Colours.darkYellow}
           bgColor={Colours.lightBlue}
-          // bgColor={"transparent"}
         >
           <View>
             <ScalingButton

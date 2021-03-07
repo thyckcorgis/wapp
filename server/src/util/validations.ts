@@ -13,6 +13,7 @@ const intake = Joi.number().min(0).max(2000).required();
 const date = Joi.date().required();
 const logEntry = Joi.object().length(2).keys({ 0: intake, 1: date });
 
+export const addFriend = Joi.object().keys({ friend: username });
 export const syncLogs = Joi.array().items(logEntry);
 export const logIntake = Joi.object().keys({ intake });
 export const setReminders = Joi.object().keys({ wakeTime: time, sleepTime: time });

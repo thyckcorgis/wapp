@@ -18,3 +18,8 @@ export function checkAuth(req: AuthReq, res: Response, next: NextFunction) {
     res.status(401).send("Auth failed");
   }
 }
+export function logUrlAndMethod(req: Request, _: Response, next: NextFunction) {
+  const { url, method } = req;
+  console.log({ url, method });
+  next();
+}

@@ -1,5 +1,5 @@
 import User from "../models/user";
-import { Expo, ExpoPushMessage } from "expo-server-sdk";
+import { Expo } from "expo-server-sdk";
 
 // Route Operations
 export async function disableAllNotifs(userId: string) {
@@ -23,29 +23,4 @@ export async function enablePushNotif(userId: string, expoPushToken: string) {
       pushTokens: expoPushToken,
     },
   }).exec();
-}
-
-// Sending Notifications
-
-export async function friendRequestNotification(
-  username: string,
-  friend: User,
-  type: "send" | "accept"
-) {
-  const token = friend.expoPushToken;
-  if (!token) return false;
-  const message =
-    type === "send"
-      ? `${username} wants to add you as a friend`
-      : `${username} has accepted your friend request`;
-
-  const messages: ExpoPushMessage[] = [
-    {
-      to: token,
-      sound: "default",
-      body: message,
-    },
-  ];
-  await sendNotifications(messages);
-  return true;
 }

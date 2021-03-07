@@ -1,90 +1,68 @@
 import { Router } from "express";
-import { AuthReq, checkAuth } from "../helpers/auth";
-import { friendRequestNotification } from "../helpers/notifications";
-import users, { User } from "../helpers/userdb";
+import { AuthReq, checkAuth } from "../middlewares";
+import { UserData } from "../util/types";
+import { parseError } from "src/util/helpers";
+import * as FriendsService from "../services/FriendsService";
 
-const router = Router();
+const friendRouter = Router();
 
-interface FriendReq {
-  username: string;
-  friend: string;
-}
-
-/*
-body:
-{
-  friend: string
-}
-*/
-router.post("/request", checkAuth, (req: AuthReq, res) => {
-  const { friend } = req.body as FriendReq;
-  // send notification to friend
-  const user = req.userData as User;
-  const { username } = user;
-  if (users.addPendingRequest(friend, username)) {
-    friendRequestNotification(username, user, "send");
-    res.json({ ok: true, message: "Request sent" });
-  } else {
-    res.json({ ok: false, message: "Request already sent" });
+friendRouter.post("/request", checkAuth, async ({ body: { friend }, userData }: AuthReq, res) => {
+  try {
+    const { userId } = userData as UserData;
+    await FriendsService.sendFriendRequest(userId, friend);
+    res.send("Friend request sent");
+  } catch (err) {
+    res.status(400).send(parseError(err));
   }
 });
 
-router.post("/accept", checkAuth, (req: AuthReq, res) => {
-  const { friend } = req.body as FriendReq;
-  const user = req.userData as User;
-  const { username } = user;
-  users.connectFriends(username, friend);
-  users.removePendingRequest(username, friend);
-  friendRequestNotification(username, user, "accept");
-  res.json({ ok: true, message: "Friend request accepted" });
+friendRouter.post("/accept", checkAuth, async ({ body: { friend }, userData }: AuthReq, res) => {
+  try {
+    const { userId } = userData as UserData;
+    await FriendsService.acceptFriendRequest(userId, friend);
+    res.send("Accepted friend");
+  } catch (err) {
+    res.status(400).send(parseError(err));
+  }
 });
 
-router.get("/pending", checkAuth, (req: AuthReq, res) => {
-  const user = req.userData as User;
-  const pendingRequests = users.getNames(user.pendingRequests);
-  res.json({ ok: true, pending: pendingRequests });
+friendRouter.get("/pending", checkAuth, async ({ userData }: AuthReq, res) => {
+  try {
+    const { userId } = userData as UserData;
+    res.send(await FriendsService.getUsers(userId, "pending"));
+  } catch (err) {
+    res.status(404).send(parseError(err));
+  }
 });
 
 /**
  * Only sends users that haven't been added yet
  */
-router.get("/to-add", checkAuth, (req: AuthReq, res) => {
-  const user = req.userData as User;
-  const { friends, pendingRequests } = user;
-  let allUsers = users
-    .getAllUsers()
-    .filter(
-      ({ username }) =>
-        !(
-          friends.includes(username) ||
-          pendingRequests.includes(username) ||
-          username === user.username
-        )
-    );
-  console.log(allUsers);
-  res.json({ users: allUsers });
+friendRouter.get("/to-add", checkAuth, async ({ userData }: AuthReq, res) => {
+  try {
+    const { userId } = userData as UserData;
+    res.send(await FriendsService.getUsers(userId, "nonFriends"));
+  } catch (err) {
+    res.status(404).send(parseError(err));
+  }
 });
 
-const completion = (b: User, a: User) => a.currentIntake / a.daily - b.currentIntake / b.daily;
-const percentage = (user: User) => ({
-  username: user.username,
-  name: user.name,
-  currrentIntake: user.currentIntake,
-  daily: user.daily,
-  percentage: (user.currentIntake / user.daily) * 100,
+friendRouter.get("/litreboard", checkAuth, async ({ userData }: AuthReq, res) => {
+  try {
+    const { userId } = userData as UserData;
+    res.send(await FriendsService.getLitreboards(userId));
+  } catch (err) {
+    res.status(404).send(parseError(err));
+  }
 });
 
-router.get("/litreboard", checkAuth, (req: AuthReq, res) => {
-  const user = req.userData as User;
-  const allFriends = users.getAllFriends(user.username);
-  allFriends.push(user);
-  const sorted = allFriends.sort(completion).map(percentage);
-  res.json({ users: sorted });
+friendRouter.get("", checkAuth, async ({ userData }: AuthReq, res) => {
+  try {
+    const { userId } = userData as UserData;
+    res.send(await FriendsService.getUsers(userId, "friends"));
+  } catch (err) {
+    res.status(404).send(parseError(err));
+  }
 });
 
-router.get("/", checkAuth, (req: AuthReq, res) => {
-  const allFriends = users.getAllFriends(req.userData?.username as string);
-  res.json({ users: allFriends });
-});
-
-export default router;
+export default friendRouter;

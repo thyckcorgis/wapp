@@ -16,6 +16,9 @@ export interface IUserDocument extends Document {
   };
 
   addWater(intake: number): Promise<boolean>;
+  getFriends(): Promise<IUserDocument[]>;
+  getNonFriends(): Promise<IUserDocument[]>;
+  getPendingRequests(): Promise<IUserDocument[]>;
   comparePasswords(password: string): Promise<boolean>;
 }
 
@@ -84,6 +87,21 @@ UserSchema.methods.addWater = async function (intake: number) {
   const newIntake = this.currentIntake + intake;
   await this.update({ currentIntake: newIntake }).exec();
   return newIntake >= this.daily;
+};
+
+UserSchema.methods.getPendingRequests = function () {
+  return User.find({ _id: { $nin: this.friendIds }, friendIds: this._id }).exec();
+};
+
+UserSchema.methods.getNonFriends = function () {
+  return User.find({ _id: { $nin: this.friendIds } }).exec();
+};
+
+UserSchema.methods.getFriends = function () {
+  return User.find({
+    _id: { $in: this.friendIds },
+    friendIds: this._id,
+  }).exec();
 };
 
 UserSchema.methods.comparePasswords = function (password: string) {

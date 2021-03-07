@@ -1,14 +1,14 @@
 import { FlexStyle, StyleSheet, Dimensions, Platform } from "react-native";
 import Colours from "./colours";
 
+// FONTS FOR IOS AND ANDROID
+const iFont = "Avenir-Light";
+const aFont = "sans-serif-light";
+
 const centered: FlexStyle = {
   justifyContent: "center",
   alignSelf: "center",
 };
-
-// FONTS FOR IOS AND ANDROID
-const iFont = "Avenir-Light";
-const aFont = "sans-serif-light";
 
 const Styles = StyleSheet.create({
   // SCREENS AND GENERAL BOXES
@@ -16,6 +16,7 @@ const Styles = StyleSheet.create({
     ...centered,
     width: "100%",
     height: "100%",
+    paddingTop: Platform.OS == "ios" ? 0 : "6%",
   },
   background: {
     position: "absolute",
@@ -26,14 +27,16 @@ const Styles = StyleSheet.create({
   },
   bigButton: {
     ...centered,
-    flex: 1,
+    flex: 5,
+    // borderWidth: 1,
   },
   navBar: {
     justifyContent: "space-between",
-    width: Dimensions.get("window").width,
+    width: "100%",
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: "3%",
+    // borderWidth: 1,
   },
 
   // TEXT

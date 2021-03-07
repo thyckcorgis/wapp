@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, StyleSheet, View } from "react-native";
+import { Text, StyleSheet, View, Platform } from "react-native";
 import { Route } from "@react-navigation/native";
 import ProgressCircle from "react-native-progress-circle";
 
@@ -66,37 +66,45 @@ export default function HomeScreen({ navigation, route: { params: refresh } }: H
   return (
     <SafeGradient>
       <TopNavbar navigation={navigation} />
-      <View style={Styles.bigButton}>
+      {/* <View style={Styles.bigButton}> */}
+      <View style={styles.box}>
         <Text style={{ ...Styles.body, ...styles.headerText }}>
           Today is {new Date().toDateString()}.
         </Text>
-        <ProgressCircle
-          percent={getPercentage(currentIntake, daily)}
-          radius={150}
-          borderWidth={30}
-          shadowColor={Colours.yellow}
-          color={Colours.darkYellow}
-          bgColor={Colours.lightBlue}
-        >
-          <View>
-            <ScalingButton onTap={() => navigation.navigate("LogWater")} Logo={<DrinkButton />} />
-          </View>
-        </ProgressCircle>
-        <Text style={{ ...Styles.body, ...styles.headerText }}>
-          {currentIntake.toFixed(2)} / {daily.toFixed(2)} L
-        </Text>
+        <View style={Styles.bigButton}>
+          <ProgressCircle
+            percent={getPercentage(currentIntake, daily)}
+            radius={Platform.OS == "ios" ? 150 : 140}
+            borderWidth={Platform.OS == "ios" ? 30 : 20}
+            shadowColor={Colours.yellow}
+            color={Colours.darkYellow}
+            bgColor={Colours.lightBlue}
+          >
+            <View>
+              <ScalingButton onTap={() => navigation.navigate("LogWater")} Logo={<DrinkButton />} />
+            </View>
+          </ProgressCircle>
+          <Text style={{ ...Styles.body, ...styles.headerText }}>
+            {currentIntake.toFixed(2)} / {daily.toFixed(2)} L
+          </Text>
+        </View>
+        <View style={{ flex: 1 }}>
+          <SolidButton
+            onPress={() => navigation.navigate("WaterLog")}
+            label={"Today's Drink History"}
+          />
+        </View>
       </View>
-      <SolidButton
-        onPress={() => navigation.navigate("WaterLog")}
-        label={"Today's Drink History"}
-      />
-      <View style={{ height: 50 }}></View>
       <BottomNavbar navigation={navigation} tips={true} right="Friends" />
     </SafeGradient>
   );
 }
 
 const styles = StyleSheet.create({
+  box: {
+    flex: 1,
+    // borderWidth: 1,
+  },
   headerText: {
     textAlign: "center",
     color: Colours.yellow,

@@ -1,10 +1,11 @@
 import { Router } from "express";
-import { hash, compare } from "bcrypt";
-import users, { UserReq, LoginReq, newUser, User } from "../helpers/userdb";
+import users, { LoginReq } from "../helpers/userdb";
 import { ExpoPushToken } from "expo-server-sdk";
 import { AuthReq, checkAuth, createToken } from "../helpers/auth";
+import { parseError } from "../util/helpers";
+import * as UserService from "../services/UserService";
 
-const router = Router();
+const userRouter = Router();
 
 /*
 body:
@@ -13,7 +14,7 @@ body:
   password: string,
 }
 */
-router.post("/login", async (req, res) => {
+userRouter.post("/login", async (req, res) => {
   const authFail = () => {
     res.json({ ok: false, message: "Invalid username or password" });
   };
@@ -31,7 +32,7 @@ body:
   daily: number
 }
  */
-router.post("/daily", checkAuth, async (req: AuthReq, res) => {
+userRouter.post("/daily", checkAuth, async (req: AuthReq, res) => {
   const { daily } = req.body;
   const { username } = req.userData as User;
   const user = users.setDailyIntake(username, daily);
@@ -47,7 +48,7 @@ interface NotifReq {
   expoPushToken: ExpoPushToken;
 }
 
-router.post("/notif", checkAuth, (req: AuthReq, res) => {
+userRouter.post("/notif", checkAuth, (req: AuthReq, res) => {
   const { expoPushToken } = req.body as NotifReq;
   const { username } = req.userData as User;
   const user = users.setPushToken(username, expoPushToken);
@@ -58,7 +59,7 @@ router.post("/notif", checkAuth, (req: AuthReq, res) => {
   }
 });
 
-router.delete("/token", checkAuth, (req: AuthReq, res) => {
+userRouter.delete("/token", checkAuth, (req: AuthReq, res) => {
   const { username } = req.userData as User;
   const user = users.deletePushToken(username);
   if (user) {
@@ -68,38 +69,23 @@ router.delete("/token", checkAuth, (req: AuthReq, res) => {
   }
 });
 
-/*
-body:
-{
-  username: string,
-  password: string,
-  name: string,
-  daily: number
-}
-*/
-router.post("/register", async (req, res) => {
-  const { username, password, name, daily } = req.body as UserReq;
+userRouter.post("", async (req, res) => {
   try {
-    if (users.getUser(username)) {
-      res.json({ ok: false, message: "That username is already in use" });
-      return;
-    }
-    const hashedPass = await hash(password, 10);
-    const user = newUser(username, hashedPass, name, daily);
-    users.addUser(user);
-    res.json({ ok: true, message: "Registered successfully", user });
-  } catch (error) {
-    res.json({ ok: false, message: error.message });
+    const { username, password, name, daily } = req.body;
+    const token = await UserService.register(username, password, name, daily);
+    res.send(token);
+  } catch (err) {
+    res.status(400).send(parseError(err));
   }
 });
 
 // for polling
-router.get("/", checkAuth, (req: AuthReq, res) => {
+userRouter.get("", checkAuth, (req: AuthReq, res) => {
   res.json({ user: users.getUser(req.userData?.username || "") });
 });
 
-router.get("/", (_, res) => {
+userRouter.get("", (_, res) => {
   res.json({ users: users.users });
 });
 
-export default router;
+export default userRouter;

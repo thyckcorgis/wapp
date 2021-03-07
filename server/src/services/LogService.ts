@@ -1,7 +1,7 @@
 import User from "../models/user";
-import Log, { LogType } from "../models/log";
+import Log from "../models/log";
 
-import { ILog } from "../util/types";
+import { ILog, EDate, LogType } from "../util/types";
 import * as validators from "../util/validations";
 import { sendNotifications } from "../util/notifications";
 
@@ -30,7 +30,12 @@ export async function syncLogs(userId: string, logs: ILog[]) {
 
   const logType: LogType = "water";
   await Log.insertMany(
-    logs.map(([water, date]) => ({ userId, water, dateCreated: new Date(date), logType }))
+    logs.map(([water, date]) => ({
+      userId,
+      water,
+      dateCreated: new EDate(date).serial,
+      logType,
+    }))
   );
 }
 
@@ -50,4 +55,11 @@ export async function logWater(username: string, userId: string, intake: number)
 
 export async function logFriendRequest(userId: string, friendId: string) {
   await new Log({ userId, friendId, logType: "friend" }).save();
+}
+
+export async function getMonthlyLog(userId: string, year: number, month: number): Promise<ILog[]> {
+  return (await Log.getMonthLog(userId, year, month)).map(({ water, dateCreated }) => [
+    water as number,
+    dateCreated,
+  ]);
 }

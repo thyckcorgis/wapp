@@ -6,3 +6,4 @@ const password = Joi.string().min(8).required();
 const name = Joi.string().min(1).required();
 
 export const register = Joi.object().keys({ username, daily, password, name });
+export const login = Joi.object().keys({ username, password });

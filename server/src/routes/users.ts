@@ -1,30 +1,10 @@
 import { Router } from "express";
-import users, { LoginReq } from "../helpers/userdb";
 import { ExpoPushToken } from "expo-server-sdk";
 import { AuthReq, checkAuth, createToken } from "../helpers/auth";
 import { parseError } from "../util/helpers";
 import * as UserService from "../services/UserService";
 
 const userRouter = Router();
-
-/*
-body:
-{
-  username: string,
-  password: string,
-}
-*/
-userRouter.post("/login", async (req, res) => {
-  const authFail = () => {
-    res.json({ ok: false, message: "Invalid username or password" });
-  };
-  const { username, password } = req.body as LoginReq;
-  const user = users.getUser(username);
-  if (!user) return authFail();
-  if (!(await compare(password, user.password))) return authFail();
-  const token = createToken(user);
-  res.json({ ok: true, message: "Login successfully", token });
-});
 
 /*
 body:

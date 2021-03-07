@@ -6,15 +6,13 @@ import { parseError } from "../util/helpers";
 
 const logRouter = Router();
 
-// http methods what dx
-logRouter.patch("/reset", checkAuth, (req: AuthReq, res) => {
-  const { username, userId } = req.userData as UserData;
-  const user = users.resetCurrentIntake(username);
-  if (user) {
-    const token = createToken(user);
-    res.json({ ok: true, message: "Reset user", token });
-  } else {
-    res.json({ ok: false, message: "Error resetting" });
+logRouter.post("/sync", checkAuth, async ({ body, userData }: AuthReq, res) => {
+  try {
+    const { logs } = body;
+    const { userId } = userData as UserData;
+    res.send(await LogService.syncLogs(userId, logs));
+  } catch (err) {
+    res.status(400).send(parseError(err));
   }
 });
 

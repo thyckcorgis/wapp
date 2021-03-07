@@ -67,6 +67,7 @@ export default function AddCupModal({ navigation }: ScreenProps) {
     <SafeGradient colors={[Colours.lightBlue, Colours.yellow]}>
       <TouchableOpacity
         style={styles.xButton}
+        hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
         onPress={() => navigation.navigate("LogWater", { refresh: true })}
       >
         <XButton />
@@ -85,7 +86,8 @@ export default function AddCupModal({ navigation }: ScreenProps) {
 
 const styles = StyleSheet.create({
   xButton: {
-    top: 50,
+    top: "5%",
+    left: "5%",
   },
   cupBox: {
     flex: 1,

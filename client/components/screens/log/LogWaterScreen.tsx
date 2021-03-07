@@ -7,6 +7,7 @@ import {
   ScrollView,
   TextInput,
   Alert,
+  Platform,
 } from "react-native";
 import { Route } from "@react-navigation/native";
 
@@ -76,8 +77,7 @@ export default function LogWaterScreen({
     );
   }
   async function updateAmount() {
-    if (amount === "" || isNaN(parseFloat(amount)) || Number(amount) <= 0)
-      return;
+    if (amount === "" || isNaN(parseFloat(amount)) || Number(amount) <= 0) return;
     const data = await logWaterIntake(username, parseFloat(amount));
     setAmount("");
     if (!data.ok) {
@@ -119,13 +119,9 @@ export default function LogWaterScreen({
 
   return (
     <SafeGradient>
-      <Text style={{ ...Styles.title, ...styles.title }}>
-        How much water did you drink?
-      </Text>
+      <Text style={{ ...Styles.title, ...styles.title }}>How much water did you drink?</Text>
       <View style={styles.manualBox}>
-        <Text style={{ ...Styles.body, ...styles.smallText }}>
-          Input specific amount (mL):
-        </Text>
+        <Text style={{ ...Styles.body, ...styles.smallText }}>Input specific amount (mL):</Text>
         <View
           style={{
             flexDirection: "row",
@@ -156,10 +152,8 @@ export default function LogWaterScreen({
         </View>
       </View>
       <View style={styles.cupList}>
-        <Text style={{ ...Styles.body, ...styles.smallText }}>
-          Quickly add a cup:
-        </Text>
-        <ScrollView keyboardDismissMode="on-drag">
+        <Text style={{ ...Styles.body, ...styles.smallText }}>Quickly add a cup:</Text>
+        <ScrollView style={styles.cupList} keyboardDismissMode="on-drag">
           {cups.map(({ name, size }) => (
             <TouchableOpacity
               style={{ ...Styles.buttonShape, ...styles.cupButton }}
@@ -174,7 +168,7 @@ export default function LogWaterScreen({
           ))}
         </ScrollView>
         <GrowingButton
-          ContainerStyle={styles.container}
+          ContainerStyle={styles.plusButton}
           onTap={() => navigation.navigate("AddCupModal")}
           Logo={<Text style={{ ...Styles.title, ...styles.plus }}>+</Text>}
         />
@@ -191,14 +185,15 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     padding: 10,
     // borderWidth: 1,
+    justifyContent: "center",
   },
   cupList: {
-    flex: 3,
-    marginHorizontal: 20,
-    padding: 10,
+    flex: 4,
+    paddingBottom: 80,
+    // marginHorizontal: 20,
     // borderWidth: 1,
   },
-  container: {
+  plusButton: {
     position: "absolute",
     backgroundColor: Colours.yellow,
     width: 55,
@@ -207,7 +202,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     right: 20,
-    bottom: 20,
+    alignSelf: "center",
+    bottom: Platform.OS == "ios" ? 20 : 0,
     zIndex: 1,
     elevation: 1,
   },

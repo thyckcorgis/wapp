@@ -6,12 +6,9 @@ const centered: FlexStyle = {
   alignSelf: "center",
 };
 
+// FONTS FOR IOS AND ANDROID
 const iFont = "Avenir-Light";
-const aFont = "sans-serif-thin";
-
-function getOS(isIOS) {
-  return Platform.OS;
-}
+const aFont = "sans-serif-light";
 
 const Styles = StyleSheet.create({
   // SCREENS AND GENERAL BOXES
@@ -45,18 +42,18 @@ const Styles = StyleSheet.create({
     fontSize: 30,
   },
   body: {
-    fontFamily: iFont,
+    fontFamily: Platform.OS == "ios" ? iFont : aFont,
     fontSize: 14,
   },
   error: {
-    fontFamily: iFont,
+    fontFamily: Platform.OS == "ios" ? iFont : aFont,
     fontSize: 14,
     color: Colours.errorRed,
     textAlign: "center",
   },
   inputField: {
     ...centered,
-    fontFamily: iFont,
+    fontFamily: Platform.OS == "ios" ? iFont : aFont,
     padding: 5,
     margin: 10,
     width: 250,

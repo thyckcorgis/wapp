@@ -1,10 +1,17 @@
-import { FlexStyle, StyleSheet, Dimensions } from "react-native";
+import { FlexStyle, StyleSheet, Dimensions, Platform } from "react-native";
 import Colours from "./colours";
 
 const centered: FlexStyle = {
   justifyContent: "center",
   alignSelf: "center",
 };
+
+const iFont = "Avenir-Light";
+const aFont = "sans-serif-thin";
+
+function getOS(isIOS) {
+  return Platform.OS;
+}
 
 const Styles = StyleSheet.create({
   // SCREENS AND GENERAL BOXES
@@ -34,28 +41,28 @@ const Styles = StyleSheet.create({
 
   // TEXT
   title: {
-    fontFamily: "Avenir-Light",
+    fontFamily: Platform.OS == "ios" ? iFont : aFont,
     fontSize: 30,
   },
   body: {
-    fontFamily: "Avenir-Light",
+    fontFamily: iFont,
     fontSize: 14,
   },
   error: {
-    fontFamily: "Avenir-Light",
+    fontFamily: iFont,
     fontSize: 14,
     color: Colours.errorRed,
     textAlign: "center",
   },
   inputField: {
     ...centered,
+    fontFamily: iFont,
     padding: 5,
     margin: 10,
     width: 250,
     textAlign: "left",
     textAlignVertical: "center",
     fontSize: 14,
-    fontFamily: "Avenir-Light",
     borderBottomWidth: 1,
   },
 

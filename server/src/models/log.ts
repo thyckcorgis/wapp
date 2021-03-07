@@ -17,12 +17,8 @@ export type LogType = "water" | "friend";
 export interface ILogDocument extends Document {
   userId: string;
   logType: LogType;
-  water?: {
-    volume: number;
-  };
-  friend?: {
-    id: string;
-  };
+  water?: number;
+  friendId?: string;
   dateCreated: Date;
 }
 
@@ -41,18 +37,12 @@ const LogSchema = new Schema<ILogDocument, ILogModel>(
       default: "water",
     },
     water: {
+      type: Number,
       required: false,
-      volume: {
-        type: Number,
-        required: true,
-      },
     },
-    friend: {
+    friendId: {
+      type: String,
       required: false,
-      id: {
-        type: String,
-        required: true,
-      },
     },
     dateCreated: {
       type: Date,

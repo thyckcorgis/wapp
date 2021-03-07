@@ -34,7 +34,8 @@ for (let pushToken of somePushTokens) {
   });
 }
 
-export async function sendNotifications(messages: ExpoPushMessage[]) {
+export async function sendNotifications(message: string, to: string | string[]) {
+  const messages: ExpoPushMessage[] = [{ to, sound: "default", body: message }];
   let chunks = expo.chunkPushNotifications(messages);
   let tickets: ExpoPushTicket[] = [];
   // Send the chunks to the Expo push notification service. There are

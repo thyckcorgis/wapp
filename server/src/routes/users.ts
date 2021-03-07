@@ -42,30 +42,6 @@ router.post("/daily", checkAuth, async (req: AuthReq, res) => {
     res.json({ ok: false, message: "User not found" });
   }
 });
-/*
-body:
-{
-  username: string,
-  password: string,
-  name: string,
-  daily: number
-}
-*/
-router.post("/register", async (req, res) => {
-  const { username, password, name, daily } = req.body as UserReq;
-  try {
-    if (users.getUser(username)) {
-      res.json({ ok: false, message: "That username is already in use" });
-      return;
-    }
-    const hashedPass = await hash(password, 10);
-    const user = newUser(username, hashedPass, name, daily);
-    users.addUser(user);
-    res.json({ ok: true, message: "Registered successfully", user });
-  } catch (error) {
-    res.json({ ok: false, message: error.message });
-  }
-});
 
 interface NotifReq {
   expoPushToken: ExpoPushToken;
@@ -89,6 +65,31 @@ router.delete("/token", checkAuth, (req: AuthReq, res) => {
     res.json({ ok: true, message: "Delete push token successful", user });
   } else {
     res.json({ ok: false, message: "User not found", user });
+  }
+});
+
+/*
+body:
+{
+  username: string,
+  password: string,
+  name: string,
+  daily: number
+}
+*/
+router.post("/register", async (req, res) => {
+  const { username, password, name, daily } = req.body as UserReq;
+  try {
+    if (users.getUser(username)) {
+      res.json({ ok: false, message: "That username is already in use" });
+      return;
+    }
+    const hashedPass = await hash(password, 10);
+    const user = newUser(username, hashedPass, name, daily);
+    users.addUser(user);
+    res.json({ ok: true, message: "Registered successfully", user });
+  } catch (error) {
+    res.json({ ok: false, message: error.message });
   }
 });
 

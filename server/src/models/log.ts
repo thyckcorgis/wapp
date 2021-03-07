@@ -1,29 +1,16 @@
 import mongoose, { Document, Model, Schema } from "mongoose";
-
-class EDate extends Date {
-  get month() {
-    return this.getMonth() + 1;
-  }
-  get day() {
-    return this.getDate();
-  }
-  get year() {
-    return this.getFullYear();
-  }
-}
-
-export type LogType = "water" | "friend";
+import { LogType, EDate } from "../util/types";
 
 export interface ILogDocument extends Document {
   userId: string;
   logType: LogType;
   water?: number;
   friendId?: string;
-  dateCreated: Date;
+  dateCreated: number;
 }
 
 export interface ILogModel extends Model<ILogDocument> {
-  getMonthLog(userId: string, month: number, year: number): Promise<ILogDocument[]>;
+  getMonthLog(userId: string, year: number, month: number): Promise<ILogDocument[]>;
 }
 
 const LogSchema = new Schema<ILogDocument, ILogModel>(
@@ -45,25 +32,25 @@ const LogSchema = new Schema<ILogDocument, ILogModel>(
       required: false,
     },
     dateCreated: {
-      type: Date,
+      type: Number,
       required: true,
-      default: new Date(),
+      default: new EDate().getUTCSeconds,
     },
   },
   { timestamps: true }
 );
 
-LogSchema.statics.getMonthLog = async function (
-  userId: string,
-  thisMonth: number,
-  thisYear: number
-) {
-  return (await this.where({ userId }).exec())
-    .filter((log) => {
-      const { month, year } = new EDate(log.dateCreated);
-      return month === thisMonth && year === thisYear;
-    })
-    .filter((log) => log.logType === "water");
+LogSchema.statics.getMonthLog = function (userId: string, year: number, month: number) {
+  const firstDay = new EDate(year, month, 1).serial;
+  const lastDay = new EDate(year, month + 1, 0).serial;
+  return this.where({
+    userId,
+    dateCreated: {
+      $gte: firstDay,
+      $lt: lastDay,
+    },
+    logType: "water",
+  }).exec();
 };
 
 const Log = mongoose.model<ILogDocument, ILogModel>("Log", LogSchema);

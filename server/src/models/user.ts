@@ -15,6 +15,7 @@ export interface IUserDocument extends Document {
     sleepTime: number;
   };
 
+  addWater(intake: number): Promise<boolean>;
   comparePasswords(password: string): Promise<boolean>;
 }
 
@@ -75,6 +76,14 @@ UserSchema.pre<IUserDocument>("save", async function () {
 
 UserSchema.statics.doesNotExist = async function (field): Promise<boolean> {
   return (await this.where(field).countDocuments()) === 0;
+};
+
+// returns true if user met their daily intake
+UserSchema.methods.addWater = async function (intake: number) {
+  // this is in mL
+  const newIntake = this.currentIntake + intake;
+  await this.update({ currentIntake: newIntake }).exec();
+  return newIntake >= this.daily;
 };
 
 UserSchema.methods.comparePasswords = function (password: string) {

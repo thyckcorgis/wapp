@@ -68,9 +68,11 @@ export default function HomeScreen({ navigation, route: { params: refresh } }: H
       <TopNavbar navigation={navigation} />
       {/* <View style={Styles.bigButton}> */}
       <View style={styles.box}>
-        <Text style={{ ...Styles.body, ...styles.headerText }}>
-          Today is {new Date().toDateString()}.
-        </Text>
+        <View style={[styles.textBox, { justifyContent: "flex-end" }]}>
+          <Text style={{ ...Styles.body, ...styles.headerText }}>
+            Today is {new Date().toDateString()}.
+          </Text>
+        </View>
         <View style={Styles.bigButton}>
           <ProgressCircle
             percent={getPercentage(currentIntake, daily)}
@@ -84,9 +86,11 @@ export default function HomeScreen({ navigation, route: { params: refresh } }: H
               <ScalingButton onTap={() => navigation.navigate("LogWater")} Logo={<DrinkButton />} />
             </View>
           </ProgressCircle>
-          <Text style={{ ...Styles.body, ...styles.headerText }}>
-            {currentIntake.toFixed(2)} / {daily.toFixed(2)} L
-          </Text>
+          <View style={[styles.textBox, { justifyContent: "flex-start" }]}>
+            <Text style={{ ...Styles.body, ...styles.headerText }}>
+              {currentIntake.toFixed(2)} / {daily.toFixed(2)} L
+            </Text>
+          </View>
         </View>
         <View style={{ flex: 1 }}>
           <SolidButton
@@ -105,10 +109,15 @@ const styles = StyleSheet.create({
     flex: 1,
     // borderWidth: 1,
   },
+  textBox: {
+    flex: 1,
+    paddingVertical: "3%",
+    // borderWidth: 1,
+  },
   headerText: {
     textAlign: "center",
     color: Colours.yellow,
     fontSize: 18,
-    padding: "5%",
+    // borderWidth: 1,
   },
 });

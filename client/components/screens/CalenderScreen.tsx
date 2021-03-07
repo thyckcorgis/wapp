@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text, StyleSheet, View } from "react-native";
+import { Text, StyleSheet, View, Platform } from "react-native";
 import CalendarPicker, { CustomDateStyle } from "react-native-calendar-picker";
 import moment from "moment";
 
@@ -34,9 +34,10 @@ export default function CalendarScreen({ navigation }: ScreenProps) {
         {
           date: newDay,
           style: {
-            backgroundColor: getGradient(yellow, newDay.day()),
+            // Not sure if it's better with background or text?
+            // backgroundColor: getGradient(yellow, newDay.day()),
           },
-          textStyle: { color: "black" }, // white text on yellow background not good :(
+          textStyle: { color: getGradient(yellow, newDay.day()) }, // white text on yellow background not good :(
         },
       ]);
       sameMonth = day.add(1, "day").isSameOrBefore(endOf, "day");
@@ -50,20 +51,30 @@ export default function CalendarScreen({ navigation }: ScreenProps) {
         <CalendarPicker
           onDateChange={(date) => setDate(date)}
           startFromMonday={true}
-          todayBackgroundColor={Colours.darkBlue}
+          // TODAY
           todayTextStyle={styles.today}
-          selectedDayColor={Colours.yellow}
-          selectedDayTextColor={Colours.darkBlue}
+          todayBackgroundColor={"transparent"}
+          // SELECTED
+          selectedDayStyle={{
+            borderWidth: 1,
+            borderColor: Colours.yellow,
+          }}
+          selectedDayTextColor={Colours.yellow}
+          // GENERAL
           textStyle={{ ...Styles.body, ...styles.text }}
           monthTitleStyle={Styles.title}
           yearTitleStyle={Styles.title}
           dayLabelsWrapper={styles.divider}
           customDatesStyles={dateStyles}
         />
-        <View style={styles.infoBox}>
-          <Text style={{ ...Styles.body, ...styles.infoHeader }}>
+      </View>
+      <View style={styles.infoBox}>
+        <View style={styles.infoHeaderBox}>
+          <Text style={{ ...Styles.body, ...styles.infoHeaderText }}>
             {date.toString().slice(0, 15)}
           </Text>
+        </View>
+        <View style={styles.infoTextBox}>
           <Text style={{ ...Styles.body, ...styles.infoText }}>
             On this day you drank x{/*water*/} litres of water!
           </Text>
@@ -81,25 +92,36 @@ export default function CalendarScreen({ navigation }: ScreenProps) {
 
 const styles = StyleSheet.create({
   calendarBox: {
-    flex: 1,
-    justifyContent: "center",
+    marginTop: Platform.OS == "ios" ? "5%" : "10%",
+    // marginHorizontal: Platform.isPad == true ? "5%" : null,
+    flex: 2,
   },
   divider: {
     borderColor: Colours.yellow,
-    // backgroundColor: Colours.medBlue,
   },
   infoBox: {
-    margin: "10%",
-    paddingVertical: "5%",
+    flex: 1,
+    marginHorizontal: "10%",
+    marginVertical: "3%",
     borderWidth: 1,
     borderRadius: 20,
     borderColor: Colours.yellow,
-    height: 200,
-    // justifyContent: "center",
     alignItems: "center",
   },
-  infoHeader: {
-    color: Colours.yellow,
+  infoHeaderBox: {
+    backgroundColor: Colours.yellow,
+    width: "100%",
+    padding: "5%",
+    borderTopEndRadius: 20,
+    borderTopStartRadius: 20,
+  },
+  infoTextBox: {
+    flex: 1,
+    marginVertical: "5%",
+  },
+  infoHeaderText: {
+    color: Colours.medBlue,
+    textAlign: "center",
     fontSize: 20,
   },
   infoText: {
@@ -107,8 +129,11 @@ const styles = StyleSheet.create({
   },
   text: {
     color: Colours.yellow,
+    fontSize: 18,
   },
   today: {
+    fontSize: 20,
     color: Colours.yellow,
+    fontWeight: "bold",
   },
 });

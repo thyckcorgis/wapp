@@ -54,45 +54,47 @@ export default function ReminderScreen({ navigation }: ScreenProps) {
   return (
     <SafeGradient colors={[Colours.lightBlue, Colours.yellow]}>
       <View style={styles.box}>
-        <Text style={{ ...Styles.title, ...styles.titleText }}>
-          Set your daily reminders:
-        </Text>
+        <Text style={{ ...Styles.title, ...styles.titleText }}>Set your daily reminders:</Text>
 
         {/* WAKE TIME */}
-        <View style={styles.intervalBox}>
-          <View style={{ ...Styles.buttonShape, ...styles.wakeButton }}>
-            <Text style={{ ...Styles.body, ...styles.wakeText }}>
-              Set Wake Up Time
+        <View style={[styles.intervalBox, { backgroundColor: Colours.yellow }]}>
+          <View style={[styles.headerBox, { backgroundColor: Colours.darkYellow }]}>
+            <Text style={[Styles.title, styles.headerText, { color: Colours.darkBlue }]}>
+              Wake Time
             </Text>
           </View>
           <DateTimePicker
-            testID="dateTimePicker"
+            // testID="dateTimePicker"
             value={wakeTime}
             mode="time"
             is24Hour={true}
-            display="default"
+            display="spinner"
+            // display="default"
             onChange={onChangeWake}
-            textColor={Colours.medBlue}
+            textColor={Colours.darkBlue}
             style={{ height: 162 }}
+            minuteInterval={5}
           />
         </View>
 
         {/* SLEEP TIME */}
-        <View style={styles.intervalBox}>
-          <View style={{ ...Styles.buttonShape, ...styles.sleepButton }}>
-            <Text style={{ ...Styles.body, ...styles.sleepText }}>
-              Set Sleep Time
+        <View style={[styles.intervalBox, { backgroundColor: Colours.darkBlue }]}>
+          <View style={[styles.headerBox, { backgroundColor: Colours.medBlue }]}>
+            <Text style={[Styles.title, styles.headerText, { color: Colours.yellow }]}>
+              Sleep Time
             </Text>
           </View>
           <DateTimePicker
-            testID="dateTimePicker"
+            // testID="dateTimePicker"
             value={sleepTime}
             mode="time"
             is24Hour={true}
-            display="default"
+            display="spinner"
+            // display="default"
             onChange={onChangeSleep}
-            textColor={Colours.medBlue}
+            textColor={Colours.yellow}
             style={{ height: 162 }}
+            minuteInterval={5}
           />
         </View>
 
@@ -108,44 +110,38 @@ export default function ReminderScreen({ navigation }: ScreenProps) {
 }
 
 const styles = StyleSheet.create({
-  scroll: {
-    flex: 1,
-  },
+  // CONTAINERS
   box: {
-    marginHorizontal: 50,
     alignItems: "center",
   },
   intervalBox: {
-    // flex: 1,
-    // flexDirection: "row",
     alignSelf: "center",
-    // borderColor: "black",
-    // borderWidth: 1,
+    width: 250,
+    justifyContent: "center",
+    borderRadius: 20,
+    marginTop: "1%",
+    marginBottom: "5%",
   },
-  headerText: {
-    fontSize: 18,
-    color: Colours.medBlue,
+  headerBox: {
+    paddingVertical: "1%",
+    borderTopEndRadius: 20,
+    borderTopStartRadius: 20,
   },
+
+  // TEXT
   titleText: {
     color: Colours.darkBlue,
     paddingVertical: 10,
-  },
-  wakeButton: {
-    backgroundColor: Colours.yellow,
-    width: 150,
-  },
-  wakeText: {
-    color: Colours.darkBlue,
     textAlign: "center",
   },
-  sleepButton: {
-    backgroundColor: Colours.darkBlue,
-    width: 150,
-  },
-  sleepText: {
-    color: Colours.yellow,
+  headerText: {
+    fontSize: 24,
+    color: Colours.medBlue,
     textAlign: "center",
+    // textDecorationLine: "underline",
   },
+
+  // BUTTONS
   submitText: {
     textAlign: "center",
     color: Colours.yellow,

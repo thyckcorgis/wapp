@@ -15,7 +15,7 @@ notificationRouter.patch("", checkAuth, async ({ body, userData }: AuthReq, res)
   }
 });
 
-notificationRouter.delete(":token", checkAuth, async ({ userData, params }: AuthReq, res) => {
+notificationRouter.delete("/:token", checkAuth, async ({ userData, params }: AuthReq, res) => {
   try {
     const userId = userData?.userId as string;
     const { token } = params;

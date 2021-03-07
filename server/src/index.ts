@@ -8,7 +8,7 @@ import { MONGO_URI } from "./util/config";
 const app = Express();
 const port = 5003;
 
-const startServer = async (dbUri = MONGO_URI) => {
+export const startServer = async (dbUri = MONGO_URI) => {
   await mongoose.connect(dbUri);
   app.disable("x-powered-by");
   app.use(Express.json());

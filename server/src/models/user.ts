@@ -1,5 +1,6 @@
 import mongoose, { Document, Model, Schema } from "mongoose";
 import { compare, hash } from "bcrypt";
+import { UserType } from "../util/types";
 
 export interface IUserDocument extends Document {
   username: string;
@@ -19,11 +20,14 @@ export interface IUserDocument extends Document {
   getFriends(): Promise<IUserDocument[]>;
   getNonFriends(): Promise<IUserDocument[]>;
   getPendingRequests(): Promise<IUserDocument[]>;
+  getUsers(type: UserType): Promise<IUserDocument[]>;
   comparePasswords(password: string): Promise<boolean>;
 }
 
 export interface IUserModel extends Model<IUserDocument> {
   doesNotExist(user: object): Promise<boolean>;
+  getUser(userId: string): Promise<IUserDocument>;
+  findByUsername(username: string): Promise<IUserDocument>;
 }
 
 const UserSchema = new Schema<IUserDocument, IUserModel>(
@@ -81,6 +85,18 @@ UserSchema.statics.doesNotExist = async function (field): Promise<boolean> {
   return (await this.where(field).countDocuments()) === 0;
 };
 
+UserSchema.statics.getUser = async function (userId: string) {
+  const user = await User.findById(userId).exec();
+  if (!user) throw new Error("User not found");
+  return user;
+};
+
+UserSchema.statics.findByUsername = async function (username: string) {
+  const user = await User.findOne({ username }).exec();
+  if (!user) throw new Error("User not found");
+  return user;
+};
+
 // returns true if user met their daily intake
 UserSchema.methods.addWater = async function (intake: number) {
   // this is in mL
@@ -106,6 +122,15 @@ UserSchema.methods.getFriends = function () {
 
 UserSchema.methods.comparePasswords = function (password: string) {
   return compare(password, this.password);
+};
+
+UserSchema.methods.getUsers = function (type: UserType) {
+  const choices = {
+    friends: this.getFriends(),
+    nonFriends: this.getNonFriends(),
+    pending: this.getPendingRequests(),
+  };
+  return choices[type];
 };
 
 const User = mongoose.model<IUserDocument, IUserModel>("User", UserSchema);

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Platform, Text, View, Modal, StyleSheet } from "react-native";
-import { TouchableOpacity, TouchableWithoutFeedback } from "react-native-gesture-handler";
+import { Platform, Text, View, Modal, StyleSheet, ImageBackground } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
-import { TipsIcon } from "../assets/index";
+import { TipsIcon, TransparentBackground } from "../assets/index";
 import { Colours, Styles } from "../styles";
 
 const tips = [
@@ -34,7 +34,7 @@ export default function TipsModal() {
   return (
     <View style={styles.centeredView}>
       <Modal
-        animationType="slide"
+        animationType="fade"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
@@ -42,24 +42,34 @@ export default function TipsModal() {
         }}
       >
         <View style={styles.centeredView}>
-          <View style={{ ...styles.modalView, height: height }}>
-            <Text style={{ ...Styles.title, ...styles.modalTitle }}>Tip of the day: </Text>
-            <View style={styles.tipBox}>
-              <Text style={{ ...Styles.body, ...styles.modalText }}>{tips[idx] + " "}</Text>
+          <ImageBackground
+            style={styles.centeredView}
+            blurRadius={modalVisible ? 4 : 0}
+            source={TransparentBackground}
+          >
+            <View style={{ ...styles.modalView, height: height }}>
+              <Text style={{ ...Styles.title, ...styles.modalTitle }}>Tip of the day: </Text>
+              <View style={styles.tipBox}>
+                <Text style={{ ...Styles.body, ...styles.modalText }}>{tips[idx] + " "}</Text>
+              </View>
+              {Platform.OS === "ios" ? (
+                <TouchableOpacity
+                  onPress={() => {
+                    setModalVisible(false);
+                    // console.log("poop");
+                  }}
+                  hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                  style={{ ...styles.button, backgroundColor: Colours.medBlue }}
+                >
+                  <Text style={{ ...Styles.body, ...styles.backText }}>Got it</Text>
+                </TouchableOpacity>
+              ) : (
+                <Text style={[Styles.body, styles.modalText, { fontSize: 14 }]}>
+                  Click back button to close.
+                </Text>
+              )}
             </View>
-            {Platform.OS === "ios" ? (
-              <TouchableOpacity
-                onPress={() => {
-                  setModalVisible(false);
-                  console.log("poop");
-                }}
-                hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-                style={{ ...styles.button, backgroundColor: Colours.medBlue }}
-              >
-                <Text style={{ ...Styles.body, ...styles.backText }}>Got it</Text>
-              </TouchableOpacity>
-            ) : null}
-          </View>
+          </ImageBackground>
         </View>
       </Modal>
 
@@ -75,14 +85,15 @@ export default function TipsModal() {
 }
 
 const styles = StyleSheet.create({
+  // CONTAINERS
   centeredView: {
     flex: 1,
+    width: "100%",
     justifyContent: "center",
     alignItems: "center",
   },
   modalView: {
     marginHorizontal: 40,
-    //height: "40%",
     backgroundColor: Colours.yellow,
     borderRadius: 20,
     padding: 40,
@@ -99,6 +110,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
   },
+
+  // BUTTONS
   button: {
     borderRadius: 20,
     padding: 10,
@@ -107,9 +120,12 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     width: "80%",
   },
-  backText: {
-    color: Colours.yellow,
+
+  // TEXT
+  modalTitle: {
+    marginBottom: 15,
     textAlign: "center",
+    color: Colours.darkBlue,
   },
   modalText: {
     marginBottom: 15,
@@ -117,9 +133,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: Colours.darkBlue,
   },
-  modalTitle: {
-    marginBottom: 15,
+  backText: {
+    color: Colours.yellow,
     textAlign: "center",
-    color: Colours.darkBlue,
   },
 });

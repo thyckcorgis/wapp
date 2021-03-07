@@ -15,3 +15,5 @@ export { default as HomeIcon } from "./home_icon.svg";
 export { default as TipsIcon } from "./tips_icon.svg";
 export { default as FriendsIcon } from "./friends_icon.svg";
 export { default as LitreBoardsIcon } from "./litreboards_icon.svg";
+
+export { default as TransparentBackground } from "./null.png";

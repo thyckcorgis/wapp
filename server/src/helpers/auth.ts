@@ -1,4 +1,4 @@
-import JWT from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import { createHmac } from "crypto";
 import { NextFunction, Request, Response } from "express";
 import { User } from "./userdb";
@@ -28,11 +28,11 @@ export function checkAuth(req: AuthReq, res: Response, next: NextFunction) {
     const authHeader = req.headers["authorization"];
     const token = authHeader?.split(" ")[1];
 
-    req.userData = JWT.verify(token as string, process.env.JWT_KEY as string) as User;
+    req.userData = jwt.verify(token as string, process.env.JWT_KEY as string) as User;
     next();
   } catch (err) {
     return authFail(res);
   }
 }
 
-export const createToken = (user: User) => JWT.sign(user, JWT_KEY, { expiresIn: EXPIRES_IN });
+export const createToken = (user: object) => jwt.sign(user, JWT_KEY, { expiresIn: EXPIRES_IN });

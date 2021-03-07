@@ -1,16 +1,9 @@
 import React from "react";
-// import { StackCardStyleInterpolator } from "react-navigation-stack";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 const Stack = createStackNavigator();
-
-// const forFade: StackCardStyleInterpolator = ({ current: { progress } }) => ({
-//   cardStyle: {
-//     opacity: progress,
-//   },
-// });
 
 const opacityTransition: object = {
   gestureDirection: "horizontal",
@@ -55,6 +48,8 @@ import {
 } from "./screens";
 
 const screens = [
+  // Uncomment this when making reminder function
+  // { name: "Reminder", component: Reminder, disable: false },
   { name: "Start", component: Start, disable: true },
   { name: "SignIn", component: SignIn, disable: false },
   { name: "Register", component: Register, disable: false },
@@ -78,7 +73,6 @@ export default function Navigator() {
       <Stack.Navigator
         screenOptions={{
           ...hideHeader,
-          // cardStyleInterpolator: forFade,
           ...opacityTransition,
         }}
       >

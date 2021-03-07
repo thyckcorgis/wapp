@@ -4,7 +4,7 @@ import { Route } from "@react-navigation/native";
 import ProgressCircle from "react-native-progress-circle";
 
 import { Colours, Styles } from "../../styles";
-import { UserIcon, CalendarIcon, DrinkButton, WappLogo } from "../../assets";
+import { DrinkButton } from "../../assets";
 
 import { getData, storeData } from "../../storage";
 import { poll } from "../../api";

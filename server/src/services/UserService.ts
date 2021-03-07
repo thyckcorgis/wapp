@@ -4,6 +4,18 @@ import * as validators from "../validations";
 import { createToken } from "../helpers/auth";
 import { sessionizeUser } from "../util/helpers";
 
+export async function setReminders(userId: string, wakeTime: number, sleepTime: number) {
+  const { error } = validators.setReminders.validate({ wakeTime, sleepTime });
+  if (error) throw error;
+  await User.findByIdAndUpdate(userId, { reminders: { wakeTime, sleepTime } }).exec();
+}
+
+export async function setDailyIntake(userId: string, daily: number) {
+  const { error } = validators.setDailyIntake.validate({ daily });
+  if (error) throw error;
+  await User.findByIdAndUpdate(userId, { daily }).exec();
+}
+
 export async function register(username: string, password: string, name: string, daily: number) {
   const { error } = validators.register.validate({ username, password, name, daily });
   if (error) throw error;

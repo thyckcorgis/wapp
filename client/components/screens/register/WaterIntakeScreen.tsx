@@ -46,39 +46,37 @@ export default function WaterIntakeScreen({
   }
   return (
     <SafeGradient colors={[Colours.lightBlue, Colours.yellow]}>
-      <KeyboardAvoidingView behavior="padding">
-        <ScrollView
-          style={styles.scroll}
-          keyboardDismissMode="on-drag"
-          contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}
-        >
-          <View style={styles.textBox}>
-            <Text style={{ ...Styles.title, ...styles.title }}>
-              Set your daily water intake goal.
-            </Text>
-            <Text style={{ ...Styles.title, ...styles.text }}>
-              Based on your information, your recomended intake is {daily}{" "}
-              Litres. But you can change that to whatever you like!
-            </Text>
-            <TextInput
-              placeholder={daily.toString()}
-              placeholderTextColor={Colours.medBlue}
-              onChangeText={(text) => setIntake(text)}
-              value={String(intake)}
-              style={styles.editField}
-              keyboardType="decimal-pad"
-            />
-            <TouchableOpacity
-              onPress={addDailyIntake}
-              style={{ ...Styles.buttonShape, ...styles.submitButton }}
-            >
-              <Text style={{ ...Styles.body, ...styles.submitText }}>
-                Submit
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
+      {/* <KeyboardAvoidingView behavior="padding"> */}
+      <ScrollView
+        style={styles.scroll}
+        keyboardDismissMode="on-drag"
+        contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}
+      >
+        <View style={styles.textBox}>
+          <Text style={{ ...Styles.title, ...styles.title }}>
+            Set your daily water intake goal.
+          </Text>
+          <Text style={{ ...Styles.title, ...styles.text }}>
+            Based on your information, your recomended intake is {daily} Litres. But you can change
+            that to whatever you like!
+          </Text>
+          <TextInput
+            placeholder={daily.toString()}
+            placeholderTextColor={Colours.medBlue}
+            onChangeText={(text) => setIntake(text)}
+            value={String(intake)}
+            style={styles.editField}
+            keyboardType="decimal-pad"
+          />
+          <TouchableOpacity
+            onPress={addDailyIntake}
+            style={{ ...Styles.buttonShape, ...styles.submitButton }}
+          >
+            <Text style={{ ...Styles.body, ...styles.submitText }}>Submit</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+      {/* </KeyboardAvoidingView> */}
     </SafeGradient>
   );
 }
@@ -92,7 +90,7 @@ const styles = StyleSheet.create({
   textBox: {
     flex: 1,
     justifyContent: "center",
-    margin: 40,
+    margin: "10%",
   },
   title: {
     textAlign: "center",

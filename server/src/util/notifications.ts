@@ -6,13 +6,12 @@ import {
   ExpoPushTicket,
   ExpoPushToken,
 } from "expo-server-sdk";
-import { User } from "./userdb";
 
-if (process.env.NODE_ENV !== "production") require("dotenv").config();
+import { EXPO_ACCESS_TOKEN } from "./config";
 
 // Create a new Expo SDK client
 // optionally providing an access token if you have enabled push security
-let expo = new Expo({ accessToken: process.env.EXPO_ACCESS_TOKEN });
+let expo = new Expo({ accessToken: EXPO_ACCESS_TOKEN });
 
 let somePushTokens: ExpoPushToken[] = [];
 // Create the messages that you want to send to clients
@@ -35,9 +34,7 @@ for (let pushToken of somePushTokens) {
   });
 }
 
-const extractToken = (f: User) => f.expoPushToken;
-
-async function sendNotifications(messages: ExpoPushMessage[]) {
+export async function sendNotifications(messages: ExpoPushMessage[]) {
   let chunks = expo.chunkPushNotifications(messages);
   let tickets: ExpoPushTicket[] = [];
   // Send the chunks to the Expo push notification service. There are
@@ -87,39 +84,4 @@ async function sendNotifications(messages: ExpoPushMessage[]) {
       console.error(error);
     }
   }
-}
-
-export async function sendLogNotification(message: string, friends: User[]) {
-  const tokens = friends.map(extractToken).filter(Boolean) as string[];
-  const messages: ExpoPushMessage[] = [
-    {
-      to: tokens,
-      sound: "default",
-      body: message,
-    },
-  ];
-  await sendNotifications(messages);
-}
-
-export async function friendRequestNotification(
-  username: string,
-  friend: User,
-  type: "send" | "accept"
-) {
-  const token = friend.expoPushToken;
-  if (!token) return false;
-  const message =
-    type === "send"
-      ? `${username} wants to add you as a friend`
-      : `${username} has accepted your friend request`;
-
-  const messages: ExpoPushMessage[] = [
-    {
-      to: token,
-      sound: "default",
-      body: message,
-    },
-  ];
-  await sendNotifications(messages);
-  return true;
 }

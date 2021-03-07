@@ -8,10 +8,8 @@ export interface IUserDocument extends Document {
   daily: number;
   currentIntake: number;
   friendIds: string[];
-  notification?: {
-    notify: boolean;
-    pushToken: string;
-  };
+  notify: boolean;
+  pushTokens: string[];
   reminders?: {
     wakeTime: number;
     sleepTime: number;
@@ -44,16 +42,14 @@ const UserSchema = new Schema<IUserDocument, IUserModel>(
       type: { type: String },
       value: [String],
     },
-    notification: {
-      required: false,
-      notify: {
-        type: Boolean,
-        required: true,
-      },
-      pushToken: {
-        type: String,
-        required: false,
-      },
+    notify: {
+      type: Boolean,
+      default: false,
+    },
+    pushToken: {
+      type: { type: String },
+      value: [String],
+      default: [],
     },
     password: {
       type: String,

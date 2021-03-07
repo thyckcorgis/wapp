@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, StyleSheet, RefreshControl, ScrollView, TextInput } from "react-native";
+import { View, Text, StyleSheet, RefreshControl, ScrollView, TextInput } from "react-native";
 
 import { Colours, Styles } from "../../../styles";
 
@@ -101,25 +101,29 @@ export default function AddFriendsScreen({ navigation }: ScreenProps) {
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
         keyboardDismissMode="on-drag"
       >
-        <Text style={{ ...Styles.title, ...styles.title }}>Add New Friends</Text>
-        <TextInput
-          placeholder="Search friends..."
-          placeholderTextColor={Colours.yellow}
-          onChangeText={(text) => {
-            setSearch(text);
-            searchFriends(text);
-          }}
-          value={search}
-          style={{ ...Styles.inputField, ...styles.searchBar }}
-        />
+        <View style={Styles.screen}>
+          {/* SEARCHING FRIENDS LIST */}
+          <Text style={{ ...Styles.title, ...styles.title }}>Add New Friends</Text>
+          <TextInput
+            placeholder="Search friends..."
+            placeholderTextColor={Colours.yellow}
+            onChangeText={(text) => {
+              setSearch(text);
+              searchFriends(text);
+            }}
+            value={search}
+            style={{ ...Styles.inputField, ...styles.searchBar }}
+          />
+          {displayResults}
 
-        {displayResults}
-        <UserList
-          title="Pending requests:"
-          list={pendingRequests}
-          label="Accept Friend"
-          onPress={acceptFriend(username)}
-        />
+          {/* PENDING FRIENDS LIST */}
+          <UserList
+            title="Pending requests:"
+            list={pendingRequests}
+            label="Accept Friend"
+            onPress={acceptFriend(username)}
+          />
+        </View>
       </ScrollView>
       <BottomNavbar navigation={navigation} right="Friends" />
     </SafeGradient>

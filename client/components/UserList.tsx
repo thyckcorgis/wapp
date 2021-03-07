@@ -28,5 +28,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: Colours.yellow,
     marginTop: 30,
+    fontSize: 18,
   },
 });

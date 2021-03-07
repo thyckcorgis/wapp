@@ -1,7 +1,7 @@
 import User from "../models/user";
-import * as validators from "../validations";
+import { createToken } from "./AuthService";
 
-import { createToken } from "../helpers/auth";
+import * as validators from "../util/validations";
 import { sessionizeUser } from "../util/helpers";
 
 export async function setReminders(userId: string, wakeTime: number, sleepTime: number) {

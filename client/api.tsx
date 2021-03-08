@@ -1,68 +1,31 @@
-import fetch from "axios";
-import { API_URL } from "./constants";
-
-function post(path: string, data: any) {
-  return fetch({
-    url: API_URL + path,
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json;charset=UTF-8",
-    },
-    method: "POST",
-    data,
-  });
-}
-export async function registerUser(
-  username: string,
-  password: string,
-  name: string,
-  daily: number
-) {
-  try {
-    const userData = { username, password, name, daily };
-    const { data } = await post("/user/register", userData);
-    return data;
-  } catch (err) {
-    throw err;
-  }
+export async function uploadPushToken(token: string, expoPushToken: string) {
+  const { data, ok } = await makeCallWithBody("notification", { expoPushToken }, "PATCH", token);
+  if (!ok) throw new Error(data.message);
+  return data;
 }
 
-export async function uploadPushToken(username: string, expoPushToken: string) {
-  try {
-    return (await post("/user/notif", { username, expoPushToken })).data.user;
-  } catch (err) {
-    throw err;
-  }
+export async function deletePushToken(token: string, expoPushToken: string) {
+  const { data, ok } = await makeCallNoBody("notification/" + expoPushToken, token, "DELETE");
+  if (!ok) throw new Error(data.message);
+  return data;
 }
 
-export async function deletePushToken(username: string) {
-  try {
-    return (await post("/user/delete-token", { username })).data.user;
-  } catch (err) {
-    throw err;
-  }
+export async function disablePushNotifs(token: string) {
+  const { data, ok } = await makeCallNoBody("notification", token, "DELETE");
+  if (!ok) throw new Error(data.message);
+  return data;
 }
 
-export async function logWaterIntake(username: string, water: number) {
-  try {
-    const userData = { username, water };
-    return (await post("/log", userData)).data;
-  } catch (err) {
-    throw err;
-  }
+export async function logWaterIntake(token: string, water: number) {
+  const { data, ok } = await makeCallWithBody("log", { water }, "POST", token);
+  if (!ok) throw new Error(data.message);
+  return data;
 }
+
 export async function setDailyIntake(username: string, daily: number) {
   try {
     const userData = { username, daily };
     return (await post("/user/daily", userData)).data;
-  } catch (err) {
-    throw err;
-  }
-}
-
-export async function loginUser(username: string, password: string) {
-  try {
-    return (await post("/user/login", { username, password })).data;
   } catch (err) {
     throw err;
   }

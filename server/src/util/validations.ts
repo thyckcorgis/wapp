@@ -1,7 +1,9 @@
 import Joi from "joi";
 
 const username = Joi.string().alphanum().min(6).max(30).required();
+const email = Joi.string().email().required();
 const daily = Joi.number().min(1000).max(25000).required();
+// TODO: Add regex
 const password = Joi.string().min(8).required();
 
 const name = Joi.string().min(1).required();
@@ -22,7 +24,7 @@ export const syncLogs = Joi.array().items(logEntry);
 export const logIntake = Joi.object().keys({ intake });
 export const setReminders = Joi.object().keys({ wakeTime: time, sleepTime: time });
 export const setIntake = Joi.object().keys({ daily });
-export const register = Joi.object().keys({ username, daily, password, name });
+export const register = Joi.object().keys({ username, email, daily, password, name });
 export const login = Joi.object().keys({ username, password });
 
 export async function validate<T>(schema: Joi.Schema<T>, data: T) {

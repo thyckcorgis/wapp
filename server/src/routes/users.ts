@@ -38,15 +38,16 @@ userRouter.post("/login", async ({ body: { username, password } }, res) => {
   }
 });
 
-userRouter.post("", async ({ body }, res) => {
+// Register a user
+userRouter.post("/", async ({ body }, res) => {
   try {
-    const { username, password, name, daily } = body;
-    res.send(await Register(username, password, name, daily));
+    const { username, email, password, name, daily } = body;
+    res.send(await Register(username, email, password, name, daily));
   } catch (err) {
     res.status(400).send(parseError(err));
   }
 });
 
-userRouter.get("", checkAuth, ({ userData }: AuthReq, { send }) => send(userData));
+userRouter.get("/", checkAuth, ({ userData }: AuthReq, { send }) => send(userData));
 
 export default userRouter;

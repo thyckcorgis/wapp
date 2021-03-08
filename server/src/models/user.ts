@@ -4,6 +4,7 @@ import { UserType } from "../util/types";
 
 export interface IUserDocument extends Document {
   username: string;
+  email: string;
   password: string;
   name: string;
   daily: number;
@@ -112,6 +113,7 @@ UserSchema.methods.getPendingRequests = function () {
   return User.find({ _id: { $nin: this.friendIds }, friendIds: this._id }).exec();
 };
 
+// TODO: filter non-friend as well
 UserSchema.methods.getNonFriends = function () {
   return User.find({ _id: { $nin: this.friendIds } }).exec();
 };

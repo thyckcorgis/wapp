@@ -15,9 +15,15 @@ export async function DailyIntake(userId: string, daily: number) {
   await User.findByIdAndUpdate(userId, { daily }).exec();
 }
 
-export async function Register(username: string, password: string, name: string, daily: number) {
-  await validate(register, { username, password, name, daily });
-  const newUser = new User({ username, password, name, daily });
+export async function Register(
+  username: string,
+  email: string,
+  password: string,
+  name: string,
+  daily: number
+) {
+  await validate(register, { username, email, password, name, daily });
+  const newUser = new User({ username, email, password, name, daily });
   await newUser.save();
   return CreateToken(sessionizeUser(newUser));
 }

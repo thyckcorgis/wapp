@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import { logUrlAndMethod } from "./middlewares";
 
 import router from "./routes";
-import { MONGO_URI } from "./util/config";
+import { MONGO_URI } from "./config";
 
 const app = Express();
 const port = 5003;

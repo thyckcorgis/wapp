@@ -7,7 +7,7 @@ import {
   ExpoPushToken,
 } from "expo-server-sdk";
 
-import { EXPO_ACCESS_TOKEN } from "./config";
+import { EXPO_ACCESS_TOKEN } from "../config";
 
 // Create a new Expo SDK client
 // optionally providing an access token if you have enabled push security

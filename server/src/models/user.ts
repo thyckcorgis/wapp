@@ -54,7 +54,7 @@ const UserSchema = new Schema<IUserDocument, IUserModel>(
       type: Boolean,
       default: false,
     },
-    pushToken: {
+    pushTokens: {
       type: { type: String },
       value: [String],
       default: [],
@@ -64,11 +64,14 @@ const UserSchema = new Schema<IUserDocument, IUserModel>(
       required: true,
     },
     reminders: {
+      required: false,
       wakeTime: {
         type: Number,
+        required: true,
       },
       sleepTime: {
         type: Number,
+        required: true,
       },
     },
   },

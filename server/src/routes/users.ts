@@ -29,19 +29,19 @@ userRouter.patch("/daily", checkAuth, async ({ body, userData }: AuthReq, res) =
   }
 });
 
-userRouter.post("", async ({ body }, res) => {
+userRouter.post("/login", async ({ body: { username, password } }, res) => {
   try {
-    const { username, password, name, daily } = body;
-    res.send(await Register(username, password, name, daily));
+    const token = await Login(username, password);
+    res.send(token);
   } catch (err) {
     res.status(400).send(parseError(err));
   }
 });
 
-userRouter.post("/login", async ({ body: { username, password } }, res) => {
+userRouter.post("", async ({ body }, res) => {
   try {
-    const token = await Login(username, password);
-    res.send(token);
+    const { username, password, name, daily } = body;
+    res.send(await Register(username, password, name, daily));
   } catch (err) {
     res.status(400).send(parseError(err));
   }

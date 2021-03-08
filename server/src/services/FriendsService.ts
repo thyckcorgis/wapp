@@ -1,6 +1,7 @@
-import { addFriend } from "src/util/validations";
 import User, { IUserDocument } from "../models/user";
 import Log from "../models/log";
+
+import { addFriend, validate } from "../util/validations";
 import { UserType } from "../util/types";
 import { sendNotifications } from "../util/notifications";
 
@@ -15,13 +16,13 @@ const percentage = (user: IUserDocument) => ({
   percentage: (user.currentIntake / user.daily) * 100,
 });
 
-async function getFriend(friendName: string) {
-  const { error } = addFriend.validate({ friend: friendName });
-  if (error) throw error;
-  const friend = await User.findByUsername(friendName).catch(() => {
+async function getFriend(friend: string) {
+  await validate(addFriend, { friend });
+  try {
+    return User.findByUsername(friend);
+  } catch (e) {
     throw new Error("Friend not found");
-  });
-  return friend;
+  }
 }
 
 async function makeConnection(user: IUserDocument, friend: IUserDocument, send = true) {
@@ -38,26 +39,26 @@ async function friendRequestNotification(username: string, token: string | strin
   await sendNotifications(message, token);
 }
 
-export async function getUsers(userId: string, type: UserType) {
+export async function GetUsers(userId: string, type: UserType) {
   const user = await User.getUser(userId);
   return (await user.getUsers(type)).map(userInfo);
 }
 
-export async function getLitreboards(userId: string) {
+export async function GetLitreboards(userId: string) {
   const user = await User.getUser(userId);
   const allFriends = await user.getFriends();
   allFriends.push(user);
   return allFriends.sort(completion).map(percentage);
 }
 
-export async function acceptFriendRequest(userId: string, friendName: string) {
+export async function AcceptRequest(userId: string, friendName: string) {
   const friend = await getFriend(friendName);
   const user = (await friend.getFriends()).find((user) => user._id === userId);
   if (!user) throw new Error("You are not in this user's friend list");
   makeConnection(user, friend);
 }
 
-export async function sendFriendRequest(userId: string, friendName: string) {
+export async function SendRequest(userId: string, friendName: string) {
   const friend = await getFriend(friendName);
   const user = await User.getUser(userId);
   const existingFriend = (await user.getFriends()).find((user) => user._id === friend._id);

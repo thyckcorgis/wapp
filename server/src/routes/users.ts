@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { Register, DailyIntake, DailyReminders } from "../services/UserService";
+import { Login, Register, DailyIntake, DailyReminders } from "../services/UserService";
 
 import { AuthReq, checkAuth } from "../middlewares";
 import { parseError } from "../util/helpers";
@@ -37,5 +37,16 @@ userRouter.post("", async ({ body }, res) => {
     res.status(400).send(parseError(err));
   }
 });
+
+userRouter.post("/login", async ({ body: { username, password } }, res) => {
+  try {
+    const token = await Login(username, password);
+    res.send(token);
+  } catch (err) {
+    res.status(400).send(parseError(err));
+  }
+});
+
+userRouter.get("", checkAuth, ({ userData }: AuthReq, { send }) => send(userData));
 
 export default userRouter;

@@ -1,7 +1,8 @@
-export { default as Calender } from "./CalenderScreen";
 export { default as Home } from "./HomeScreen";
 export { default as SignIn } from "./SignInScreen";
 export { default as User } from "./UserScreen";
+export { default as Calender } from "./CalenderScreen";
+export { default as CalendAr } from "../CalendAr";
 
 export { default as Reminder } from "./register/ReminderScreen";
 export { default as Register } from "./register/RegisterScreen";

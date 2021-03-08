@@ -1,0 +1,45 @@
+[
+  {
+    "username": "qwe",
+    "password": "$2b$10$Zbxwy0boWkLH.J1GHUeLaeJw7f/SVjNZVUJSSvDSAdPY1JHZ0f7RW",
+    "name": "charles",
+    "daily": 2.3,
+    "currentIntake": 45.329,
+    "pendingRequests": [],
+    "friends": [
+      "qwe",
+      "qwe",
+      "qwe",
+      "qwe",
+      "qwe",
+      "qwe",
+      "qwe",
+      "qwe",
+      "qwe",
+      "qwe",
+      "qwe",
+      "qwe"
+    ],
+    "expoPushToken": "ExponentPushToken[sFeRAwCTjiBEKZ5Jc4cfmJ]"
+  },
+  {
+    "username": "rty",
+    "password": "$2b$10$Zbxwy0boWkLH.J1GHUeLaeJw7f/SVjNZVUJSSvDSAdPY1JHZ0f7RW",
+    "name": "charles",
+    "daily": 2.3,
+    "currentIntake": 45.329,
+    "pendingRequests": [],
+    "friends": [],
+    "expoPushToken": "ExponentPushToken[sFeRAwCTjiBEKZ5Jc4cfmJ]"
+  },
+  {
+    "username": "uio",
+    "password": "$2b$10$Zbxwy0boWkLH.J1GHUeLaeJw7f/SVjNZVUJSSvDSAdPY1JHZ0f7RW",
+    "name": "charles",
+    "daily": 2.3,
+    "currentIntake": 45.329,
+    "pendingRequests": [],
+    "friends": [],
+    "expoPushToken": "ExponentPushToken[sFeRAwCTjiBEKZ5Jc4cfmJ]"
+  }
+]

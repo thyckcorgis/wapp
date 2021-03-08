@@ -1,7 +1,9 @@
 import { Router } from "express";
+
+import { Login } from "../services/UserService";
+
+import { AuthReq, checkAuth } from "../middlewares";
 import { parseError } from "../util/helpers";
-import * as UserService from "../services/UserService";
-import { AuthReq, checkAuth } from "../helpers/auth";
 
 const sessionRouter = Router();
 
@@ -15,7 +17,7 @@ body:
 sessionRouter.post("", async (req, res) => {
   try {
     const { username, password } = req.body;
-    const token = UserService.login(username, password);
+    const token = await Login(username, password);
     res.send(token);
   } catch (err) {
     res.status(400).send(parseError(err));

@@ -1,7 +1,9 @@
 import { Router } from "express";
-import { AuthReq, checkAuth } from "../helpers/auth";
+
+import { Register, DailyIntake, DailyReminders } from "../services/UserService";
+
+import { AuthReq, checkAuth } from "../middlewares";
 import { parseError } from "../util/helpers";
-import * as UserService from "../services/UserService";
 
 const userRouter = Router();
 
@@ -9,8 +11,8 @@ userRouter.patch("/reminder", checkAuth, async ({ body, userData }: AuthReq, res
   try {
     const { wakeTime, sleepTime } = body;
     const userId = userData?.userId as string;
-    await UserService.setReminders(userId, wakeTime, sleepTime);
-    res.send({ wakeTime, sleepTime });
+    await DailyReminders(userId, wakeTime, sleepTime);
+    res.send("Updated wake and sleep time");
   } catch (err) {
     res.status(400).send(parseError(err));
   }
@@ -20,8 +22,8 @@ userRouter.patch("/daily", checkAuth, async ({ body, userData }: AuthReq, res) =
   try {
     const { daily } = body;
     const userId = userData?.userId as string;
-    await UserService.setDailyIntake(userId, daily);
-    res.send(daily);
+    await DailyIntake(userId, daily);
+    res.send("Updated daily goal");
   } catch (err) {
     res.status(400).send(parseError(err));
   }
@@ -30,8 +32,7 @@ userRouter.patch("/daily", checkAuth, async ({ body, userData }: AuthReq, res) =
 userRouter.post("", async ({ body }, res) => {
   try {
     const { username, password, name, daily } = body;
-    const token = await UserService.register(username, password, name, daily);
-    res.send(token);
+    res.send(await Register(username, password, name, daily));
   } catch (err) {
     res.status(400).send(parseError(err));
   }

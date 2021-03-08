@@ -20,8 +20,8 @@ const LogSchema = new Schema<ILogDocument, ILogModel>(
       required: true,
     },
     logType: {
+      type: String,
       enum: ["water", "friend"],
-      default: "water",
     },
     water: {
       type: Number,

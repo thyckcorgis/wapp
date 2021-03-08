@@ -51,8 +51,8 @@ export async function LogWater(username: string, userId: string, intake: number)
   return newLog.water;
 }
 
-export async function LogFriendRequest(userId: string, friendId: string) {
-  await new Log({ userId, friendId, logType: "friend" }).save();
+export function LogFriendRequest(userId: string, friendId: string) {
+  return new Log({ userId, friendId, logType: "friend" }).save();
 }
 
 export async function GetMonthlyLog(userId: string, year: number, month: number): Promise<ILog[]> {

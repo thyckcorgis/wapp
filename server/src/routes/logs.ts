@@ -29,6 +29,7 @@ logRouter.post("", checkAuth, async ({ body, userData }: AuthReq, res) => {
 });
 
 const getNum = (num: any) => parseInt(num);
+
 logRouter.get("", checkAuth, async ({ query, userData }: AuthReq, res) => {
   try {
     let year = getNum(query.year),

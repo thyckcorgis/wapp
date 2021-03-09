@@ -50,7 +50,8 @@ import {
 
 const screens = [
   // Uncomment this when making functions
-  { name: "CalendAr", component: CalendAr, disable: true },
+  { name: "Calender", component: Calender, disable: true },
+  // { name: "CalendAr", component: CalendAr, disable: true },
   // { name: "Reminder", component: Reminder, disable: false },
   { name: "Start", component: Start, disable: true },
   { name: "SignIn", component: SignIn, disable: false },
@@ -61,7 +62,7 @@ const screens = [
   { name: "Home", component: Home, disable: true },
   { name: "Friends", component: Friends, disable: true },
   { name: "Litreboards", component: Litreboards, disable: true },
-  { name: "Calender", component: Calender, disable: true },
+  // { name: "Calender", component: Calender, disable: true },
   { name: "AddFriends", component: AddFriends, disable: true },
   { name: "User", component: User, disable: true },
   { name: "LogWater", component: LogWater, disable: true },

@@ -2,3 +2,47 @@
 # yarn lockfile v1
 
 
+"@types/prop-types@*":
+  version "15.7.3"
+  resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.3.tgz#2ab0d5da2e5815f94b0b9d4b95d1e5f243ab2ca7"
+  integrity sha512-KfRL3PuHmqQLOG+2tGpRO26Ctg+Cq1E01D2DMriKEATHgWLfeNDmq9e29Q9WIky0dQ3NPkd1mzYH8Lm936Z9qw==
+
+"@types/react-native-calendars@^1.505.0":
+  version "1.505.0"
+  resolved "https://registry.yarnpkg.com/@types/react-native-calendars/-/react-native-calendars-1.505.0.tgz#ee60af5cd131a6b6423eec75fa069949778b21f4"
+  integrity sha512-2Th/n4AG000Yas9IgfOAyobrrvL4lrXcHEMrNwMd9toe+Q4oiPe1wrhh3T6uqQ+n+771Kuq9/sQv3NLBcZUOxg==
+  dependencies:
+    "@types/react" "*"
+    "@types/react-native" "*"
+    "@types/xdate" "*"
+
+"@types/react-native@*":
+  version "0.63.51"
+  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.63.51.tgz#2fc45ab934801770cdbbcdc6ae5cd85c0e2a2a02"
+  integrity sha512-lpJdBF7T/nZigbequu7p4NptZmTUKq8R7vRADkk00H8DR5igspL10B1F58MvNTu8o/TyqzPISyWoRARqaIy+mw==
+  dependencies:
+    "@types/react" "*"
+
+"@types/react@*":
+  version "17.0.3"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.3.tgz#ba6e215368501ac3826951eef2904574c262cc79"
+  integrity sha512-wYOUxIgs2HZZ0ACNiIayItyluADNbONl7kt8lkLjVK8IitMH5QMyAh75Fwhmo37r1m7L2JaFj03sIfxBVDvRAg==
+  dependencies:
+    "@types/prop-types" "*"
+    "@types/scheduler" "*"
+    csstype "^3.0.2"
+
+"@types/scheduler@*":
+  version "0.16.1"
+  resolved "https://registry.yarnpkg.com/@types/scheduler/-/scheduler-0.16.1.tgz#18845205e86ff0038517aab7a18a62a6b9f71275"
+  integrity sha512-EaCxbanVeyxDRTQBkdLb3Bvl/HK7PBK6UJjsSixB0iHKoWxE5uu2Q/DgtpOhPIojN0Zl1whvOd7PoHs2P0s5eA==
+
+"@types/xdate@*":
+  version "0.8.31"
+  resolved "https://registry.yarnpkg.com/@types/xdate/-/xdate-0.8.31.tgz#7bec14a47c9bb30715d507f32bc82ab163149574"
+  integrity sha512-iZYRKKK8UZXoepNh2kwK6TPITMj/dwdv0NzNi9DFMt2foGkU7h+ncaCpGsdD2fp/CXMs9dxPAzV9uddFy7c4QA==
+
+csstype@^3.0.2:
+  version "3.0.7"
+  resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.0.7.tgz#2a5fb75e1015e84dd15692f71e89a1450290950b"
+  integrity sha512-KxnUB0ZMlnUWCsx2Z8MUsr6qV6ja1w9ArPErJaJaF8a5SOWoHLIszeCTKGRGRgtLgYrs1E8CHkNSP1VZTTPc9g==

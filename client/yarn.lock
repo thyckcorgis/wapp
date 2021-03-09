@@ -5872,10 +5872,10 @@ react-native-calendar-picker@^7.0.9:
     prop-types "^15.6.0"
     recyclerlistview "^3.0.0"
 
-react-native-calendars@^1.1247.0:
-  version "1.1249.0"
-  resolved "https://registry.yarnpkg.com/react-native-calendars/-/react-native-calendars-1.1249.0.tgz#e94deb0e77186b4fc15b11d18a7eeece452d331b"
-  integrity sha512-DJqF8OJ4C4btkltJOzGS27FdWBVczkQmBHRYVaKuy3qUvoZ6/l/pdSQuTPNJHN/WCCCy9Uc+bXPsws2BAHh6Kg==
+react-native-calendars@^1.1254.0:
+  version "1.1254.0"
+  resolved "https://registry.yarnpkg.com/react-native-calendars/-/react-native-calendars-1.1254.0.tgz#49dfb880c6588188a49ba15ecfb56cace2d3b3fe"
+  integrity sha512-6nnrOdpgyJrnu5BpUq+jfKFtLvBEy+csgmQQJ5XQvvIoeoI110TwPfDlQ2U6dUF9wjcge3Sg0UcnimlFXNj8Zg==
   dependencies:
     hoist-non-react-statics "^3.3.1"
     immutable "^4.0.0-rc.12"

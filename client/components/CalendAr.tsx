@@ -5,6 +5,20 @@ import { Calendar } from "react-native-calendars";
 import { Colours, Styles } from "../styles";
 
 const yellow = ["#FFFFB7", "#FFF192", "#FFEA61", "#FFDD3C", "#FFD400"];
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
 
 const dateToYMD = (date: Date) => date.toISOString().slice(0, 10);
 
@@ -43,8 +57,14 @@ const createMarkedDates = (start: Date, end: Date) => {
   return markedDates;
 };
 
-export default function CalendAr() {
-  const [selected, setSelected] = useState("");
+interface CalendArProps {
+  // selected: string;
+  // day: Date;
+  // month: Date;
+}
+
+export default function CalendAr({}: CalendArProps) {
+  const [selectedDay, setSelectedDay] = useState("");
   return (
     <View style={styles.calendarBox}>
       <Calendar
@@ -53,11 +73,13 @@ export default function CalendAr() {
         // minDate={"2012-05-10"}
         // maxDate={"2012-05-30"}
         onDayPress={(day) => {
-          setSelected(day.dateString);
-          console.log("selected day", day);
+          setSelectedDay(months[day.month - 1] + " " + day.day + ", " + day.year);
+
+          console.log(selectedDay);
         }}
         onMonthChange={(month) => {
-          console.log("month changed", month);
+          // Grab the month data or something
+          // console.log("month changed", month);
         }}
         monthFormat={"MMMM yyyy"}
         // hideExtraDays={true}
@@ -69,12 +91,18 @@ export default function CalendAr() {
         markingType={"period"}
         markedDates={createMarkedDates(new Date("2021-03-08"), new Date("2021-03-29"))}
         // STYLING
-        // style={{ borderWidth: 1, borderColor: Colours.yellow, borderRadius: 20 }}
+        style={{
+          width: Platform.isPad == true ? "80%" : "100%",
+          borderWidth: Platform.isPad == true ? 1 : 0,
+          borderColor: Colours.yellow,
+          borderRadius: 20,
+          height: "100%",
+          alignSelf: "center",
+        }}
         theme={{
-          // backgroundColor: Colours.medBlue,
           calendarBackground: "transparent",
           textSectionTitleColor: Colours.yellow,
-          selectedDayBackgroundColor: Colours.medBlue,
+          selectedDayBackgroundColor: "#ff7171",
           selectedDayTextColor: Colours.yellow,
           todayTextColor: Colours.yellow,
           dayTextColor: Colours.yellow,

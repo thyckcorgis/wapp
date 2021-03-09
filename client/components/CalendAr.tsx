@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, Platform } from "react-native";
 import { Calendar } from "react-native-calendars";
 
@@ -44,6 +44,7 @@ const createMarkedDates = (start: Date, end: Date) => {
 };
 
 export default function CalendAr() {
+  const [selected, setSelected] = useState("");
   return (
     <View style={styles.calendarBox}>
       <Calendar
@@ -52,6 +53,7 @@ export default function CalendAr() {
         // minDate={"2012-05-10"}
         // maxDate={"2012-05-30"}
         onDayPress={(day) => {
+          setSelected(day.dateString);
           console.log("selected day", day);
         }}
         onMonthChange={(month) => {
@@ -67,10 +69,10 @@ export default function CalendAr() {
         markingType={"period"}
         markedDates={createMarkedDates(new Date("2021-03-08"), new Date("2021-03-29"))}
         // STYLING
-        style={{ borderWidth: 1, borderColor: Colours.yellow, borderRadius: 20 }}
+        // style={{ borderWidth: 1, borderColor: Colours.yellow, borderRadius: 20 }}
         theme={{
           // backgroundColor: Colours.medBlue,
-          calendarBackground: Colours.medBlue,
+          calendarBackground: "transparent",
           textSectionTitleColor: Colours.yellow,
           selectedDayBackgroundColor: Colours.medBlue,
           selectedDayTextColor: Colours.yellow,

@@ -46,7 +46,7 @@ export async function LogWater(username: string, userId: string, intake: number)
   const newLog = new Log({ userId, water: intake, logType: "water" });
   await newLog.save();
 
-  const friendPushTokens = (await user.getFriends()).map((friend) => friend.pushTokens).flat();
+  const friendPushTokens = (await user.getFriends()).flatMap((friend) => friend.pushTokens);
   sendNotifications(message, friendPushTokens);
   return newLog.water;
 }

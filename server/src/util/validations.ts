@@ -15,7 +15,7 @@ const intake = Joi.number().min(0).max(2000).required();
 const date = Joi.number().integer().required();
 const logEntry = Joi.object().length(2).keys({ 0: intake, 1: date });
 
-const year = Joi.number().integer().min(1970).max(2999).required();
+const year = Joi.number().integer().min(1970).max(2037).required();
 const month = Joi.number().integer().min(1).max(12).required();
 
 export const getMonthly = Joi.object().keys({ year, month });

@@ -1,21 +1,3 @@
-export async function uploadPushToken(token: string, expoPushToken: string) {
-  const { data, ok } = await makeCallWithBody("notification", { expoPushToken }, "PATCH", token);
-  if (!ok) throw new Error(data.message);
-  return data;
-}
-
-export async function deletePushToken(token: string, expoPushToken: string) {
-  const { data, ok } = await makeCallNoBody("notification/" + expoPushToken, token, "DELETE");
-  if (!ok) throw new Error(data.message);
-  return data;
-}
-
-export async function disablePushNotifs(token: string) {
-  const { data, ok } = await makeCallNoBody("notification", token, "DELETE");
-  if (!ok) throw new Error(data.message);
-  return data;
-}
-
 export async function logWaterIntake(token: string, water: number) {
   const { data, ok } = await makeCallWithBody("log", { water }, "POST", token);
   if (!ok) throw new Error(data.message);

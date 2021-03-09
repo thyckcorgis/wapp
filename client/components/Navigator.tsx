@@ -39,6 +39,7 @@ import {
   Home,
   Friends,
   Calender,
+  CalendAr,
   AddFriends,
   User,
   LogWater,
@@ -48,7 +49,9 @@ import {
 } from "./screens";
 
 const screens = [
-  // Uncomment this when making reminder function
+  // Uncomment this when making functions
+  // { name: "Calender", component: Calender, disable: true },
+  // { name: "CalendAr", component: CalendAr, disable: true },
   // { name: "Reminder", component: Reminder, disable: false },
   { name: "Start", component: Start, disable: true },
   { name: "SignIn", component: SignIn, disable: false },

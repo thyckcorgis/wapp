@@ -1,92 +1,58 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet, Platform } from "react-native";
+import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 
 import { Colours, Styles } from "../styles";
 
-// DEFINE VARIABLES
-// Colours ranging from light yellow --> dark yellow
-const yellow = ["#FFFFB7", "#FFF192", "#FFEA61", "#FFDD3C", "#FFD400"];
-// Calendar initiation
-const months = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
-const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-const nDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
-// Define these big boi types
-type CalendarState = {
-  months: string
-  weekDays: string
-  ndays: number
-  activeDate: Date
-  year: Date
-  month: Date
-  firstDay: Date
-  maxDays: Date
+export default function CalendAr() {
+  return (
+    <Calendar
+      // Initially visible month. Default = Date()
+      current={"2012-03-01"}
+      // Minimum date that can be selected, dates before minDate will be grayed out. Default = undefined
+      minDate={"2012-05-10"}
+      // Maximum date that can be selected, dates after maxDate will be grayed out. Default = undefined
+      maxDate={"2012-05-30"}
+      // Handler which gets executed on day press. Default = undefined
+      onDayPress={(day) => {
+        console.log("selected day", day);
+      }}
+      // Handler which gets executed on day long press. Default = undefined
+      onDayLongPress={(day) => {
+        console.log("selected day", day);
+      }}
+      // Month format in calendar title. Formatting values: http://arshaw.com/xdate/#Formatting
+      monthFormat={"yyyy MM"}
+      // Handler which gets executed when visible month changes in calendar. Default = undefined
+      onMonthChange={(month) => {
+        console.log("month changed", month);
+      }}
+      // Hide month navigation arrows. Default = false
+      hideArrows={true}
+      // Replace default arrows with custom ones (direction can be 'left' or 'right')
+      hideExtraDays={true}
+      // If hideArrows=false and hideExtraDays=false do not switch month when tapping on greyed out
+      // day from another month that is visible in calendar page. Default = false
+      disableMonthChange={true}
+      // If firstDay=1 week starts from Monday. Note that dayNames and dayNamesShort should still start from Sunday.
+      firstDay={1}
+      // Hide day names. Default = false
+      hideDayNames={true}
+      // Show week numbers to the left. Default = false
+      showWeekNumbers={true}
+      // Handler which gets executed when press arrow icon left. It receive a callback can go back month
+      onPressArrowLeft={(subtractMonth) => subtractMonth()}
+      // Handler which gets executed when press arrow icon right. It receive a callback can go next month
+      onPressArrowRight={(addMonth) => addMonth()}
+      // Disable left arrow. Default = false
+      disableArrowLeft={true}
+      // Disable right arrow. Default = false
+      disableArrowRight={true}
+      // Enable the option to swipe between months. Default = false
+      enableSwipeMonths={true}
+    />
+  );
 }
-
-// Time for a big boi class
-class CalendAr extends React.Component<{}, CalendarState> { 
-  state={
-    activeDate:new Date()
-  }
-
-  generateMatrix() {
-    var matrix = []
-    matrix[0] = this.weekDays;
-  }
-
-  //   Initiate all calendar variables
-  var year = this.state.activeDate.getFullYear();
-  var month = this.state.activeDate.getMonth();
-  var firstDay = new Date(year, month, 1).getDay();
-  var maxDays = this.nDays[month];
-  if (month == 1) {
-    if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
-      maxDays += 1;
-    }
-  }
-
-  var i = 1;
-  for(var row = 1; row < 7; row ++) {
-    matrix[row] = [];
-    for (var col = 0; col < 7; col++) {
-      matrix[row][col] = -1;
-      if (row == 1 && col >= firstDay) {
-        matrix[row][col] = i++;
-      } else if (row > 1 && i <= maxDays) {
-        matrix[row][col] = i++;
-      }
-    }
-  }
-
-  render() {
-    var matrix = this.generateMatrix();
-    return (
-      <View>
-        <Text>CalendAr</Text>
-      </View>
-    );
-  }
-}
-
-export default class App extends React.Component {
-  render() {
-    return <CalendAr />;
-  }
-}
-
 const styles = StyleSheet.create({
   calendarBox: {
     marginTop: Platform.OS == "ios" ? "5%" : "10%",

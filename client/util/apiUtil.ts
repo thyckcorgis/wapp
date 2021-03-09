@@ -34,3 +34,15 @@ export function makeCallWithBody<Res = any, Req = any>(
     })
   );
 }
+
+interface Data {
+  message: string;
+}
+
+export async function getData<Res extends Data = any>(
+  cb: () => Promise<{ data: Res; ok: boolean }>
+) {
+  const { data, ok } = await cb();
+  if (!ok) throw new Error(data.message);
+  return data;
+}

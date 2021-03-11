@@ -2,7 +2,6 @@ export { default as Home } from "./HomeScreen";
 export { default as SignIn } from "./SignInScreen";
 export { default as User } from "./UserScreen";
 export { default as Calender } from "./CalenderScreen";
-export { default as CalendAr } from "../CalendAr";
 
 export { default as Reminder } from "./register/ReminderScreen";
 export { default as Register } from "./register/RegisterScreen";
@@ -17,3 +16,6 @@ export { default as WaterLog } from "./log/WaterLogScreen";
 export { default as AddFriends } from "./friends/AddFriendsScreen";
 export { default as Friends } from "./friends/FriendsScreen";
 export { default as Litreboards } from "./friends/LitreboardsScreen";
+
+// DELETE THIS AFTER
+export { default as LogChart } from "../LogChart";

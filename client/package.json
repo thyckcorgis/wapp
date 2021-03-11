@@ -23,7 +23,6 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-40.0.1.tar.gz",
-    "react-native-calendar-picker": "^7.0.9",
     "react-native-calendars": "^1.1254.0",
     "react-native-elements": "^3.2.0",
     "react-native-gesture-handler": "~1.8.0",
@@ -36,7 +35,8 @@
     "react-native-web": "~0.13.12",
     "react-native-windows": "^0.63.20",
     "react-navigation": "^4.4.3",
-    "react-navigation-stack": "^2.10.2"
+    "react-navigation-stack": "^2.10.2",
+    "victory-native": "^35.3.1"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",

@@ -39,7 +39,7 @@ import {
   Home,
   Friends,
   Calender,
-  CalendAr,
+  LogChart,
   AddFriends,
   User,
   LogWater,
@@ -51,7 +51,7 @@ import {
 const screens = [
   // Uncomment this when making functions
   // { name: "Calender", component: Calender, disable: true },
-  // { name: "CalendAr", component: CalendAr, disable: true },
+  { name: "LogChart", component: LogChart, disable: true },
   // { name: "Reminder", component: Reminder, disable: false },
   { name: "Start", component: Start, disable: true },
   { name: "SignIn", component: SignIn, disable: false },

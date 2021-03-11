@@ -8,6 +8,7 @@ import {
   VictoryZoomContainer,
   VictoryArea,
   VictoryAxis,
+  VictoryClipContainer,
 } from "victory-native";
 
 import { Colours, Styles } from "../styles";
@@ -30,21 +31,32 @@ export default function LogChart() {
     <View style={styles.graphBox}>
       <VictoryChart
         height={Dimensions.get("window").height * 0.5}
+        width={
+          Platform.isPad == true
+            ? Dimensions.get("window").width * 0.6
+            : Dimensions.get("window").width
+        }
         // minDomain={{ x: 0, y: 0 }}
-        maxDomain={{ x: 12, y: 5 }}
-        // width={Dimensions.get("window").width * 0.9}
-        containerComponent={<VictoryZoomContainer allowPan={true} allowZoom={false} />}
+        maxDomain={{ x: 100, y: 5 }}
+        containerComponent={
+          <VictoryZoomContainer
+            allowPan={true}
+            allowZoom={false}
+            zoomDomain={{ x: [0, 3] }}
+            zoomDimension="x"
+          />
+        }
       >
         <VictoryLine
           interpolation={"natural"}
-          domain={{ x: [1, 5], y: [0, 5] }}
+          // domain={{ x: [1, 12], y: [0, 5] }}
           style={{ data: { stroke: Colours.yellow } }}
           data={data}
           x="month"
           y="volume"
         />
         <VictoryScatter
-          domain={{ x: [1, 5], y: [0, 5] }}
+          // domain={{ x: [1, 12], y: [0, 5] }}
           x="month"
           y="volume"
           data={data}
@@ -62,27 +74,24 @@ export default function LogChart() {
           label="Volume"
           style={{
             axis: { stroke: Colours.yellow },
-            axisLabel: { ...Styles.title },
+            axisLabel: { ...Styles.title, ...{ fontSize: 18 } },
             grid: { stroke: ({ tick }) => (tick == 1 ? Colours.errorRed : Colours.lightBlue) },
             ticks: { stroke: "grey", size: 5 },
             tickLabels: { ...Styles.body },
-            // tickLabels: { fontSize: 14, padding: 5 },
           }}
-          maxDomain={{ x: 31 }}
+          maxDomain={{ x: 12 }}
         />
         {/* X AXIS */}
         <VictoryAxis
           crossAxis
-          label="Day"
+          label="Month"
           style={{
             axis: { stroke: Colours.yellow },
-            axisLabel: { ...Styles.title },
+            axisLabel: { ...Styles.title, ...{ fontSize: 18 } },
             grid: { stroke: ({ tick }) => (tick == 1 ? Colours.errorRed : Colours.lightBlue) },
             ticks: { stroke: "grey", size: 5 },
             tickLabels: { ...Styles.body },
-            // tickLabels: { fontSize: 14, padding: 5 },
           }}
-          // scale={{ x: "time" }}
           minDomain={{ x: 0 }}
           maxDomain={{ x: 31 }}
           tickFormat={(month) => months[month - 1]}
@@ -98,6 +107,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignContent: "center",
     flex: 1,
+    // COMMENT OUT LATER
     backgroundColor: Colours.medBlue,
   },
 });

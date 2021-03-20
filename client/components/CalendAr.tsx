@@ -58,7 +58,7 @@ const createMarkedDates = (start: Date, end: Date) => {
 };
 
 interface CalendArProps {
-  // selected: string;
+  // props: string;
   // day: Date;
   // month: Date;
 }
@@ -74,7 +74,6 @@ export default function CalendAr({}: CalendArProps) {
         // maxDate={"2012-05-30"}
         onDayPress={(day) => {
           setSelectedDay(months[day.month - 1] + " " + day.day + ", " + day.year);
-
           console.log(selectedDay);
         }}
         onMonthChange={(month) => {

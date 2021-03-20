@@ -10,6 +10,8 @@ import {
   VictoryAxis,
   VictoryClipContainer,
 } from "victory-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import ScreenProps from "./screens/ScreenProps";
 
 import { Colours, Styles } from "../styles";
 
@@ -26,11 +28,12 @@ const data = [
   { month: 8, volume: 1 },
 ];
 
-export default function LogChart() {
+export default function LogChart({ navigation }: ScreenProps) {
   return (
     <View style={styles.graphBox}>
       <VictoryChart
-        height={Dimensions.get("window").height * 0.5}
+        // height={Dimensions.get("window").height * 0.5}
+        height={400}
         width={
           Platform.isPad == true
             ? Dimensions.get("window").width * 0.6
@@ -97,6 +100,9 @@ export default function LogChart() {
           tickFormat={(month) => months[month - 1]}
         />
       </VictoryChart>
+      <TouchableOpacity onPress={() => navigation.navigate("Calender")}>
+        <Text>calender screen</Text>
+      </TouchableOpacity>
     </View>
   );
 }

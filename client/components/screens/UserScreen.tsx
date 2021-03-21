@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, TextInput, Switch } from "react-native";
+import { StyleSheet, Text, View, TextInput, Switch, TouchableOpacity } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 
 import { Colours, Styles } from "../../styles";
@@ -10,7 +10,7 @@ import { setDailyIntake, uploadPushToken } from "../../api";
 import { registerForPushNotificationsAsync } from "../../notifications";
 
 import BottomNavbar from "../BottomNavbar";
-import { Avatar, Accessory } from "react-native-elements";
+import { Avatar } from "react-native-elements";
 import SafeGradient from "../SafeGradient";
 import { ClearButton, SolidButton } from "../buttons/";
 import ScreenProps from "./ScreenProps";
@@ -123,6 +123,35 @@ export default function UserScreen({ navigation }: ScreenProps) {
               value={isEnabled}
             />
           </View>
+          <View style={styles.achievementBox}>
+            <Text style={[Styles.title, styles.smallText]}>Achievements</Text>
+            <View style={styles.topAchievementsBox}>
+              <View style={styles.aBox}>
+                <View style={styles.iconBox}>
+                  <Text>icon</Text>
+                </View>
+                <Text style={[Styles.body, styles.achievementName]}>PEEkaboo</Text>
+              </View>
+              <View style={styles.aBox}>
+                <View style={styles.iconBox}>
+                  <Text>icon</Text>
+                </View>
+                <Text style={[Styles.body, styles.achievementName]}>YiPEE!</Text>
+              </View>
+              <View style={styles.aBox}>
+                <View style={styles.iconBox}>
+                  <Text>icon</Text>
+                </View>
+                <Text style={[Styles.body, styles.achievementName]}>sPEEdy</Text>
+              </View>
+            </View>
+            <View style={styles.moreInfoBox}>
+              <Text style={[Styles.body, styles.moreText]}>69 out of 420</Text>
+              <TouchableOpacity>
+                <Text style={[Styles.body, styles.moreText]}>Show More</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
           <SolidButton onPress={logout} label="Logout" />
         </View>
       </ScrollView>
@@ -132,6 +161,7 @@ export default function UserScreen({ navigation }: ScreenProps) {
 }
 
 const styles = StyleSheet.create({
+  // BOXES
   userBox: {
     flex: 1,
     padding: 20,
@@ -156,14 +186,46 @@ const styles = StyleSheet.create({
     padding: 10,
     // borderWidth: 1,
   },
-  profilePic: {
-    alignSelf: "center",
-    margin: 5,
-  },
-  goalInput: {
+  achievementBox: {
+    borderWidth: 1,
     borderColor: Colours.yellow,
-    color: Colours.yellow,
+    borderRadius: 20,
+    padding: 10,
+    width: 300,
+    marginBottom: 10,
+    // backgroundColor: Colours.darkBlue,
   },
+  topAchievementsBox: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    // borderBottomWidth: 1,
+    borderColor: Colours.yellow,
+    paddingVertical: "5%",
+    marginBottom: "5%",
+  },
+  aBox: {
+    flex: 1,
+    // borderWidth: 1,
+    alignItems: "center",
+    height: 100,
+  },
+  iconBox: {
+    width: 70,
+    height: 70,
+    backgroundColor: Colours.lightBlue,
+    margin: "10%",
+    borderRadius: 20,
+    justifyContent: "center",
+    alignItems: "center",
+    // borderWidth: 1,
+  },
+  moreInfoBox: {
+    padding: "1%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+
+  // TEXT
   initialsText: {
     color: Colours.darkBlue,
     textAlignVertical: "center",
@@ -176,6 +238,22 @@ const styles = StyleSheet.create({
   smallText: {
     textAlign: "center",
     fontSize: 20,
+    color: Colours.yellow,
+  },
+  achievementName: {
+    color: Colours.lightBlue,
+  },
+  moreText: {
+    color: Colours.yellow,
+  },
+
+  // OTHER
+  profilePic: {
+    alignSelf: "center",
+    margin: 5,
+  },
+  goalInput: {
+    borderColor: Colours.yellow,
     color: Colours.yellow,
   },
 });

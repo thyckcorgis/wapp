@@ -15,6 +15,8 @@ import { Colours, Styles } from "../styles";
 
 const yellow = ["#FFFFB7", "#FFF192", "#FFEA61", "#FFDD3C", "#FFD400"];
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+// Replace this data with stuff from the database
 const data = [
   { month: 1, volume: 0 },
   { month: 2, volume: 3 },

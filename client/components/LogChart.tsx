@@ -30,7 +30,8 @@ export default function LogChart() {
   return (
     <View style={styles.graphBox}>
       <VictoryChart
-        height={Dimensions.get("window").height * 0.5}
+        // height={Dimensions.get("window").height * 0.5}
+        height={400}
         width={
           Platform.isPad == true
             ? Dimensions.get("window").width * 0.6

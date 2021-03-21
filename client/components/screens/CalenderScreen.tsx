@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Text, StyleSheet, View, Platform, ScrollView } from "react-native";
 import CalendAr from "../CalendAr";
+import LogChart from "../LogChart";
 
 import { Colours, Styles } from "../../styles";
 
@@ -8,10 +9,10 @@ import BottomNavbar from "../BottomNavbar";
 import SafeGradient from "../SafeGradient";
 
 import ScreenProps from "./ScreenProps";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import LogChart from "../LogChart";
 
 export default function CalendarScreen({ navigation }: ScreenProps) {
+  const [selectedDay, setSelectedDay] = useState("");
+
   return (
     <SafeGradient>
       <ScrollView>
@@ -22,6 +23,7 @@ export default function CalendarScreen({ navigation }: ScreenProps) {
           <View style={styles.infoHeaderBox}>
             <Text style={{ ...Styles.body, ...styles.infoHeaderText }}>
               selectedDay
+              {selectedDay}
               {/* Like rn, the calendar component returns a string :/ */}
             </Text>
           </View>
@@ -36,11 +38,7 @@ export default function CalendarScreen({ navigation }: ScreenProps) {
             </Text>
           </View>
         </View>
-        <TouchableOpacity
-          onPress={() => navigation.navigate("LogChart")}
-        >
-          <Text>Log chart</Text>
-        </TouchableOpacity>
+        <LogChart />
       </ScrollView>
       <BottomNavbar navigation={navigation} />
     </SafeGradient>

@@ -10,8 +10,6 @@ import {
   VictoryAxis,
   VictoryClipContainer,
 } from "victory-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import ScreenProps from "./screens/ScreenProps";
 
 import { Colours, Styles } from "../styles";
 
@@ -30,12 +28,16 @@ const data = [
   { month: 8, volume: 1 },
 ];
 
-export default function LogChart({ navigation }: ScreenProps) {
+export default function LogChart() {
   return (
     <View style={styles.graphBox}>
+      <View>
+        <Text style={{ ...Styles.title, ...styles.headerText }}>Water Chart</Text>
+        <Text style={[Styles.body, styles.infoText]}>Scroll to the side for more info</Text>
+      </View>
       <VictoryChart
         // height={Dimensions.get("window").height * 0.5}
-        height={400}
+        height={300}
         width={
           Platform.isPad == true
             ? Dimensions.get("window").width * 0.6
@@ -52,6 +54,7 @@ export default function LogChart({ navigation }: ScreenProps) {
           />
         }
       >
+        {/* LINE INTERPOLATION BETWEEN DATA POINTS PLOT */}
         <VictoryLine
           interpolation={"natural"}
           // domain={{ x: [1, 12], y: [0, 5] }}
@@ -60,6 +63,8 @@ export default function LogChart({ navigation }: ScreenProps) {
           x="month"
           y="volume"
         />
+
+        {/* DATA POINTS PLOT */}
         <VictoryScatter
           // domain={{ x: [1, 12], y: [0, 5] }}
           x="month"
@@ -72,6 +77,7 @@ export default function LogChart({ navigation }: ScreenProps) {
           size={5}
           labels={({ data }) => data.volume}
         />
+
         {/* Y AXIS */}
         <VictoryAxis
           dependentAxis
@@ -79,13 +85,14 @@ export default function LogChart({ navigation }: ScreenProps) {
           label="Volume"
           style={{
             axis: { stroke: Colours.yellow },
-            axisLabel: { ...Styles.title, ...{ fontSize: 18 } },
+            axisLabel: { ...Styles.title, ...{ fontSize: 18 }, ...{ margin: 10 } },
             grid: { stroke: ({ tick }) => (tick == 1 ? Colours.errorRed : Colours.lightBlue) },
             ticks: { stroke: "grey", size: 5 },
             tickLabels: { ...Styles.body },
           }}
           maxDomain={{ x: 12 }}
         />
+
         {/* X AXIS */}
         <VictoryAxis
           crossAxis
@@ -102,20 +109,24 @@ export default function LogChart({ navigation }: ScreenProps) {
           tickFormat={(month) => months[month - 1]}
         />
       </VictoryChart>
-      <TouchableOpacity onPress={() => navigation.navigate("Calender")}>
-        <Text>calender screen</Text>
-      </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   graphBox: {
-    // marginTop: Platform.OS == "ios" ? "5%" : "10%",
+    marginTop: "5%",
     justifyContent: "center",
     alignContent: "center",
     flex: 1,
-    // COMMENT OUT LATER
-    backgroundColor: Colours.medBlue,
+    // borderWidth: 1,
+  },
+  headerText: {
+    paddingLeft: "5%",
+    color: Colours.yellow,
+  },
+  infoText: {
+    paddingLeft: "5%",
+    color: Colours.lightBlue,
   },
 });

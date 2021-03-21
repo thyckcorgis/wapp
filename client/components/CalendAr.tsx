@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, Platform } from "react-native";
-import { Calendar } from "react-native-calendars";
+import { Calendar, DateObject } from "react-native-calendars";
 
 import { Colours, Styles } from "../styles";
 
@@ -58,13 +58,18 @@ const createMarkedDates = (start: Date, end: Date) => {
 };
 
 interface CalendArProps {
-  // props: string;
-  // day: Date;
-  // month: Date;
+  day: string;
 }
 
-export default function CalendAr({}: CalendArProps) {
+export default function CalendAr({ day }: CalendArProps) {
   const [selectedDay, setSelectedDay] = useState("");
+
+  function dayPressHandler(day: DateObject) {
+    setSelectedDay(months[day.month - 1] + " " + day.day + ", " + day.year);
+    console.log(selectedDay);
+    return selectedDay;
+  }
+
   return (
     <View style={styles.calendarBox}>
       <Calendar
@@ -72,10 +77,7 @@ export default function CalendAr({}: CalendArProps) {
         // Replace these with some dates after to save memory
         // minDate={"2012-05-10"}
         // maxDate={"2012-05-30"}
-        onDayPress={(day) => {
-          setSelectedDay(months[day.month - 1] + " " + day.day + ", " + day.year);
-          console.log(selectedDay);
-        }}
+        onDayPress={(day) => dayPressHandler(day)}
         onMonthChange={(month) => {
           // Grab the month data or something
           // console.log("month changed", month);

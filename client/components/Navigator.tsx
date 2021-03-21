@@ -50,9 +50,6 @@ import {
 
 const screens = [
   // Uncomment this when making functions
-  // { name: "Calender", component: Calender, disable: true },
-  { name: "LogChart", component: LogChart, disable: true },
-  // { name: "Reminder", component: Reminder, disable: false },
   { name: "Start", component: Start, disable: true },
   { name: "SignIn", component: SignIn, disable: false },
   { name: "Register", component: Register, disable: false },
@@ -68,6 +65,7 @@ const screens = [
   { name: "LogWater", component: LogWater, disable: true },
   { name: "WaterLog", component: WaterLog, disable: true },
   { name: "AddCupModal", component: AddCupModal, disable: false },
+  { name: "LogChart", component: LogChart, disable: true },
 ];
 
 export default function Navigator() {

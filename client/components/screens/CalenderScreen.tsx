@@ -8,6 +8,8 @@ import BottomNavbar from "../BottomNavbar";
 import SafeGradient from "../SafeGradient";
 
 import ScreenProps from "./ScreenProps";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import LogChart from "../LogChart";
 
 export default function CalendarScreen({ navigation }: ScreenProps) {
   return (
@@ -34,6 +36,11 @@ export default function CalendarScreen({ navigation }: ScreenProps) {
             </Text>
           </View>
         </View>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("LogChart")}
+        >
+          <Text>Log chart</Text>
+        </TouchableOpacity>
       </ScrollView>
       <BottomNavbar navigation={navigation} />
     </SafeGradient>

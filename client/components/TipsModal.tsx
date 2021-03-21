@@ -4,24 +4,8 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 
 import { TipsIcon, TransparentBackground } from "../assets/index";
 import { Colours, Styles } from "../styles";
+import { tips } from "./tips";
 
-const tips = [
-  "If you see a bathroom in a dream - DON'T USE IT!",
-  "When you smell pee in the streets, you can tell that urine the wrong neighbourhood.",
-  "Why can't you hear a pterodactyl pee? Because they're extinct.",
-  'Wife: "I just got stung by a jellyfish. quick, pee on it!"\nHusband: *peeing on jellyfish* "This is for stinging my wife." ',
-  "Don't pee on anyone, or else they're going to be pissed.",
-
-  // THESE ARE ACTUAL HEALTH TIPS LOL
-  "Water composes 75% of the human brain!",
-  "Water helps regulate your body temperature",
-  "Water makes up 75% of your muscles",
-  "Using a straw makes you drink faster! Invest in a reusable straw to reduce waste.",
-  "Spice up your water by adding fresh fruit, vegetables, or herbs. Try cucumers + mint!",
-  "If you have a headache, it might be from dehydration. Try drinking water!",
-  "Drinking water leads to healthier skin. Get that glow on!",
-  "Drinking water helps you lose weight.",
-];
 const rand = () => Math.floor(Math.random() * tips.length);
 
 export default function TipsModal() {

@@ -10,11 +10,15 @@ import {
   VictoryAxis,
   VictoryClipContainer,
 } from "victory-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import ScreenProps from "./screens/ScreenProps";
 
 import { Colours, Styles } from "../styles";
 
 const yellow = ["#FFFFB7", "#FFF192", "#FFEA61", "#FFDD3C", "#FFD400"];
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+// Replace this data with stuff from the database
 const data = [
   { month: 1, volume: 0 },
   { month: 2, volume: 3 },
@@ -26,7 +30,7 @@ const data = [
   { month: 8, volume: 1 },
 ];
 
-export default function LogChart() {
+export default function LogChart({ navigation }: ScreenProps) {
   return (
     <View style={styles.graphBox}>
       <VictoryChart
@@ -98,6 +102,9 @@ export default function LogChart() {
           tickFormat={(month) => months[month - 1]}
         />
       </VictoryChart>
+      <TouchableOpacity onPress={() => navigation.navigate("Calender")}>
+        <Text>calender screen</Text>
+      </TouchableOpacity>
     </View>
   );
 }

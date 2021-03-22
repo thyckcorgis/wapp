@@ -1,49 +1,25 @@
 import mongoose, { Document, Model, Schema } from "mongoose";
 import { compare, hash } from "bcrypt";
-import { UserType } from "../util/types";
+import { UserType } from "../../util/types";
+import { User, UserRepo } from "../user";
 
-export interface IUserDocument extends Document {
-  username: string;
-  email: string;
-  password: string;
-  name: string;
-  daily: number;
-  currentIntake: number;
-  friendIds: string[];
-  notify: boolean;
-  pushTokens: string[];
-  reminders?: {
-    wakeTime: number;
-    sleepTime: number;
-  };
+export interface IUserDocument extends Document, User {}
 
-  addWater(intake: number): Promise<boolean>;
-  getFriends(): Promise<IUserDocument[]>;
-  getNonFriends(): Promise<IUserDocument[]>;
-  getPendingRequests(): Promise<IUserDocument[]>;
-  getUsers(type: UserType): Promise<IUserDocument[]>;
-  comparePasswords(password: string): Promise<boolean>;
-}
-
-export interface IUserModel extends Model<IUserDocument> {
-  doesNotExist(user: object): Promise<boolean>;
-  getUser(userId: string): Promise<IUserDocument>;
-  findByUsername(username: string): Promise<IUserDocument>;
-}
+export interface IUserModel extends Model<IUserDocument>, UserRepo<string> {}
 
 const UserSchema = new Schema<IUserDocument, IUserModel>(
   {
     username: {
       type: String,
       validate: {
-        validator: (username: string) => User.doesNotExist({ username }),
+        validator: (username: string) => UserModel.doesNotExist({ username }),
         message: "Username already exists",
       },
     },
     email: {
       type: String,
       validate: {
-        validator: (email: string) => User.doesNotExist({ email }),
+        validator: (email: string) => UserModel.doesNotExist({ email }),
         message: "Email already exists",
       },
     },
@@ -90,15 +66,35 @@ UserSchema.statics.doesNotExist = async function (field): Promise<boolean> {
 };
 
 UserSchema.statics.getUser = async function (userId: string) {
-  const user = await User.findById(userId).exec();
+  const user = await this.findById(userId).exec();
   if (!user) throw new Error("User not found");
   return user;
 };
 
+UserSchema.statics.removePushToken = function (userId: string, pushToken: string) {
+  return this.findByIdAndUpdate(userId, {
+    $pull: {
+      pushTokens: pushToken,
+    },
+  }).exec();
+};
+
+UserSchema.statics.disableNotifications = function (userId: string) {
+  return this.findByIdAndUpdate(userId, { notify: false }).exec();
+};
+
 UserSchema.statics.findByUsername = async function (username: string) {
-  const user = await User.findOne({ username }).exec();
+  const user = await this.findOne({ username }).exec();
   if (!user) throw new Error("User not found");
   return user;
+};
+
+UserSchema.statics.updateCurrentIntake = async function (userId: string, currentIntake: number) {
+  await this.findByIdAndUpdate(userId, { currentIntake }).exec();
+};
+
+UserSchema.methods.id = function () {
+  return this._id;
 };
 
 // returns true if user met their daily intake
@@ -110,16 +106,16 @@ UserSchema.methods.addWater = async function (intake: number) {
 };
 
 UserSchema.methods.getPendingRequests = function () {
-  return User.find({ _id: { $nin: this.friendIds }, friendIds: this._id }).exec();
+  return UserModel.find({ _id: { $nin: this.friendIds }, friendIds: this._id }).exec();
 };
 
 // TODO: filter non-friend as well
 UserSchema.methods.getNonFriends = function () {
-  return User.find({ _id: { $nin: this.friendIds } }).exec();
+  return UserModel.find({ _id: { $nin: this.friendIds } }).exec();
 };
 
 UserSchema.methods.getFriends = function () {
-  return User.find({
+  return UserModel.find({
     _id: { $in: this.friendIds },
     friendIds: this._id,
   }).exec();
@@ -138,6 +134,10 @@ UserSchema.methods.getUsers = function (type: UserType) {
   return choices[type];
 };
 
-const User = mongoose.model<IUserDocument, IUserModel>("User", UserSchema);
+UserSchema.methods.addFriendById = function (friendId: string) {
+  return this.update({ $push: { friendIds: friendId } }).exec();
+};
 
-export default User;
+const UserModel = mongoose.model<IUserDocument, IUserModel>("User", UserSchema);
+
+export default UserModel;

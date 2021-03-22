@@ -1,17 +1,10 @@
 import mongoose, { Document, Model, Schema } from "mongoose";
-import { LogType, EDate } from "../util/types";
+import { EDate } from "../../util/types";
+import { Log, LogRepo } from "../log";
 
-export interface ILogDocument extends Document {
-  userId: string;
-  logType: LogType;
-  water?: number;
-  friendId?: string;
-  dateCreated: number;
-}
+export interface ILogDocument extends Document, Log {}
 
-export interface ILogModel extends Model<ILogDocument> {
-  getMonthLog(userId: string, year: number, month: number): Promise<ILogDocument[]>;
-}
+export interface ILogModel extends Model<ILogDocument>, LogRepo {}
 
 const LogSchema = new Schema<ILogDocument, ILogModel>(
   {
@@ -53,6 +46,24 @@ LogSchema.statics.getMonthLog = function (userId: string, year: number, month: n
   }).exec();
 };
 
-const Log = mongoose.model<ILogDocument, ILogModel>("Log", LogSchema);
+LogSchema.statics.newFriendLog = async function (userId: string, friendId: string) {
+  await new LogModel({
+    userId,
+    friendId,
+    logType: "friend",
+  }).save();
+};
 
-export default Log;
+LogSchema.statics.insertLogs = async function (logs: Log[]) {
+  await LogModel.insertMany(logs);
+};
+
+LogSchema.statics.newWaterLog = async function (userId: string, water: number) {
+  const newLog = new LogModel({ userId, water, logType: "water" });
+  await newLog.save();
+  return newLog;
+};
+
+const LogModel = mongoose.model<ILogDocument, ILogModel>("Log", LogSchema);
+
+export default LogModel;

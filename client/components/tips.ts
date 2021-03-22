@@ -8,14 +8,13 @@ export const tips = [
     "Happiness is like peeing your pants - I haven't experienced it since I was 8 " + String.fromCodePoint(0x1f60e),
     "Drinking water is important for all athletes. Don't believe me? Google \"Water sports\" to find out more!" + String.fromCodePoint(0x1F926),
     "\"Waterboarding at Guantanamo Bay\" isn't the family friendly vacation I thought it was " + String.fromCodePoint(0x1f926),  
-    "" + String.fromCodePoint(0x1f4a6),
+    String.fromCodePoint(0x1f4a6),
     "The average person loses 500 mL of water a day from crying",
+
     // THESE ARE ACTUAL HEALTH TIPS LOL
     "Water composes 75% of the human brain!",
     "Water helps regulate your body temperature",
     "Water makes up 75% of your muscles",
-    // reeeeeee
-    //"Using a straw makes you drink faster! Invest in a reusable straw to reduce waste.",
     "Spice up your water by adding fresh fruit, vegetables, or herbs. Try cucumers + mint!",
     "If you have a headache, it might be from dehydration. Try drinking water!",
     "Drinking water leads to healthier skin. Get that glow on!",

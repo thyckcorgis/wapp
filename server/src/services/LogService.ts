@@ -1,9 +1,10 @@
-import User from "../models/user";
-import Log from "../models/log";
+import UserModel from "../data/models/user";
+import LogModel from "../data/models/log";
 
 import { ILog, EDate, LogType } from "../util/types";
 import { validate, syncLogs, logIntake, getMonthly } from "../util/validations";
 import { sendNotifications } from "../util/notifications";
+import { LogRepo, UserRepo } from "../data";
 
 function createMessage(username: string, intake: number, goalMet: boolean) {
   if (goalMet) return `${username} just met their daily water intake goal!`;
@@ -21,46 +22,53 @@ const getTodaysIntake = (logs: ILog[]) => {
     .reduce(sum);
 };
 
-export async function SyncIntakeLogs(userId: string, logs: ILog[]) {
-  await validate(syncLogs, logs);
+export class LogService {
+  logRepo: LogRepo;
+  userRepo: UserRepo;
 
-  const currentIntake = getTodaysIntake(logs);
-  await User.findByIdAndUpdate(userId, { currentIntake }).exec();
+  constructor(userRepo: UserRepo, logRepo: LogRepo) {
+    this.userRepo = userRepo;
+    this.logRepo = logRepo;
+  }
 
-  const logType: LogType = "water";
-  await Log.insertMany(
-    logs.map(([water, date]) => ({
-      userId,
-      water,
-      dateCreated: new EDate(date).serial,
-      logType,
-    }))
-  );
+  async syncIntakeLogs(userId: string, logs: ILog[]) {
+    await validate(syncLogs, logs);
+
+    const currentIntake = getTodaysIntake(logs);
+    await this.userRepo.updateCurrentIntake(userId, currentIntake);
+
+    const logType: LogType = "water";
+    await this.logRepo.insertLogs(
+      logs.map(([water, date]) => ({
+        userId,
+        water,
+        dateCreated: new EDate(date).serial,
+        logType,
+      }))
+    );
+  }
+
+  async logWater(username: string, userId: string, intake: number) {
+    await validate(logIntake, { intake });
+    const user = await this.userRepo.getUser(userId);
+    const message = createMessage(username, intake, await user.addWater(intake));
+
+    const newLog = await this.logRepo.newWaterLog(userId, intake);
+
+    const friendPushTokens = (await user.getFriends()).flatMap((friend) => friend.pushTokens);
+    sendNotifications(message, friendPushTokens);
+    return newLog.water;
+  }
+
+  async getMonthlyLog(userId: string, year: number, month: number): Promise<ILog[]> {
+    // use this month if invalid input
+    const { error } = getMonthly.validate({ year, month });
+    if (error) ({ year, month } = new EDate());
+    return (await this.logRepo.getMonthLog(userId, year, month)).map(({ water, dateCreated }) => [
+      water as number,
+      dateCreated,
+    ]);
+  }
 }
 
-export async function LogWater(username: string, userId: string, intake: number) {
-  await validate(logIntake, { intake });
-  const user = await User.getUser(userId);
-  const message = createMessage(username, intake, await user.addWater(intake));
-
-  const newLog = new Log({ userId, water: intake, logType: "water" });
-  await newLog.save();
-
-  const friendPushTokens = (await user.getFriends()).flatMap((friend) => friend.pushTokens);
-  sendNotifications(message, friendPushTokens);
-  return newLog.water;
-}
-
-export function LogFriendRequest(userId: string, friendId: string) {
-  return new Log({ userId, friendId, logType: "friend" }).save();
-}
-
-export async function GetMonthlyLog(userId: string, year: number, month: number): Promise<ILog[]> {
-  // use this month if invalid input
-  const { error } = getMonthly.validate({ year, month });
-  if (error) ({ year, month } = new EDate());
-  return (await Log.getMonthLog(userId, year, month)).map(({ water, dateCreated }) => [
-    water as number,
-    dateCreated,
-  ]);
-}
+export default new LogService(UserModel, LogModel);

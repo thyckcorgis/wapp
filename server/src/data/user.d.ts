@@ -28,9 +28,20 @@ export interface User<T = string> {
 export interface UserRepo<T = string> {
   doesNotExist(user: object): Promise<boolean>;
   getUser(userId: T): Promise<User<T>>;
+  newUser(
+    username: string,
+    email: string,
+    password: string,
+    name: string,
+    daily: number
+  ): Promise<User<T>>;
   findByUsername(username: string): Promise<User<T>>;
 
   updateCurrentIntake(userId: T, currentIntake: number): Promise<void>;
+  updateDailyIntake(userId: T, daily: number): Promise<void>;
+  updateReminders(userId: T, wakeTime: number, sleepTime: number): Promise<void>;
+
+  addPushToken(userId: T, pushToken: string): Promise<void>;
   removePushToken(userId: T, pushToken: string): Promise<void>;
   disableNotifications(userId: T): Promise<void>;
 }

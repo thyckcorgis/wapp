@@ -1,69 +1,81 @@
-import User, { IUserDocument } from "../models/user";
-import Log from "../models/log";
+import UserModel from "../data/models/user";
+import LogModel from "../data/models/log";
 
+import { LogRepo, User, UserRepo } from "../data";
 import { addFriend, validate } from "../util/validations";
 import { UserType } from "../util/types";
 import { sendNotifications } from "../util/notifications";
 
-const userInfo = ({ username, name }: IUserDocument) => ({ username, name });
-const completion = (b: IUserDocument, a: IUserDocument) =>
-  a.currentIntake / a.daily - b.currentIntake / b.daily;
-const percentage = (user: IUserDocument) => ({
+const userInfo = ({ username, name }: User) => ({ username, name });
+const completion = (b: User, a: User) => a.currentIntake / a.daily - b.currentIntake / b.daily;
+const percentage = (user: User) => ({
   username: user.username,
   name: user.name,
   currentIntake: user.currentIntake,
   daily: user.daily,
 });
 
-async function getFriend(friend: string) {
-  await validate(addFriend, { friend });
-  try {
-    return User.findByUsername(friend);
-  } catch {
-    throw new Error("Friend not found");
+export class FriendsService {
+  userRepo: UserRepo;
+  logRepo: LogRepo;
+  constructor(userRepo: UserRepo, logRepo: LogRepo) {
+    this.userRepo = userRepo;
+    this.logRepo = logRepo;
+  }
+  async getFriend(friend: string) {
+    await validate(addFriend, { friend });
+    try {
+      return this.userRepo.findByUsername(friend);
+    } catch {
+      throw new Error("Friend not found");
+    }
+  }
+
+  async makeConnection(user: User, friend: User, send = true) {
+    await user.addFriendById(friend.getId());
+    if (friend.notify && friend.pushTokens.length)
+      this.friendRequestNotification(user.username, friend.pushTokens, send);
+    await this.logRepo.newFriendLog(user.getId(), friend.getId());
+  }
+
+  async friendRequestNotification(username: string, token: string | string[], send = true) {
+    const message = send
+      ? `${username} wants to add you as a friend`
+      : `${username} has accepted your friend request`;
+
+    await sendNotifications(message, token);
+  }
+
+  async getUsers(userId: string, type: UserType) {
+    const user = await this.userRepo.getUser(userId);
+    return (await user.getUsers(type)).map(userInfo);
+  }
+
+  async getLitreboards(userId: string) {
+    const user = await this.userRepo.getUser(userId);
+    const allFriends = await user.getFriends();
+    allFriends.push(user);
+    return allFriends.sort(completion).map(percentage);
+  }
+
+  async acceptRequest(userId: string, friendName: string) {
+    const friend = await this.getFriend(friendName);
+    const user = (await friend.getFriends()).find((user) => user.getId() === userId);
+    if (!user) throw new Error("You are not in this user's friend list");
+    this.makeConnection(user, friend, false);
+  }
+  // Delete a friend
+  // Cancel friend request
+
+  async sendRequest(userId: string, friendName: string) {
+    const friend = await this.getFriend(friendName);
+    const user = await this.userRepo.getUser(userId);
+    const existingFriend = (await user.getFriends()).find(
+      (user) => user.getId() === friend.getId()
+    );
+    if (existingFriend) throw new Error("Request already sent");
+    this.makeConnection(user, friend);
   }
 }
 
-async function makeConnection(user: IUserDocument, friend: IUserDocument, send = true) {
-  await user.update({ $push: { friendIds: friend._id } }).exec();
-  if (friend.notify && friend.pushTokens.length)
-    friendRequestNotification(user.username, friend.pushTokens, send);
-  await new Log({ userId: user._id, friendId: friend._id, logType: "friend" }).save();
-}
-
-async function friendRequestNotification(username: string, token: string | string[], send = true) {
-  const message = send
-    ? `${username} wants to add you as a friend`
-    : `${username} has accepted your friend request`;
-
-  await sendNotifications(message, token);
-}
-
-export async function GetUsers(userId: string, type: UserType) {
-  const user = await User.getUser(userId);
-  return (await user.getUsers(type)).map(userInfo);
-}
-
-export async function GetLitreboards(userId: string) {
-  const user = await User.getUser(userId);
-  const allFriends = await user.getFriends();
-  allFriends.push(user);
-  return allFriends.sort(completion).map(percentage);
-}
-
-export async function AcceptRequest(userId: string, friendName: string) {
-  const friend = await getFriend(friendName);
-  const user = (await friend.getFriends()).find((user) => user._id === userId);
-  if (!user) throw new Error("You are not in this user's friend list");
-  makeConnection(user, friend, false);
-}
-// Delete a friend
-// Cancel friend request
-
-export async function SendRequest(userId: string, friendName: string) {
-  const friend = await getFriend(friendName);
-  const user = await User.getUser(userId);
-  const existingFriend = (await user.getFriends()).find((user) => user._id === friend._id);
-  if (existingFriend) throw new Error("Request already sent");
-  makeConnection(user, friend);
-}
+export default new FriendsService(UserModel, LogModel);

@@ -1,27 +1,27 @@
 import { Expo } from "expo-server-sdk";
+import { UserRepo } from "../data";
 
-import User from "../models/user";
+import UserModel from "../data/models/user";
 
-// Route Operations
-export async function DisableAll(userId: string) {
-  await User.findByIdAndUpdate(userId, { notify: false }).exec();
+export class NotificationService {
+  userRepo: UserRepo;
+  constructor(userRepo: UserRepo) {
+    this.userRepo = userRepo;
+  }
+  // Route Operations
+  async disableAll(userId: string) {
+    return this.userRepo.disableNotifications(userId);
+  }
+
+  async disable(userId: string, expoPushToken: string) {
+    if (!Expo.isExpoPushToken(expoPushToken)) throw new Error("Invalid push token");
+    await this.userRepo.removePushToken(userId, expoPushToken);
+  }
+
+  async enable(userId: string, expoPushToken: string) {
+    if (!Expo.isExpoPushToken(expoPushToken)) throw new Error("Invalid push token");
+    await this.userRepo.addPushToken(userId, expoPushToken);
+  }
 }
 
-export async function Disable(userId: string, expoPushToken: string) {
-  if (!Expo.isExpoPushToken(expoPushToken)) throw new Error("Invalid push token");
-  await User.findByIdAndUpdate(userId, {
-    $pull: {
-      pushTokens: expoPushToken,
-    },
-  }).exec();
-}
-
-export async function Enable(userId: string, expoPushToken: string) {
-  if (!Expo.isExpoPushToken(expoPushToken)) throw new Error("Invalid push token");
-  await User.findByIdAndUpdate(userId, {
-    notify: true,
-    $push: {
-      pushTokens: expoPushToken,
-    },
-  }).exec();
-}
+export default new NotificationService(UserModel);

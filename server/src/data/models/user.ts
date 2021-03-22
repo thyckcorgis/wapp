@@ -1,11 +1,11 @@
-import mongoose, { Document, Model, Schema } from "mongoose";
-import { compare, hash } from "bcrypt";
+import mongoose, { Schema, Document, Model } from "mongoose";
+import { hash } from "bcrypt";
+import { compare } from "bcrypt";
 import { UserType } from "../../util/types";
 import { User, UserRepo } from "../user";
 
-export interface IUserDocument extends Document, User {}
-
-export interface IUserModel extends Model<IUserDocument>, UserRepo<string> {}
+interface IUserDocument extends Document, User {}
+interface IUserModel extends Model<IUserDocument>, UserRepo<string> {}
 
 const UserSchema = new Schema<IUserDocument, IUserModel>(
   {
@@ -61,6 +61,20 @@ UserSchema.pre<IUserDocument>("save", async function () {
   }
 });
 
+// UserModel Statics
+
+UserSchema.statics.newUser = async function (
+  username: string,
+  email: string,
+  name: string,
+  password: string,
+  daily: string
+) {
+  const newUser = new this({ username, email, password, name, daily });
+  await newUser.save();
+  return newUser;
+};
+
 UserSchema.statics.doesNotExist = async function (field): Promise<boolean> {
   return (await this.where(field).countDocuments()) === 0;
 };
@@ -69,6 +83,14 @@ UserSchema.statics.getUser = async function (userId: string) {
   const user = await this.findById(userId).exec();
   if (!user) throw new Error("User not found");
   return user;
+};
+UserSchema.statics.addPushToken = function (userId: string, pushToken: string) {
+  return this.findByIdAndUpdate(userId, {
+    notify: true,
+    $push: {
+      pushTokens: pushToken,
+    },
+  }).exec();
 };
 
 UserSchema.statics.removePushToken = function (userId: string, pushToken: string) {
@@ -89,9 +111,23 @@ UserSchema.statics.findByUsername = async function (username: string) {
   return user;
 };
 
-UserSchema.statics.updateCurrentIntake = async function (userId: string, currentIntake: number) {
-  await this.findByIdAndUpdate(userId, { currentIntake }).exec();
+UserSchema.statics.updateCurrentIntake = function (userId: string, currentIntake: number) {
+  return this.findByIdAndUpdate(userId, { currentIntake }).exec();
 };
+
+UserSchema.statics.updateDailyIntake = function (userId: string, daily: number) {
+  return this.findByIdAndUpdate(userId, { daily }).exec();
+};
+
+UserSchema.statics.updateReminders = function (
+  userId: string,
+  wakeTime: number,
+  sleepTime: number
+) {
+  return this.findByIdAndUpdate(userId, { reminders: { wakeTime, sleepTime } }).exec();
+};
+
+// UserModel Methods
 
 UserSchema.methods.id = function () {
   return this._id;

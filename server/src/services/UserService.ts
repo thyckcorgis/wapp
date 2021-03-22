@@ -1,36 +1,43 @@
-import User from "../models/user";
+import UserModel from "../data/models/user";
+import authService from "./AuthService";
 
-import { CreateToken } from "./AuthService";
-
-import { validate, setReminders, setIntake, register, login } from "../util/validations";
+import {
+  validate,
+  setReminders,
+  setIntake,
+  register as registerBody,
+  login as loginBody,
+} from "../util/validations";
 import { sessionizeUser } from "../util/helpers";
+import { UserRepo } from "../data";
 
-export async function DailyReminders(userId: string, wakeTime: number, sleepTime: number) {
-  await validate(setReminders, { wakeTime, sleepTime });
-  await User.findByIdAndUpdate(userId, { reminders: { wakeTime, sleepTime } }).exec();
+export class UserService {
+  userRepo: UserRepo;
+  constructor(userRepo: UserRepo) {
+    this.userRepo = userRepo;
+  }
+  async dailyReminders(userId: string, wakeTime: number, sleepTime: number) {
+    await validate(setReminders, { wakeTime, sleepTime });
+    await this.userRepo.updateReminders(userId, wakeTime, sleepTime);
+  }
+
+  async dailyIntake(userId: string, daily: number) {
+    await validate(setIntake, { daily });
+    await this.userRepo.updateDailyIntake(userId, daily);
+  }
+
+  async register(username: string, email: string, password: string, name: string, daily: number) {
+    await validate(registerBody, { username, email, password, name, daily });
+    const newUser = await this.userRepo.newUser(username, email, password, name, daily);
+    return authService.createToken(sessionizeUser(newUser));
+  }
+
+  async login(username: string, password: string) {
+    await validate(loginBody, { username, password });
+    const user = await this.userRepo.findByUsername(username);
+    if (!user.comparePasswords(password)) throw new Error("Invalid login credentials");
+    return authService.createToken(sessionizeUser(user));
+  }
 }
 
-export async function DailyIntake(userId: string, daily: number) {
-  await validate(setIntake, { daily });
-  await User.findByIdAndUpdate(userId, { daily }).exec();
-}
-
-export async function Register(
-  username: string,
-  email: string,
-  password: string,
-  name: string,
-  daily: number
-) {
-  await validate(register, { username, email, password, name, daily });
-  const newUser = new User({ username, email, password, name, daily });
-  await newUser.save();
-  return CreateToken(sessionizeUser(newUser));
-}
-
-export async function Login(username: string, password: string) {
-  await validate(login, { username, password });
-  const user = await User.findByUsername(username);
-  if (!user.comparePasswords(password)) throw new Error("Invalid login credentials");
-  return CreateToken(sessionizeUser(user));
-}
+export default new UserService(UserModel);

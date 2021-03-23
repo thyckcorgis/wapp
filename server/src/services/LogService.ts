@@ -1,5 +1,4 @@
-import UserModel from "../data/models/user";
-import LogModel from "../data/models/log";
+import { Service, Inject } from "typedi";
 
 import { ILog, EDate, LogType } from "../util/types";
 import { validate, syncLogs, logIntake, getMonthly } from "../util/validations";
@@ -22,14 +21,12 @@ const getTodaysIntake = (logs: ILog[]) => {
     .reduce(sum);
 };
 
+@Service()
 export class LogService {
-  logRepo: LogRepo;
-  userRepo: UserRepo;
-
-  constructor(userRepo: UserRepo, logRepo: LogRepo) {
-    this.userRepo = userRepo;
-    this.logRepo = logRepo;
-  }
+  constructor(
+    @Inject("userRepo") private userRepo: UserRepo,
+    @Inject("logRepo") private logRepo: LogRepo
+  ) {}
 
   async syncIntakeLogs(userId: string, logs: ILog[]) {
     await validate(syncLogs, logs);
@@ -70,5 +67,3 @@ export class LogService {
     ]);
   }
 }
-
-export default new LogService(UserModel, LogModel);

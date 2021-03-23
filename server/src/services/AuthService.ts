@@ -1,7 +1,6 @@
 import jwt from "jsonwebtoken";
 
 import { UserData } from "../util/types";
-import { JWT_KEY, EXPIRES_IN } from "../config";
 
 export class AuthService {
   private jwtKey: string;
@@ -15,5 +14,3 @@ export class AuthService {
     return jwt.sign(user, this.jwtKey, { expiresIn: this.expiresIn });
   }
 }
-
-export default new AuthService(JWT_KEY, EXPIRES_IN);

@@ -1,6 +1,4 @@
-import UserModel from "../data/models/user";
-import authService from "./AuthService";
-
+import { Service, Inject } from "typedi";
 import {
   validate,
   setReminders,
@@ -10,12 +8,14 @@ import {
 } from "../util/validations";
 import { sessionizeUser } from "../util/helpers";
 import { UserRepo } from "../data";
+import { AuthService } from "./AuthService";
 
+@Service()
 export class UserService {
-  userRepo: UserRepo;
-  constructor(userRepo: UserRepo) {
-    this.userRepo = userRepo;
-  }
+  constructor(
+    @Inject("userRepo") private userRepo: UserRepo,
+    @Inject("authService") private authService: AuthService
+  ) {}
   async dailyReminders(userId: string, wakeTime: number, sleepTime: number) {
     await validate(setReminders, { wakeTime, sleepTime });
     await this.userRepo.updateReminders(userId, wakeTime, sleepTime);
@@ -29,15 +29,13 @@ export class UserService {
   async register(username: string, email: string, password: string, name: string, daily: number) {
     await validate(registerBody, { username, email, password, name, daily });
     const newUser = await this.userRepo.newUser(username, email, password, name, daily);
-    return authService.createToken(sessionizeUser(newUser));
+    return this.authService.createToken(sessionizeUser(newUser));
   }
 
   async login(username: string, password: string) {
     await validate(loginBody, { username, password });
     const user = await this.userRepo.findByUsername(username);
     if (!user.comparePasswords(password)) throw new Error("Invalid login credentials");
-    return authService.createToken(sessionizeUser(user));
+    return this.authService.createToken(sessionizeUser(user));
   }
 }
-
-export default new UserService(UserModel);

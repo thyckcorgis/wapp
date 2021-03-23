@@ -1,13 +1,12 @@
 import { Expo } from "expo-server-sdk";
+import { Service, Inject } from "typedi";
 import { UserRepo } from "../data";
 
 import UserModel from "../data/models/user";
 
+@Service()
 export class NotificationService {
-  userRepo: UserRepo;
-  constructor(userRepo: UserRepo) {
-    this.userRepo = userRepo;
-  }
+  constructor(@Inject("userRepo") private userRepo: UserRepo) {}
   // Route Operations
   async disableAll(userId: string) {
     return this.userRepo.disableNotifications(userId);

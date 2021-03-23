@@ -1,5 +1,4 @@
-import UserModel from "../data/models/user";
-import LogModel from "../data/models/log";
+import { Service, Inject } from "typedi";
 
 import { LogRepo, User, UserRepo } from "../data";
 import { addFriend, validate } from "../util/validations";
@@ -15,13 +14,12 @@ const percentage = (user: User) => ({
   daily: user.daily,
 });
 
+@Service()
 export class FriendsService {
-  userRepo: UserRepo;
-  logRepo: LogRepo;
-  constructor(userRepo: UserRepo, logRepo: LogRepo) {
-    this.userRepo = userRepo;
-    this.logRepo = logRepo;
-  }
+  constructor(
+    @Inject("userRepo") private userRepo: UserRepo,
+    @Inject("logRepo") private logRepo: LogRepo
+  ) {}
   async getFriend(friend: string) {
     await validate(addFriend, { friend });
     try {
@@ -77,5 +75,3 @@ export class FriendsService {
     this.makeConnection(user, friend);
   }
 }
-
-export default new FriendsService(UserModel, LogModel);

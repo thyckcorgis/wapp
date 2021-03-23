@@ -7,7 +7,7 @@ export interface User<T = string> {
   name: string;
   daily: number;
   currentIntake: number;
-  friendIds: string[];
+  friendIds: T[];
   notify: boolean;
   pushTokens: string[];
   reminders?: {
@@ -26,7 +26,7 @@ export interface User<T = string> {
 }
 
 export interface UserRepo<T = string> {
-  doesNotExist(user: object): Promise<boolean>;
+  doesNotExist(item: string, field: "username" | "email"): Promise<boolean>;
   getUser(userId: T): Promise<User<T>>;
   newUser(
     username: string,

@@ -1,9 +1,6 @@
 import { connect } from "mongoose";
 import { MONGO_URI } from "../config";
 
-import UserModel from "./models/user";
-import LogModel from "./models/log";
-
 import { UserJSON } from "./json/user";
 import { LogJSON } from "./json/log";
 
@@ -18,6 +15,8 @@ export default async function loadDataLayer(
   const useModel = type === "model";
   if (useModel) {
     await connect(MONGO_URI);
+    const UserModel = require("./models/user").default;
+    const LogModel = require("./models/log").default;
     return { userRepo: UserModel, logRepo: LogModel };
   }
 

@@ -4,7 +4,7 @@ import { Router } from "express";
 import { UserData } from "../util/types";
 import { parseError } from "../util/helpers";
 import { AuthReq, checkAuth } from "../middlewares";
-import FriendsService from "src/services/FriendsService";
+import FriendsService from "../services/FriendsService";
 
 const friendRouter = Router();
 const friendsService = Container.get(FriendsService);

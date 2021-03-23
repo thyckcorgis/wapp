@@ -1,6 +1,6 @@
 import { UserType } from "../util/types";
 
-export interface User<T = string> {
+export interface UserAttrs<T = string> {
   username: string;
   email: string;
   password: string;
@@ -14,7 +14,9 @@ export interface User<T = string> {
     wakeTime: number;
     sleepTime: number;
   };
+}
 
+export interface User<T = string> extends UserAttrs {
   getId(): T;
   addWater(intake: number): Promise<boolean>;
   addFriendById(friendId: string): Promise<void>;

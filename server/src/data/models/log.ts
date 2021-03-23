@@ -47,11 +47,9 @@ LogSchema.statics.getMonthLog = function (userId: string, year: number, month: n
 };
 
 LogSchema.statics.newFriendLog = async function (userId: string, friendId: string) {
-  await new this({
-    userId,
-    friendId,
-    logType: "friend",
-  }).save();
+  const newLog = new this({ userId, friendId, logType: "friend" });
+  await newLog.save();
+  return newLog;
 };
 
 LogSchema.statics.insertLogs = async function (logs: Log[]) {

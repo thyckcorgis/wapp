@@ -1,11 +1,13 @@
+import { Container } from "typedi";
 import { Router } from "express";
 
-import notificationService from "../services/NotificationService";
+import NotificationService from "../services/NotificationService";
 
 import { parseError } from "../util/helpers";
 import { checkAuth, AuthReq } from "../middlewares";
 
 const notificationRouter = Router();
+const notificationService = Container.get(NotificationService);
 
 notificationRouter.patch("", checkAuth, async ({ body, userData }: AuthReq, res) => {
   try {

@@ -1,11 +1,13 @@
+import { Container } from "typedi";
 import { Router } from "express";
 
-import userService from "../services/UserService";
+import UserService from "../services/UserService";
 
 import { AuthReq, checkAuth } from "../middlewares";
 import { parseError } from "../util/helpers";
 
 const userRouter = Router();
+const userService = Container.get(UserService);
 
 userRouter.patch("/reminder", checkAuth, async ({ body, userData }: AuthReq, res) => {
   try {

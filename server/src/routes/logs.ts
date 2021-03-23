@@ -1,12 +1,14 @@
+import { Container } from "typedi";
 import { Router } from "express";
 
-import logService from "../services/LogService";
+import LogService from "../services/LogService";
 
 import { UserData } from "../util/types";
 import { parseError } from "../util/helpers";
 import { checkAuth, AuthReq } from "../middlewares";
 
 const logRouter = Router();
+const logService = Container.get(LogService);
 
 logRouter.post("/sync", checkAuth, async ({ body, userData }: AuthReq, res) => {
   try {

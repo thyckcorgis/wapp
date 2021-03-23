@@ -1,11 +1,13 @@
+import { Container } from "typedi";
 import { Router } from "express";
-import friendsService from "../services/FriendsService";
 
 import { UserData } from "../util/types";
 import { parseError } from "../util/helpers";
 import { AuthReq, checkAuth } from "../middlewares";
+import FriendsService from "src/services/FriendsService";
 
 const friendRouter = Router();
+const friendsService = Container.get(FriendsService);
 
 friendRouter.post("/request", checkAuth, async ({ body: { friend }, userData }: AuthReq, res) => {
   try {

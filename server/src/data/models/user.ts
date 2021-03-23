@@ -12,14 +12,14 @@ const UserSchema = new Schema<IUserDocument, IUserModel>(
     username: {
       type: String,
       validate: {
-        validator: (username: string) => UserModel.doesNotExist({ username }),
+        validator: (username: string) => UserModel.doesNotExist(username, "username"),
         message: "Username already exists",
       },
     },
     email: {
       type: String,
       validate: {
-        validator: (email: string) => UserModel.doesNotExist({ email }),
+        validator: (email: string) => UserModel.doesNotExist(email, "email"),
         message: "Email already exists",
       },
     },
@@ -75,8 +75,11 @@ UserSchema.statics.newUser = async function (
   return newUser;
 };
 
-UserSchema.statics.doesNotExist = async function (field): Promise<boolean> {
-  return (await this.where(field).countDocuments()) === 0;
+UserSchema.statics.doesNotExist = async function (
+  item: string,
+  field: "username" | "email"
+): Promise<boolean> {
+  return (await this.where({ [field]: item }).countDocuments()) === 0;
 };
 
 UserSchema.statics.getUser = async function (userId: string) {
@@ -163,11 +166,11 @@ UserSchema.methods.comparePasswords = function (password: string) {
 
 UserSchema.methods.getUsers = function (type: UserType) {
   const choices = {
-    friends: this.getFriends(),
-    nonFriends: this.getNonFriends(),
-    pending: this.getPendingRequests(),
+    friends: this.getFriends,
+    nonFriends: this.getNonFriends,
+    pending: this.getPendingRequests,
   };
-  return choices[type];
+  return choices[type]();
 };
 
 UserSchema.methods.addFriendById = function (friendId: string) {

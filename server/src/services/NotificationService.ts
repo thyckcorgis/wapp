@@ -2,10 +2,8 @@ import { Expo } from "expo-server-sdk";
 import { Service, Inject } from "typedi";
 import { UserRepo } from "../data";
 
-import UserModel from "../data/models/user";
-
 @Service()
-export class NotificationService {
+export default class NotificationService {
   constructor(@Inject("userRepo") private userRepo: UserRepo) {}
   // Route Operations
   async disableAll(userId: string) {
@@ -22,5 +20,3 @@ export class NotificationService {
     await this.userRepo.addPushToken(userId, expoPushToken);
   }
 }
-
-export default new NotificationService(UserModel);

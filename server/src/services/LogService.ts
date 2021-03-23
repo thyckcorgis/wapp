@@ -22,7 +22,7 @@ const getTodaysIntake = (logs: ILog[]) => {
 };
 
 @Service()
-export class LogService {
+export default class LogService {
   constructor(
     @Inject("userRepo") private userRepo: UserRepo,
     @Inject("logRepo") private logRepo: LogRepo

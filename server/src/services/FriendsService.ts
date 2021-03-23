@@ -15,7 +15,7 @@ const percentage = (user: User) => ({
 });
 
 @Service()
-export class FriendsService {
+export default class FriendsService {
   constructor(
     @Inject("userRepo") private userRepo: UserRepo,
     @Inject("logRepo") private logRepo: LogRepo

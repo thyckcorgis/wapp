@@ -8,13 +8,13 @@ import {
 } from "../util/validations";
 import { sessionizeUser } from "../util/helpers";
 import { UserRepo } from "../data";
-import { AuthService } from "./AuthService";
+import { AuthHelper } from "../util/auth";
 
 @Service()
-export class UserService {
+export default class UserService {
   constructor(
     @Inject("userRepo") private userRepo: UserRepo,
-    @Inject("authService") private authService: AuthService
+    @Inject("auth") private authService: AuthHelper
   ) {}
   async dailyReminders(userId: string, wakeTime: number, sleepTime: number) {
     await validate(setReminders, { wakeTime, sleepTime });

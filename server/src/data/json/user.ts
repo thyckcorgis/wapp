@@ -1,18 +1,24 @@
-import { User, UserRepo } from "../";
 import { v4 as uuidv4 } from "uuid";
 import { compare, hashSync } from "bcrypt";
-import { UserType } from "src/util/types";
 
-export class UserObj implements User {
+import { User, UserAttrs, UserRepo } from "../";
+import { UserType } from "../../util/types";
+import FlatFile, { FileObject, loadFromFile, saveToFile } from "./FlatFile";
+
+interface IUserObject extends UserAttrs {
+  id: string;
+}
+
+export class UserObject implements User, IUserObject {
   username: string;
   email: string;
   password: string;
   name: string;
   daily: number;
-  currentIntake: number = 0;
-  friendIds: string[] = [];
-  notify: boolean = false;
-  pushTokens: string[] = [];
+  currentIntake: number;
+  friendIds: string[];
+  notify: boolean;
+  pushTokens: string[];
 
   reminders?: {
     wakeTime: number;
@@ -23,20 +29,18 @@ export class UserObj implements User {
 
   repo: UserJSON;
 
-  constructor(
-    username: string,
-    email: string,
-    password: string,
-    name: string,
-    daily: number,
-    repo: UserJSON
-  ) {
-    this.id = uuidv4();
-    this.username = username;
-    this.email = email;
-    this.name = name;
-    this.password = hashSync(password, 10);
-    this.daily = daily;
+  constructor(user: IUserObject, repo: UserJSON) {
+    // is there a better way to do this huhu
+    this.id = user.id;
+    this.username = user.username;
+    this.email = user.email;
+    this.name = user.name;
+    this.password = user.password;
+    this.daily = user.daily;
+    this.currentIntake = user.currentIntake;
+    this.reminders = (user.reminders && { ...user.reminders }) || undefined;
+    this.pushTokens = [...user.pushTokens];
+    this.friendIds = [...user.friendIds];
     this.repo = repo;
   }
 
@@ -63,7 +67,7 @@ export class UserObj implements User {
     const undefineds = Object.fromEntries(this.friendIds.map((id) => [id, undefined]));
     const users = { ...this.repo.users, ...undefineds, [this.id]: undefined };
     // filter out those that have undefined values
-    return Object.values(users).filter((user) => !!user) as UserObj[];
+    return Object.values(users).filter((user) => !!user) as UserObject[];
   }
 
   async getNonFriends() {
@@ -90,11 +94,24 @@ export class UserObj implements User {
   }
 }
 
-export class UserJSON implements UserRepo {
+export class UserJSON implements UserRepo, FlatFile {
   filePath: string;
-  users: { [k: string]: UserObj };
+  users: FileObject<UserObject>;
+
   constructor(filePath: string) {
-    filePath;
+    this.filePath = filePath;
+  }
+
+  async load() {
+    const users = await loadFromFile<IUserObject>(this.filePath);
+    Object.values(users).forEach((user) => {
+      const newUser = new UserObject(user, this);
+      this.users[newUser.getId()] = newUser;
+    });
+  }
+
+  async save() {
+    await saveToFile<IUserObject>(this.filePath, this.users);
   }
 
   async doesNotExist(item: string, field: "username" | "email") {
@@ -108,7 +125,19 @@ export class UserJSON implements UserRepo {
   }
 
   async newUser(username: string, email: string, password: string, name: string, daily: number) {
-    const user = new UserObj(username, email, password, name, daily, this);
+    const userAttrs: IUserObject = {
+      id: uuidv4(),
+      username,
+      email,
+      password: hashSync(password, 10),
+      name,
+      daily,
+      currentIntake: 0,
+      friendIds: [],
+      pushTokens: [],
+      notify: false,
+    };
+    const user = new UserObject(userAttrs, this);
     this.users[user.getId()] = user;
     return user;
   }

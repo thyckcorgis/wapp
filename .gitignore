@@ -70,7 +70,8 @@ web-build/
 dist
 .env
 
-users.json
+users.json*
+logs.json*
 
 # config
 config.ts

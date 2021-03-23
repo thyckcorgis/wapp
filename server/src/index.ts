@@ -1,17 +1,18 @@
-import Express from "express";
-import mongoose from "mongoose";
+import "reflect-metadata";
+
+import express from "express";
 import { logUrlAndMethod } from "./middlewares";
 
 import router from "./routes";
-import { MONGO_URI } from "./config";
+import { loadDependencies } from "./loaders";
 
-const app = Express();
+const app = express();
 const port = 5003;
 
-export const startServer = async (dbUri = MONGO_URI) => {
-  await mongoose.connect(dbUri);
+export const startServer = async () => {
+  await loadDependencies();
   app.disable("x-powered-by");
-  app.use(Express.json());
+  app.use(express.json());
   app.use(logUrlAndMethod);
   app.use("/wapee", router);
   app.listen(port, () => console.log(`Listening on port ${port}`));

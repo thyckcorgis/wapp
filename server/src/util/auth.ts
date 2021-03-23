@@ -1,8 +1,8 @@
 import jwt from "jsonwebtoken";
 
-import { UserData } from "../util/types";
+import { UserData } from "./types";
 
-export class AuthService {
+export class AuthHelper {
   private jwtKey: string;
   private expiresIn: string;
 

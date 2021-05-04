@@ -1,8 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, Platform } from "react-native";
 import { Calendar, DateObject } from "react-native-calendars";
+import { DayOfWeek } from "react-native-windows";
 
 import { Colours, Styles } from "../styles";
+
+class EDate extends Date {
+  isGreaterThan(date: Date) {
+    return this.getTime() >= date.getTime();
+  }
+
+  // end  >  current date > start
+  inRangeOf(start: Date, end: Date) {
+    return new EDate(end).isGreaterThan(this) && this.isGreaterThan(start);
+  }
+}
 
 const yellow = ["#FFFFB7", "#FFF192", "#FFEA61", "#FFDD3C", "#FFD400"];
 const months = [
@@ -20,7 +32,25 @@ const months = [
   "December",
 ];
 
+/**
+ * Converts a Date object to Year-Month-Day string.
+ * Ex. Mon May 03 2021 22:18:20 GMT-0600 => 2021-05-03
+ * @param date
+ * @returns
+ */
 const dateToYMD = (date: Date) => date.toISOString().slice(0, 10);
+
+/**
+ * Converts a DateObject object to Month Day, Year string.
+ * @param day
+ * @returns
+ */
+const momentToMDY = (day: DateObject) => months[day.month - 1] + " " + day.day + ", " + day.year;
+
+const dateToMDY = (date: Date) =>
+  months[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear();
+
+const momentToDate = (day: DateObject) => new Date(day.year, day.month - 1, day.day);
 
 const increaseDate = (date: Date) => new Date(new Date(date).setDate(date.getDate() + 1));
 
@@ -37,38 +67,64 @@ interface MarkedDate {
     startingDay?: boolean;
     endingDay?: boolean;
     selected?: boolean;
-    color: string;
-    textColor: string;
+    selectedColor?: string;
+    color?: string;
+    textColor?: string;
   };
 }
 
-const createMarkedDates = (start: Date, end: Date) => {
+const createMarkedDates = (start: Date, end: Date, selected: Date) => {
   const startStr = dateToYMD(start);
   const endStr = dateToYMD(end);
   const selectedStr = createDateRange(start, end).map((d) => dateToYMD(d));
   const markedDates: MarkedDate = {
-    [startStr]: { startingDay: true, color: yellow[0], textColor: Colours.darkBlue },
+    [startStr]: {
+      startingDay: true,
+      endingDay: false,
+      color: yellow[0],
+      textColor: Colours.darkBlue,
+    },
   };
   selectedStr.forEach((dateStr) => {
     markedDates[dateStr] = { selected: true, color: yellow[0], textColor: Colours.darkBlue };
   });
-  markedDates[endStr] = { endingDay: true, color: yellow[0], textColor: Colours.darkBlue };
+  markedDates[endStr] = {
+    endingDay: true,
+    startingDay: false,
+    color: yellow[0],
+    textColor: Colours.darkBlue,
+  };
+
+  const isInRange = new EDate(selected).inRangeOf(start, end);
+  markedDates[dateToYMD(selected)] = {
+    startingDay: !isInRange,
+    endingDay: !isInRange,
+    ...markedDates[dateToYMD(selected)],
+    selected: true,
+    textColor: Colours.yellow,
+    color: "#ff7171",
+  };
 
   return markedDates;
 };
 
 interface CalendArProps {
-  day: string;
+  setSelectedDay: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function CalendAr({ day }: CalendArProps) {
-  const [selectedDay, setSelectedDay] = useState("");
+export default function CalendAr({ setSelectedDay }: CalendArProps) {
+  useEffect(() => {
+    const today = dateToMDY(new Date());
+    setSelectedDay(today);
+  }, []);
 
   function dayPressHandler(day: DateObject) {
-    setSelectedDay(months[day.month - 1] + " " + day.day + ", " + day.year);
-    console.log(selectedDay);
-    return selectedDay;
+    const thisDay = momentToMDY(day);
+    setSelectedDay(thisDay);
+    setSelectedDate(momentToDate(day));
   }
+
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
   return (
     <View style={styles.calendarBox}>
@@ -90,7 +146,12 @@ export default function CalendAr({ day }: CalendArProps) {
         enableSwipeMonths={true}
         // STREAKS
         markingType={"period"}
-        markedDates={createMarkedDates(new Date("2021-03-08"), new Date("2021-03-29"))}
+        // Change these values for streaks:
+        markedDates={createMarkedDates(
+          new Date("2021-04-28"),
+          new Date("2021-05-01"),
+          selectedDate
+        )}
         // STYLING
         style={{
           width: Platform.isPad == true ? "80%" : "100%",

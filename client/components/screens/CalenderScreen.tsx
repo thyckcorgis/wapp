@@ -17,15 +17,11 @@ export default function CalendarScreen({ navigation }: ScreenProps) {
     <SafeGradient>
       <ScrollView>
         <View style={styles.calendarBox}>
-          <CalendAr />
+          <CalendAr setSelectedDay={setSelectedDay} />
         </View>
         <View style={styles.infoBox}>
           <View style={styles.infoHeaderBox}>
-            <Text style={{ ...Styles.body, ...styles.infoHeaderText }}>
-              selectedDay
-              {selectedDay}
-              {/* Like rn, the calendar component returns a string :/ */}
-            </Text>
+            <Text style={{ ...Styles.body, ...styles.infoHeaderText }}>{selectedDay}</Text>
           </View>
           <View style={styles.infoTextBox}>
             <Text style={{ ...Styles.body, ...styles.infoText }}>
@@ -38,7 +34,7 @@ export default function CalendarScreen({ navigation }: ScreenProps) {
             </Text>
           </View>
         </View>
-        <LogChart />
+        {/* <LogChart /> */}
       </ScrollView>
       <BottomNavbar navigation={navigation} />
     </SafeGradient>

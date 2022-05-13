@@ -1,7 +1,6 @@
-// export const API_URL = "https://thyck.top/wapee";
+import Constants from "expo-constants";
 
-// if you're working locally
-export const API_URL = "http://10.0.0.58:5003/wapee";
+export const API_URL = Constants.manifest.extra.apiUrl;
 
 export const defaultCups = [
   {

@@ -1,3 +1,5 @@
+import { API_URL } from "../constants";
+
 async function makeCall<Res>(cb: () => Promise<Response>) {
   const response = await cb();
   const data: Res = await response.json();
@@ -8,7 +10,7 @@ const auth = (token: string) => (token !== "" ? `Bearer ${token}` : "");
 
 export function makeCallNoBody<Res = any>(url: string, token = "", method = "GET") {
   return makeCall<Res>(() =>
-    fetch(url, {
+    fetch(API_URL + url, {
       method,
       headers: {
         Authorization: auth(token),
@@ -24,7 +26,7 @@ export function makeCallWithBody<Res = any, Req = any>(
   token = ""
 ) {
   return makeCall<Res>(() =>
-    fetch(url, {
+    fetch(API_URL + url, {
       method,
       headers: {
         "Content-Type": "application/json",

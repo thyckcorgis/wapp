@@ -58,22 +58,34 @@ export default function RegisterScreen({ navigation }: ScreenProps) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
+  const [email, setEmail] = useState("");
   const [weight, setWeight] = useState("");
   const [activityLevel, setActivityLevel] = useState("");
   const [error, setError] = useState("");
 
   async function register() {
-    if (name === "" || username === "" || password === "" || password2 === "" || weight === "")
+    if (
+      name === "" ||
+      username === "" ||
+      password === "" ||
+      password2 === "" ||
+      weight === "" ||
+      email === ""
+    )
       return;
     const daily = calculateDailyIntake(Number(weight), Number(activityLevel));
-    const data = await registerUser(username, password, name, Number(daily));
-    if (!data.ok) {
-      setError(data.message);
-      console.log(data.messsage);
-    } else {
-      storeData("user", data.user);
-      storeData("cups", defaultCups);
+    try {
+      console.log(daily);
+      const { data, token } = await registerUser(username, password, name, Number(daily), email);
+      console.log(data, 1);
+      await storeData("user", data.user);
+      console.log(data, 2);
+      await storeData("cups", defaultCups);
+      console.log(data, 3);
       navigation.navigate("Intake", { username, daily });
+      console.log(data, 4);
+    } catch (err) {
+      setError((err as Error).message);
     }
   }
 
@@ -84,6 +96,7 @@ export default function RegisterScreen({ navigation }: ScreenProps) {
       <ScrollView keyboardDismissMode="on-drag" style={styles.scroll}>
         {input("Name", name, setName, false)}
         {input("Username", username, setUsername, false)}
+        {input("Email", email, setEmail, false)}
         {input("Password", password, setPassword, false, true)}
         {input("Confirm Password", password2, setPassword2, false, true)}
         {input("Weight", weight, setWeight, true)}

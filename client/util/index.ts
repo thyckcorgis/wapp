@@ -6,8 +6,13 @@ import { getData, makeCallNoBody, makeCallWithBody } from "./apiUtil";
 export const loginUser = (username: string, password: string) =>
   getData(() => makeCallWithBody("user/login", { username, password }));
 
-export const registerUser = (username: string, password: string, name: string, daily: number) =>
-  getData(() => makeCallWithBody("user", { username, password, name, daily }));
+export const registerUser = (
+  username: string,
+  password: string,
+  name: string,
+  daily: number,
+  email: string
+) => getData(() => makeCallWithBody("user", { username, password, name, daily, email }));
 
 export const getUserData = (token: string) => getData(() => makeCallNoBody("user", token));
 

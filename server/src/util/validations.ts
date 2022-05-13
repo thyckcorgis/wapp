@@ -2,7 +2,7 @@ import Joi from "joi";
 
 const username = Joi.string().alphanum().min(6).max(30).required();
 const email = Joi.string().email().required();
-const daily = Joi.number().min(1000).max(25000).required();
+const daily = Joi.number().min(1).max(25).required();
 // TODO: Add regex
 const password = Joi.string().min(8).required();
 
@@ -27,7 +27,7 @@ export const setIntake = Joi.object().keys({ daily });
 export const register = Joi.object().keys({ username, email, daily, password, name });
 export const login = Joi.object().keys({ username, password });
 
-export async function validate<T>(schema: Joi.Schema<T>, data: T) {
+export function validate<T>(schema: Joi.Schema<T>, data: T) {
   const { error } = schema.validate(data);
   if (error) throw error;
 }

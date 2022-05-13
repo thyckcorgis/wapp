@@ -14,7 +14,7 @@ userRouter.patch("/reminder", checkAuth, async ({ body, userData }: AuthReq, res
     await userService.dailyReminders(userId, wakeTime, sleepTime);
     res.send("Updated wake and sleep time");
   } catch (err) {
-    res.status(400).send(parseError(err));
+    res.status(400).send(parseError(err.stack));
   }
 });
 
@@ -25,7 +25,7 @@ userRouter.patch("/daily", checkAuth, async ({ body, userData }: AuthReq, res) =
     await userService.dailyIntake(userId, daily);
     res.send("Updated daily goal");
   } catch (err) {
-    res.status(400).send(parseError(err));
+    res.status(400).send(parseError(err.stack));
   }
 });
 
@@ -34,7 +34,7 @@ userRouter.post("/login", async ({ body: { username, password } }, res) => {
     const token = await userService.login(username, password);
     res.send(token);
   } catch (err) {
-    res.status(400).send(parseError(err));
+    res.status(400).send(parseError(err.stack));
   }
 });
 
@@ -44,7 +44,7 @@ userRouter.post("/", async ({ body }, res) => {
     const { username, email, password, name, daily } = body;
     res.send(await userService.register(username, email, password, name, daily));
   } catch (err) {
-    res.status(400).send(parseError(err));
+    res.status(400).send(parseError(err.stack));
   }
 });
 

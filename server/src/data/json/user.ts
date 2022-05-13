@@ -95,7 +95,7 @@ export class UserObject implements User, IUserObject {
 
 export class UserJSON implements UserRepo, FlatFile {
   filePath: string;
-  users: FileObject<UserObject>;
+  users: FileObject<UserObject> = {};
 
   constructor(filePath: string) {
     this.filePath = filePath;

@@ -72,6 +72,3 @@ dist
 
 users.json*
 logs.json*
-
-# config
-config.ts

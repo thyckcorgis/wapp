@@ -6,7 +6,7 @@ import { Colours, Styles } from "../../styles";
 import { CorgiLogo } from "../../assets";
 
 import { storeData } from "../../storage";
-import { loginUser } from "../../api";
+import { loginUser } from "../../util";
 import { SolidButton } from "../buttons";
 import ScreenProps from "./ScreenProps";
 

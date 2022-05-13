@@ -3,6 +3,9 @@ import "reflect-metadata";
 import express from "express";
 
 import { loadDependencies } from "./loaders";
+import { config } from "dotenv";
+
+config();
 
 export const startServer = async () => {
   const app = express();

@@ -7,7 +7,7 @@ import { Colours, Styles } from "../../styles";
 import { DrinkButton } from "../../assets";
 
 import { getData, storeData } from "../../storage";
-import { poll } from "../../api";
+import { poll } from "../../util";
 
 import TopNavbar from "../TopNavbar";
 import BottomNavbar from "../BottomNavbar";

@@ -14,7 +14,7 @@ export default async function loadDataLayer(
 ): Promise<{ userRepo: UserRepo; logRepo: LogRepo }> {
   const useModel = type === "model";
   if (useModel) {
-    await connect(MONGO_URI);
+    await connect(MONGO_URI as string);
     const UserModel = require("./models/user").default;
     const LogModel = require("./models/log").default;
     return { userRepo: UserModel, logRepo: LogModel };

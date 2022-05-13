@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
-import { View, StyleSheet } from "react-native";
-import SafeGradient from "../../SafeGradient";
-import { Colours, Styles } from "../../../styles";
+import { StyleSheet, View } from "react-native";
 import { StartIcon } from "../../../assets";
-import { GrowingButton } from "../../buttons";
-
 import { getData } from "../../../storage";
+import { Colours, Styles } from "../../../styles";
+import { GrowingButton } from "../../buttons";
+import SafeGradient from "../../SafeGradient";
 import ScreenProps from "../ScreenProps";
 
 export default function StartScreen({ navigation }: ScreenProps) {

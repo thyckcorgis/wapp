@@ -1,7 +1,7 @@
-import React, { ReactChild } from "react";
-import { SafeAreaView, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { Styles, Colours } from "../styles";
+import React, { ReactChild } from "react";
+import { Keyboard, SafeAreaView, TouchableWithoutFeedback } from "react-native";
+import { Colours, Styles } from "../styles";
 
 interface SafeGradientProps {
   children: ReactChild | ReactChild[];

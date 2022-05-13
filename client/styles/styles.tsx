@@ -1,4 +1,4 @@
-import { FlexStyle, StyleSheet, Dimensions, Platform } from "react-native";
+import { FlexStyle, Platform, StyleSheet } from "react-native";
 import Colours from "./colours";
 
 // FONTS FOR IOS AND ANDROID

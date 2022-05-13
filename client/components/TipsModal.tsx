@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Platform, Text, View, Modal, StyleSheet, ImageBackground } from "react-native";
+import { ImageBackground, Modal, Platform, StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-
 import { TipsIcon, TransparentBackground } from "../assets/index";
 import { Colours, Styles } from "../styles";
 import { tips } from "./tips";

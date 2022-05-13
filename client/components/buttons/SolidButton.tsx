@@ -7,6 +7,7 @@ interface ClearButtonProps {
   label: string;
   onPress: () => void;
 }
+
 export default function ClearButton({ label, onPress }: ClearButtonProps) {
   return (
     <RoundButton

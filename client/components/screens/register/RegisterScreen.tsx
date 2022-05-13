@@ -1,20 +1,18 @@
+import { Picker } from "@react-native-picker/picker";
 import React, { useState } from "react";
 import {
-  Text,
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  TextInput,
-  ScrollView,
   Dimensions,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
-import { Picker } from "@react-native-picker/picker";
-
-import { Colours, Styles } from "../../../styles";
-
-import { registerUser } from "../../../util";
-import { storeData } from "../../../storage";
 import { defaultCups } from "../../../constants";
+import { storeData } from "../../../storage";
+import { Colours, Styles } from "../../../styles";
+import { registerUser } from "../../../util";
 import SafeGradient from "../../SafeGradient";
 import ScreenProps from "../ScreenProps";
 

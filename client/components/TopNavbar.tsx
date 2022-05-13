@@ -1,11 +1,9 @@
 import React from "react";
 import { TouchableOpacity } from "react-native";
-
-import { UserIcon, CalendarIcon, WappLogo } from "../assets";
-
+import { CalendarIcon, UserIcon, WappLogo } from "../assets";
 import { ScalingButton } from "./buttons/";
-import ScreenProps from "./screens/ScreenProps";
 import Navbar from "./Navbar";
+import ScreenProps from "./screens/ScreenProps";
 
 interface TopNavbarProps extends ScreenProps {}
 

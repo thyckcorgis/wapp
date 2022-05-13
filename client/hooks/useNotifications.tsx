@@ -1,11 +1,11 @@
-import { useState, useRef, useEffect } from "react";
+import { Subscription } from "@unimodules/core";
 import {
-  Notification,
   addNotificationReceivedListener,
   addNotificationResponseReceivedListener,
+  Notification,
   removeNotificationSubscription,
 } from "expo-notifications";
-import { Subscription } from "@unimodules/core";
+import { useEffect, useRef, useState } from "react";
 
 export default function useNotifications() {
   const [notification, setNotification] = useState<Notification>();

@@ -1,19 +1,16 @@
 import React, { useState } from "react";
 import {
-  Text,
-  View,
-  TouchableOpacity,
-  TextInput,
-  StyleSheet,
   KeyboardAvoidingView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
-
-import { Colours, Styles } from "../../../styles";
 import { XButton } from "../../../assets";
-import BottomNavbar from "../../BottomNavbar";
-import SafeGradient from "../../SafeGradient";
-
 import { getData, storeData } from "../../../storage";
+import { Colours, Styles } from "../../../styles";
+import SafeGradient from "../../SafeGradient";
 import ScreenProps from "../ScreenProps";
 
 export interface Cup {

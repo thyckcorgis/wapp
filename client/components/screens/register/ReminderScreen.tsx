@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { Text, StyleSheet, View, TouchableOpacity } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
-
-import { Colours, Styles } from "../../../styles";
-
-import { getData, storeData } from "../../../storage";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { registerForPushNotificationsAsync } from "../../../notifications";
+import { getData, storeData } from "../../../storage";
+import { Colours, Styles } from "../../../styles";
 import { uploadPushToken } from "../../../util";
 import SafeGradient from "../../SafeGradient";
 import ScreenProps from "../ScreenProps";

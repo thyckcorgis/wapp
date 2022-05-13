@@ -1,21 +1,20 @@
+import { Subscription } from "@unimodules/core";
 import {
-  Notification,
-  setNotificationHandler,
   addNotificationReceivedListener,
   addNotificationResponseReceivedListener,
-  removeNotificationSubscription,
-  scheduleNotificationAsync,
-  getPermissionsAsync,
-  requestPermissionsAsync,
-  getExpoPushTokenAsync,
-  setNotificationChannelAsync,
   AndroidImportance,
+  getExpoPushTokenAsync,
+  getPermissionsAsync,
+  Notification,
   NotificationContentInput,
+  removeNotificationSubscription,
+  requestPermissionsAsync,
+  scheduleNotificationAsync,
+  setNotificationChannelAsync,
+  setNotificationHandler,
 } from "expo-notifications";
-import React, { useState, useEffect, useRef } from "react";
-import { Text, View, Button, Platform } from "react-native";
-import { Subscription } from "@unimodules/core";
-
+import React, { useEffect, useRef, useState } from "react";
+import { Button, Platform, Text, View } from "react-native";
 import { uploadPushToken } from "./util";
 
 setNotificationHandler({

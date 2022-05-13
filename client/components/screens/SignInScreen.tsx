@@ -1,13 +1,10 @@
 import React, { useState } from "react";
-import { Text, StyleSheet, View, TouchableOpacity, TextInput } from "react-native";
-import SafeGradient from "../SafeGradient";
-
-import { Colours, Styles } from "../../styles";
-import { CorgiLogo } from "../../assets";
-
+import { StyleSheet, Text, TextInput, TouchableOpacity } from "react-native";
 import { storeData } from "../../storage";
+import { Colours, Styles } from "../../styles";
 import { loginUser } from "../../util";
 import { SolidButton } from "../buttons";
+import SafeGradient from "../SafeGradient";
 import ScreenProps from "./ScreenProps";
 
 export default function SignInScreen({ navigation }: ScreenProps) {

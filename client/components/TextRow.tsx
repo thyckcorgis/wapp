@@ -1,7 +1,6 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-
-import { Styles, Colours } from "../styles";
+import { StyleSheet, Text, View } from "react-native";
+import { Colours, Styles } from "../styles";
 
 interface TextRowProps {
   title: string;

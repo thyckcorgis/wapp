@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { Text, StyleSheet, View, Platform, ScrollView } from "react-native";
-import CalendAr from "../CalendAr";
-import LogChart from "../LogChart";
-
+import React, { useState } from "react";
+import { Platform, PlatformIOSStatic, ScrollView, StyleSheet, Text, View } from "react-native";
 import { Colours, Styles } from "../../styles";
-
 import BottomNavbar from "../BottomNavbar";
+import CalendAr from "../CalendAr";
 import SafeGradient from "../SafeGradient";
-
 import ScreenProps from "./ScreenProps";
 
 export default function CalendarScreen({ navigation }: ScreenProps) {
@@ -51,7 +47,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: "center",
     marginVertical: "5%",
-    width: Platform.isPad == true ? "60%" : "80%",
+    width: (Platform as PlatformIOSStatic).isPad ? "60%" : "80%",
     alignItems: "center",
     borderWidth: 1,
     borderRadius: 20,

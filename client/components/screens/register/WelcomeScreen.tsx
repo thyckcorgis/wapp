@@ -1,10 +1,9 @@
-import React from "react";
-import { View, StyleSheet, TouchableWithoutFeedback, SafeAreaView, Keyboard } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { Colours, Styles } from "../../../styles";
+import React from "react";
+import { Keyboard, SafeAreaView, StyleSheet, TouchableWithoutFeedback, View } from "react-native";
 import { WelcomeIcon } from "../../../assets";
+import { Colours, Styles } from "../../../styles";
 import { GrowingButton } from "../../buttons";
-
 import ScreenProps from "../ScreenProps";
 
 export default function WelcomeScreen({ navigation }: ScreenProps) {

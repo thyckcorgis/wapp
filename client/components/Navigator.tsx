@@ -1,7 +1,24 @@
-import React from "react";
-
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import React from "react";
+import {
+  AddCupModal,
+  AddFriends,
+  Calender,
+  Friends,
+  Home,
+  Litreboards,
+  LogChart,
+  LogWater,
+  Register,
+  Reminder,
+  SignIn,
+  Start,
+  User,
+  WaterIntake,
+  WaterLog,
+  Welcome,
+} from "./screens";
 
 const Stack = createStackNavigator();
 
@@ -28,25 +45,6 @@ const opacityTransition: object = {
 const hideHeader = { headerShown: false };
 const disableSwipeBack = { gestureEnabled: false };
 const hideAndDisable = { ...hideHeader, ...disableSwipeBack };
-
-import {
-  Start,
-  SignIn,
-  Register,
-  WaterIntake,
-  Reminder,
-  Welcome,
-  Home,
-  Friends,
-  Calender,
-  LogChart,
-  AddFriends,
-  User,
-  LogWater,
-  Litreboards,
-  WaterLog,
-  AddCupModal,
-} from "./screens";
 
 const screens = [
   // Uncomment this when making functions

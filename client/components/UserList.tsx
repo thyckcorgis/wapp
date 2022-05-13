@@ -1,8 +1,6 @@
 import React from "react";
-import { Text, View, StyleSheet } from "react-native";
-
-import { Styles, Colours } from "../styles";
-
+import { StyleSheet, Text, View } from "react-native";
+import { Colours, Styles } from "../styles";
 import UserArray, { UserArrayProps } from "./UserArray";
 
 interface UserListProps extends UserArrayProps {

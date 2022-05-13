@@ -1,8 +1,6 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
-
+import { StyleSheet, View } from "react-native";
 import { Colours } from "../styles";
-
 import { SmallButton } from "./buttons";
 import TextRow from "./TextRow";
 

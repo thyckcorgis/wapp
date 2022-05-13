@@ -1,21 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, RefreshControl, ScrollView, TextInput } from "react-native";
-
+import React, { useEffect, useState } from "react";
+import { RefreshControl, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import { getData } from "../../../storage";
 import { Colours, Styles } from "../../../styles";
-
 import {
-  getPendingRequests,
-  sendFriendRequest,
   acceptFriendRequest,
   getNonFriends,
+  getPendingRequests,
+  sendFriendRequest,
 } from "../../../util";
-import { getData } from "../../../storage";
-
 import BottomNavbar from "../../BottomNavbar";
 import SafeGradient from "../../SafeGradient";
-import ScreenProps from "../ScreenProps";
-import UserList from "../../UserList";
 import { User } from "../../UserArray";
+import UserList from "../../UserList";
+import ScreenProps from "../ScreenProps";
 
 export default function AddFriendsScreen({ navigation }: ScreenProps) {
   const [username, setUsername] = useState("");

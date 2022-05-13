@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, Platform } from "react-native";
-import { Calendar, DateObject } from "react-native-calendars";
-import { DayOfWeek } from "react-native-windows";
-
-import { Colours, Styles } from "../styles";
+import React, { useEffect, useState } from "react";
+import { Platform, PlatformIOSStatic, StyleSheet, View } from "react-native";
+import { Calendar, DateData } from "react-native-calendars";
+import { Colours } from "../styles";
 
 class EDate extends Date {
   isGreaterThan(date: Date) {
@@ -45,12 +43,12 @@ const dateToYMD = (date: Date) => date.toISOString().slice(0, 10);
  * @param day
  * @returns
  */
-const momentToMDY = (day: DateObject) => months[day.month - 1] + " " + day.day + ", " + day.year;
+const momentToMDY = (day: DateData) => months[day.month - 1] + " " + day.day + ", " + day.year;
 
 const dateToMDY = (date: Date) =>
   months[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear();
 
-const momentToDate = (day: DateObject) => new Date(day.year, day.month - 1, day.day);
+const momentToDate = (day: DateData) => new Date(day.year, day.month - 1, day.day);
 
 const increaseDate = (date: Date) => new Date(new Date(date).setDate(date.getDate() + 1));
 
@@ -118,7 +116,7 @@ export default function CalendAr({ setSelectedDay }: CalendArProps) {
     setSelectedDay(today);
   }, []);
 
-  function dayPressHandler(day: DateObject) {
+  function dayPressHandler(day: DateData) {
     const thisDay = momentToMDY(day);
     setSelectedDay(thisDay);
     setSelectedDate(momentToDate(day));
@@ -154,8 +152,8 @@ export default function CalendAr({ setSelectedDay }: CalendArProps) {
         )}
         // STYLING
         style={{
-          width: Platform.isPad == true ? "80%" : "100%",
-          borderWidth: Platform.isPad == true ? 1 : 0,
+          width: (Platform as PlatformIOSStatic).isPad ? "80%" : "100%",
+          borderWidth: (Platform as PlatformIOSStatic).isPad ? 1 : 0,
           borderColor: Colours.yellow,
           borderRadius: 20,
           height: "100%",

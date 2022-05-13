@@ -1,8 +1,7 @@
 import React from "react";
 import { TouchableOpacity } from "react-native";
 import { NavigationScreenProp } from "react-navigation";
-import { HomeIcon, FriendsIcon, LitreBoardsIcon, CorgiLogo, WappLogo } from "../assets";
-
+import { CorgiLogo, FriendsIcon, HomeIcon, LitreBoardsIcon, WappLogo } from "../assets";
 import Navbar from "./Navbar";
 import TipsModal from "./TipsModal";
 

@@ -1,20 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, TextInput, Switch } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
-
-import { Colours, Styles } from "../../styles";
-import { EditIcon } from "../../assets";
-
-import { getData, storeData } from "../../storage";
-import { setDailyIntake, uploadPushToken } from "../../util";
-import { registerForPushNotificationsAsync } from "../../notifications";
-
-import BottomNavbar from "../BottomNavbar";
+import { StyleSheet, Switch, Text, TextInput, View } from "react-native";
 import { Avatar } from "react-native-elements";
-import SafeGradient from "../SafeGradient";
+import { ScrollView } from "react-native-gesture-handler";
+import { registerForPushNotificationsAsync } from "../../notifications";
+import { getData, storeData } from "../../storage";
+import { Colours, Styles } from "../../styles";
+import { setDailyIntake, uploadPushToken } from "../../util";
+import BottomNavbar from "../BottomNavbar";
 import { ClearButton, SolidButton } from "../buttons/";
+import SafeGradient from "../SafeGradient";
 import ScreenProps from "./ScreenProps";
-import colours from "../../styles/colours";
 
 interface User {
   username: string;

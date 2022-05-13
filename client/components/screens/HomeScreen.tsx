@@ -1,18 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { Text, StyleSheet, View, Platform } from "react-native";
 import { Route } from "@react-navigation/native";
+import React, { useEffect, useState } from "react";
+import { Platform, StyleSheet, Text, View } from "react-native";
 import ProgressCircle from "react-native-progress-circle";
-
-import { Colours, Styles } from "../../styles";
 import { DrinkButton } from "../../assets";
-
 import { getData, storeData } from "../../storage";
+import { Colours, Styles } from "../../styles";
 import { poll } from "../../util";
-
-import TopNavbar from "../TopNavbar";
 import BottomNavbar from "../BottomNavbar";
 import { ScalingButton, SolidButton } from "../buttons/";
 import SafeGradient from "../SafeGradient";
+import TopNavbar from "../TopNavbar";
 import ScreenProps from "./ScreenProps";
 
 interface User {

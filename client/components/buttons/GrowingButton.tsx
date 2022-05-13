@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { View, Animated, TouchableOpacity, StyleSheet } from "react-native";
-import { Colours, Styles } from "../../styles";
+import { Animated, TouchableOpacity } from "react-native";
 
 interface GrowingButtonProps {
   onTap: () => void;

@@ -1,21 +1,17 @@
+import { Route } from "@react-navigation/native";
 import React, { useState } from "react";
 import {
-  Text,
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  TextInput,
-  ScrollView,
   Dimensions,
-  KeyboardAvoidingView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
-import { Route } from "@react-navigation/native";
-
-import { Colours, Styles } from "../../../styles";
-
 import { storeData } from "../../../storage";
+import { Colours, Styles } from "../../../styles";
 import { setDailyIntake } from "../../../util";
-
 import SafeGradient from "../../SafeGradient";
 import ScreenProps from "../ScreenProps";
 

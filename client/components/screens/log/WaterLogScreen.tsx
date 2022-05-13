@@ -1,25 +1,13 @@
-import React, { useState, useEffect } from "react";
-import {
-  Text,
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  ScrollView,
-  TextInput,
-  Alert,
-} from "react-native";
 import { Route } from "@react-navigation/native";
-
-import { Colours, Styles } from "../../../styles";
-
+import React, { useEffect, useState } from "react";
+import { Alert, StyleSheet, Text, View } from "react-native";
 import { getData, storeData } from "../../../storage";
+import { Colours, Styles } from "../../../styles";
 import { logWaterIntake } from "../../../util";
-
-import { Cup } from "./AddCupModal";
 import BottomNavbar from "../../BottomNavbar";
 import SafeGradient from "../../SafeGradient";
 import ScreenProps from "../ScreenProps";
-import { deleteNotificationChannelGroupAsync } from "expo-notifications";
+import { Cup } from "./AddCupModal";
 
 interface WaterLogParams {
   refresh?: boolean;

@@ -1,16 +1,12 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, Platform, Dimensions } from "react-native";
+import React from "react";
+import { Dimensions, Platform, PlatformIOSStatic, StyleSheet, Text, View } from "react-native";
 import {
-  VictoryScatter,
-  VictoryLine,
-  VictoryChart,
-  VictoryTheme,
-  VictoryZoomContainer,
-  VictoryArea,
   VictoryAxis,
-  VictoryClipContainer,
+  VictoryChart,
+  VictoryLine,
+  VictoryScatter,
+  VictoryZoomContainer,
 } from "victory-native";
-
 import { Colours, Styles } from "../styles";
 
 const yellow = ["#FFFFB7", "#FFF192", "#FFEA61", "#FFDD3C", "#FFD400"];
@@ -39,7 +35,7 @@ export default function LogChart() {
         // height={Dimensions.get("window").height * 0.5}
         height={300}
         width={
-          Platform.isPad == true
+          (Platform as PlatformIOSStatic).isPad
             ? Dimensions.get("window").width * 0.6
             : Dimensions.get("window").width
         }

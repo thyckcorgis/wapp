@@ -1,9 +1,7 @@
-import "reflect-metadata";
-
-import express from "express";
-
-import { loadDependencies } from "./loaders";
 import { config } from "dotenv";
+import express from "express";
+import "reflect-metadata";
+import { loadDependencies } from "./loaders";
 
 config();
 

@@ -1,14 +1,14 @@
-import { Service, Inject } from "typedi";
-import {
-  validate,
-  setReminders,
-  setIntake,
-  register as registerBody,
-  login as loginBody,
-} from "../util/validations";
-import { sessionizeUser } from "../util/helpers";
+import { Inject, Service } from "typedi";
 import { UserRepo } from "../data";
 import { AuthHelper } from "../util/auth";
+import { sessionizeUser } from "../util/helpers";
+import {
+  login as loginBody,
+  register as registerBody,
+  setIntake,
+  setReminders,
+  validate,
+} from "../util/validations";
 
 @Service()
 export default class UserService {

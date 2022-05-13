@@ -1,5 +1,5 @@
 import { Expo } from "expo-server-sdk";
-import { Service, Inject } from "typedi";
+import { Inject, Service } from "typedi";
 import { UserRepo } from "../data";
 
 @Service()

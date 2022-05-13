@@ -1,9 +1,8 @@
-import { Service, Inject } from "typedi";
-
-import { ILog, EDate, LogType } from "../util/types";
-import { validate, syncLogs, logIntake, getMonthly } from "../util/validations";
-import { sendNotifications } from "../util/notifications";
+import { Inject, Service } from "typedi";
 import { LogRepo, UserRepo } from "../data";
+import { sendNotifications } from "../util/notifications";
+import { EDate, ILog, LogType } from "../util/types";
+import { getMonthly, logIntake, syncLogs, validate } from "../util/validations";
 
 function createMessage(username: string, intake: number, goalMet: boolean) {
   if (goalMet) return `${username} just met their daily water intake goal!`;

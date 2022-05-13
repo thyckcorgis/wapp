@@ -1,9 +1,8 @@
 import { Router } from "express";
-
 import friendRouter from "./friends";
 import logRouter from "./logs";
-import userRouter from "./users";
 import notificationRouter from "./notification";
+import userRouter from "./users";
 
 const router = Router();
 

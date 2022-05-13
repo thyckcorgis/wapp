@@ -6,7 +6,6 @@ import {
   ExpoPushTicket,
   ExpoPushToken,
 } from "expo-server-sdk";
-
 import { EXPO_ACCESS_TOKEN } from "../config";
 
 // Create a new Expo SDK client

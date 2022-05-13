@@ -1,10 +1,8 @@
-import { Container } from "typedi";
 import { Router } from "express";
-
+import { Container } from "typedi";
+import { AuthReq, checkAuth } from "../middlewares";
 import NotificationService from "../services/NotificationService";
-
 import { parseError } from "../util/helpers";
-import { checkAuth, AuthReq } from "../middlewares";
 
 const notificationRouter = Router();
 const notificationService = Container.get(NotificationService);

@@ -1,6 +1,5 @@
-import mongoose, { Schema, Document, Model } from "mongoose";
-import { hash } from "bcrypt";
-import { compare } from "bcrypt";
+import { compare, hash } from "bcrypt";
+import mongoose, { Document, Model, Schema } from "mongoose";
 import { UserType } from "../../util/types";
 import { User, UserRepo } from "../user";
 

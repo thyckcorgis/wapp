@@ -1,13 +1,10 @@
+import { Express, json } from "express";
 import { Container } from "typedi";
-import { json, Express } from "express";
-
 import { EXPIRES_IN, JWT_KEY } from "../config";
-import { AuthHelper } from "../util/auth";
-
-import { logUrlAndMethod } from "../middlewares";
-
 import { LogRepo, UserRepo } from "../data";
 import loadDataLayer from "../data/loader";
+import { logUrlAndMethod } from "../middlewares";
+import { AuthHelper } from "../util/auth";
 
 export async function loadDependencies(app: Express) {
   Container.set<AuthHelper>("auth", new AuthHelper(JWT_KEY, EXPIRES_IN));

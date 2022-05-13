@@ -1,11 +1,9 @@
-import { Container } from "typedi";
 import { Router } from "express";
-
+import { Container } from "typedi";
+import { AuthReq, checkAuth } from "../middlewares";
 import LogService from "../services/LogService";
-
-import { UserData } from "../util/types";
 import { parseError } from "../util/helpers";
-import { checkAuth, AuthReq } from "../middlewares";
+import { UserData } from "../util/types";
 
 const logRouter = Router();
 const logService = Container.get(LogService);

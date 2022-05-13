@@ -1,9 +1,8 @@
-import { Service, Inject } from "typedi";
-
+import { Inject, Service } from "typedi";
 import { LogRepo, User, UserRepo } from "../data";
-import { addFriend, validate } from "../util/validations";
-import { UserType } from "../util/types";
 import { sendNotifications } from "../util/notifications";
+import { UserType } from "../util/types";
+import { addFriend, validate } from "../util/validations";
 
 const userInfo = ({ username, name }: User) => ({ username, name });
 const completion = (b: User, a: User) => a.currentIntake / a.daily - b.currentIntake / b.daily;

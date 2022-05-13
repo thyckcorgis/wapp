@@ -1,8 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
-import { EDate } from "../../util/types";
-
-import { LogType } from "../../util/types";
 import { Log, LogAttrs, LogRepo } from "../";
+import { EDate, LogType } from "../../util/types";
 import FlatFile, { FileObject, loadFromFile, saveToFile } from "./FlatFile";
 
 interface ILogObject extends LogAttrs {

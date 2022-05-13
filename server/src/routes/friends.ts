@@ -1,10 +1,9 @@
-import { Container } from "typedi";
 import { Router } from "express";
-
-import { UserData } from "../util/types";
-import { parseError } from "../util/helpers";
+import { Container } from "typedi";
 import { AuthReq, checkAuth } from "../middlewares";
 import FriendsService from "../services/FriendsService";
+import { parseError } from "../util/helpers";
+import { UserData } from "../util/types";
 
 const friendRouter = Router();
 const friendsService = Container.get(FriendsService);

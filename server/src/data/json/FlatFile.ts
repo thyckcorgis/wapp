@@ -1,4 +1,4 @@
-import { writeFile, readFile } from "fs";
+import { readFile, writeFile } from "fs";
 
 export type FileObject<T> = { [x: string]: T };
 

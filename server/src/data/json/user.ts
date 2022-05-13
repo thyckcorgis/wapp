@@ -1,6 +1,5 @@
-import { v4 as uuidv4 } from "uuid";
 import { compare, hashSync } from "bcrypt";
-
+import { v4 as uuidv4 } from "uuid";
 import { User, UserAttrs, UserRepo } from "../";
 import { UserType } from "../../util/types";
 import FlatFile, { FileObject, loadFromFile, saveToFile } from "./FlatFile";

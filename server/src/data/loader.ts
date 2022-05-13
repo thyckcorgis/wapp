@@ -1,10 +1,8 @@
 import { connect } from "mongoose";
+import { LogRepo, UserRepo } from ".";
 import { MONGO_URI } from "../config";
-
-import { UserJSON } from "./json/user";
 import { LogJSON } from "./json/log";
-
-import { UserRepo, LogRepo } from ".";
+import { UserJSON } from "./json/user";
 
 const userJSONFilePath = "../users.json";
 const logJSONFilePath = "../logs.json";

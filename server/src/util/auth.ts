@@ -1,5 +1,4 @@
 import jwt from "jsonwebtoken";
-
 import { UserData } from "./types";
 
 export class AuthHelper {

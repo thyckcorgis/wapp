@@ -1,9 +1,7 @@
-import { Container } from "typedi";
 import { Router } from "express";
-
-import UserService from "../services/UserService";
-
+import { Container } from "typedi";
 import { AuthReq, checkAuth } from "../middlewares";
+import UserService from "../services/UserService";
 import { parseError } from "../util/helpers";
 
 const userRouter = Router();

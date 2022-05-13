@@ -13,9 +13,9 @@ import { Route } from "@react-navigation/native";
 import { Colours, Styles } from "../../../styles";
 
 import { getData, storeData } from "../../../storage";
-import { logWaterIntake } from "../../../api";
+import { logWaterIntake } from "../../../util";
 
-import { Cup } from "./CupSizeScreen";
+import { Cup } from "./AddCupModal";
 import BottomNavbar from "../../BottomNavbar";
 import SafeGradient from "../../SafeGradient";
 import ScreenProps from "../ScreenProps";

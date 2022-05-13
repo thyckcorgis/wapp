@@ -6,11 +6,11 @@ import { Colours, Styles } from "../../styles";
 import { EditIcon } from "../../assets";
 
 import { getData, storeData } from "../../storage";
-import { setDailyIntake, uploadPushToken } from "../../api";
+import { setDailyIntake, uploadPushToken } from "../../util";
 import { registerForPushNotificationsAsync } from "../../notifications";
 
 import BottomNavbar from "../BottomNavbar";
-import { Avatar, Accessory } from "react-native-elements";
+import { Avatar } from "react-native-elements";
 import SafeGradient from "../SafeGradient";
 import { ClearButton, SolidButton } from "../buttons/";
 import ScreenProps from "./ScreenProps";

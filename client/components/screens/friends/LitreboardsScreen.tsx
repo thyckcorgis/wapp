@@ -5,7 +5,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import { Colours, Styles } from "../../../styles";
 
 import { getData } from "../../../storage";
-import { getLitreBoard } from "../../../api";
+import { getLitreBoard } from "../../../util";
 
 import BottomNavbar from "../../BottomNavbar";
 import SafeGradient from "../../SafeGradient";

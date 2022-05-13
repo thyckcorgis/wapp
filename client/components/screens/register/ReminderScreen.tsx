@@ -6,7 +6,7 @@ import { Colours, Styles } from "../../../styles";
 
 import { getData, storeData } from "../../../storage";
 import { registerForPushNotificationsAsync } from "../../../notifications";
-import { uploadPushToken } from "../../../api";
+import { uploadPushToken } from "../../../util";
 import SafeGradient from "../../SafeGradient";
 import ScreenProps from "../ScreenProps";
 

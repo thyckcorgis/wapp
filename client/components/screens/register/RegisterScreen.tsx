@@ -12,7 +12,7 @@ import { Picker } from "@react-native-picker/picker";
 
 import { Colours, Styles } from "../../../styles";
 
-import { registerUser } from "../../../api";
+import { registerUser } from "../../../util";
 import { storeData } from "../../../storage";
 import { defaultCups } from "../../../constants";
 import SafeGradient from "../../SafeGradient";

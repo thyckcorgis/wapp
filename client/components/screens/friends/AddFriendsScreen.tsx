@@ -8,7 +8,7 @@ import {
   sendFriendRequest,
   acceptFriendRequest,
   getNonFriends,
-} from "../../../api";
+} from "../../../util";
 import { getData } from "../../../storage";
 
 import BottomNavbar from "../../BottomNavbar";

@@ -1,3 +1,4 @@
+import { User } from "../components/UserArray";
 import { getData, makeCallNoBody, makeCallWithBody } from "./apiUtil";
 
 // User Routes
@@ -10,7 +11,13 @@ export const registerUser = (username: string, password: string, name: string, d
 
 export const getUserData = (token: string) => getData(() => makeCallNoBody("user", token));
 
-export const updateDailyIntake = (token: string) => {};
+export async function setDailyIntake(username: string, daily: number) {
+  return await getData(() => makeCallWithBody("user/daily", { username, daily }, "POST"));
+}
+
+export async function getLitreBoard(username: string) {
+  return (await getData(() => makeCallNoBody("friend/litreboard/" + username))).users;
+}
 
 // Friend Routes
 
@@ -39,4 +46,14 @@ export const deletePushToken = (token: string, expoPushToken: string) =>
 export const disablePushNotifs = (token: string) =>
   getData(() => makeCallNoBody("notification", token, "DELETE"));
 
+export async function poll(username: string): Promise<User> {
+  return (await getData(() => makeCallNoBody("user/" + username))).user;
+}
+
 // Log Routes
+
+export async function logWaterIntake(token: string, water: number) {
+  const { data, ok } = await makeCallWithBody("log", { water }, "POST", token);
+  if (!ok) throw new Error(data.message);
+  return data;
+}

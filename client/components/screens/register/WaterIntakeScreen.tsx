@@ -14,7 +14,7 @@ import { Route } from "@react-navigation/native";
 import { Colours, Styles } from "../../../styles";
 
 import { storeData } from "../../../storage";
-import { setDailyIntake } from "../../../api";
+import { setDailyIntake } from "../../../util";
 
 import SafeGradient from "../../SafeGradient";
 import ScreenProps from "../ScreenProps";

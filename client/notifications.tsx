@@ -16,7 +16,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Text, View, Button, Platform } from "react-native";
 import { Subscription } from "@unimodules/core";
 
-import { uploadPushToken } from "./api";
+import { uploadPushToken } from "./util";
 
 setNotificationHandler({
   handleNotification: async () => ({

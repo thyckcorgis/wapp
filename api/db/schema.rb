@@ -10,15 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_14_064948) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_14_073631) do
   create_table "follows", force: :cascade do |t|
-    t.string "status"
+    t.string "status", default: "pending"
     t.integer "follower_id", null: false
     t.integer "followee_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["followee_id"], name: "index_follows_on_followee_id"
-    t.index ["follower_id"], name: "index_follows_on_follower_id"
   end
 
   create_table "logs", force: :cascade do |t|
@@ -40,5 +38,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_14_064948) do
     t.boolean "private", default: false
   end
 
+  add_foreign_key "follows", "users", column: "followee_id"
+  add_foreign_key "follows", "users", column: "follower_id"
   add_foreign_key "logs", "users"
 end

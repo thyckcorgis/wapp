@@ -40,7 +40,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_14_064948) do
     t.boolean "private", default: false
   end
 
-  add_foreign_key "follows", "followees"
-  add_foreign_key "follows", "followers"
   add_foreign_key "logs", "users"
 end

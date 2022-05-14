@@ -2,16 +2,11 @@
   <p>
     <strong>Time:</strong>
     <%= log.time %>
-  </p>
-
-  <p>
     <strong>Amount:</strong>
     <%= log.amount %>
+    <%= link_to "Show this log", user_log_path({
+                  :id => log.id,
+                  :user_id => log.user_id,
+                }) %>
   </p>
-
-  <p>
-    <strong>User:</strong>
-    <%= log.user_id %>
-  </p>
-
 </div>

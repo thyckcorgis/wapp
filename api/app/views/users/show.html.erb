@@ -2,10 +2,6 @@
 
 <%= render @user %>
 
-<h2>Logs</h2>
-
-<%= render @user.logs %>
-
 <h2>Following</h2>
 
 <%= render @user.followees %>
@@ -16,7 +12,8 @@
 
 <div>
   <%= link_to "Edit this user", edit_user_path(@user) %> |
-  <%= link_to "Back to users", users_path %>
+  <%= link_to "Back to users", users_path %> |
+  <%= link_to "Show logs", user_logs_path(@user) %>
 
   <%= button_to "Destroy this user", @user, method: :delete %>
 </div>

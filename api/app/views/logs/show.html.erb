@@ -3,8 +3,11 @@
 <%= render @log %>
 
 <div>
-  <%= link_to "Edit this log", edit_log_path(@log) %> |
-  <%= link_to "Back to logs", logs_path %>
+  <%= link_to "Edit this log", edit_user_log_path(@log) %> |
+  <%= link_to "Back to logs", user_logs_path %>
 
-  <%= button_to "Destroy this log", @log, method: :delete %>
+  <%= button_to "Destroy this log", user_log_path({
+                  :id => @log.id,
+                  :user_id => @log.user_id,
+                }), method: :delete %>
 </div>

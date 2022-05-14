@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
-  resources :follows
-  resources :logs
-  resources :users
+  resources :users do
+    resources :follows
+    resources :logs
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
-  # root "articles#index"
+  root "users#index"
 end

@@ -5,10 +5,8 @@
 <div id="logs">
   <% @logs.each do |log| %>
     <%= render log %>
-    <p>
-      <%= link_to "Show this log", log %>
-    </p>
   <% end %>
 </div>
 
-<%= link_to "New log", new_log_path %>
+<%= link_to "New user log", new_user_log_path %> |
+<%= link_to "Back to user", user_path(@user[:id]) %>
